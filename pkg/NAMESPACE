@@ -1,0 +1,60 @@
+
+
+import(grid)
+import(lattice)
+
+importFrom(stats, as.formula)
+
+export(dendrogramGrob) ## FIXME: add some variant of heatmap
+
+export(rootogram, panel.rootogram, prepanel.rootogram)
+export(ecdfplot, panel.ecdfplot, prepanel.ecdfplot)
+export(mapplot, panel.mapplot, prepanel.mapplot)
+export(segplot, prepanel.segplot, panel.segplot)
+
+S3method(rootogram, formula)
+S3method(ecdfplot, formula)
+S3method(ecdfplot, numeric)
+S3method(segplot, formula)
+
+S3method(mapplot, formula)
+
+S3method(xyplot, ts)
+S3method(xyplot, stl)
+
+
+export(panel.3dbars, panel.3dpolygon, panel.3dtext)
+export(useOuterStrips, resizePanels)
+export(custom.theme)
+
+## contributions from Felix Andrews (mostly useful in conjunction with
+## the playwith package)
+
+export(layer,
+       layer1, layer2, layer3, layer4, layer5, 
+       undoLayer, flattenPanel,
+       marginals)
+
+S3method(c, trellis)
+S3method("+", trellis)
+S3method(print, layer)
+
+
+
+
+## obsolete, will go away at some point
+
+export(gplot, gplotArgs, "gplotArgs<-")
+
+S3method(gplot, default)
+S3method(gplotArgs, default)
+S3method(gplotArgs, data.frame)
+
+S3method("gplotArgs<-", default)
+S3method("gplotArgs<-", data.frame)
+
+
+
+### Local variables:
+### mode: R
+### End:
