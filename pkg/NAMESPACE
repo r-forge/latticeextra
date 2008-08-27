@@ -31,10 +31,8 @@ export(custom.theme)
 ## the playwith package)
 
 export(tileplot, panel.voronoi,
-       layer,
-       layer1, layer2, layer3, layer4, layer5,
-       undoLayer, flattenPanel,
-       marginal.plot)
+       marginal.plot,
+       layer, flattenPanel)
 
 S3method(c, trellis)
 S3method("+", trellis)
