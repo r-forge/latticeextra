@@ -44,7 +44,10 @@ panel.levelplot.points(x, y, z, subscripts = TRUE, at = pretty(z),
   \item{use.tripack}{ if \code{TRUE}, use \code{tripack} package rather
     than \code{deldir}. See Details. }
   \item{\dots}{ further arguments are
-    passed to \code{\link[lattice]{panel.xyplot}} if \code{points = TRUE}. }
+    passed to \code{\link[lattice]{panel.xyplot}} if \code{points =
+      TRUE}. }
+  \item{pch, col.symbol}{ symbol and border color for points.
+    A filled symbol should be used, i.e. in the range 21-25. }
   \item{shrink, labels, label.style, contour, region, fill}{ ignored. }
 }
 \details{

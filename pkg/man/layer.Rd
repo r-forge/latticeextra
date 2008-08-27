@@ -14,7 +14,7 @@
 \usage{
 layer(..., data = NULL, under = FALSE, style = NULL)
 
-\S3method{"+"}{trellis}(x, lay)
+\S3method{+}{trellis}(x, lay)
 
 flattenPanel(x)
 }
@@ -39,7 +39,7 @@ flattenPanel(x)
   The \code{layer} mechanism is an alternative method for
   editing the panel function. It allows expressions to be added to the
   panel function without knowing what the original panel function
-  was. It is designed for programmatic augmentation of trellis
+  was. In this way it can be useful for programmatic augmentation of trellis
   objects.
 
   A typical example would be adding a reference line
@@ -48,7 +48,7 @@ flattenPanel(x)
   will need to be passed in via the \code{data} object:
   \code{layer(panel.refline(h = myVal), data = list(myVal = myVal))}.
   Alternatively,
-  \code{do.call("layer", bquote(panel.refline(h = .(myVal))))}.
+  \code{eval(bquote( layer(panel.refline(h = .(myVal))) ))}.
 
   \code{layer()} is an experimental function and is likely to change. It
   probably should not be used routinely, since it does not fit well with
