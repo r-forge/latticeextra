@@ -15,10 +15,9 @@ tileplot <-
 
 ## panel function to draw Voronoi mosaic
 panel.voronoi <-
-    function(x, y, z, subscripts = TRUE,
+    function(x, y, z, subscripts = TRUE, at = pretty(z),
              points = TRUE, border = "transparent",
              na.rm = FALSE, win.expand = 0.07, use.tripack = FALSE,
-             at = seq(min(z, na.rm=TRUE), max(z, na.rm=TRUE), length = 100),
              ...,
              col.regions = regions$col, alpha.regions = regions$alpha)
 {
@@ -73,4 +72,22 @@ panel.voronoi <-
     if (points) {
         panel.xyplot(x, y, ...)
     }
+}
+
+panel.levelplot.points <-
+    function(x, y, z, subscripts = TRUE, at = pretty(z),
+             shrink, labels, label.style, contour, region, ## (all ignored)
+             pch = 21, col.symbol = "#00000044",
+             ...,
+             col.regions = regions$col,
+             fill = NULL) ## (ignored)
+{
+    regions <- trellis.par.get("regions")
+    zcol <- level.colors(z, at, col.regions, colors = TRUE)
+    x <- x[subscripts]
+    y <- y[subscripts]
+    zcol <- zcol[subscripts]
+    ## panel.xyplot does the work (can handle 'type' argument, etc)
+    panel.xyplot(x, y, fill = zcol, pch = pch,
+                 col.symbol = col.symbol, ...)
 }

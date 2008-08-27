@@ -1,11 +1,9 @@
 \name{tileplot}
 \alias{tileplot}
-\alias{panel.voronoi}
 \title{ Plot a spatial mosaic from irregular 2D points }
 \description{
-  This panel function for \code{\link[lattice]{levelplot}}
-  uses the \pkg{deldir} package to
-  calculate the spatial extension of a set of points in 2 dimensions.
+  Represents an irregular set of (x, y) points with a color covariate.
+  Polygons are drawn enclosing the area closest to each point.
   This is known variously as a Voronoi mosaic, a Dirichlet tesselation,
   or Thiessen polygons.
 }
@@ -13,13 +11,6 @@
 tileplot(x, data = NULL, aspect = "iso",
          prepanel = "prepanel.default.xyplot",
          panel = "panel.voronoi", ...)
-
-panel.voronoi(x, y, z, subscripts = TRUE,
-   points = TRUE, border = "transparent",
-   na.rm = FALSE, win.expand = 0.07, use.tripack = FALSE,
-   at = seq(min(z, na.rm = TRUE), max(z, na.rm = TRUE), length = 100),
-   ...,
-   col.regions = regions$col, alpha.regions = regions$alpha)
 }
 \arguments{
   \item{x, data}{ formula and data as in
@@ -28,36 +19,15 @@ panel.voronoi(x, y, z, subscripts = TRUE,
   \item{aspect}{ aspect ratio: "iso" is recommended as it reproduces the
     distances used in the triangulation calculations. }
   \item{panel, prepanel}{ see \code{\link[lattice]{xyplot}}. }
-  \item{x, y, z}{ an irregular set of points at locations (x, y) with
-    value z. }
-  \item{subscripts}{ integer vector indicating what subset of x, y and z
-    to draw. Typically passed by \code{\link[lattice]{levelplot}}. }
-  \item{points}{ whether to draw the (x, y) points. }
-  \item{border}{ colour for polygon borders. }
-  \item{na.rm}{ if \code{TRUE}, points with missing \code{z} values will
-    be excluded from the calculation of polygons. If \code{na.rm = FALSE},
-    those polygons are calculated but are not drawn (i.e. are
-    transparent). }
-  \item{win.expand}{ defines the rectangular window bounding the
-    polygons. This is a factor by which
-    to expand the range of the data. Set to 0 to limit drawing at the
-    furthest data point locations. Ignored if \code{use.tripack = TRUE}. }
-  \item{use.tripack}{ if \code{TRUE}, use \code{tripack} package rather
-    than \code{deldir}. See Details. }
-  \item{\dots}{ in \code{panel.voronoi}, further arguments are
-    passed to \code{\link[lattice]{panel.xyplot}} if \code{points = TRUE}. }
-  \item{at, col.regions, alpha.regions}{ color scale definition;
-    see \code{\link[lattice]{panel.levelplot}}. }
+  \item{\dots}{ further arguments to the panel function, which defaults to
+    \code{\link{panel.voronoi}}. }
 }
 \details{
-  The tripack package implementation is faster than deldir but not under a
-    fully free licence. Also, the deldir package allows polygons to
-    be clipped to a rectangular window (the \code{win.expand} argument).
+  See \code{\link{panel.voronoi}} for further options and details.
 }
 \author{ Felix Andrews \email{felix@nfrac.org} }
-\seealso{ \code{\link[lattice]{levelplot}}, \code{\link[deldir]{deldir}}  }
+\seealso{ \code{\link{panel.voronoi}}, \code{\link[lattice]{levelplot}} }
 \examples{
-
 xyz <- data.frame(x = rnorm(100), y = rnorm(100), z = rnorm(100))
 tileplot(z ~ x * y, xyz)
 
@@ -90,7 +60,6 @@ tileplot(Income ~ x * y, tmp, border = "black",
     panel.voronoi(x, y, ..., points = FALSE)
     panel.text(x, y, state.abb)
   })
-
 }
 \keyword{ hplot }
 

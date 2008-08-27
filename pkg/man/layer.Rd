@@ -14,7 +14,7 @@
 \usage{
 layer(..., data = NULL, under = FALSE, style = NULL)
 
-x + lay
+\S3method{"+"}{trellis}(x, lay)
 
 flattenPanel(x)
 }
@@ -73,7 +73,7 @@ flattenPanel(x)
   object.
 }
 \author{ Felix Andrews \email{felix@nfrac.org} }
-\seealso{ \code{\link{update.trellis}} }
+\seealso{ \code{\link[lattice]{update.trellis}} }
 \examples{
 
 foo <- xyplot(ozone ~ wind, environmental)
