@@ -1,5 +1,5 @@
 \name{as.layer}
-\name{as.layer}
+\alias{as.layer}
 \alias{as.layer.trellis}
 \title{ Overplot data with different scales }
 \description{
@@ -69,6 +69,7 @@ update(obj1, scales = list(tck = c(1,0)), par.settings =
 ## multi-panel example
 ## a variant of Figure 5.13 from Sarkar (2008)
 ## http://lmdvr.r-forge.r-project.org/figures/figures.html?chapter=05;figure=05_13
+data(SeatacWeather)
 temp <- xyplot(min.temp + max.temp ~ day | month,
                data = SeatacWeather, type = "l", layout = c(3, 1))
 rain <- xyplot(precip ~ day | month, data = SeatacWeather, type = "h")
