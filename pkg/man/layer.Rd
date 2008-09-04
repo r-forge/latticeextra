@@ -73,9 +73,8 @@ flattenPanel(x)
   object.
 }
 \author{ Felix Andrews \email{felix@nfrac.org} }
-\seealso{ \code{\link[lattice]{update.trellis}} }
+\seealso{ \code{\link[lattice]{update.trellis}}, \code{\link{as.layer}} }
 \examples{
-
 foo <- xyplot(ozone ~ wind, environmental)
 
 ## overlay reference lines
@@ -121,6 +120,5 @@ newdat$dist <- with(newdat, sqrt((gridlat - -36.87)^2 +
                                  (gridlon - 174.75)^2))
 qua + layer(panel.contourplot(gridlon, gridlat, dist,
    contour = TRUE, subscr = TRUE), data = newdat, under = TRUE)
-
 }
 \keyword{ aplot }
