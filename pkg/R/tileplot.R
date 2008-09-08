@@ -29,14 +29,15 @@ panel.voronoi <-
             stop("This function requires the deldir package")
     }
     ## find subset of points to use
-    x <- x[subscripts]
-    y <- y[subscripts]
-    z <- z[subscripts]
-    ok <- complete.cases(x, y)
-    if (na.rm) ok <- ok & !is.na(z)
-    x <- x[ok]
-    y <- y[ok]
-    z <- z[ok]
+    x0 <- x[subscripts]
+    y0 <- y[subscripts]
+    z0 <- z[subscripts]
+    ## throw away NAs, but keep originals for panel.xyplot()
+    ok <- complete.cases(x0, y0)
+    if (na.rm) ok <- ok & !is.na(z0)
+    x <- x0[ok]
+    y <- y0[ok]
+    z <- z0[ok]
     if (!any(is.finite(z))) return()
     panel.rg <- lapply(current.panel.limits(), sort)
     data.rg <- list(x = extendrange(x, f = win.expand),
@@ -70,7 +71,7 @@ panel.voronoi <-
                  gp = gpar(fill = zcol, col = border,
                  alpha = alpha.regions))
     if (points) {
-        panel.xyplot(x, y, ...)
+        panel.xyplot(x0, y0, ...)
     }
 }
 
