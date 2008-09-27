@@ -31,8 +31,8 @@ marginal.plot <-
     iscat <- sapply(data, is.categorical)
     ## apply subset
     ## evaluate in context of data, or if that fails just eval as usual
-    ## (because latticist uses: subset=complete.cases(dat))
-    tmp <- try(eval(substitute(subset), data), silent=TRUE)
+    ## (because latticist uses: subset = complete.cases(dat))
+    tmp <- try(eval(substitute(subset), data), silent = TRUE)
     if (!inherits(tmp, "try-error")) subset <- tmp
     if (!isTRUE(subset)) data <- data[subset,]
     ## reorder factor levels
@@ -57,30 +57,30 @@ marginal.plot <-
         facdat$which <- with(facdat, reorder(which, which, length))
         ## make trellis object for factors
         factobj <-
-            dotplot(Freq ~ Value | which, data=facdat, subscripts=TRUE,
+            dotplot(Freq ~ Value | which, data = facdat, subscripts = TRUE,
                     ...,
-                    type=c("p","h"), cex=cex,
+                    type = c("p","h"), cex = cex,
                     levels.fos = levels.fos,
                     origin = origin,
                     as.table = as.table,
                     default.scales = default.scales,
-                    xlab=xlab, ylab=ylab)
+                    xlab = xlab, ylab = ylab)
         factobj$call <- match.call()
         if (all(iscat)) return(factobj)
     }
     if (any(!iscat)) {
         numdat <- do.call(make.groups, data[!iscat])
         ## order packets by mean, same effect as index.cond
-        numdat$which <- with(numdat, reorder(which, data, mean, na.rm=TRUE))
+        numdat$which <- with(numdat, reorder(which, data, mean, na.rm = TRUE))
         ## make trellis object for numerics
         numobj <-
-            densityplot(~ data | which, data=numdat, subscripts=TRUE,
+            densityplot(~ data | which, data = numdat, subscripts = TRUE,
                         ...,
-                        plot.points=plot.points, ref=ref,
+                        plot.points = plot.points, ref = ref,
                         as.table = as.table,
                         default.scales = default.scales,
-                        xlab=xlab, ylab=ylab)
-        factobj$call <- match.call()
+                        xlab = xlab, ylab = ylab)
+        numobj$call <- match.call()
         if (all(!iscat)) return(numobj)
     }
     ## if there are both categoricals and numerics,
