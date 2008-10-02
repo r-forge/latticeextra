@@ -39,18 +39,29 @@ panel.voronoi <-
     y <- y0[ok]
     z <- z0[ok]
     if (!any(is.finite(z))) return()
-    panel.rg <- lapply(current.panel.limits(), sort)
+    ## strip duplicated locations, with warning
+    dup <- duplicated(cbind(x, y))
+    if (any(dup)) {
+        warning(paste("Ignoring", sum(dup),
+                      "cases of duplicated locations"))
+        x <- x[!dup]
+        y <- y[!dup]
+        z <- z[!dup]
+    }
+    ## compute bounds
     data.rg <- list(x = extendrange(x, f = win.expand),
                     y = extendrange(y, f = win.expand))
-    bounds <- c(max(panel.rg$x[1], data.rg$x[1]),
-                min(panel.rg$x[2], data.rg$x[2]),
-                max(panel.rg$y[1], data.rg$y[1]),
-                min(panel.rg$y[2], data.rg$y[2]))
+    bounds <- c(data.rg$x, data.rg$y)
+    #panel.rg <- lapply(current.panel.limits(), sort)
+    #bounds <- c(max(panel.rg$x[1], data.rg$x[1]),
+    #            min(panel.rg$x[2], data.rg$x[2]),
+    #            max(panel.rg$y[1], data.rg$y[1]),
+    #            min(panel.rg$y[2], data.rg$y[2]))
     ## check if any points in visible plot region
-    if (is.unsorted(bounds[1:2]))
-        bounds[1:2] <- panel.rg$x
-    if (is.unsorted(bounds[3:4]))
-        bounds[3:4] <- panel.rg$y
+    #if (is.unsorted(bounds[1:2]))
+    #    bounds[1:2] <- panel.rg$x
+    #if (is.unsorted(bounds[3:4]))
+    #    bounds[3:4] <- panel.rg$y
     if (use.tripack) {
         xy <- data.frame(x = x, y = y)
         ## add dummy points to ensure that voronoi polygons are finite
@@ -58,6 +69,15 @@ panel.voronoi <-
         xy <- rbind(xy, dummies)
         tiles <- voronoi.polygons(voronoi.mosaic(xy, duplicate = "error"))
     } else {
+        ## NB: the 'rw' argument as subset of data is bad because
+        ## need to take corresponding subset of z !
+        ## (but not easy to work out what that is)
+
+        #set <- ((bounds[1] < x) & (x < bounds[2]) &
+        #        (bounds[3] < y) & (y < bounds[4]))
+        #x <- x[set]
+        #y <- y[set]
+        #z <- z[set]
         tiles <- tile.list(deldir(x, y, rw = bounds))
         tiles <- lapply(tiles, function(p) as.data.frame(p[c("x", "y")]))
     }
