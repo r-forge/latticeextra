@@ -1,4 +1,13 @@
 
+Changes in Version 0.5-3
+
+ o fix to marginal.plot: failed with only numeric variables.
+
+ o fix to panel.voronoi (with use.tripack = FALSE):
+   wrong colors were used when xlim/ylim enclosed a data subset.
+
+Previous Changes
+
  o several new data sets and a few utility functions
 
  o dendrogramGrob to produce a dendrogram that can be used as a legend
