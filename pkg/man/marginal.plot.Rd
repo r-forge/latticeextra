@@ -13,7 +13,7 @@ marginal.plot(data,
               ref = TRUE,
               origin = 0,
               xlab = NULL, ylab = NULL,
-              cex = 0.5,
+              cex = 0.6,
               type = c("p", if (is.null(groups)) "h"),
               ...,
               subset = TRUE,
@@ -26,8 +26,10 @@ marginal.plot(data,
 }
 \arguments{
   \item{data}{ a data frame. }
+  \item{groups}{ term, to be evaluated in \code{data}, that is used as a
+    grouping variable. }
   \item{reorder}{ whether to reorder factor variables by frequency. }
-  \item{subset}{ data subset expression, evaluated with \code{data}. }
+  \item{subset}{ data subset expression, evaluated in \code{data}. }
   \item{plot.points, ref}{ passed to \code{panel.densityplot}. }
   \item{origin, type, cex}{ passed to \code{panel.dotplot}. }
   \item{xlab, ylab, as.table,
