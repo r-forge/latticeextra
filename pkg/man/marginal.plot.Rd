@@ -7,29 +7,30 @@
 }
 \usage{
 marginal.plot(data,
+              groups = NULL,
               reorder = TRUE,
               plot.points = FALSE,
               ref = TRUE,
               origin = 0,
-              levels.fos = NULL,
               xlab = NULL, ylab = NULL,
               cex = 0.5,
+              type = c("p", if (is.null(groups)) "h"),
               ...,
               subset = TRUE,
               as.table = TRUE,
               subscripts = TRUE,
               default.scales = list(
-                x = list(relation="free", abbreviate=TRUE,
-                         rot=60, cex=0.5, tick.number=3),
-                y = list(relation="free", draw=FALSE)))
+                x = list(relation = "free", abbreviate = TRUE,
+                  rot = 60, cex = 0.5, tick.number = 3),
+                y = list(relation = "free", draw = FALSE)))
 }
 \arguments{
   \item{data}{ a data frame. }
   \item{reorder}{ whether to reorder factor variables by frequency. }
   \item{subset}{ data subset expression, evaluated with \code{data}. }
   \item{plot.points, ref}{ passed to \code{panel.densityplot}. }
-  \item{origin, levels.fos}{ passed to \code{panel.dotplot}. }
-  \item{xlab, ylab, cex, as.table,
+  \item{origin, type, cex}{ passed to \code{panel.dotplot}. }
+  \item{xlab, ylab, as.table,
     subscripts, default.scales}{
     see \code{\link[lattice]{xyplot}}.
   }
@@ -53,5 +54,11 @@ enviro <- environmental
 enviro$smell <- cut(enviro$ozone, breaks = c(0, 30, 50, Inf),
     labels = c("ok", "hmmm", "yuck"), ordered = TRUE)
 marginal.plot(enviro)
+
+## groups
+windy <- factor(enviro$wind > 10,
+    levels = c(TRUE, FALSE), labels = c("windy", "calm"))
+marginal.plot(enviro, groups = windy,
+    type = "b", auto.key = TRUE)
 }
 \keyword{ hplot }

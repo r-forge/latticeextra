@@ -1,6 +1,8 @@
 
 Changes in Version 0.5-3
 
+ o improvements to marginal.plot including support for groups.
+
  o fix to marginal.plot: failed with only numeric variables.
 
  o fix to panel.voronoi (with use.tripack = FALSE):
