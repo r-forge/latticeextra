@@ -28,22 +28,17 @@ marginal.plot <-
 {
     if (!is.data.frame(data))
         data <- as.data.frame(data)
-    nvar <- ncol(data)
     iscat <- sapply(data, is.categorical)
     ## groups and subset are subject to non-standard evaluation:
-    ## evaluate in context of data, or if that fails just eval as usual
-    ## (because latticist uses: subset = complete.cases(dat))
-    ## evaluate groups
-    if (!missing(groups)) {
-        tmp <- try(eval(substitute(groups), data), silent = TRUE)
-        if (!inherits(tmp, "try-error")) groups <- tmp
-    }
-    ## apply subset
+    groups <- eval(substitute(groups), data)
     if (!missing(subset)) {
+        ## need this for e.g.
+        ## evalq(marginal.plot(dat, subset = complete.cases(dat)), myEnv)
         tmp <- try(eval(substitute(subset), data), silent = TRUE)
         if (!inherits(tmp, "try-error")) subset <- tmp
-        if (!isTRUE(subset)) data <- data[subset,]
     }
+    ## apply subset
+    if (!isTRUE(subset)) data <- data[subset,]
     ## reorder factor levels
     if (reorder) {
         for (nm in names(data)[iscat]) {
@@ -59,25 +54,27 @@ marginal.plot <-
         }
     }
     if (any(iscat)) {
-        ## list of dotplot objects
+        ## handle categorical variables
+        ## make a list of dotplot trellis objects
         dotobjs <- lapply(data[iscat],
-                          function(x) {
-                              if (!is.null(groups)) {
-                                  tab <- table(Value = x, groups = groups)
-                              } else {
-                                  tab <- table(Value = x)
-                              }
-                              dotplot(tab, horizontal = FALSE,
-                                      groups = !is.null(groups),
-                                      subscripts = TRUE,
-                                      ...,
-                                      type = type, cex = cex,
-                                      origin = origin,
-                                      as.table = as.table,
-                                      default.scales = default.scales,
-                                      xlab = xlab, ylab = ylab)
-                          })
-        ## TODO: index.cond? maybe better to keep original order of vars
+                          function(x)
+                      {
+                          if (!is.null(groups)) {
+                              tab <- table(Value = x, groups = groups)
+                          } else {
+                              tab <- table(Value = x)
+                          }
+                          dotplot(tab, horizontal = FALSE,
+                                  groups = !is.null(groups),
+                                  subscripts = TRUE,
+                                  ...,
+                                  type = type, cex = cex,
+                                  origin = origin,
+                                  as.table = as.table,
+                                  default.scales = default.scales,
+                                  xlab = xlab, ylab = ylab)
+                      })
+        ## TODO: index.cond? or maybe better to keep original order of vars
         ## merge the list of trellis objects into one
         factobj <- do.call("c", dotobjs)
         ## set strip name if only one panel
@@ -87,11 +84,12 @@ marginal.plot <-
         if (all(iscat)) return(factobj)
     }
     if (any(!iscat)) {
+        ## handle numeric variables
         ## construct formula with all numeric variables
-        numform <- paste("~", paste(names(data)[!iscat], collapse = " + "))
-        numform <- as.formula(numform)
+        numform <- paste("~", paste(names(data)[!iscat],
+                                    collapse = " + "))
         numobj <-
-            densityplot(numform, data, outer = TRUE,
+            densityplot(as.formula(numform), data, outer = TRUE,
                         subscripts = TRUE,
                         groups = groups,
                         ...,
@@ -102,9 +100,6 @@ marginal.plot <-
         ## set strip name if only one panel
         if (prod(dim(numobj)) == 1)
             rownames(numobj) <- names(data)[!iscat]
-        ## TODO: index.cond?
-        ## order packets by mean, same effect as index.cond
-        #numdat$which <- with(numdat, reorder(which, data, mean, na.rm = TRUE))
         numobj$call <- match.call()
         if (all(!iscat)) return(numobj)
     }
