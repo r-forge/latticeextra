@@ -33,15 +33,10 @@ marginal.plot <-
     if (!is.data.frame(x))
         x <- as.data.frame(x)
     ## groups and subset are subject to non-standard evaluation:
-    groups <- eval(substitute(groups), data, environment(x))
-    if (!missing(subset)) {
-        ## need this for e.g.
-        ## evalq(marginal.plot(dat, subset = complete.cases(dat)), myEnv)
-        tmp <- try(
-                   eval(substitute(subset), data, environment(x)),
-                   silent = TRUE)
-        if (!inherits(tmp, "try-error")) subset <- tmp
-    }
+    groups <- eval(substitute(groups), data, parent.frame())
+    ## note unusual cases e.g.
+    ## evalq(marginal.plot(dat, subset = complete.cases(dat)), myEnv)
+    subset <- eval(substitute(subset), data, parent.frame())
     ## apply subset
     if (!isTRUE(subset)) x <- x[subset,]
     ## divide into categoricals and numerics
@@ -83,12 +78,9 @@ marginal.plot <-
                            xlab = xlab, ylab = ylab)
                })
         ## merge the list of trellis objects into one
-        factobj <- do.call("c", dotobjs)
-        ## set strip name if only one panel
-        if (prod(dim(factobj)) == 1)
-            rownames(factobj) <- names(x)[iscat]
-        factobj$call <- match.call()
-        if (all(iscat)) return(factobj)
+        catobj <- do.call("c", dotobjs)
+        catobj$call <- match.call()
+        if (all(iscat)) return(catobj)
     }
     if (any(!iscat)) {
         ## handle numeric variables
@@ -112,8 +104,12 @@ marginal.plot <-
         if (all(!iscat)) return(numobj)
     }
     ## if there are both categoricals and numerics,
-    ## merge the trellis objects
-    obj <- c(factobj, numobj)
+    ## merge the trellis objects; keep original var order
+    reIndex <- order(c(which(iscat), which(!iscat)))
+    obj <- update(c(catobj, numobj), index.cond = list(reIndex))
+    ## force strips when only one panel in each object
+    if (identical(obj$strip, FALSE))
+        obj$strip <- "strip.default"
     obj$call <- match.call()
     obj
 }
