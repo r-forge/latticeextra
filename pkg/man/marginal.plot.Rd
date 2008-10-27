@@ -26,8 +26,8 @@ marginal.plot(x,
                 y = list(relation = "free", draw = FALSE)))
 }
 \arguments{
-  \item{x}{ a data frame, or a formula of which the first term is a data
-    frame, or something that can be coerced to a data frame. }
+  \item{x}{ a data frame or table, or a formula of which the first term
+    is a data frame. }
   \item{data}{ an optional data source in which groups and subset may be
     be evaluated. }
   \item{groups}{ term, to be evaluated in \code{data}, that is used as a
@@ -66,5 +66,11 @@ enviro$is.windy <- factor(enviro$wind > 10,
     levels = c(TRUE, FALSE), labels = c("windy", "calm"))
 marginal.plot(enviro[,1:5], data = enviro, groups = is.windy,
     auto.key = list(lines = TRUE))
+
+## support for tables
+marginal.plot(Titanic)
+## table with grouping
+marginal.plot(~ Titanic, data = Titanic, groups = Survived,
+    auto.key = list(title = "Survived?"))
 }
 \keyword{ hplot }
