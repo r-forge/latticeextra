@@ -11,7 +11,7 @@ marginal.plot <-
     function(x,
              data = NULL,
              groups = NULL,
-             reorder = TRUE,
+             reorder = !is.table(x),
              plot.points = FALSE,
              ref = TRUE,
              origin = 0,
@@ -46,21 +46,24 @@ marginal.plot <-
     ## divide into categoricals and numerics
     if (is.table(x)) {
         iscat <- TRUE
-        reorder <- FALSE ## TODO - reorder margins?
     } else {
         iscat <- sapply(x, is.categorical)
     }
     ## reorder factor levels
     if (reorder) {
-        for (nm in names(x)[iscat]) {
-            val <- x[[nm]]
-            if (is.character(val))
-                x[[nm]] <- factor(val)
-            if (!is.ordered(val) &&
-                !is.shingle(val) &&
-                nlevels(val) > 1)
-            {
-                x[[nm]] <- reorder(val, val, function(z) -length(z))
+        if (is.table(x)) {
+            x <- reorderTableByFreq(x)
+        } else {
+            for (nm in names(x)[iscat]) {
+                val <- x[[nm]]
+                if (is.character(val))
+                    x[[nm]] <- factor(val)
+                if (!is.ordered(val) &&
+                    !is.shingle(val) &&
+                    nlevels(val) > 1)
+                {
+                    x[[nm]] <- reorder(val, val, function(z) -length(z))
+                }
             }
         }
     }
@@ -138,3 +141,13 @@ marginal.plot <-
     obj$call <- match.call()
     obj
 }
+
+reorderTableByFreq <- function(x)
+{
+    stopifnot(is.table(x))
+    df <- as.data.frame(x)
+    i <- which(names(df) == "Freq")
+    df[-i] <- lapply(df[-i], reorder, - df$Freq)
+    xtabs(Freq ~ ., df)
+}
+
