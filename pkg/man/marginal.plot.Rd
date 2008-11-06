@@ -19,15 +19,15 @@ marginal.plot(x,
               subset = TRUE,
               as.table = TRUE,
               subscripts = TRUE,
-              par.settings = simpleTheme(cex = 0.6),
               default.scales = list(
-                x = list(relation = "free", abbreviate = TRUE,
-                  rot = 60, cex = 0.5, tick.number = 3),
-                y = list(relation = "free", draw = FALSE)))
+                relation = "free", abbreviate = TRUE,
+                rot = 30, cex = 0.75, tick.number = 3,
+                y = list(draw = FALSE)))
 }
 \arguments{
   \item{x}{ a data frame or table, or a formula of which the first term
-    is a data frame or table. }
+    is a data frame or table. Otherwise coerced with
+    \code{as.data.frame}. }
   \item{data}{ an optional data source in which groups and subset may be
     be evaluated. }
   \item{groups}{ term, to be evaluated in \code{data}, that is used as a
@@ -71,6 +71,6 @@ marginal.plot(enviro[,1:5], data = enviro, groups = is.windy,
 marginal.plot(Titanic)
 ## table with groups
 marginal.plot(~ Titanic, data = Titanic, groups = Survived,
-    auto.key = list(title = "Survived?"))
+    type = "b", auto.key = list(title = "Survived?"))
 }
 \keyword{ hplot }
