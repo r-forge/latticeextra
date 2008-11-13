@@ -31,7 +31,7 @@ export(custom.theme)
 ## the playwith package)
 
 export(tileplot, panel.voronoi, panel.levelplot.points,
-       marginal.plot,
+       marginal.plot, doubleYScale,
        layer, flattenPanel, as.layer)
 
 S3method(c, trellis)

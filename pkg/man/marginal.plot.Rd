@@ -36,8 +36,7 @@ marginal.plot(x,
   \item{subset}{ data subset expression, evaluated in \code{data}. }
   \item{plot.points, ref}{ passed to \code{panel.densityplot}. }
   \item{origin, type}{ passed to \code{panel.dotplot}. }
-  \item{xlab, ylab, as.table,
-    subscripts, par.settings, default.scales}{
+  \item{xlab, ylab, as.table, subscripts, default.scales}{
     see \code{\link[lattice]{xyplot}}.
   }
   \item{\dots}{ passed to \code{\link[lattice]{panel.densityplot}} and

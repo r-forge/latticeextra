@@ -1,5 +1,7 @@
 
-Changes in Version 0.5-5
+Changes in Version 0.5-5 (in development)
+
+ o new function doubleYScale, to easily overlay two plot series.
 
  o marginal.plot handles non-syntactic variable names;
    also now coerces to data.frame (so e.g. works with a matrix).
