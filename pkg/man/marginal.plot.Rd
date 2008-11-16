@@ -20,9 +20,14 @@ marginal.plot(x,
               as.table = TRUE,
               subscripts = TRUE,
               default.scales = list(
-                relation = "free", abbreviate = TRUE,
+                relation = "free",
+                abbreviate = TRUE, minlength = 5,
                 rot = 30, cex = 0.75, tick.number = 3,
-                y = list(draw = FALSE)))
+                y = list(draw = FALSE)),
+             lattice.options = list(
+               layout.heights = list(
+                 axis.xlab.padding = list(x = 0),
+                 xlab.key.padding = list(x = 0))))
 }
 \arguments{
   \item{x}{ a data frame or table, or a formula of which the first term
@@ -36,10 +41,13 @@ marginal.plot(x,
   \item{subset}{ data subset expression, evaluated in \code{data}. }
   \item{plot.points, ref}{ passed to \code{panel.densityplot}. }
   \item{origin, type}{ passed to \code{panel.dotplot}. }
-  \item{xlab, ylab, as.table, subscripts, default.scales}{
+  \item{xlab, ylab, as.table, subscripts}{
     see \code{\link[lattice]{xyplot}}.
   }
-  \item{\dots}{ passed to \code{\link[lattice]{panel.densityplot}} and
+  \item{default.scales, lattice.options}{
+    see \code{\link[lattice]{xyplot}}.
+  }
+  \item{\dots}{ passed to \code{\link[lattice]{panel.densityplot}} and/or
     \code{\link[lattice]{panel.dotplot}}. }
 }
 \details{

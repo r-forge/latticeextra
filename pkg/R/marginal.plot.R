@@ -22,9 +22,14 @@ marginal.plot <-
              as.table = TRUE,
              subscripts = TRUE,
              default.scales = list(
-               relation = "free", abbreviate = TRUE,
+               relation = "free",
+               abbreviate = TRUE, minlength = 5,
                rot = 30, cex = 0.75, tick.number = 3,
-               y = list(draw = FALSE)))
+               y = list(draw = FALSE)),
+             lattice.options = list(
+               layout.heights = list(
+                 axis.xlab.padding = list(x = 0),
+                 xlab.key.padding = list(x = 0))))
 {
     if (is.table(data))
         data <- as.data.frame(data)
@@ -105,6 +110,7 @@ marginal.plot <-
                            origin = origin,
                            as.table = as.table,
                            default.scales = default.scales,
+                           lattice.options = lattice.options,
                            xlab = xlab, ylab = ylab)
                })
         ## merge the list of trellis objects into one
@@ -128,6 +134,7 @@ marginal.plot <-
                         plot.points = plot.points, ref = ref,
                         as.table = as.table,
                         default.scales = default.scales,
+                        lattice.options = lattice.options,
                         xlab = xlab, ylab = ylab)
         ## set strip name if only one panel
         if (prod(dim(numobj)) == 1)
