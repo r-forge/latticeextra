@@ -8,6 +8,8 @@ Changes in Version 0.5-5 (in development)
 
  o changes to default axis style in marginal.plot.
 
+ o new dataset EastAuClimate.
+
 Changes in Version 0.5-4
 
  o marginal.plot now handles table objects sensibly.
