@@ -1,6 +1,10 @@
 
 Changes in Version 0.5-5 (in development)
 
+ o new function do.plot.list, to create and merge multiple plots.
+
+ o c.trellis will now recalculate panel limits when x/y.same=TRUE.
+
  o new function doubleYScale, to easily overlay two plot series.
 
  o marginal.plot handles non-syntactic variable names;
