@@ -31,6 +31,8 @@ export(custom.theme)
 
 export(tileplot, panel.voronoi, panel.levelplot.points)
 
+export(panel.lmlineq, panel.ablineq)
+
 export(marginal.plot)
 S3method(c, trellis)
 export(do.plot.list)
