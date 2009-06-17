@@ -92,8 +92,8 @@ panel.ablineq <-
                 xx <- xlim
             } else {
                 xx <- range((ylim - a) / b)
-                xx <- pmax(max(xlim), xx)
-                xx <- pmin(min(xlim), xx)
+                xx <- pmin(max(xlim), xx)
+                xx <- pmax(min(xlim), xx)
             }
             ## x position as fractional distance along line
             x <- min(xx) + at * abs(diff(xx))

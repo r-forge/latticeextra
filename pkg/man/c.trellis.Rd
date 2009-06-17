@@ -23,7 +23,9 @@ xyplot.list(x, data = NULL, ..., FUN = xyplot,
     will be as they were in the original objects
     (so in general not the same), the default behaviour.
   }
-  \item{y.same}{ as above, for y scales. }
+  \item{y.same}{ as above, for y scales.
+    Note that \code{xyplot.list} defaults to same y scales. Set to
+    \code{NA} to leave them alone. }
   \item{layout}{ value for \code{layout} of the new plot; see
     \code{\link{xyplot}}. }
   \item{recursive}{ for consistency with the generic method, ignored. }
@@ -83,7 +85,7 @@ c(Sepals = sepals, Petals = petals, x.same = TRUE, y.same = TRUE)
 ## Or - create xyplots from a list of formulas
 xyplot.list(list(Sepals = Sepal.Length ~ Sepal.Width,
                  Petals = Petal.Length ~ Petal.Width),
-             data = iris, groups = Species,
+             data = iris, groups = Species, x.same = TRUE,
              xlab = "Width", ylab = "Height")
 
 ## Create histograms from a list of objects, and merge them.

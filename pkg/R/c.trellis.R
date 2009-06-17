@@ -7,7 +7,16 @@ xyplot.list <-
     function(x, data = NULL, ..., FUN = xyplot,
              y.same = TRUE, x.same = NA, layout = NULL)
 {
-    objs <- lapply(x, FUN, data = data, ...)
+    if (length(x) == 0) return(NULL)
+    ## NOTE lapply here causes problems with eval.parent and `...` later.
+    #objs <- lapply(x, FUN, data = data, ...)
+    objs <- vector(mode = "list", length = length(x))
+    for (i in as.numeric(seq_along(x))) {
+        ## use substitute to get reasonable ylab (but still has [[1]])
+        ## and to avoid warnings about 'data' in e.g. qqmath.numeric
+        objs[[i]] <- eval.parent(substitute(FUN(x[[i]], data = data, ...)))
+    }
+    names(objs) <- names(x)
     ok <- unlist(lapply(objs, inherits, "trellis"))
     if (any(!ok))
         stop("FUN returned object of class ",

@@ -126,7 +126,7 @@ xyplot(ysim^2 ~ xsim) +
   layer(panel.ablineq(lm(y ~ x, subset = x <= 3),
     varNames = alist(y = y^2, x = x[x <= 3]), pos = 4))
 
-## rotated equation (depends on device size *at time of plotting*)
+## rotated equation (depends on device aspect *at time of plotting*)
 xyplot(ysim ~ xsim) +
   layer(panel.ablineq(lm(y ~ x), rotate = TRUE, at = 0.8))
 
@@ -138,8 +138,13 @@ xyplot(ysim ~ xsim) +
 
 ## using layer styles, r.squared
 xyplot(ysim ~ xsim) +
-  layer(panel.ablineq(lm(y ~ x), r.sq = TRUE, adj=c(0,1)), style = 1) +
-  layer(panel.ablineq(lm(y ~ x + 0), r.sq = TRUE, adj=c(1,0)), style = 2)
+  layer(panel.ablineq(lm(y ~ x), r.sq = TRUE, at = 0.4, adj=0:1), style = 1) +
+  layer(panel.ablineq(lm(y ~ x + 0), r.sq = TRUE, at = 0.6, adj=0:1), style = 2)
+
+## different placement of equations
+xyplot(ysim ~ xsim) +
+  layer(panel.ablineq(lm(y ~ x), r.sq = TRUE, rot = TRUE, at = 0.8, pos = 3), style = 1) +
+  layer(panel.ablineq(lm(y ~ x + 0), r.sq = TRUE, rot = TRUE, at = 0.8, pos = 1), style = 2)
 
 update(trellis.last.object(),
   key = simpleKey(c("intercept", "no intercept"),
