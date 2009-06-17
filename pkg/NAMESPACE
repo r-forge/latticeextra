@@ -35,8 +35,7 @@ export(panel.lmlineq, panel.ablineq)
 
 export(marginal.plot)
 S3method(c, trellis)
-export(do.plot.list)
-#S3method(xyplot, list)
+export(xyplot.list) ## not just an S3 method
 
 export(doubleYScale)
 export(layer, as.layer, flattenPanel)

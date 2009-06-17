@@ -1,5 +1,6 @@
+##
 ## Copyright (c) 2009 Felix Andrews <felix@nfrac.org>
-
+## GPL version 2 or newer
 
 panel.ablineq <-
     function(a = NULL, b = 0,
@@ -8,10 +9,11 @@ panel.ablineq <-
              pos = if (rotate) 1, offset = 0.5, adj = NULL,
              fontfamily = "serif",
              rotate = FALSE, srt = 0,
+             label = NULL,
              r.squared = FALSE,
              ...,
-             at.npc = 0.5,
-             at.x = NULL, at.y = NULL,
+             at = 0.5,
+             x = NULL, y = NULL,
              varNames = alist(y = y, x = x),
              varStyle = "italic",
              digits = 3, sep = ", ", sep.end = "")
@@ -71,33 +73,53 @@ panel.ablineq <-
         ## vertical line (special case)
         if (!is.null(a))
             warning("'a' and 'b' are overridden by 'v'")
-        at.x <- v[1]
-        if (is.null(at.y))
-            at.y <- convertY(unit(at.npc, "npc"), "native", TRUE)
-        v <- signif(v[1], digits)
-        varNames <- c(as.list(varNames), v = v)
-        lab <- substitute(x == v, varNames)
-        if (rotate) srt <- 90
+        if (is.null(x))
+            x <- v[1]
+        if (is.null(y))
+            y <- convertY(unit(at, "npc"), "native", TRUE)
+        if (is.null(label)) {
+            v <- signif(v[1], digits)
+            varNames <- c(as.list(varNames), v = v)
+            label <- substitute(x == v, varNames)
+        }
     } else {
         ## normal a+bx line
-        if (is.null(at.x))
-            at.x <- convertX(unit(at.npc, "npc"), "native", TRUE)
-        if (is.null(at.y))
-            at.y <- a + b * at.x
-        a <- round(a, digits)
-        b <- round(b, digits)
-        varNames <- c(as.list(varNames), a = a, b = b)
-        if (b == 0) {
-            lab <- substitute(y == a, varNames)
-        } else if (a == 0) {
-            lab <- substitute(y == b * x, varNames)
-        } else if (b > 0) {
-            lab <- substitute(y == a + b * x, varNames)
-        } else {
-            varNames$b <- abs(b)
-            lab <- substitute(y == a - b * x, varNames)
+        if (is.null(x)) {
+            ## work out start and end x values of visible line
+            xlim <- current.panel.limits()$xlim
+            ylim <- current.panel.limits()$ylim
+            if (b == 0) {
+                xx <- xlim
+            } else {
+                xx <- range((ylim - a) / b)
+                xx <- pmax(max(xlim), xx)
+                xx <- pmin(min(xlim), xx)
+            }
+            ## x position as fractional distance along line
+            x <- min(xx) + at * abs(diff(xx))
         }
-        if (rotate) {
+        if (is.null(y))
+            y <- a + b * x
+        if (is.null(label)) {
+            a <- round(a, digits)
+            b <- round(b, digits)
+            varNames <- c(as.list(varNames), a = a, b = b)
+            if (b == 0) {
+                label <- substitute(y == a, varNames)
+            } else if (a == 0) {
+                label <- substitute(y == b * x, varNames)
+            } else if (b > 0) {
+                label <- substitute(y == a + b * x, varNames)
+            } else {
+                varNames$b <- abs(b)
+                label <- substitute(y == a - b * x, varNames)
+            }
+        }
+    }
+    if (rotate) {
+        if (length(as.numeric(v)) > 0) {
+            srt <- 90
+        } else {
             ## aspect ratio with respect to native coordinates
             asp <- with(lapply(current.panel.limits(), diff), ylim / xlim)
             ## aspect ratio of panel at *current* device size
@@ -108,17 +130,18 @@ panel.ablineq <-
     }
     if (is.numeric(r.squared)) {
         ## add R^2 = ... to label
-        r.expr <- substitute(italic(R)^2 == z,
+        rsq.expr <- substitute(italic(R)^2 == z,
                             list(z = r.squared))
-        lab <- call("paste", lab, sep, r.expr, sep.end)
+        label <- call("paste", label, sep, rsq.expr, sep.end)
     }
     if (!is.null(varStyle)) {
         while (length(varStyle) > 0) {
-            lab <- call(varStyle[1], lab)
+            label <- call(varStyle[1], label)
             varStyle <- varStyle[-1]
         }
     }
-    panel.text(at.x, at.y, lab, pos = pos, offset = offset, adj = adj,
+    panel.text(x = x, y = y, labels = label,
+               pos = pos, offset = offset, adj = adj,
                fontfamily = fontfamily, srt = srt, ...)
 }
 

@@ -8,7 +8,7 @@
   style.
 
   \bold{Note:} in most cases you should use \code{\link{doubleYScale}},
-  and not this function.
+  and NOT this function.
 }
 \usage{
 as.layer(x, ...)

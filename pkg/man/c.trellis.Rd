@@ -1,6 +1,6 @@
 \name{c.trellis}
 \alias{c.trellis}
-\alias{do.plot.list}
+\alias{xyplot.list}
 \title{ Merge trellis objects }
 \description{
   Combine the panels of multiple trellis objects into one.
@@ -9,8 +9,8 @@
 \S3method{c}{trellis}(..., x.same = NA, y.same = NA,
     layout = NULL, recursive = FALSE)
 
-do.plot.list(x, FUN = xyplot, ...,
-    x.same = NA, y.same = TRUE, layout = NULL)
+xyplot.list(x, data = NULL, ..., FUN = xyplot,
+    y.same = TRUE, x.same = NA, layout = NULL)
 }
 \arguments{
   \item{\dots}{ two or more trellis objects. If these are
@@ -21,17 +21,17 @@ do.plot.list(x, FUN = xyplot, ...,
     \code{"same"} and recalculate panel limits using data
     from all panels. Otherwise, the x scales in each panel
     will be as they were in the original objects
-    (so in general not the same); the default behaviour.
+    (so in general not the same), the default behaviour.
   }
   \item{y.same}{ as above, for y scales. }
   \item{layout}{ value for \code{layout} of the new plot; see
     \code{\link{xyplot}}. }
   \item{recursive}{ for consistency with the generic method, ignored. }
   \item{x}{ a \code{list}; the function \code{FUN}, which defaults to
-    \code{xyplot}, will be called on each element of \code{x}, and the
+    \code{\link{xyplot}}, will be called on each element of \code{x}, and the
     resulting plots combined into one. }
-  \item{FUN}{ a lattice plot function, to be called on each element of
-    the list \code{x}, along with \code{...} }
+  \item{FUN, data}{ a lattice plot function, to be called on each element of
+    the list \code{x}, along with \code{data} and \code{...} }
 }
 \details{
   This mechanism attempts to merge the panels from multiple trellis
@@ -60,24 +60,20 @@ do.plot.list(x, FUN = xyplot, ...,
   a new trellis object.
 }
 \author{ Felix Andrews \email{felix@nfrac.org} }
-\seealso{ \code{\link{marginal.plot}} was the original motivating application,
+\seealso{
+  \code{\link{marginal.plot}} was the original motivating application,
   \code{\link[lattice]{print.trellis}},
   \code{\link[lattice]{update.trellis}},
-  \code{\link[lattice]{trellis.object}} }
+  \code{\link[lattice]{trellis.object}}
+}
 \examples{
 
 ## Combine different types of plots.
 c(wireframe(volcano), contourplot(volcano))
 
-## Create xyplots from a list of objects, and merge them.
-do.plot.list(iris, FUN = histogram)
-
-do.plot.list(iris[1:4], FUN = qqmath, groups = iris$Species, y.same =
-TRUE, auto.key=TRUE)
-
 ## Combine two xyplots.
 sepals <- xyplot(Sepal.Length ~ Sepal.Width, iris, groups = Species,
-  xlab = "Width", ylab = "Height")
+    xlab = "Width", ylab = "Height")
 petals <- xyplot(Petal.Length ~ Petal.Width, iris, groups = Species)
 c(Sepals = sepals, Petals = petals)
 
@@ -85,17 +81,17 @@ c(Sepals = sepals, Petals = petals)
 c(Sepals = sepals, Petals = petals, x.same = TRUE, y.same = TRUE)
 
 ## Or - create xyplots from a list of formulas
-do.plot.list(list(Sepals = Sepal.Length ~ Sepal.Width,
-                  Petals = Petal.Length ~ Petal.Width),
+xyplot.list(list(Sepals = Sepal.Length ~ Sepal.Width,
+                 Petals = Petal.Length ~ Petal.Width),
              data = iris, groups = Species,
              xlab = "Width", ylab = "Height")
 
 ## Create histograms from a list of objects, and merge them.
-do.plot.list(iris, FUN = histogram)
+xyplot.list(iris, FUN = histogram)
 
 ## Create cumulative distribution plots from a list of objects
-do.plot.list(iris[1:4], FUN = qqmath, groups = iris$Species,
-             auto.key=TRUE)
+xyplot.list(iris[1:4], FUN = qqmath, groups = iris$Species,
+            auto.key = TRUE)
 
 ## Display a table as both frequencies and proportions:
 data(postdoc)

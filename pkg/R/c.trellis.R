@@ -3,26 +3,17 @@
 ## GPL version 2 or newer
 
 
-do.plot.list <-
-    function(x, FUN = xyplot, ...,
-             x.same = NA, y.same = TRUE, layout = NULL)
+xyplot.list <-
+    function(x, data = NULL, ..., FUN = xyplot,
+             y.same = TRUE, x.same = NA, layout = NULL)
 {
-    objs <- lapply(x, FUN, ...)
+    objs <- lapply(x, FUN, data = data, ...)
     ok <- unlist(lapply(objs, inherits, "trellis"))
     if (any(!ok))
         stop("FUN returned object of class ",
              toString(class(objs[[ which(!ok)[1] ]])),
              ", not trellis.")
     do.call("c", c(objs,
-                   x.same = x.same, y.same = y.same, layout = layout))
-}
-
-## TODO: is this appropriate?
-xyplot.list <-
-    function(x, data = NULL, ...,
-             x.same = NA, y.same = NA, layout = NULL)
-{
-    do.call("c", c(lapply(x, xyplot, data = data, ...),
                    x.same = x.same, y.same = y.same, layout = layout))
 }
 

@@ -13,12 +13,13 @@
 panel.ablineq(a = NULL, b = 0,
               h = NULL, v = NULL,
               reg = NULL, coef = NULL,
-              pos, offset, adj,
+              pos = if (rotate) 1, offset, adj,
               fontfamily = "serif",
               rotate = FALSE, srt = 0,
+              label = NULL,
               r.squared = FALSE,
               ...,
-              at.npc = 0.5, at.x, at.y,
+              at = 0.5, x, y,
               varNames = alist(y = y, x = x),
               varStyle = "italic",
               digits = 3, sep = ", ", sep.end = "")
@@ -51,6 +52,10 @@ panel.lmlineq(x, y, ...)
     Note that the calculated angle depends on the current device size;
     this will be wrong if you change the device aspect ratio after plotting.
   }
+  \item{label}{
+    the text to draw along with the line. If specified, this will be
+    used instead of an equation.
+  }
   \item{r.squared, sep, sep.end}{
     the R^2 statistic to display along with the equation of a line.
     This can be given directly as a number, or \code{TRUE}, in which
@@ -65,14 +70,17 @@ panel.lmlineq(x, y, ...)
   \item{\dots}{
     passed on to \code{\link{panel.abline}} and \code{\link{panel.text}}.
   }
-  \item{at.npc}{
-    horizontal position of the equation within the panel. This is given
-    in the range 0 to 1 (i.e. "npc", normalised parent coordinates).
+  \item{at}{
+    position of the equation as a fractional distance along the line.
+    This should be in the range 0 to 1.
     When a vertical line is drawn, this gives the vertical position of
     the equation.
   }
-  \item{at.x, at.y}{
-    position of the equation in native units. If given, this over-rides \code{at.npc}.
+  \item{x, y}{
+    position of the equation in native units. If given, this over-rides
+    \code{at}.
+
+    For \code{panel.lmlineq} this is the data, passed on as \code{lm(y ~ x)}.
   }
   \item{varNames}{
     names to display for \code{x} and/or \code{y}.
@@ -88,9 +96,6 @@ panel.lmlineq(x, y, ...)
   }
   \item{digits}{
     number of decimal places to show for coefficients in equation.
-  }
-  \item{x, y}{
-    data, passed on as \code{lm(y ~ x)}.
   }
 }
 \details{
@@ -123,12 +128,12 @@ xyplot(ysim^2 ~ xsim) +
 
 ## rotated equation (depends on device size *at time of plotting*)
 xyplot(ysim ~ xsim) +
-  layer(panel.ablineq(lm(y ~ x), rotate = TRUE, at.npc = 0.8))
+  layer(panel.ablineq(lm(y ~ x), rotate = TRUE, at = 0.8))
 
 ## horizontal and vertical lines
 xyplot(ysim ~ xsim) +
-  layer(panel.ablineq(v = 3, pos = 4, at.npc = 0.1, lty = 2)) +
-  layer(panel.ablineq(h = mean(ysim), pos = 3, at.npc = 0.15,
+  layer(panel.ablineq(v = 3, pos = 4, at = 0.1, lty = 2)) +
+  layer(panel.ablineq(h = mean(ysim), pos = 3, at = 0.15,
                       varNames = alist(y = plain(mean)(y)), lty = 2))
 
 ## using layer styles, r.squared
