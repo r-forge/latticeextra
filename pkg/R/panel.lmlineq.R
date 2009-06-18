@@ -6,20 +6,34 @@ panel.ablineq <-
     function(a = NULL, b = 0,
              h = NULL, v = NULL,
              reg = NULL, coef = NULL,
-             pos = if (rotate) 1, offset = 0.5, adj = NULL,
-             fontfamily = "serif",
-             rotate = FALSE, srt = 0,
-             label = NULL,
-             r.squared = FALSE,
-             ...,
+             pos = if (rotate) 1 else NULL,
+             offset = 0.5, adj = NULL,
              at = 0.5,
              x = NULL, y = NULL,
+             rotate = FALSE, srt = 0,
+             label = NULL,
              varNames = alist(y = y, x = x),
              varStyle = "italic",
-             digits = 3, sep = ", ", sep.end = "")
+             fontfamily = "serif",
+             digits = 3,
+             r.squared = FALSE, sep = ", ", sep.end = "",
+             col, col.text = add.text$col,
+             col.line = add.line$col,
+             ..., reference = FALSE)
 {
+    if (!is.null(label)) varStyle <- NULL
+    ## work out colours for text and line
+    add.text <- trellis.par.get("add.text")
+    add.line <- if (reference)
+        trellis.par.get("reference.line")
+    else trellis.par.get("add.line")
+    if (!missing(col) && missing(col.line))
+        col.line <- col
+    if (!missing(col) && missing(col.text))
+        col.text <- col
     ## draw the line
-    panel.abline(a = a, b = b, h = h, v = v, reg = reg, coef = coef, ...)
+    panel.abline(a = a, b = b, h = h, v = v, reg = reg, coef = coef,
+                 col = col.line, ..., reference = reference)
     ## extract r.squared from model object if any
     if (!is.null(reg)) {
         a <- reg
@@ -134,6 +148,7 @@ panel.ablineq <-
                             list(z = r.squared))
         label <- call("paste", label, sep, rsq.expr, sep.end)
     }
+    ## wrap 'varStyle' function (or multiple functions) around label expression
     if (!is.null(varStyle)) {
         while (length(varStyle) > 0) {
             label <- call(varStyle[1], label)
@@ -142,7 +157,8 @@ panel.ablineq <-
     }
     panel.text(x = x, y = y, labels = label,
                pos = pos, offset = offset, adj = adj,
-               fontfamily = fontfamily, srt = srt, ...)
+               fontfamily = fontfamily, srt = srt,
+               col = col.text, ...)
 }
 
 panel.lmlineq <-

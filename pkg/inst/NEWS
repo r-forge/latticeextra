@@ -1,5 +1,5 @@
 
-Changes in Version 0.5-5 (in development)
+Changes in Version 0.5-5
 
  o new function xyplot.list, to create and merge multiple plots
    (and not just xyplots).
