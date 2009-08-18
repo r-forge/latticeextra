@@ -189,7 +189,8 @@ c.trellis <-
     if (identical(obj1$strip, FALSE) &&
         !is.null(names(objs)))
         obj1$strip <- "strip.default"
-    obj1$layout <- layout
+    if (!is.null(layout))
+        obj1$layout <- layout
     obj1$call <- call("c", obj1$call, obj2$call)
     obj1
 }

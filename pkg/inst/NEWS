@@ -1,4 +1,9 @@
 
+Changes in Version 0.6-2
+
+ o 'layout' argument to 'xyplot.list' and 'c.trellis' now ignored if
+   NULL, so as not to clobber a 'layout' argument given to the plot.
+
 Changes in Version 0.6-1
 
  o fixed 'layout' argument to 'xyplot.list' and 'c.trellis'.
