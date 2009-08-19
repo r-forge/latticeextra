@@ -24,6 +24,7 @@ marginal.plot(x,
                 abbreviate = TRUE, minlength = 5,
                 rot = 30, cex = 0.75, tick.number = 3,
                 y = list(draw = FALSE)),
+             layout = NULL,
              lattice.options = list(
                layout.heights = list(
                  axis.xlab.padding = list(x = 0),
@@ -44,7 +45,7 @@ marginal.plot(x,
   \item{xlab, ylab, as.table, subscripts}{
     see \code{\link[lattice]{xyplot}}.
   }
-  \item{default.scales, lattice.options}{
+  \item{default.scales, layout, lattice.options}{
     see \code{\link[lattice]{xyplot}}.
   }
   \item{\dots}{ passed to \code{\link[lattice]{panel.densityplot}} and/or

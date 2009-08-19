@@ -27,7 +27,7 @@ xyplot.list(x, data = NULL, ..., FUN = xyplot,
     Note that \code{xyplot.list} defaults to same y scales. Set to
     \code{NA} to leave them alone. }
   \item{layout}{ value for \code{layout} of the new plot; see
-    \code{\link{xyplot}}. Ignored if NULL, the default. }
+    \code{\link{xyplot}}. }
   \item{recursive}{ for consistency with the generic method, ignored. }
   \item{x}{ a \code{list}; the function \code{FUN}, which defaults to
     \code{\link{xyplot}}, will be called on each element of \code{x}, and the

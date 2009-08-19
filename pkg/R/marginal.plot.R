@@ -26,6 +26,7 @@ marginal.plot <-
                abbreviate = TRUE, minlength = 5,
                rot = 30, cex = 0.75, tick.number = 3,
                y = list(draw = FALSE)),
+             layout = NULL,
              lattice.options = list(
                layout.heights = list(
                  axis.xlab.padding = list(x = 0),
@@ -115,6 +116,7 @@ marginal.plot <-
                })
         ## merge the list of trellis objects into one
         catobj <- do.call("c", dotobjs)
+        catobj$layout <- layout
         catobj$call <- match.call()
         if (all(iscat)) return(catobj)
     }
@@ -141,12 +143,14 @@ marginal.plot <-
         if (prod(dim(numobj)) == 1)
             rownames(numobj) <- names(x)[!iscat]
         numobj$call <- match.call()
+        numobj$layout <- layout
         if (all(!iscat)) return(numobj)
     }
     ## if there are both categoricals and numerics,
     ## merge the trellis objects; keep original var order
     reIndex <- order(c(which(iscat), which(!iscat)))
-    obj <- update(c(catobj, numobj), index.cond = list(reIndex))
+    obj <- update(c(catobj, numobj),
+                  index.cond = list(reIndex), layout = layout)
     ## force strips when only one panel in each object
     if (identical(obj$strip, FALSE))
         obj$strip <- "strip.default"
