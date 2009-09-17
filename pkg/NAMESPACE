@@ -31,6 +31,11 @@ export(custom.theme)
 
 export(tileplot, panel.voronoi, panel.levelplot.points)
 
+export(panel.xyarea)
+export(panel.qqmath.xyarea)
+
+export(panel.qqmath.approx)
+
 export(panel.lmlineq, panel.ablineq)
 
 export(marginal.plot)

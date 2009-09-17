@@ -1,8 +1,11 @@
 
 Changes in Version 0.6-2 (in development)
 
+ o new functions 'panel.qqmath.approx', 'panel.xyarea' and
+   'panel.qqmath.xyarea'.
+
  o added explicit 'layout' argument to 'marginal.plot'
-   (was clobbered the default NULL in 'c.trellis').
+   (was clobbered by the default NULL in 'c.trellis').
 
 Changes in Version 0.6-1
 
