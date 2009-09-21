@@ -12,20 +12,22 @@ panel.xyarea <-
              lty = if (is.null(groups)) plot.polygon$lty else superpose.polygon$lty,
              lwd = if (is.null(groups)) plot.polygon$lwd else superpose.polygon$lwd,
              alpha = if (is.null(groups)) plot.polygon$alpha else superpose.polygon$alpha,
-             ..., panel.groups = panel.xyarea)
+             ..., col.line = border, fill, panel.groups = panel.xyarea)
 {
     plot.polygon <- trellis.par.get("plot.polygon")
     superpose.polygon <- trellis.par.get("superpose.polygon")
     if (!is.null(groups)) {
+        ## NOTE superpose does not handle 'border' argument, so pass it as col.line
         panel.superpose(x, y, ..., groups = groups, panel.groups = panel.groups,
-                        col = col, border = border, lty = lty, lwd = lwd,
+                        col = col, col.line = border, lty = lty, lwd = lwd,
                         alpha = alpha, origin = origin)
     } else {
         xx <- c(head(x,1), x, tail(x,1))
         if (is.null(origin))
             origin <- current.panel.limits()$ylim[1]
         yy <- c(origin, y, origin)
-        panel.polygon(xx, yy, alpha = alpha, col = col, border = border, lty = lty, lwd = lwd, ...)
+        ## we need to catch the 'fill' argument from panel.superpose, otherwise over-rides 'col'
+        panel.polygon(xx, yy, alpha = alpha, col = col, border = col.line, lty = lty, lwd = lwd, ...)
     }
 }
 
