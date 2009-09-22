@@ -31,6 +31,9 @@ export(custom.theme)
 
 export(tileplot, panel.voronoi, panel.levelplot.points)
 
+export(panel.xblocks)
+S3method(panel.xblocks, default)
+S3method(panel.xblocks, ts)
 export(panel.xyarea)
 export(panel.qqmath.xyarea)
 
