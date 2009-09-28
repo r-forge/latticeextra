@@ -1,7 +1,7 @@
 
 Changes in Version 0.6-2 (in development)
 
- o new functions 'panel.xblocks', 'panel.qqmath.approx',
+ o new functions 'panel.xblocks', 'panel.qqmath.tails',
    'panel.xyarea' and 'panel.qqmath.xyarea'.
 
  o added explicit 'layout' argument to 'marginal.plot'

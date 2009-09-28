@@ -3,7 +3,7 @@
 ##
 
 
-panel.qqmath.approx <-
+panel.qqmath.tails <-
     function(x, f.value = NULL, distribution = qnorm,
     groups = NULL, ..., approx.n = 100, tails.n = 10)
 {
@@ -16,7 +16,7 @@ panel.qqmath.approx <-
     nobs <- sum(!is.na(x))
     if (!is.null(groups)) {
         panel.superpose(x, y = NULL, f.value = f.value, distribution = distribution,
-                        groups = groups, panel.groups = panel.qqmath.approx,
+                        groups = groups, panel.groups = panel.qqmath.tails,
                         ..., approx.n = approx.n, tails.n = tails.n)
         return()
     }

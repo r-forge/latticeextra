@@ -43,8 +43,8 @@ echo $contents; } ?>
 
 <!-- end of project description -->
 
-<p>The function help pages (corresponding to the CRAN release version) are available online, along with graphical output, from the <strong>R Graphical Manual</stong> project at
-<a href="http://bm2.genes.nig.ac.jp/RGM2/pkg.php?p=latticeExtra">http://bm2.genes.nig.ac.jp/RGM2/pkg.php?p=latticeExtra</a>. </p>
+<p>The function help pages (corresponding to the CRAN release version) are available online, along with graphical output, from the
+<strong><a href="http://bm2.genes.nig.ac.jp/RGM2/pkg.php?p=latticeExtra">R Graphical Manual project</a></strong>. </p>
 
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
