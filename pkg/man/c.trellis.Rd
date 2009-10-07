@@ -73,6 +73,17 @@ xyplot.list(x, data = NULL, ..., FUN = xyplot,
 ## Combine different types of plots.
 c(wireframe(volcano), contourplot(volcano))
 
+## Merging levelplot with xyplot has potential complications...
+levObj <- levelplot(prop.table(WorldPhones, 1) * 100)
+xyObj <- xyplot(Phones ~ Year, data.frame(Phones = rowSums(WorldPhones),
+      Year = row.names(WorldPhones)), type="b", ylim = c(0, 150000))
+## NOTE: the combined plot has only one prepanel function.
+## Since prepanel.levelplot is not compatible with prepanel.xyplot,
+## do not use 'x.same = TRUE'. Just ensure the x scales match.
+cObj <- c(levObj, xyObj, layout = 1:2)
+update(cObj, scales = list(y = list(rot = 0)),
+       ylab = c("proportional distribution", "number of phones"))
+
 ## Combine two xyplots.
 sepals <- xyplot(Sepal.Length ~ Sepal.Width, iris, groups = Species,
     xlab = "Width", ylab = "Height")
