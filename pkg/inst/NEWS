@@ -7,6 +7,8 @@ Changes in Version 0.6-2 (in development)
  o added explicit 'layout' argument to 'marginal.plot'
    (was clobbered by the default NULL in 'c.trellis').
 
+ o 'c.trellis' handles 'subscripts' argument to prepanel functions.
+
 Changes in Version 0.6-1
 
  o fixed 'layout' argument to 'xyplot.list' and 'c.trellis'.
