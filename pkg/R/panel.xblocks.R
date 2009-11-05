@@ -40,12 +40,13 @@ panel.xblocks.default <-
         y <- ifelse(y, col, if (is.character(col)) "transparent" else 0)
     }
     yrle <- rle(y)
-    idxStart <- cumsum(c(1, yrle$lengths))
-    idxStart <- head(idxStart, -1)
-    idxEnd <- idxStart[-1]
+    idxBounds <- cumsum(c(1, yrle$lengths))
+    idxStart <- head(idxBounds, -1)
+    idxEnd <- tail(idxBounds, -1)
+    idxEnd[length(idxEnd)] <- length(y)
     blockStart <- x[idxStart]
     blockEnd <- x[idxEnd]
-    blockEnd <- c(blockEnd, tail(blockStart, 1) + last.step)
+    blockEnd[length(blockEnd)] <- tail(blockEnd, 1) + last.step
     blockWidth <- blockEnd - blockStart
     blockCol <- yrle$values
     ## draw it

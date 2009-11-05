@@ -90,5 +90,23 @@ xyplot(presidents) +
 sscols <- cut(sunspot.year, c(50,150,Inf), labels=c("yellow","orange"))
 xyplot(presidents, lwd = 2) +
   layer(panel.xblocks(time(sunspot.year), y = sscols, alpha = 0.5))
+
+## Example using panel.xblocks to highlight gaps (NAs) in time series.
+## set up example data
+z <- ts(matrix(1:18, ncol = 3))
+colnames(z) <- LETTERS[1:3]
+z[3:4, "B"] <- NA
+z[1, "C"] <- NA
+z
+## Convert to logical time series showing only gaps
+zExists <- ifelse(z >= 0, TRUE, FALSE)
+zExists
+xyplot(zExists, panel = panel.xblocks, outer = TRUE, layout = c(1,3))
+## Convert to time series of colour names: red is missing
+zCol <- z
+zCol[] <- ifelse(is.na(z), "red", "grey")
+xyplot(zCol, panel = panel.xblocks, outer = TRUE, layout = c(1,3),
+       scales = list(y = list(draw = FALSE)))
+
 }
 \keyword{ dplot }

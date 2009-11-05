@@ -1,4 +1,9 @@
 
+Changes in Version 0.6-5 (in development)
+
+ o fixed panel.xblocks() to handle cases of no missing data.
+   Added example of using panel.xblocks to highlight ts gaps.
+
 Changes in Version 0.6-4
 
  o as.layer() gains arguments x.same and y.same.
