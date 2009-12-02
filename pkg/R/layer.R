@@ -5,7 +5,10 @@
 as.layer <- function(x, ...)
     UseMethod("as.layer")
 
-layer <- function(..., data = NULL, under = FALSE, style = NULL)
+## TODO: should `data` default to parent.frame()?
+layer <- function(..., data = NULL, under = FALSE,
+                  style = NULL, packets = NULL)
+                  #rows = NULL, columns = NULL)
 {
     foo <- match.call()
     ## set layer to quoted expressions in `...`
@@ -29,11 +32,27 @@ layer <- function(..., data = NULL, under = FALSE, style = NULL)
         foo <- c(setstyle, foo,
                  quote(trellis.par.set(.TRELLISPAR)))
     }
+    ## if 'packets' specified, wrap some code around it
+    if (length(packets) > 0) {
+        foo <- substitute(
+                          if (packet.number() %in% PACKETS) FOO,
+               list(PACKETS = packets,
+                    FOO = as.call(c(as.symbol("{"), foo))))
+        foo <- as.expression(foo)
+    }
     attr(foo, "data") <- data
     attr(foo, "under") <- under
     lay <- list(foo)
     class(lay) <- c("layer", "trellis")
     lay
+}
+
+ulayer <- function(..., under = TRUE)
+{
+    ccall <- match.call()
+    ccall$under <- under
+    ccall[[1]] <- quote(layer)
+    eval.parent(ccall)
 }
 
 ## to avoid print.trellis
@@ -69,7 +88,7 @@ print.layer <- print.default
             } else stop("no 'data' argument in original call")
         }
     }
-    panel <- if (as.character(object$call[[1]]) == "splom")
+    panel <- if (toString(object$call[[1]]) == "splom")
         object$panel.args.common$panel
     else object$panel
     panel <- if (is.function(panel)) panel

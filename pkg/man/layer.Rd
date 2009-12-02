@@ -1,5 +1,6 @@
 \name{layer}
 \alias{layer}
+\alias{ulayer}
 \alias{+.trellis}
 \alias{flattenPanel}
 \alias{print.layer}
@@ -11,7 +12,9 @@
   It can simplify programmatic augmentation of trellis objects.
 }
 \usage{
-layer(..., data = NULL, under = FALSE, style = NULL)
+layer(..., data = NULL, under = FALSE, style = NULL, packets = NULL)
+
+ulayer(..., under = TRUE)
 
 \S3method{+}{trellis}(x, lay)
 
@@ -27,10 +30,14 @@ flattenPanel(x)
     see \code{\link{eval}}). The value \code{TRUE} can be given, in
     which case the \code{data} argument from the lattice call
     is used. }
-  \item{under}{ whether the layer should be drawn below the existing
-    panel. }
+  \item{under}{ whether the layer should be drawn before the existing
+    panel function. This defaults to \code{TRUE} in the convenience function
+    \code{ulayer()}. }
   \item{style}{ style index of the layer, used only to set lattice graphical
     parameters (same effect as in grouped displays). }
+  \item{packets}{ restricts the layer to draw only in certain
+    panels, specified by their packet numbers.
+    See \code{\link{trellis.currentLayout}}. }
   \item{x}{ a trellis object. }
   \item{lay}{ a layer object. }
 }
@@ -87,8 +94,8 @@ foo <- foo + layer(panel.fill(grey(.9)), under = TRUE)
 foo
 
 ## layers can access the panel function arguments
-foo <- foo + layer(ok <- (y>100),
-            panel.text(x[ok], y[ok], y[ok], pos = 1))
+foo <- foo + layer({ ok <- (y>100);
+            panel.text(x[ok], y[ok], y[ok], pos = 1) })
 foo
 
 ## see an outline of the complete panel function
@@ -119,7 +126,7 @@ newdat <- with(quakes, expand.grid(
             gridlon = seq(min(long), max(long), length = 60)))
 newdat$dist <- with(newdat, sqrt((gridlat - -36.87)^2 +
                                  (gridlon - 174.75)^2))
-qua + layer(panel.contourplot(gridlon, gridlat, dist,
-   contour = TRUE, subscr = TRUE), data = newdat, under = TRUE)
+qua + ulayer(panel.contourplot(gridlon, gridlat, dist,
+   contour = TRUE, subscr = TRUE), data = newdat)
 }
 \keyword{ aplot }

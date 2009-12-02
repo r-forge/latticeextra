@@ -46,7 +46,7 @@ S3method(c, trellis)
 export(xyplot.list) ## Note: not just an S3 method
 
 export(doubleYScale)
-export(layer, as.layer, flattenPanel)
+export(layer, ulayer, as.layer, flattenPanel)
 S3method("+", trellis)
 S3method(print, layer)
 S3method(as.layer, trellis)

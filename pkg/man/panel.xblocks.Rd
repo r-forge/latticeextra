@@ -50,8 +50,11 @@ panel.xblocks(x, ...)
     \code{\link[grid]{grid.rect}}.
   }
   \item{col}{
-    if \code{col} is specified, then all values of \code{y} that are not
-    \code{NA} or \code{FALSE} are drawn in this colour.
+    if \code{col} is specified, then all blocks are drawn in the given
+    colour. That is, all values of \code{y} are treated the same except
+    \code{NA} / \code{FALSE} / \code{""}.
+
+    If multiple colours are specified they will cycle.
   }
   \item{border}{
     border colour.
@@ -77,36 +80,50 @@ panel.xblocks(x, ...)
   \code{\link[grid]{grid.rect}}
 }
 \examples{
-## Are US presidential approval ratings linked to sunspot activity?
+## Example of highlighting peaks in a time series.
+flow <- ts(filter(rlnorm(200, mean = 1), 0.8, method = "r"))
+flowplot <- xyplot(flow, aspect = "xy", cut = list(2, overlap = 0))
+## using an explicit panel function
+update(flowplot, panel = function(x, y, ...) {
+  panel.xblocks(x, y > mean(y), col = "lightgrey")
+  panel.xyplot(x, y, ...)
+})
+## using layers; this is the `ts` method because `>` keeps as ts.
+flowplot +
+  ulayer(panel.xblocks(flow > mean(flow), col = "lightgrey"))
 
-## 'ts' method; set block height, default justification is at bottom.
-xyplot(presidents) + layer(panel.xblocks(sunspot.year > 50, height = 3))
+## Example of alternating colours, here showing calendar months
+flowdates <- Sys.Date() + as.vector(time(flow))
+flowplot +
+  ulayer(panel.xblocks(time(flow), months(flowdates),
+         col = c("lightgrey", "#e6e6e6"), border = "darkgrey"))
 
-## blocks in a light shading colour, full panel height.
-xyplot(presidents) +
-  layer(panel.xblocks(sunspot.year > 50, col = "#e6e6e6"), under=TRUE)
-
-## multiple colour values given in the 'y' argument.
-sscols <- cut(sunspot.year, c(50,150,Inf), labels=c("yellow","orange"))
-xyplot(presidents, lwd = 2) +
-  layer(panel.xblocks(time(sunspot.year), y = sscols, alpha = 0.5))
-
-## Example using panel.xblocks to highlight gaps (NAs) in time series.
+## Example of highlighting gaps (NAs) in time series.
 ## set up example data
-z <- ts(matrix(1:18, ncol = 3))
-colnames(z) <- LETTERS[1:3]
+z <- ts(matrix(1:18-1, ncol = 3))
+colnames(z) <- c("A","B","C")
 z[3:4, "B"] <- NA
 z[1, "C"] <- NA
 z
 ## Convert to logical time series showing only gaps
-zExists <- ifelse(z >= 0, TRUE, FALSE)
+zExists <- !is.na(z)
+attributes(zExists) <- attributes(z)
 zExists
 xyplot(zExists, panel = panel.xblocks, outer = TRUE, layout = c(1,3))
-## Convert to time series of colour names: red is missing
+## Convert to time series of colour names: red indicates missing.
 zCol <- z
 zCol[] <- ifelse(is.na(z), "red", "grey")
 xyplot(zCol, panel = panel.xblocks, outer = TRUE, layout = c(1,3),
        scales = list(y = list(draw = FALSE)))
+
+## Example of overlaying blocks from a different series.
+## Are US presidential approval ratings linked to sunspot activity?
+## Set block height, default justification is along the bottom.
+xyplot(presidents) + layer(panel.xblocks(sunspot.year > 50, height = 3))
+## Multiple colour values given in the 'y' argument.
+sscols <- cut(sunspot.year, c(50,150,Inf), labels=c("yellow","orange"))
+xyplot(presidents, lwd = 2) +
+  ulayer(panel.xblocks(time(sunspot.year), y = sscols))
 
 }
 \keyword{ dplot }
