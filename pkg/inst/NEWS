@@ -1,12 +1,15 @@
 
 Changes in Version 0.6-5 (in development)
 
- o added a convenience function ulayer() with default under = TRUE.
+ o added help page for xyplot.ts(), including examples.
+   Added a new method llines.ts() (aka panel.lines()).
 
  o improved handling of colours in panel.xblocks().
    Added several more examples to the help page.
 
  o fixed panel.xblocks() to handle cases of no missing data.
+
+ o added a convenience function ulayer() with default under = TRUE.
 
 Changes in Version 0.6-4
 

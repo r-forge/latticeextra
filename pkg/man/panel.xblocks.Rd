@@ -76,13 +76,14 @@ panel.xblocks(x, ...)
   Felix Andrews \email{felix@nfrac.org}
 }
 \seealso{
+  \code{\link{xyplot.ts}},
   \code{\link{panel.rect}},
   \code{\link[grid]{grid.rect}}
 }
 \examples{
 ## Example of highlighting peaks in a time series.
 flow <- ts(filter(rlnorm(200, mean = 1), 0.8, method = "r"))
-flowplot <- xyplot(flow, aspect = "xy", cut = list(2, overlap = 0))
+flowplot <- xyplot(flow, aspect = "xy", cut = list(n = 2, overlap = 0))
 ## using an explicit panel function
 update(flowplot, panel = function(x, y, ...) {
   panel.xblocks(x, y > mean(y), col = "lightgrey")

@@ -20,6 +20,7 @@ S3method(segplot, formula)
 S3method(mapplot, formula)
 
 S3method(xyplot, ts)
+S3method(llines, ts)
 S3method(xyplot, stl)
 
 
