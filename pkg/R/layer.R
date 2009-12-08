@@ -115,7 +115,9 @@ print.layer <- print.default
              eval(foo, attr(foo, "data"),
                   environment()))
     }
-    update(object, panel=newpanel)
+    obj <- update(object, panel=newpanel)
+    obj$call <- call("update", match.call())
+    obj
 }
 
 flattenPanel <- function(x)
