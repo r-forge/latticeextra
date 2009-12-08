@@ -36,6 +36,8 @@ export(panel.xblocks)
 S3method(panel.xblocks, default)
 S3method(panel.xblocks, ts)
 export(panel.xyarea)
+S3method(panel.xyarea, default)
+S3method(panel.xyarea, ts)
 export(panel.qqmath.xyarea)
 
 export(panel.qqmath.tails)

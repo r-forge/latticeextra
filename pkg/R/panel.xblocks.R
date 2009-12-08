@@ -57,6 +57,7 @@ panel.xblocks.default <-
                     gp = gpar(fill = blockCol, col = border, ...))
 }
 
+panel.xblocks.zoo <-
 panel.xblocks.ts <- function(x, y = NULL, ...)
 {
     if (!is.null(y)) {
@@ -65,9 +66,3 @@ panel.xblocks.ts <- function(x, y = NULL, ...)
         panel.xblocks.default(as.vector(time(x)), as.vector(x), ...)
     }
 }
-
-#panel.xblocks.zoo <- function (x, ...)
-#{
-#    x <- as.zoo(x)
-#    panel.xblocks.default(time(x), coredata(x), ...)
-#}
