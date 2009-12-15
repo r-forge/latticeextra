@@ -18,7 +18,7 @@ panel.xyarea(x, ...)
 
 \S3method{panel.xyarea}{ts}(x, y = NULL, ...)
 
-panel.qqmath.xyarea(x, f.value = NULL, distribution = qnorm,
+panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
                     qtype = 7, groups = NULL, ...)
 }
 \arguments{

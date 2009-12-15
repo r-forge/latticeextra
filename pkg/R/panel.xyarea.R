@@ -48,7 +48,7 @@ panel.xyarea.ts <- function(x, y = NULL, ...)
 
 ## A slightly modified copy of panel.qqmath
 panel.qqmath.xyarea <-
-    function(x, f.value = NULL, distribution = qnorm, qtype = 7,
+    function(x, y = NULL, f.value = NULL, distribution = qnorm, qtype = 7,
              groups = NULL, ...)
 {
     x <- as.numeric(x)

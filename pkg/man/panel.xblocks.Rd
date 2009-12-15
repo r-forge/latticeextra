@@ -91,12 +91,12 @@ update(flowplot, panel = function(x, y, ...) {
 })
 ## using layers; this is the `ts` method because `>` keeps as ts.
 flowplot +
-  ulayer(panel.xblocks(flow > mean(flow), col = "lightgrey"))
+  layer_(panel.xblocks(flow > mean(flow), col = "lightgrey"))
 
 ## Example of alternating colours, here showing calendar months
 flowdates <- Sys.Date() + as.vector(time(flow))
 flowplot +
-  ulayer(panel.xblocks(time(flow), months(flowdates),
+  layer_(panel.xblocks(time(flow), months(flowdates),
          col = c("lightgrey", "#e6e6e6"), border = "darkgrey"))
 
 ## Example of highlighting gaps (NAs) in time series.
@@ -124,7 +124,7 @@ xyplot(presidents) + layer(panel.xblocks(sunspot.year > 50, height = 3))
 ## Multiple colour values given in the 'y' argument.
 sscols <- cut(sunspot.year, c(50,150,Inf), labels=c("yellow","orange"))
 xyplot(presidents, lwd = 2) +
-  ulayer(panel.xblocks(time(sunspot.year), y = sscols))
+  layer_(panel.xblocks(time(sunspot.year), y = sscols))
 
 }
 \keyword{ dplot }

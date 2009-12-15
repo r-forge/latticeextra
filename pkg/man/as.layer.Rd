@@ -1,5 +1,6 @@
 \name{as.layer}
 \alias{as.layer}
+\alias{as.layer.layer}
 \alias{as.layer.trellis}
 \title{ Overlay panels with different scales }
 \description{
