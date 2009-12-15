@@ -5,52 +5,52 @@
 as.layer <- function(x, ...)
     UseMethod("as.layer")
 
-## TODO: should `data` default to parent.frame()?
-layer <- function(..., data = NULL, under = FALSE,
-                  style = NULL, packets = NULL)
-                  #rows = NULL, columns = NULL)
+as.layer.layer <- function(x, ...)
+    x
+
+layer <- function(..., data = NULL, under = FALSE, packets = NULL,
+                  rows = NULL, columns = NULL, groups = NULL,
+                  superpose = FALSE, style = NULL, theme = NULL)
+    ## TODO: should `data` default to parent.frame()?
 {
-    foo <- match.call()
     ## set layer to quoted expressions in `...`
-    foo$style <- NULL
-    foo$data <- NULL
-    foo$under <- NULL
-    foo <- as.expression(as.list(foo)[-1])
-    ## if 'style' specified, wrap some code around it
-    if (is.numeric(style) && (style > 0)) {
-        setstyle <- substitute({
-            .TRELLISPAR <- trellis.par.get()
-            trellis.par.set(plot.line = Rows(trellis.par.get("superpose.line"), N),
-                            add.line = Rows(trellis.par.get("superpose.line"), N),
-                            add.text = Rows(trellis.par.get("superpose.line"), N),
-                            plot.symbol = Rows(trellis.par.get("superpose.symbol"), N),
-                            plot.polygon = Rows(trellis.par.get("superpose.polygon"), N),
-                            axis.text = Rows(trellis.par.get("superpose.line"), N),
-                            axis.line = Rows(trellis.par.get("superpose.line"), N)
-                            )
-            }, list(N = style))
-        foo <- c(setstyle, foo,
-                 quote(trellis.par.set(.TRELLISPAR)))
-    }
-    ## if 'packets' specified, wrap some code around it
-    if (length(packets) > 0) {
-        foo <- substitute(
-                          if (packet.number() %in% PACKETS) FOO,
-               list(PACKETS = packets,
-                    FOO = as.call(c(as.symbol("{"), foo))))
-        foo <- as.expression(foo)
-    }
-    attr(foo, "data") <- data
-    attr(foo, "under") <- under
+    foo <- eval(substitute(expression(...)))
+    mostattributes(foo) <-
+        list(data = data,
+             under = under,
+             packets = packets,
+             rows = rows,
+             columns = columns,
+             groups = groups,
+             superpose = superpose,
+             style = style,
+             theme = theme)
     lay <- list(foo)
     class(lay) <- c("layer", "trellis")
     lay
 }
 
-ulayer <- function(..., under = TRUE)
+layer_ <- function(...)
 {
     ccall <- match.call()
-    ccall$under <- under
+    ccall$under <- TRUE
+    ccall[[1]] <- quote(layer)
+    eval.parent(ccall)
+}
+
+glayer <- function(...)
+{
+    ccall <- match.call()
+    ccall$superpose <- TRUE
+    ccall[[1]] <- quote(layer)
+    eval.parent(ccall)
+}
+
+glayer_ <- function(...)
+{
+    ccall <- match.call()
+    ccall$superpose <- TRUE
+    ccall$under <- TRUE
     ccall[[1]] <- quote(layer)
     eval.parent(ccall)
 }
@@ -58,35 +58,19 @@ ulayer <- function(..., under = TRUE)
 ## to avoid print.trellis
 print.layer <- print.default
 
-"+.trellis" <- function(x, lay)
+## to avoid [.trellis and to keep the class attribute
+"[.layer" <- function (x, i, ...)
+    structure(unclass(x)[i], class = class(x))
+
+"+.trellis" <- function(object, lay)
 {
-    e1 <- x
-    e2 <- lay
-    e1.layer <- (inherits(e1, "layer"))
-    e2.layer <- (inherits(e2, "layer"))
-    if (!e1.layer && !e2.layer) {
-        ## coerce second object to layer
-        e2 <- as.layer(e2)
-        e2.layer <- TRUE
-    }
-    if (e1.layer && e2.layer) {
+    ocall <- sys.call(sys.parent()); #ocall[[1]] <- quote(`+`)
+    stopifnot(inherits(object, "trellis"))
+    lay <- as.layer(lay)
+    if (inherits(object, "layer")) {
         ## just concatenate lists
-        return(structure(c(e1, e2)),
-               class=c("layer", "trellis"))
-    }
-    object <- if (e1.layer) e2 else e1
-    layer <- if (e2.layer) e2 else e1
-    ## get rid of "trellis" class, it interferes with eg "["
-    class(layer) <- "layer"
-    for (i in seq_along(layer)) {
-        if (isTRUE(attr(layer[[i]], "data"))) {
-            ## try to get 'data' argument from lattice call
-            fullcall <- match.call(eval(object$call[[1]]), object$call)
-            if ("data" %in% names(fullcall)) {
-                data <- eval.parent(fullcall$data) ## may fail
-                attr(layer[[i]], "data") <- data
-            } else stop("no 'data' argument in original call")
-        }
+        return(structure(c(unclass(object), unclass(lay)),
+                         class = c("layer", "trellis")))
     }
     panel <- if (toString(object$call[[1]]) == "splom")
         object$panel.args.common$panel
@@ -104,38 +88,105 @@ print.layer <- print.default
     ## (used by flattenPanel and undoLayer)
     .is.a.layer <- TRUE
     newpanel <- function(..., subscripts = TRUE) {
-        dots <- list(...)
-        with(dots, for (foo in rev(layer))
-             if (attr(foo, "under") == TRUE)
-             eval(foo, attr(foo, "data"),
-                  environment()))
+        .UNDER <- unlist(lapply(lay, attr, "under"))
+        ## underlayers only
+        drawLayer(lay[.UNDER])
+        ## original panel function:
         panel(..., subscripts = subscripts)
-        with(dots, for (foo in layer)
-             if (attr(foo, "under") == FALSE)
-             eval(foo, attr(foo, "data"),
-                  environment()))
+        ## overlayers only
+        drawLayer(lay[.UNDER == FALSE])
     }
-    obj <- update(object, panel=newpanel)
-    obj$call <- call("update", match.call())
-    obj
+    object <- update(object, panel = newpanel)
+    object$call <- call("update", ocall)
+    object
 }
 
-flattenPanel <- function(x)
+drawLayer <- function(lay)
+{
+    lay <- as.layer(lay)
+    .UNDER <- unlist(lapply(lay, attr, "under"))
+    ## underlayers, in reverse order
+    for (.ITEM in rev(lay[.UNDER]))
+        drawLayerItem(.ITEM)
+    ## overlayers
+    for (.ITEM in lay[.UNDER == FALSE])
+        drawLayerItem(.ITEM)
+    invisible()
+}
+
+drawLayerItem <- function(layer.item)
+{
+    stopifnot(is.expression(layer.item))
+    ## check that any restrictions on packets/rows/columns are met
+    matchesallok <-
+        local({
+            a <- attributes(layer.item)
+            matchesok <- function(spec, value)
+                is.null(spec) || (value %in% spec)
+            (matchesok(a$packets, packet.number()) &&
+             matchesok(a$rows, current.row()) &&
+             matchesok(a$columns, current.column()))
+        })
+    if (!matchesallok) return()
+    ## define a layer drawing function, which may be per group
+    drawLayerItemPerGroup <- function(...)
+    {
+        ## Note: layer.item is found in this function's environment
+        dots <- list(...)
+        ## restrict to specified group numbers
+        if (!is.null(attr(layer.item, "groups"))) {
+            if (!any(dots$group.number %in% attr(layer.item, "groups")))
+                return()
+        }
+        .TRELLISPAR <- trellis.par.get()
+        if (!is.null(attr(layer.item, "theme"))) {
+            ## set given theme for duration of this function
+            trellis.par.set(attr(layer.item, "theme"))
+            on.exit(trellis.par.set(.TRELLISPAR))
+        }
+        if (!is.null(attr(layer.item, "style"))) {
+            ## extract plot style attributes from given index into superpose.*
+            .STY <- attr(layer.item, "style")
+            trellis.par.set(plot.line = Rows(trellis.par.get("superpose.line"), .STY),
+                            add.line = Rows(trellis.par.get("superpose.line"), .STY),
+                            add.text = Rows(trellis.par.get("superpose.line"), .STY),
+                            plot.symbol = Rows(trellis.par.get("superpose.symbol"), .STY),
+                            plot.polygon = Rows(trellis.par.get("superpose.polygon"), .STY),
+                            axis.text = Rows(trellis.par.get("superpose.line"), .STY),
+                            axis.line = Rows(trellis.par.get("superpose.line"), .STY)
+                            )
+            on.exit(trellis.par.set(.TRELLISPAR))
+        }
+        with(dots,
+             eval(layer.item, attr(layer.item, "data"),
+                  environment()))
+    }
+    ## call panel.superpose for group layers
+    if (isTRUE(attr(layer.item, "superpose"))) {
+        do.call("panel.superpose",
+                c(trellis.panelArgs(),
+                  list(panel.groups = drawLayerItemPerGroup)))
+    } else {
+        do.call("drawLayerItemPerGroup", trellis.panelArgs())
+    }
+}
+
+flattenPanel <- function(object)
 {
     flattenFun <- function(fun)
     {
         env <- environment(fun)
         ## check if this panel function is simple or has layers
         if (is.null(env) ||
-            !exists(".is.a.layer", env, inherits=FALSE))
+            !exists(".is.a.layer", env, inherits = FALSE))
             return(as.expression(body(fun)))
         ## merge: under layers, existing panel, over layers
-        underlays <- sapply(env$layer, attr, "under")
-        c(do.call("c", rev(env$layer[underlays])),
+        .UNDER <- sapply(env$lay, attr, "under")
+        c(do.call("c", rev(env$lay[.UNDER])),
           flattenFun(env$panel),
-          do.call("c", env$layer[!underlays]))
+          do.call("c", env$lay[.UNDER == FALSE]))
     }
-    flat <- flattenFun(x$panel)
+    flat <- flattenFun(object$panel)
     ## wrap in braces, as in a function body
     as.call(c(quote(`{`), flat))
 }

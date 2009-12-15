@@ -1,8 +1,12 @@
 \name{layer}
 \alias{layer}
-\alias{ulayer}
+\alias{layer_}
+\alias{glayer}
+\alias{glayer_}
 \alias{+.trellis}
+\alias{drawLayer}
 \alias{flattenPanel}
+\alias{[.layer}
 \alias{print.layer}
 \title{ Conveniently augment trellis objects }
 \description{
@@ -12,58 +16,83 @@
   It can simplify programmatic augmentation of trellis objects.
 }
 \usage{
-layer(..., data = NULL, under = FALSE, style = NULL, packets = NULL)
+layer(..., data, under, packets,
+      rows, columns, groups,
+      superpose, style, theme)
 
-ulayer(..., under = TRUE)
+layer_(...)
+glayer(...)
+glayer_(...)
 
-\S3method{+}{trellis}(x, lay)
+\S3method{+}{trellis}(object, lay)
 
-flattenPanel(x)
+drawLayer(lay)
+
+flattenPanel(object)
 }
 \arguments{
-  \item{\dots}{ expressions as they would appear in a panel function.
+  \item{\dots}{
+    expressions as they would appear in a panel function.
     These can refer to the panel function arguments
     (typically \code{x}, \code{y} and \code{subscripts}), or
-    alternatively \code{...}, which represents all panel function arguments.
-    In addition, \code{data} is used as the evaluation frame. }
-  \item{data}{ an optional data source (\code{data.frame}, \code{environment}, etc:
-    see \code{\link{eval}}). The value \code{TRUE} can be given, in
-    which case the \code{data} argument from the lattice call
-    is used. }
-  \item{under}{ whether the layer should be drawn before the existing
-    panel function. This defaults to \code{TRUE} in the convenience function
-    \code{ulayer()}. }
-  \item{style}{ style index of the layer, used only to set lattice graphical
-    parameters (same effect as in grouped displays). }
-  \item{packets}{ restricts the layer to draw only in certain
-    panels, specified by their packet numbers.
-    See \code{\link{trellis.currentLayout}}. }
-  \item{x}{ a trellis object. }
+    alternatively \code{\dots}, which represents all panel function arguments.
+    In addition, \code{data} is used as the evaluation frame.
+  }
+  \item{data}{
+    an optional data source (\code{data.frame}, \code{environment}, etc:
+    see \code{\link{eval}}) used when evaluating (drawing) the layer.
+  }
+  \item{under}{
+    whether the layer should be drawn before the existing panel
+    function. This defaults to \code{TRUE} in the convenience functions
+    \code{layer_()} and \code{glayer_()}.
+  }
+  \item{packets, rows, columns, groups}{
+    restricts the layer to draw only in specified packets (which refer
+    to individual panels, but are independent of their layout), or rows
+    or columns of the trellis layout.
+    See \code{\link{trellis.currentLayout}}.
+
+    For group layers (using \code{glayer} or \code{superpose = TRUE}),
+    the groups can be restricted also, by number.
+  }
+  \item{superpose}{
+    if \code{TRUE}, the layer will be drawn once for
+    each level of any \code{groups} in the plot, using
+    \code{\link{panel.superpose}}. This defaults to \code{TRUE} in the
+    convenience functions \code{glayer()} and \code{glayer_()}.
+  }
+  \item{style}{
+    style index of the layer, used only to set lattice graphical
+    parameters (same effect as in grouped displays).
+  }
+  \item{theme}{
+    a style specification to be passed to \code{\link{trellis.par.set}}.
+  }
+  \item{object}{ a trellis object. }
   \item{lay}{ a layer object. }
 }
 \details{
   The \code{layer} mechanism is an alternative method for
-  editing the panel function. It allows expressions to be added to the
+  augmenting a panel function. It allows expressions to be added to the
   panel function without knowing what the original panel function
-  was. In this way it can be useful for programmatic augmentation of trellis
-  objects.
+  was. In this way it can be useful for quick augmentation of trellis
+  plots.
 
   A typical example would be adding a reference line
   to each panel: \code{layer(panel.refline(h = 0))}. Note that the
   expressions are quoted, so if you have local variables they
-  will need to be passed in via the \code{data} object:
+  will need to be accessible globally, or passed in via the \code{data}
+  argument:
   \code{layer(panel.refline(h = myVal), data = list(myVal = myVal))}.
-  Alternatively,
-  \code{eval(bquote( layer(panel.refline(h = .(myVal))) ))}.
+%  Alternatively,
+%  \code{eval(bquote( layer(panel.refline(h = .(myVal))) ))}.
 
-  \code{layer()} is an experimental function. It probably should
-  not be used in package code, since it does not fit well with
-  the trellis model, and the implementation is fairly inefficient. A
-  better option for package code is usually a custom panel function.
+  \code{layer()} should probably still be considered experimental.
 
-  When the \code{data} argument is \code{TRUE}, an attempt is made to extract
-  the object passed as a \code{data} argument in the original lattice
-  plot call.
+  \code{drawLayer()} actually draws the given layer object, applying the
+  panel specification, style settings and so on. It should only be
+  called while a panel is in focus.
 
   The \code{flattenPanel} function will construct a human-readable
   function incorporating code from all layers (and the original panel
@@ -73,7 +102,7 @@ flattenPanel(x)
 }
 \value{
   a \code{layer} object is defined as a list of expression objects,
-  each of which may have a \code{data} attribute. The result of "adding"
+  each of which may have a set of attributes. The result of "adding"
   a layer to a trellis object (\code{+.trellis}) is the updated trellis
   object.
 }
@@ -84,13 +113,14 @@ flattenPanel(x)
 }
 \examples{
 foo <- xyplot(ozone ~ wind, environmental)
+foo
 
 ## overlay reference lines
 foo <- foo + layer(panel.abline(h = 0)) +
-             layer(panel.lmline(x, y))
+             layer(panel.lmline(x, y, lty = 2))
 
 ## underlay a flat colour
-foo <- foo + layer(panel.fill(grey(.9)), under = TRUE)
+foo <- foo + layer(panel.fill(grey(.98)), under = TRUE)
 foo
 
 ## layers can access the panel function arguments
@@ -98,8 +128,17 @@ foo <- foo + layer({ ok <- (y>100);
             panel.text(x[ok], y[ok], y[ok], pos = 1) })
 foo
 
-## see an outline of the complete panel function
+## see a sketch of the complete panel function
 flattenPanel(foo)
+
+
+## group layers, drawn for each group in each panel
+dotplot(VADeaths, type = "o") +
+glayer(ltext(x[5],y[5],colnames(VADeaths)[group.number],srt=40))
+
+## a quick way to inspect the panel.groups arguments:
+dotplot(VADeaths, type = "o") + glayer(str(list(...)))
+
 
 ## layers with superposed styles
 zoip <- xyplot(ozone ~ wind | equal.count(temperature, 2),
@@ -114,7 +153,17 @@ update(zoip, key = simpleKey(c("span = 0.5", "span = 1.0"),
 zoip <- xyplot(wind ~ temperature | equal.count(radiation, 2),
    data = environmental, subscripts = TRUE)
 zoip + layer(panel.points(..., pch = 19,
-   col = grey(1 - ozone[subscripts] / max(ozone))), data = TRUE)
+             col = grey(1 - ozone[subscripts] / max(ozone))),
+       data = environmental)
+
+
+## restrict drawing to specified panels
+barchart(yield ~ variety | site, data = barley,
+         groups = year, layout = c(1,6), as.table = TRUE,
+         scales = list(x = list(rot = 45))) +
+layer(ltext(tapply(y, x, max), lab = abbreviate(levels(x)),
+      pos = 3), rows = 1)
+
 
 ## example of a new data source
 qua <- xyplot(lat ~ long | cut(depth, 2), quakes,
@@ -126,7 +175,7 @@ newdat <- with(quakes, expand.grid(
             gridlon = seq(min(long), max(long), length = 60)))
 newdat$dist <- with(newdat, sqrt((gridlat - -36.87)^2 +
                                  (gridlon - 174.75)^2))
-qua + ulayer(panel.contourplot(gridlon, gridlat, dist,
+qua + layer_(panel.contourplot(gridlon, gridlat, dist,
    contour = TRUE, subscr = TRUE), data = newdat)
 }
 \keyword{ aplot }

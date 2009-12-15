@@ -48,11 +48,16 @@ export(marginal.plot)
 S3method(c, trellis)
 export(xyplot.list) ## Note: not just an S3 method
 
-export(doubleYScale)
-export(layer, ulayer, as.layer, flattenPanel)
+export(layer, layer_, glayer, glayer_)
+export(drawLayer, flattenPanel)
 S3method("+", trellis)
+S3method("[", layer)
 S3method(print, layer)
+
+export(as.layer)
+S3method(as.layer, layer)
 S3method(as.layer, trellis)
+export(doubleYScale)
 
 
 ## obsolete, will go away at some point
