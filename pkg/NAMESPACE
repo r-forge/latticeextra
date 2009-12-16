@@ -19,8 +19,6 @@ S3method(segplot, formula)
 
 S3method(mapplot, formula)
 
-S3method(xyplot, ts)
-S3method(llines, ts)
 S3method(xyplot, stl)
 
 
@@ -59,6 +57,9 @@ S3method(as.layer, layer)
 S3method(as.layer, trellis)
 export(doubleYScale)
 
+export(asTheEconomist)
+export(theEconomist.theme)
+export(panel.xticksgrid)
 
 ## obsolete, will go away at some point
 

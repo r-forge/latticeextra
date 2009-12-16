@@ -6,6 +6,8 @@ Changes in Version 0.6-5 (in development)
  o layer() rewritten and now has several new arguments.
    New convenience functions layer_(), glayer(), etc.
 
+ o new functions theEconomist.theme() and asTheEconomist().
+
  o improved handling of colours in panel.xblocks().
    Added several more examples to the help page.
 
