@@ -19,6 +19,8 @@ S3method(segplot, formula)
 
 S3method(mapplot, formula)
 
+## TODO: remove this after lattice releases xyplot.ts
+S3method(xyplot, ts)
 S3method(xyplot, stl)
 
 

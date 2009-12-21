@@ -76,7 +76,7 @@ panel.xblocks(x, ...)
   Felix Andrews \email{felix@nfrac.org}
 }
 \seealso{
-  \code{\link{xyplot.ts}},
+%  \code{\link{xyplot.ts}},
   \code{\link{panel.rect}},
   \code{\link[grid]{grid.rect}}
 }
@@ -89,7 +89,7 @@ update(flowplot, panel = function(x, y, ...) {
   panel.xblocks(x, y > mean(y), col = "lightgrey")
   panel.xyplot(x, y, ...)
 })
-## using layers; this is the `ts` method because `>` keeps as ts.
+## using layers; this is the `ts` method because `>` keeps it as ts.
 flowplot +
   layer_(panel.xblocks(flow > mean(flow), col = "lightgrey"))
 
