@@ -27,6 +27,8 @@ panel.xyarea.default <-
                         col = col, col.line = border, lty = lty, lwd = lwd,
                         alpha = alpha, origin = origin)
     } else {
+        if (all(is.na(col)) && !missing(col.line))
+            col <- col.line
         xx <- c(head(x,1), x, tail(x,1))
         if (is.null(origin))
             origin <- current.panel.limits()$ylim[1]
