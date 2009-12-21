@@ -1,6 +1,9 @@
 
 Changes in Version 0.6-5 (in development)
 
+ o new panel functions panel.smoother() and panel.quantile().
+   The latter requires the quantreg package.
+
  o expanded xyplot.ts() and moved it to the lattice package.
 
  o layer() rewritten and now has several new arguments.

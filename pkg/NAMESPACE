@@ -28,6 +28,9 @@ export(custom.theme)
 
 ## contributions from Felix Andrews
 
+export(panel.smoother)
+export(panel.quantile)
+
 export(tileplot, panel.voronoi, panel.levelplot.points)
 
 export(panel.xblocks)
