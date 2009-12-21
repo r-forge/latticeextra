@@ -8,13 +8,38 @@ as.layer <- function(x, ...)
 as.layer.layer <- function(x, ...)
     x
 
-layer <- function(..., data = NULL, under = FALSE, packets = NULL,
-                  rows = NULL, columns = NULL, groups = NULL,
-                  superpose = FALSE, style = NULL, theme = NULL)
-    ## TODO: should `data` default to parent.frame()?
+layer <-
+    function(..., data = NULL, eval = FALSE, etc = FALSE,
+             packets = NULL,
+             rows = NULL, columns = NULL, groups = NULL,
+             under = FALSE, superpose = FALSE,
+             style = NULL, theme = NULL)
 {
     ## set layer to quoted expressions in `...`
     foo <- eval(substitute(expression(...)))
+    if (eval) {
+        for (i in seq_along(foo)) {
+            icall <- foo[[i]]
+            icall <- eval(call("substitute",
+                               icall, list(.x = quote(quote(x)),
+                                           .y = quote(quote(y)),
+                                           .z = quote(quote(z)),
+                                           .groups = quote(quote(groups)),
+                                           .subscripts = quote(quote(subscripts)))))
+            if (identical(etc, FALSE)) {
+                icall[-1] <- lapply(icall[-1], eval.parent)
+            } else {
+                Args <- lapply(icall[-1], eval.parent)
+                icall <-
+                    substitute(do.call(.FUN,
+                                       modifyList(list(...)[etc], Args)),
+                               list(.FUN = icall[[1]],
+                                    Args = Args,
+                                    etc = etc))
+            }
+            foo[[i]] <- icall
+        }
+    }
     mostattributes(foo) <-
         list(data = data,
              under = under,

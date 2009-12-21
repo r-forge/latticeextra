@@ -16,9 +16,9 @@
   It can simplify programmatic augmentation of trellis objects.
 }
 \usage{
-layer(..., data, under, packets,
-      rows, columns, groups,
-      superpose, style, theme)
+layer(..., data, eval, etc,
+      packets, rows, columns, groups,
+      under, superpose, style, theme)
 
 layer_(...)
 glayer(...)
@@ -39,13 +39,29 @@ flattenPanel(object)
     In addition, \code{data} is used as the evaluation frame.
   }
   \item{data}{
-    an optional data source (\code{data.frame}, \code{environment}, etc:
-    see \code{\link{eval}}) used when evaluating (drawing) the layer.
+    optional. A named \code{list} containing objects needed when
+    evaluating (drawing) the layer.
   }
-  \item{under}{
-    whether the layer should be drawn before the existing panel
-    function. This defaults to \code{TRUE} in the convenience functions
-    \code{layer_()} and \code{glayer_()}.
+  \item{eval, etc}{
+    if \code{eval = TRUE}, arguments given in the layer code will be
+    evaluated  immediately (in the calling environment). This makes it
+    easier to pass in values from local variables. This should only be
+    used when the layer code consists of simple top-level function calls
+    (e.g. no \code{if} statements or \code{\{braces\}}).
+
+    The default is \code{eval = FALSE}.
+
+    When \code{eval = TRUE}, you can not directly refer to the panel
+    function internal variables (because they would be interpreted as
+    local variables in the calling frame). Instead you can use the
+    special names \code{.x}, \code{.y}, \code{.z}, \code{.subscripts}
+    and \code{.groups}.
+
+    The \code{etc} can be used to pass other variables in to the layer
+    code calls: if \code{etc = TRUE} then all remaining panel function
+    arguments are passed through. If \code{etc} is a character vector
+    then only the named arguments are passed through. The default is
+    \code{etc = FALSE}.
   }
   \item{packets, rows, columns, groups}{
     restricts the layer to draw only in specified packets (which refer
@@ -54,13 +70,18 @@ flattenPanel(object)
     See \code{\link{trellis.currentLayout}}.
 
     For group layers (using \code{glayer} or \code{superpose = TRUE}),
-    the groups can be restricted also, by number.
+    the groups can be restricted also, by specifying group numbers.
   }
   \item{superpose}{
     if \code{TRUE}, the layer will be drawn once for
     each level of any \code{groups} in the plot, using
     \code{\link{panel.superpose}}. This defaults to \code{TRUE} in the
     convenience functions \code{glayer()} and \code{glayer_()}.
+  }
+  \item{under}{
+    whether the layer should be drawn before the existing panel
+    function. This defaults to \code{TRUE} in the convenience functions
+    \code{layer_()} and \code{glayer_()}.
   }
   \item{style}{
     style index of the layer, used only to set lattice graphical
@@ -73,22 +94,26 @@ flattenPanel(object)
   \item{lay}{ a layer object. }
 }
 \details{
-  The \code{layer} mechanism is an alternative method for
-  augmenting a panel function. It allows expressions to be added to the
+  The \code{layer} mechanism is a method for augmenting a panel
+  function. It allows expressions to be added to the
   panel function without knowing what the original panel function
   was. In this way it can be useful for quick augmentation of trellis
   plots.
 
-  A typical example would be adding a reference line
+  A simple example is adding a reference line
   to each panel: \code{layer(panel.refline(h = 0))}. Note that the
   expressions are quoted, so if you have local variables they
-  will need to be accessible globally, or passed in via the \code{data}
-  argument:
-  \code{layer(panel.refline(h = myVal), data = list(myVal = myVal))}.
-%  Alternatively,
-%  \code{eval(bquote( layer(panel.refline(h = .(myVal))) ))}.
+  will need to be either (a) accessible globally, or (b) evaluated using
+  the argument \code{eval = TRUE}, or (c) passed in via
+  the \code{data} argument For example:
 
-  \code{layer()} should probably still be considered experimental.
+  \code{layer(panel.refline(h = myVal)) ## if myVal is global}
+
+  \code{layer(panel.refline(h = h), eval = TRUE)}
+
+  \code{layer(panel.refline(h = h), data = list(h = myVal))}
+
+  The layer mechanism should probably still be considered experimental.
 
   \code{drawLayer()} actually draws the given layer object, applying the
   panel specification, style settings and so on. It should only be
@@ -136,7 +161,7 @@ flattenPanel(foo)
 dotplot(VADeaths, type = "o") +
 glayer(ltext(x[5],y[5],colnames(VADeaths)[group.number],srt=40))
 
-## a quick way to inspect the panel.groups arguments:
+## a quick way to print out the panel.groups arguments:
 dotplot(VADeaths, type = "o") + glayer(str(list(...)))
 
 
