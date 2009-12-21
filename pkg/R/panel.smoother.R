@@ -18,9 +18,15 @@ panel.smoother <-
         col <- col.line
     if (is.character(method))
         method <- get(method, mode = "function")
+    ## allow 'formula' to be passed as the first argument
+    missing.x <- missing(x)
+    if (!missing.x && inherits(x, "formula")) {
+        formula <- x
+        missing.x <- TRUE
+    }
     ## use 'x' and 'y' if given
     ## otherwise try to find them in the formula environment
-    if (missing(x))
+    if (missing.x)
         x <- environment(formula)$x
     if (missing(y))
         y <- environment(formula)$y

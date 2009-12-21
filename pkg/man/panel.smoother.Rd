@@ -1,6 +1,5 @@
 \name{panel.smoother}
 \alias{panel.smoother}
-\alias{panel.quantile}
 \title{
   Plot a smoothing line with standard error bounds.
 }
@@ -24,7 +23,8 @@ panel.smoother(x, y, formula = y ~ x, method = "loess", ...,
   \item{x, y}{
     data points. If these are missing, they will be looked for in the
     \code{formula} environment. So in many cases you can skip these if
-    passing \code{formula}.
+    passing \code{formula}. In fact, for convenience, the \code{formula}
+    can be passed as the first argument (i.e. \code{x}).
   }
   \item{formula, method}{
     the smoothing model is constructed (approximately) as
@@ -75,20 +75,20 @@ xy <- data.frame(x = runif(100),
 xyplot(y ~ x, xy) +
   layer(panel.smoother(x, y, span = 0.9))
 
-## per-group layers
+## per-group layers (pass `...` to get styles)
 xyplot(y + y2 ~ x, xy) +
   glayer(panel.smoother(...))
 
 ## natural spline with 5 degrees of freedom
 if (require("splines"))
   xyplot(y ~ x, xy) +
-    layer(panel.smoother(form = y ~ ns(x,5), method = "lm"))
+    layer(panel.smoother(y ~ ns(x,5), method = "lm"))
 
 ## thin plate regression spline with smoothness
 ## chosen by cross validation (see ?mgcv::gam)
 if (require("mgcv"))
   xyplot(y ~ x, xy) +
-    layer(panel.smoother(form = y ~ s(x), method = "gam"))
+    layer(panel.smoother(y ~ s(x), method = "gam"))
 
 ## simple linear regression with standard errors:
 xyplot(y ~ x, xy) +

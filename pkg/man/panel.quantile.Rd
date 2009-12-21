@@ -24,7 +24,8 @@ panel.quantile(x, y, formula = y ~ x, method = "rq", ...,
   \item{x, y}{
     data points. If these are missing, they will be looked for in the
     \code{formula} environment. So in many cases you can skip these if
-    passing \code{formula}.
+    passing \code{formula}. In fact, for convenience, the \code{formula}
+    can be passed as the first argument (i.e. \code{x}).
   }
   \item{formula, method}{
     the model is constructed (approximately) as
@@ -65,10 +66,12 @@ panel.quantile(x, y, formula = y ~ x, method = "rq", ...,
   }
 }
 \details{
-
+  It is recommended to look at \code{vignette("rq",package="quantreg")}.
 }
 \author{
   Felix Andrews \email{felix@nfrac.org}
+
+  Based on \code{\link[ggplot2]{stat_quantile}} by Hadley Wickham.
 }
 \seealso{
   \code{\link[quantreg]{rq}},
@@ -80,11 +83,13 @@ xy <- data.frame(x = runif(100), y = rt(100, df = 5))
 xyplot(y ~ x, xy) +
   layer(panel.quantile(x, y, tau = c(.05, .5, .95)))
 
-xyplot(y ~ x, xy) +
-  layer(panel.quantile(form = y ~ ns(x, 3), tau = 0.5))
+if (require("splines")) {
+  xyplot(y ~ x, xy) +
+    layer(panel.quantile(y ~ ns(x, 3), tau = 0.9))
 
-xyplot(y ~ x, xy) +
-  layer(panel.quantile(form = y ~ ns(x, 3), ci = TRUE))
+  xyplot(y ~ x, xy) +
+    layer(panel.quantile(y ~ ns(x, 3), tau = 0.9, ci = TRUE))
+}
 
 xyplot(y ~ x, xy) +
   layer(panel.quantile(x, y, tau = c(.1, .5, .9), superpose = TRUE))
@@ -95,6 +100,6 @@ update(trellis.last.object(),
 
 ## seems not to work...
 #xyplot(y ~ x, xy) +
-#  layer(panel.quantile(form = y ~ qss(x, lambda=1), method = "rqss"))
+#  layer(panel.quantile(y ~ qss(x, lambda=1), method = "rqss"))
 }
 \keyword{ dplot }
