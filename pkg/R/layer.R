@@ -143,34 +143,37 @@ drawLayerItem <- function(layer.item)
 {
     stopifnot(is.expression(layer.item))
     ## check that any restrictions on packets/rows/columns are met
+    matchesok <- function(spec, value) {
+        if (is.null(spec)) return(TRUE)
+        if (all(spec <= 0))
+            ## negative indexes exclude items
+            return(value %in% -spec == FALSE)
+        else
+            return(value %in% spec)
+    }
     matchesallok <-
-        local({
-            a <- attributes(layer.item)
-            matchesok <- function(spec, value)
-                is.null(spec) || (value %in% spec)
-            (matchesok(a$packets, packet.number()) &&
+        with(list(a = attributes(layer.item)),
+             matchesok(a$packets, packet.number()) &&
              matchesok(a$rows, current.row()) &&
              matchesok(a$columns, current.column()))
-        })
     if (!matchesallok) return()
+    ## set given theme for duration of this function
+    if (!is.null(attr(layer.item, "theme"))) {
+        .TRELLISPAR <- trellis.par.get()
+        trellis.par.set(attr(layer.item, "theme"))
+        on.exit(trellis.par.set(.TRELLISPAR))
+    }
     ## define a layer drawing function, which may be per group
     drawLayerItemPerGroup <- function(...)
     {
         ## Note: layer.item is found in this function's environment
         dots <- list(...)
         ## restrict to specified group numbers
-        if (!is.null(attr(layer.item, "groups"))) {
-            if (!any(dots$group.number %in% attr(layer.item, "groups")))
-                return()
-        }
-        .TRELLISPAR <- trellis.par.get()
-        if (!is.null(attr(layer.item, "theme"))) {
-            ## set given theme for duration of this function
-            trellis.par.set(attr(layer.item, "theme"))
-            on.exit(trellis.par.set(.TRELLISPAR))
-        }
+        if (!matchesok(attr(layer.item, "groups"), dots$group.number))
+            return()
         if (!is.null(attr(layer.item, "style"))) {
             ## extract plot style attributes from given index into superpose.*
+            .TRELLISPAR <- trellis.par.get()
             .STY <- attr(layer.item, "style")
             trellis.par.set(plot.line = Rows(trellis.par.get("superpose.line"), .STY),
                             add.line = Rows(trellis.par.get("superpose.line"), .STY),
