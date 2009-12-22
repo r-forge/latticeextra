@@ -30,11 +30,11 @@ panel.smoother <-
         x <- environment(formula)$x
     if (missing(y))
         y <- environment(formula)$y
-    #data <- list()
-    #data$x <- if (!missing(x)) x
-    #data$y <- if (!missing(y)) y
     mod <- method(formula, data = list(x = x, y = y), ...)
-    xseq <- seq(min(x), max(x), length = n)
+    ## use the limits of the data, or panel limits, whichever is smaller
+    lims <- current.panel.limits()
+    xrange <- c(max(min(lims$x), min(x)), min(max(lims$x), max(x)))
+    xseq <- seq(xrange[1], xrange[2], length = n)
     pred <- predict(mod, data.frame(x = xseq), se = se)
     if (se) {
         std <- qnorm(level/2 + 0.5)
