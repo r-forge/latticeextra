@@ -32,6 +32,7 @@ export(custom.theme)
 
 export(panel.smoother)
 export(panel.quantile)
+export(panel.tskernel)
 
 export(tileplot, panel.voronoi, panel.levelplot.points)
 
