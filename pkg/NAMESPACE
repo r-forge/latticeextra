@@ -34,6 +34,8 @@ export(panel.smoother)
 export(panel.quantile)
 export(panel.tskernel)
 
+export(panel.2dsmoother)
+
 export(tileplot, panel.voronoi, panel.levelplot.points)
 
 export(panel.xblocks)
