@@ -84,7 +84,7 @@ library("quantreg")
 set.seed(1)
 xy <- data.frame(x = runif(100), y = rt(100, df = 5))
 xyplot(y ~ x, xy) +
-  layer(panel.quantile(x, y, tau = c(.05, .5, .95)))
+  layer(panel.quantile(x, y, tau = c(.95, .5, .05)))
 
 if (require("splines")) {
   xyplot(y ~ x, xy) +
@@ -95,10 +95,10 @@ if (require("splines")) {
 }
 
 xyplot(y ~ x, xy) +
-  layer(panel.quantile(x, y, tau = c(.1, .5, .9), superpose = TRUE))
+  layer(panel.quantile(x, y, tau = c(.9, .5, .1), superpose = TRUE))
 
 update(trellis.last.object(),
-  key = simpleKey(paste(c(10,50,90), "\% quantile"),
+  key = simpleKey(paste(c(90,50,10), "\% quantile"),
                   points = FALSE, lines = TRUE))
 
 ## seems not to work...

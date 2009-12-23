@@ -60,7 +60,7 @@ levelplot(z ~ x * y, xyz, panel = panel.2dsmoother)
 
 ## showing data points on the same color scale
 levelplot(z ~ x * y, xyz,
-          panel = panel.levelplot.points, cex = 1.5) +
+          panel = panel.levelplot.points, cex = 1.2) +
   layer_(panel.2dsmoother(...))
 
 ## simple linear regression model

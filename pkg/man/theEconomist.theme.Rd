@@ -83,9 +83,6 @@ theEconomist.theme(win.fontfamily = "Gill Sans MT", fontfamily = "sans",
   \code{\link{custom.theme}}
 }
 \examples{
-## TODO: remove this when the next version of lattice is released
-source("http://svn.r-project.org/R-packages/trunk/lattice/R/xyplot.ts.R")
-
 asTheEconomist(xyplot(window(sunspot.year, start = 1900),
   main = "Sunspot cycles", sub = "Number per year",
   scales = list(y = list(relation = "same", axs = "i"))))
