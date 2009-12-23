@@ -63,10 +63,13 @@ panel.tskernel(x, y, ...,
   \code{\link{filter}}
 }
 \examples{
+## example from ?kernel:
+## long and short moving averages, backwards in time
 xyplot(EuStockMarkets[,1]) +
-  layer(panel.tskernel(x, y, m = 50, col = 1)) +
-  layer(panel.tskernel(x, y, m = 10, col = 2))
+  layer(panel.tskernel(x, y, m = 50, col = 1, sides = 1)) +
+  layer(panel.tskernel(x, y, m = 10, col = 2, sides = 1))
 
+## per group, with a triangular filter
 xyplot(EuStockMarkets) +
   glayer(panel.tskernel(..., m = 50, c = 2),
          theme = simpleTheme(lwd = 2))
