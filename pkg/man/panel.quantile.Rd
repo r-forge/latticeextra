@@ -9,7 +9,7 @@
   function from \pkg{ggplot2}.
 }
 \usage{
-panel.quantile(x, y, formula = y ~ x, method = "rq", ...,
+panel.quantile(x, y, form = y ~ x, method = "rq", ...,
     tau = 0.5, ci = FALSE, ci.type = "default", level = 0.95,
     n = 100, col = plot.line$col, col.se = col,
     lty = plot.line$lty, lwd = plot.line$lwd,
@@ -23,13 +23,13 @@ panel.quantile(x, y, formula = y ~ x, method = "rq", ...,
 \arguments{
   \item{x, y}{
     data points. If these are missing, they will be looked for in the
-    \code{formula} environment. So in many cases you can skip these if
-    passing \code{formula}. In fact, for convenience, the \code{formula}
+    environment of \code{form}. So in many cases you can skip these if
+    passing \code{form}. In fact, for convenience, the formula
     can be passed as the first argument (i.e. \code{x}).
   }
-  \item{formula, method}{
+  \item{form, method}{
     the model is constructed (approximately) as
-    \code{method(formula, tau = tau, data = list(x=x, y=y), ...)}.
+    \code{method(form, tau = tau, data = list(x=x, y=y), ...)}.
 
     See the Examples section for common choices.
   }
@@ -79,6 +79,9 @@ panel.quantile(x, y, formula = y ~ x, method = "rq", ...,
   \code{\link[ggplot2]{stat_quantile}}
 }
 \examples{
+library("quantreg")
+
+set.seed(1)
 xy <- data.frame(x = runif(100), y = rt(100, df = 5))
 xyplot(y ~ x, xy) +
   layer(panel.quantile(x, y, tau = c(.05, .5, .95)))

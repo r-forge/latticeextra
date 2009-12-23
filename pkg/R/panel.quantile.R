@@ -2,7 +2,7 @@
 ## based on the stat_quantile() function in ggplot2 package.
 
 panel.quantile <-
-    function(x, y, formula = y ~ x, method = "rq", ...,
+    function(x, y, form = y ~ x, method = "rq", ...,
              tau = 0.5,
              ci = FALSE, ci.type = "default", level = 0.95,
              n = 100,
@@ -20,21 +20,21 @@ panel.quantile <-
     plot.line <- trellis.par.get("plot.line")
     if (all(is.na(col)) && !missing(col.line))
         col <- col.line
-    if (is.character(method))
-        method <- get(method, mode = "function")
-    ## allow 'formula' to be passed as the first argument
+    ## allow 'form' to be passed as the first argument
     missing.x <- missing(x)
     if (!missing.x && inherits(x, "formula")) {
-        formula <- x
+        form <- x
         missing.x <- TRUE
     }
     ## use 'x' and 'y' if given
     ## otherwise try to find them in the formula environment
     if (missing.x)
-        x <- environment(formula)$x
+        x <- environment(form)$x
     if (missing(y))
-        y <- environment(formula)$y
-    mod <- method(formula, tau = tau, data = list(x = x, y = y), ...)
+        y <- environment(form)$y
+    data <- list(x = x, y = y)
+    mod <- do.call(method,
+                   c(alist(form, tau = tau, data = data), list(...)))
     xseq <- seq(min(x), max(x), length = n)
     pred <- predict(mod, data.frame(x = xseq),
                     interval = if (ci) "confidence" else "none",

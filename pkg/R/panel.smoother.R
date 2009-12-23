@@ -2,7 +2,7 @@
 ## based on the stat_smooth() function in ggplot2 package.
 
 panel.smoother <-
-    function(x, y, formula = y ~ x, method = "loess", ...,
+    function(x, y, form = y ~ x, method = "loess", ...,
              se = TRUE, level = 0.95, n = 100,
              col = plot.line$col, col.se = col,
              lty = plot.line$lty, lwd = plot.line$lwd,
@@ -16,21 +16,21 @@ panel.smoother <-
     plot.line <- trellis.par.get("plot.line")
     if (all(is.na(col)) && !missing(col.line))
         col <- col.line
-    if (is.character(method))
-        method <- get(method, mode = "function")
-    ## allow 'formula' to be passed as the first argument
+    ## allow 'form' to be passed as the first argument
     missing.x <- missing(x)
     if (!missing.x && inherits(x, "formula")) {
-        formula <- x
+        form <- x
         missing.x <- TRUE
     }
     ## use 'x' and 'y' if given
     ## otherwise try to find them in the formula environment
     if (missing.x)
-        x <- environment(formula)$x
+        x <- environment(form)$x
     if (missing(y))
-        y <- environment(formula)$y
-    mod <- method(formula, data = list(x = x, y = y), ...)
+        y <- environment(form)$y
+    data <- list(x = x, y = y)
+    mod <- do.call(method,
+                   c(alist(form, data = data), list(...)))
     ## use the limits of the data, or panel limits, whichever is smaller
     lims <- current.panel.limits()
     xrange <- c(max(min(lims$x), min(x)), min(max(lims$x), max(x)))
@@ -46,6 +46,4 @@ panel.smoother <-
     }
     panel.lines(xseq, pred, col = col, alpha = alpha,
                 lty = lty, lwd = lwd)
-    #do.call("panel.lines", c(list(x = xseq, y = pred),
-    #                         trellis.par.get("add.line")))
 }
