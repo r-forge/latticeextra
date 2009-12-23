@@ -1,0 +1,60 @@
+
+body {
+    background-color: #eee;
+}
+
+#banner {
+    height: 50px;
+    border-bottom: 2px solid #aaa;
+    margin: 0;
+    padding: 1em;
+    padding-left: 1em;
+    padding-right: 10%;
+}
+
+#banner h1 {
+    font-size: 20px;
+    float: left;
+    width: 70%;
+    margin: 0;
+    padding: .5em;
+}
+
+#links {
+    float: right;
+    font-size: 12px;
+    text-align: right;
+    width: 200px;
+}
+
+#content {
+    clear: both;
+    margin-left: 300px;
+    padding: 1em 1em 1em 2em;
+    width: 40em;
+}
+
+.group {
+    border: 2px dashed #aaa;
+    padding: 1em;
+}
+
+.groupname {
+
+}
+
+.item {
+
+}
+
+.itemname {
+
+}
+
+.itemdesc {
+
+}
+
+.item img {
+    border: 2px solid #aaa;
+}
