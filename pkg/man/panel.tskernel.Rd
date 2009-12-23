@@ -6,7 +6,7 @@
 \description{
   Compute and plot discrete symmetric smoothing kernels.
   These kernels can be used to smooth time series objects.
-  Options include m-step moving averages, triangular filters, or
+  Options include moving averages, triangular filters, or
   approximately Gaussian filters.
 }
 \usage{
@@ -53,7 +53,7 @@ panel.tskernel(x, y, ...,
   }
 }
 \details{
-  I am not a time series expert.
+  I am not an expert on time series theory.
 }
 \author{
   Felix Andrews \email{felix@nfrac.org}
@@ -63,6 +63,10 @@ panel.tskernel(x, y, ...,
   \code{\link{filter}}
 }
 \examples{
+## a Gaussian-like filter (contrast with c = 1 or c = 2)
+xyplot(sunspot.year) +
+layer(panel.tskernel(x, y, m = 10, c = 3, col = 1, lwd = 2))
+
 ## example from ?kernel:
 ## long and short moving averages, backwards in time
 xyplot(EuStockMarkets[,1]) +
