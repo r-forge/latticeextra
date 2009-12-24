@@ -75,26 +75,22 @@ gen <- function(name, which, width = 500, height = 350)
     .plotNumber <<- 0
     .plotName <<- name
     target <<- which
-    filename <- paste("images/", name, ".png", sep = "")
+    filename <- paste("plotimg/", name, ".png", sep = "")
     CairoPNG(filename, width = width, height = height)
     tryCatch(eval.parent(call("example", name, local = FALSE, ask = FALSE)),
              normalStop = function(e) message(e))
     dev.off()
     stopifnot(.plotNumber >= target)
     message(filename, " generated")
-    ## try to get argument list and format it nicely
-    #env <- asNamespace("latticeExtra")
-    #fun <- get(name, envir = env)
-    #argtxt <- deparse(args(fun))
-    #argtxt <- paste(head(argtxt, -1), collapse = "\n")
-    ## generate HTML content
-    navid <- gsub("\\.", "_", name)
-    itemid <- paste(navid, "_item", sep = "")
+    ## get description of this function
     desc <- info[grep(sprintf("^%s ", name), info)]
+    if (length(desc) == 0) desc <- ""
     desc <- sub(sprintf("^%s +", name), "", desc)
-
+    ## generate HTML content
+    nav.id <- gsub("\\.", "_", name)
+    item.id <- paste(nav.id, "_item", sep = "")
     aTag <- sprintf('  <a href="%s%s.html">', baseLink, name)
-    write(c(sprintf('<div class="item" id="%s">', itemid),
+    write(c(sprintf('<div class="item" id="%s">', item.id),
             '  <h3 class="itemname">', name, '  </h3>',
             '  <div class="itemdesc">', desc, '  </div>',
             '  <p>', aTag, 'Usage, Details, Examples', '</a>', '</p>',
@@ -105,7 +101,7 @@ gen <- function(name, which, width = 500, height = 350)
     ## generate HTML nav
     write(c('<li>',
             sprintf('<a class="nav" href="%s" title="%s" id="%s">%s</a>',
-                    filename, desc, navid, name),
+                    filename, desc, nav.id, name),
             '</li>'), file = nav)}
 
 genGroup("general statistical plots", {
@@ -149,8 +145,8 @@ genGroup("extended trellis framework", {
 })
 
 genGroup("styles", {
+    ## TODO: write examples for custom.theme
     gen("theEconomist.theme", 2)
-    ## TODO: write examples for custom.theme?
 })
 
 ## TODO: include the dataset examples too?
