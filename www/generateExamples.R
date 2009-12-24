@@ -4,6 +4,9 @@ library(latticeExtra)
 library(grid)
 library(Cairo)
 
+## stop on errors
+lattice.options(panel.error = NULL)
+
 baseLink <- "http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/"
 
 ## we want to be able to run example() for each function
@@ -18,6 +21,7 @@ baseLink <- "http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/
 .plotName <- NA
 target <- NA
 
+## start a default device to catch the plots we don't want
 dev.new()
 dummydev <- dev.cur()
 
@@ -35,30 +39,34 @@ lattice.options(print.function = function(x, ...) {
         #                         .plotName, .plotNumber),
         #           adj = c(0, 1.5))
         ## stop the example() call - avoid any base plots following
-        stop("target plot completed; stopping (OK)")
+        e <- simpleError("target plot completed; stopping (OK)")
+        class(e) <- c("normalStop", "condition")
+        stop(e)
     } else {
-        ## plot it anyway in case examples use trellis.last.object()
+        ## plot it anyway on another device
+        ## can't ignore it in case examples use trellis.last.object()
         odev <- dev.cur()
         dev.set(dummydev)
         plot(x, ...)
         dev.set(odev)
     }
 })
-reset <- function()
-    lattice.options(print.function = NULL)
 
-## set up file connection for HTML
+## set up file connections for HTML
 out <- file("content.html", "w")
+nav <- file("nav.html", "w")
 ## get function descriptions
 info <- library(help = "latticeExtra")$info[[2]]
 
 genGroup <- function(txt, expr)
 {
-    write(c('<div class="group">',
-            '  <h2 class="groupname">', txt, '  </h2>'),
+    write(sprintf('  <h2 class="groupname">%s</h2>', txt),
           file = out)
+    write(c('<li><a class="subnav">', txt, '</a></li>',
+            '<li><ul>'), file = nav)
     force(expr)
-    write('</div>', file = out)
+    write('</ul></li>', file = nav)
+    write(c('', ''), file = out)
 }
 
 gen <- function(name, which, width = 500, height = 350)
@@ -69,23 +77,36 @@ gen <- function(name, which, width = 500, height = 350)
     target <<- which
     filename <- paste("images/", name, ".png", sep = "")
     CairoPNG(filename, width = width, height = height)
-    try(eval.parent(call("example", name, local = TRUE, ask = FALSE)))
+    tryCatch(eval.parent(call("example", name, local = FALSE, ask = FALSE)),
+             normalStop = function(e) message(e))
     dev.off()
     stopifnot(.plotNumber >= target)
     message(filename, " generated")
-    ## generate HTML chunk
+    ## try to get argument list and format it nicely
+    #env <- asNamespace("latticeExtra")
+    #fun <- get(name, envir = env)
+    #argtxt <- deparse(args(fun))
+    #argtxt <- paste(head(argtxt, -1), collapse = "\n")
+    ## generate HTML content
+    navid <- gsub("\\.", "_", name)
+    itemid <- paste(navid, "_item", sep = "")
     desc <- info[grep(sprintf("^%s ", name), info)]
-    desc <- sub(sprintf("^%s ", name), "", desc)
+    desc <- sub(sprintf("^%s +", name), "", desc)
+
     aTag <- sprintf('  <a href="%s%s.html">', baseLink, name)
-    write(c('<div class="item">',
-            '  <div class="itemname">', aTag, name, '  </a></div>',
+    write(c(sprintf('<div class="item" id="%s">', itemid),
+            '  <h3 class="itemname">', name, '  </h3>',
             '  <div class="itemdesc">', desc, '  </div>',
-            aTag,
+            '  <p>', aTag, 'Usage, Details, Examples', '</a>', '</p>',
+            '  <p>One example:</p>',
             sprintf('  <img src="%s" alt="%s" width="%g" height="%g"/>',
                     filename, name, width, height),
-            '  </a>',
-            '</div>'), file = out)
-}
+            '</div>', ''), file = out)
+    ## generate HTML nav
+    write(c('<li>',
+            sprintf('<a class="nav" href="%s" title="%s" id="%s">%s</a>',
+                    filename, desc, navid, name),
+            '</li>'), file = nav)}
 
 genGroup("general statistical plots", {
     gen("rootogram", 3, width = 600, height = 400)
@@ -134,10 +155,16 @@ genGroup("styles", {
 
 ## TODO: include the dataset examples too?
 
+close(nav)
 close(out)
 
 ## merge content.html into template.html
 content <- readLines("content.html")
-template <- readLines("template.html")
-index <- sub("@CONTENT", paste(content, collapse = "\n"), template)
+navtxt <- readLines("nav.html")
+index <- readLines("template.html")
+index <- sub("@CONTENT", paste(content, collapse = "\n"), index)
+index <- sub("@NAV", paste(navtxt, collapse = "\n"), index)
 write(index, file = "index.html")
+
+## reset to normal plotting
+lattice.options(print.function = NULL)

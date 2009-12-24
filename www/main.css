@@ -1,23 +1,36 @@
+html, body, #container {
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+}
+/*
+ * The "height" above is a hack for IE5+/Win.  Below we adjust
+ * it using the child selector to hide from IE5+/Win
+ */
+
+html>body, html>body #container {
+    height: auto;
+}
 
 body {
-    background-color: #eee;
+    margin: 0;
+    min-height: 100%;
+    color: white;
+    font-family: sans-serif;
+    font-size: 11pt;
+    background: #369 url(img/mazewarpblue.png);
 }
 
 #banner {
-    height: 50px;
-    border-bottom: 2px solid #aaa;
     margin: 0;
     padding: 1em;
-    padding-left: 1em;
-    padding-right: 10%;
+    padding-left: 20em;
 }
 
 #banner h1 {
-    font-size: 20px;
-    float: left;
-    width: 70%;
+    font-size: 30px;
     margin: 0;
-    padding: .5em;
+    padding: 0;
 }
 
 #links {
@@ -27,34 +40,97 @@ body {
     width: 200px;
 }
 
-#content {
-    clear: both;
-    margin-left: 300px;
-    padding: 1em 1em 1em 2em;
-    width: 40em;
+#nav {
+    float: left;
+    width: 13em;
+    margin: 1em 2em;
+    padding: 0;
 }
 
-.group {
-    border: 2px dashed #aaa;
-    padding: 1em;
+#nav ul {
+    margin: 0;
+    padding: 0;
+    background: #444;
+}
+
+#nav li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+#nav li a {
+    display: block;
+    padding: 2px 0.75em;
+    text-decoration: none;
+    font-weight: bold;
+    border-top: 1px solid black;
+    border-left: 1em solid #444;
+    color: black;
+    width: 100%;
+}
+#nav a.nav {
+    background: #fff url(img/blur.jpg) top right repeat-y;
+}
+#nav a.subnav {
+    background: #ccc url(img/blur_grey.jpg) top right repeat-y;
+}
+#nav a.nav:link { color: #14b; }
+#nav a.nav:visited { color: #14b; }
+#nav a.nav:hover {
+    border-color: #222;
+    background: #ccc url(img/blur_grey.jpg) top right repeat-y;
+}
+
+#nav a.active {
+    border-left-color: #c00;
+    color: black;
+}
+#nav a.active:hover {
+    border-left-color: #c00;
+    background: #fff url(img/blur.jpg) top right repeat-y;
+}
+
+html>body #nav li a {
+    width: auto;
+}
+
+#content {
+    margin: 1em 1em 1em 20em;
+    padding: 1em 1em 2em 2em;
+    width: 620px;
+    color: black;
+    background: #ccc url(img/mazewarpbig.jpg);
+    border: 2px solid #aaa;
+}
+
+#content div {
+    margin: 0;
+    padding: 0;
+}
+
+#content h2, h3 {
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .groupname {
-
 }
 
 .item {
-
 }
 
 .itemname {
-
+    font-size: 150%;
 }
 
 .itemdesc {
-
+    font-size: 120%;
+    padding-top: 0.5em;
 }
 
 .item img {
+    margin-top: 0.5em;
     border: 2px solid #aaa;
 }
