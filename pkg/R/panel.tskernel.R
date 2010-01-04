@@ -1,8 +1,8 @@
 
 panel.tskernel <-
     function(x, y, ...,
-             m, c = 1, sides = 2, circular = FALSE,
-             kern = kernel("daniell", rep(round(m / sqrt(c)), c)))
+             width, c = 1, sides = 2, circular = FALSE,
+             kern = kernel("daniell", rep(round(0.5*width / sqrt(c)), c)))
 {
     if (!missing(y)) {
         if (diff(range(diff(x))) > getOption("ts.eps"))
@@ -12,5 +12,4 @@ panel.tskernel <-
     x <- as.ts(x)
     i <- -kern$m:kern$m
     panel.lines(filter(x, kern[i], sides = sides, circular = circular), ...)
-    #panel.lines(kernapply(x, kern, circular = circular), ...)
 }
