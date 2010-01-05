@@ -4,6 +4,13 @@ $(document).ready(function(){
 	$(".item").hide();
 	$("#intro_item").fadeIn("slow");
 
+	/*$("#nav").accordion({ header: "li.group" });*/
+	$("#nav li.group a").click(function() {
+		$(this).parent().next().slideToggle();
+		return false;
+	    }).parent().next().hide();
+
+
 	$("#nav a.nav").click(function(e) {
 		e.preventDefault();
 		var old_id = $("a.active").attr("id");
@@ -12,7 +19,5 @@ $(document).ready(function(){
 		$(this).addClass("active");
 		$("#" + old_id + "_item").slideUp();
 		$("#" + new_id + "_item").slideDown();
-		//$("#" + old_id + "_item").hide('normal');
-		//$("#" + new_id + "_item").show('normal');
 	});
 });

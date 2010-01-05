@@ -62,7 +62,7 @@ genGroup <- function(txt, expr)
 {
     write(sprintf('  <h2 class="groupname">%s</h2>', txt),
           file = out)
-    write(c('<li><a class="subnav">', txt, '</a></li>',
+    write(c('<li class="group"><a class="subnav" href="#">', txt, '</a></li>',
             '<li><ul>'), file = nav)
     force(expr)
     write('</ul></li>', file = nav)

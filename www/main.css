@@ -33,13 +33,6 @@ body {
     padding: 0;
 }
 
-#links {
-    float: right;
-    font-size: 12px;
-    text-align: right;
-    width: 200px;
-}
-
 #nav {
     float: left;
     width: 13em;
@@ -78,7 +71,7 @@ body {
 }
 #nav a.nav:link { color: #14b; }
 #nav a.nav:visited { color: #14b; }
-#nav a.nav:hover {
+#nav a:hover {
     border-color: #222;
     background: #ccc url(img/blur_grey.jpg) top right repeat-y;
 }
