@@ -13,7 +13,9 @@
 \usage{
 asTheEconomist(x, type = "l",
     vertical = FALSE, zeroline = "red",
-    par.settings = theEconomist.theme(with.bg = with.bg), with.bg = FALSE,
+    par.settings =
+      theEconomist.theme(with.bg = with.bg, box = "transparent"),
+    with.bg = FALSE,
     titleSpec = list(x = grid::unit(5, "mm"), just = "left"),
     ylab = expression(NULL), xlab = expression(NULL),
     scales = list(axs = "i", x = list(tck = 0, alternating = 1),
@@ -22,7 +24,7 @@ asTheEconomist(x, type = "l",
     between = list(x = 1, y = 1))
 
 theEconomist.theme(win.fontfamily = "Gill Sans MT", fontfamily = "sans",
-    with.bg = FALSE, box = "transparent")
+    with.bg = FALSE, box = "black", \dots)
 }
 \arguments{
   \item{x}{
@@ -65,6 +67,10 @@ theEconomist.theme(win.fontfamily = "Gill Sans MT", fontfamily = "sans",
   \item{box}{
     colour for panel boxes, strip outlines, and axis ticks.
   }
+  \item{\dots}{
+    further arguments passed to \code{\link{simpleTheme}}
+    and used to modify the theme.
+  }
 }
 \details{
   You can just use \code{par.settings = theEconomist.theme()}, which
@@ -102,7 +108,7 @@ asTheEconomist(
   type = "b", with.bg = TRUE)
 
 dotplot(VADeaths, auto.key = TRUE, type = "b",
-  par.settings = theEconomist.theme(with.bg = TRUE, box = "black"))
+  par.settings = theEconomist.theme(with.bg = TRUE))
 
 asTheEconomist(
   densityplot(~ height, groups = voice.part, data = singer,

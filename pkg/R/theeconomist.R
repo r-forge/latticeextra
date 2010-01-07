@@ -6,7 +6,8 @@ asTheEconomist <-
     function(x,
              type = "l",
              vertical = FALSE, zeroline = "red",
-             par.settings = theEconomist.theme(with.bg = with.bg),
+             par.settings =
+               theEconomist.theme(with.bg = with.bg, box = "transparent"),
              with.bg = FALSE,
              titleSpec = list(x = grid::unit(5, "mm"), just = "left"),
              ylab = expression(NULL),
@@ -54,7 +55,7 @@ asTheEconomist <-
 
 theEconomist.theme <-
    function(win.fontfamily = "Gill Sans MT", fontfamily = "sans",
-            with.bg = FALSE, box = "transparent")
+            with.bg = FALSE, box = "black", ...)
 {
     if (.Platform$OS.type == "windows") {
         windowsFonts(TheEconomistLike = win.fontfamily)
@@ -62,7 +63,7 @@ theEconomist.theme <-
     } else {
         ## TODO: how do fonts work on linux etc?
     }
-    list(
+    theme <- list(
          background = list(col = if (with.bg) "#D5E2E9" else "transparent"),
          plot.line = list(col = "#00526D", lwd = 2.5),
          superpose.line = list(col = c("#00526D", "#00A3DB", "#7A2713", "#939598", "#6CCFF6"), lwd = 2.5),
@@ -83,6 +84,7 @@ theEconomist.theme <-
          axis.text = list(cex = 1),
          grid.pars = list(fontfamily = fontfamily)
          )
+    modifyList(theme, simpleTheme(...))
 }
 
 panel.xticksgrid <-
