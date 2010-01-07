@@ -6,7 +6,8 @@
   Plot contiguous blocks along x axis.
 }
 \description{
-  Plot contiguous blocks along x axis.
+  Plot contiguous blocks along x axis. A typical use would be to
+  highlight events or periods of missing data.
 }
 \usage{
 panel.xblocks(x, ...)
@@ -83,19 +84,19 @@ panel.xblocks(x, ...)
 \examples{
 ## Example of highlighting peaks in a time series.
 flow <- ts(filter(rlnorm(200, mean = 1), 0.8, method = "r"))
-flowplot <- xyplot(flow, aspect = "xy", cut = list(n = 2, overlap = 0))
+
 ## using an explicit panel function
-update(flowplot, panel = function(x, y, ...) {
+xyplot(flow, panel = function(x, y, ...) {
   panel.xblocks(x, y > mean(y), col = "lightgrey")
   panel.xyplot(x, y, ...)
 })
 ## using layers; this is the `ts` method because `>` keeps it as ts.
-flowplot +
+xyplot(flow) +
   layer_(panel.xblocks(flow > mean(flow), col = "lightgrey"))
 
 ## Example of alternating colours, here showing calendar months
 flowdates <- Sys.Date() + as.vector(time(flow))
-flowplot +
+xyplot(flow) +
   layer_(panel.xblocks(time(flow), months(flowdates),
          col = c("lightgrey", "#e6e6e6"), border = "darkgrey"))
 

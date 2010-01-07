@@ -12,7 +12,7 @@
 \usage{
 panel.2dsmoother(x, y, z, subscripts = TRUE,
     form = z ~ x * y, method = "loess", ...,
-    args = list(), n = 50)
+    args = list(), n = 100)
 }
 \arguments{
   \item{x, y, z}{
@@ -61,7 +61,7 @@ levelplot(z ~ x * y, xyz, panel = panel.2dsmoother)
 ## showing data points on the same color scale
 levelplot(z ~ x * y, xyz,
           panel = panel.levelplot.points, cex = 1.2) +
-  layer_(panel.2dsmoother(...))
+  layer_(panel.2dsmoother(..., n = 200))
 
 ## simple linear regression model
 levelplot(z ~ x * y, xyz,

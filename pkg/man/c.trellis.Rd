@@ -1,7 +1,7 @@
 \name{c.trellis}
 \alias{c.trellis}
 \alias{xyplot.list}
-\title{ Merge trellis objects }
+\title{ Merge trellis objects, using same or different scales }
 \description{
   Combine the panels of multiple trellis objects into one.
 }

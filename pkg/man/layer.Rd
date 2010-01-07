@@ -8,12 +8,11 @@
 \alias{flattenPanel}
 \alias{[.layer}
 \alias{print.layer}
-\title{ Conveniently augment trellis objects }
+\title{ Add layers to a Trellis plot, optionally using a new data source }
 \description{
-  A mechanism to add new layers to a trellis object,
-  optionally using a new data source.
-  This works by adding arbitrary expressions to the panel function.
-  It can simplify programmatic augmentation of trellis objects.
+  A mechanism to add new layers to a trellis object, optionally using a
+  new data source. This is an alternative to modifying the
+  panel function.
 }
 \usage{
 layer(..., data, eval, etc,

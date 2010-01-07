@@ -47,6 +47,9 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width, iris,
 obj <- update(obj, legend = list(right =
          list(fun = "draw.colorkey", args = list(list(at = 0:100)))))
 
+## draw with default theme %% NOTE: this is used by www/generateExamples.R
+obj
+
 ## draw with custom.theme()
 update(obj, par.settings = custom.theme())
 

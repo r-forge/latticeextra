@@ -2,7 +2,7 @@
 panel.2dsmoother <-
     function(x, y, z, subscripts = TRUE,
              form = z ~ x * y, method = "loess", ...,
-             args = list(), n = 50)
+             args = list(), n = 100)
 {
     if (length(subscripts) == 0)
         return()
