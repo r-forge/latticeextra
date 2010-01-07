@@ -36,14 +36,14 @@ body {
 #nav {
     float: left;
     width: 13em;
-    margin: 1em 2em;
+    margin: 0 2em;
     padding: 0;
 }
 
 #nav ul {
     margin: 0;
     padding: 0;
-    background: #444;
+    background: #ccc url(img/blur_grey.jpg) top right repeat-y;
 }
 
 #nav li {
@@ -51,15 +51,18 @@ body {
     padding: 0;
     list-style: none;
     text-align: left;
+    border: 0;
 }
 
 #nav li a {
     display: block;
+    margin: 0;
     padding: 2px 0.75em;
     text-decoration: none;
     font-weight: bold;
     border-top: 1px solid black;
     border-left: 1em solid #444;
+    border-bottom: 0px;
     color: black;
     width: 100%;
 }
@@ -89,9 +92,31 @@ html>body #nav li a {
     width: auto;
 }
 
+#themer {
+    margin-left: 18em;
+    margin-right: 1em;
+    margin-bottom: 0;
+    padding: 0;
+    display: none;
+}
+
+#themer a {
+    margin: 0;
+    margin-right: 0.3em;
+    padding: 0.3em;
+    background: #ccc url(img/mazewarpbig.jpg);
+    border: 1px solid #666;
+    border-bottom: 0;
+    text-decoration: none;
+}
+
+#themer a.active_theme {
+    background: #eee;
+}
+
 #content {
-    margin: 1em 1em 1em 20em;
-    padding: 1em 1em 2em 2em;
+    margin: 0em 1em 1em 18em;
+    padding: 1em 1em 1em 2em;
     width: 620px;
     color: black;
     background: #ccc url(img/mazewarpbig.jpg);
@@ -123,6 +148,12 @@ html>body #nav li a {
 }
 
 .item img {
-    margin-top: 0.5em;
-    border: 2px solid #aaa;
+    margin: 0.5em 0;
+    border: 1px solid #aaa;
+}
+
+#versiontag {
+    text-align: right;
+    font-size: small;
+    padding-top: 2em;
 }

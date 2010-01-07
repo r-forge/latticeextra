@@ -21,34 +21,17 @@ baseLink <- "http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/
 .plotName <- NA
 target <- NA
 
-## start a default device to catch the plots we don't want
-dev.new()
-dummydev <- dev.cur()
-
-## set the lattice print function to keep a counter.
+## set the lattice print function to keep a counter
+## and stop after the target plot number.
 lattice.options(print.function = function(x, ...) {
     .plotNumber <<- .plotNumber + 1
     message("  plot number ", .plotNumber)
+    plot(x, ...)
     if (.plotNumber == target) {
-        plot(x, ...)
-        ## label the plot with function name etc (version number?)
-        #pushViewport(viewport(xscale = c(0, 1),
-        #                      yscale = c(0, 1)))
-        #panel.text(x = 0.01, y = 1,
-        #           lab = sprintf("(latticeExtra) %s",
-        #                         .plotName, .plotNumber),
-        #           adj = c(0, 1.5))
         ## stop the example() call - avoid any base plots following
         e <- simpleError("target plot completed; stopping (OK)")
         class(e) <- c("normalStop", "condition")
         stop(e)
-    } else {
-        ## plot it anyway on another device
-        ## can't ignore it in case examples use trellis.last.object()
-        odev <- dev.cur()
-        dev.set(dummydev)
-        plot(x, ...)
-        dev.set(odev)
     }
 })
 
@@ -57,6 +40,7 @@ out <- file("content.html", "w")
 nav <- file("nav.html", "w")
 ## get function descriptions
 info <- library(help = "latticeExtra")$info[[2]]
+infoContinues <- grepl("^ ", info)
 
 genGroup <- function(txt, expr)
 {
@@ -69,43 +53,79 @@ genGroup <- function(txt, expr)
     write(c('', ''), file = out)
 }
 
-gen <- function(name, which, width = 500, height = 350)
+gen <- function(name, which, width = 500, height = 350,
+                desc = NULL, examplename = name, extlink = TRUE)
 {
     ## generate PNG image of example number 'which' in ?name
     .plotNumber <<- 0
     .plotName <<- name
     target <<- which
-    filename <- paste("plotimg/", name, ".png", sep = "")
-    CairoPNG(filename, width = width, height = height)
-    tryCatch(eval.parent(call("example", name, local = FALSE, ask = FALSE)),
+
+    tryCatch(eval.parent(call("example", examplename, local = FALSE, ask = FALSE)),
              normalStop = function(e) message(e))
-    dev.off()
     stopifnot(.plotNumber >= target)
-    message(filename, " generated")
+    thePlot <- trellis.last.object()
+
+    themeNames <- c("default", "black_and_white", "classic_gray",
+                    "custom_theme", "custom_theme_2", "theEconomist")
+
+    ## need to avoid '.' in javascript
+    okname <- gsub("[\\. ]", "_", name)
+
+    for (theme in themeNames) {
+        filename <- paste("plots/", theme, "/", okname, ".png", sep = "")
+        CairoPNG(filename, width = width, height = height)
+        trellis.par.set(switch(theme,
+                               default = standard.theme("pdf"),
+                               black_and_white = standard.theme(color = FALSE),
+                               classic_gray = standard.theme("X11"),
+                               custom_theme = custom.theme(),
+                               custom_theme_2 = custom.theme.2(),
+                               theEconomist = theEconomist.theme()))
+        plot(thePlot)
+        dev.off()
+        message(filename, " generated")
+    }
+    filename <- paste("plots/default/", okname, ".png", sep = "")
+
     ## get description of this function
-    desc <- info[grep(sprintf("^%s ", name), info)]
-    if (length(desc) == 0) desc <- ""
-    desc <- sub(sprintf("^%s +", name), "", desc)
+    if (is.null(desc)) {
+        i <- grep(sprintf("^%s ", examplename), info)
+        if (length(i) == 0) {
+            desc <- ""
+        } else {
+            desc <- sub(sprintf("^%s +", examplename), "", info[i])
+            desc <- gsub(" +", " ", desc)
+            if (isTRUE(infoContinues[i+1]))
+                desc <- paste(desc, info[i+1])
+        }
+    }
     ## generate HTML content
-    nav.id <- gsub("\\.", "_", name)
-    item.id <- paste(nav.id, "_item", sep = "")
-    aTag <- sprintf('  <a href="%s%s.html">', baseLink, name)
+    item.id <- paste(okname, "_item", sep = "")
+    extlinkBlock <- ""
+    if (extlink) {
+        aTag <- sprintf('  <a href="%s%s.html">', baseLink, examplename)
+        extlinkBlock <-
+            paste('  <p>', aTag,
+                  'Usage, Details, Examples', '</a>',
+                  '  </p>',
+                  '  <p>One example:</p>')
+    }
     write(c(sprintf('<div class="item" id="%s">', item.id),
             '  <h3 class="itemname">', name, '  </h3>',
             '  <div class="itemdesc">', desc, '  </div>',
-            '  <p>', aTag, 'Usage, Details, Examples', '</a>', '</p>',
-            '  <p>One example:</p>',
+            extlinkBlock,
             sprintf('  <img src="%s" alt="%s" width="%g" height="%g"/>',
                     filename, name, width, height),
             '</div>', ''), file = out)
     ## generate HTML nav
     write(c('<li>',
             sprintf('<a class="nav" href="%s" title="%s" id="%s">%s</a>',
-                    filename, desc, nav.id, name),
+                    paste("#", item.id, sep=""), desc, okname, name),
             '</li>'), file = nav)}
 
 genGroup("general statistical plots", {
-    gen("rootogram", 3, width = 600, height = 400)
+    gen("rootogram", 1)
     gen("segplot", 3, width = 400, height = 500)
     gen("ecdfplot", 1, height = 280)
     gen("marginal.plot", 2)
@@ -114,8 +134,7 @@ genGroup("general statistical plots", {
 genGroup("functions of one variable", {
     gen("panel.smoother", 2)
     gen("panel.quantile", 4)
-    ## time series functions
-    gen("panel.xblocks", 3)
+    gen("panel.xblocks", 3, width = 600, height = 200)
     gen("panel.xyarea", 1)
     gen("panel.tskernel", 1)
     ## xyplot.stl?
@@ -124,16 +143,19 @@ genGroup("functions of one variable", {
 genGroup("functions of two variables", {
     gen("mapplot", 3)
     gen("tileplot", 3)
-    gen("panel.levelplot.points", 1, width = 600)
+    gen("panel.levelplot.points", 1, width = 600,
+        examplename = "panel.voronoi")
     gen("panel.2dsmoother", 2)
     gen("dendrogramGrob", 1, height = 550)
 })
 
 genGroup("utilities", {
     gen("useOuterStrips", 1)
-    gen("resizePanels", 3, width = 400, height = 500)
-    gen("panel.ablineq", 7)
-    gen("panel.3dbars", 2, height = 400)
+    gen("resizePanels", 3, width = 400, height = 500,
+        examplename = "useOuterStrips",
+        desc = "Resize panels to match data scales")
+    gen("panel.ablineq", 6, examplename = "panel.lmlineq")
+    gen("panel.3dmisc", 2, height = 400)
     ## panel.qqmath.tails
 })
 
@@ -145,11 +167,21 @@ genGroup("extended trellis framework", {
 })
 
 genGroup("styles", {
-    ## TODO: write examples for custom.theme
+    gen("style_examples", examplename = "custom.theme", which = 1,
+        desc = "Sample plots to demonstrate different graphical settings (themes).",
+        extlink = FALSE)
+    gen("custom.theme", 3)
     gen("theEconomist.theme", 2)
 })
 
 ## TODO: include the dataset examples too?
+
+write(c('<div id="versiontag">',
+        'latticeExtra version',
+        packageDescription("latticeExtra")$Version,
+        ' on ',
+        R.version.string,
+        '</div>'), file = out)
 
 close(nav)
 close(out)
