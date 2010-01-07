@@ -12,7 +12,8 @@
 \usage{
 panel.tskernel(x, y, ...,
     width, c = 1, sides = 2, circular = FALSE,
-    kern = kernel("daniell", rep(round(0.5*width / sqrt(c)), c)))
+    kern = kernel("daniell",
+           rep(floor((width/sides) / sqrt(c)), c)))
 }
 \arguments{
   \item{x, y}{
@@ -28,6 +29,9 @@ panel.tskernel(x, y, ...,
     case, which is a simple moving average, this is the actual width.
     When \code{c > 1} the number of time steps used in the kernel
     increases but the equivalent bandwidth stays the same.
+
+    If only past values are used (with \code{sides = 1}) then
+    \code{width} refers to one side of the symmetric kernel.
   }
   \item{c}{
     smoothness of the kernel: \code{c = 1} is a moving average,
@@ -42,7 +46,8 @@ panel.tskernel(x, y, ...,
   }
   \item{sides}{
     if \code{sides=1} the smoothed series is calculed from past values
-    only; if \code{sides=2} it is centred around lag 0.
+    only (using one half of the symmetric kernel); if \code{sides=2} it
+    is centred around lag 0.
   }
   \item{circular}{
     to treat the data as circular (periodic).
@@ -71,7 +76,7 @@ layer(panel.tskernel(x, y, width = 20, c = 3, col = 1, lwd = 2))
 ## long and short moving averages, backwards in time
 xyplot(EuStockMarkets[,1]) +
   layer(panel.tskernel(x, y, width = 100, col = 1, sides = 1)) +
-  layer(panel.tskernel(x, y, width = 100, col = 2, sides = 1))
+  layer(panel.tskernel(x, y, width = 20, col = 2, sides = 1))
 
 ## per group, with a triangular filter
 xyplot(EuStockMarkets) +
@@ -82,7 +87,7 @@ xyplot(EuStockMarkets) +
 devAskNewPage(TRUE)
 width = 100
 for (c in 1:5) {
-    k <- kernel("daniell", rep(round(0.5*width / sqrt(c)), c))
+    k <- kernel("daniell", rep(floor(0.5*width / sqrt(c)), c))
     plot(k)
     message("c: ", c, ", bandwidth: ", bandwidth.kernel(k))
 }
