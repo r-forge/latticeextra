@@ -166,7 +166,7 @@ xyplot(ysim ~ xsim) +
                       at = 0.8, pos = 1), style = 2)
 
 update(trellis.last.object(),
-  key = simpleKey(c("intercept", "no intercept"),
+  auto.key = list(text = c("intercept", "no intercept"),
                   points = FALSE, lines = TRUE))
 }
 \keyword{ aplot }

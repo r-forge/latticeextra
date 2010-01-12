@@ -169,7 +169,7 @@ zoip <- xyplot(ozone ~ wind | equal.count(temperature, 2),
         data = environmental) +
    layer(panel.loess(x, y, span = 0.5), style = 1) +
    layer(panel.loess(x, y, span = 1.0), style = 2)
-update(zoip, key = simpleKey(c("span = 0.5", "span = 1.0"),
+update(zoip, auto.key = list(text = c("span = 0.5", "span = 1.0"),
    title = "loess smooth", lines = TRUE, points = FALSE))
 
 ## using other variables from the original `data` object

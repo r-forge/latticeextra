@@ -47,14 +47,18 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width, iris,
 obj <- update(obj, legend = list(right =
          list(fun = "draw.colorkey", args = list(list(at = 0:100)))))
 
-## draw with default theme %% NOTE: this is used by www/generateExamples.R
+## draw with default theme %% NOTE: used by www/generateExamples.R
 obj
 
 ## draw with custom.theme()
 update(obj, par.settings = custom.theme())
 
-## set grey background and filled points
-update(obj, par.settings = custom.theme(bg = "grey99", pch = 16))
+## create a theme with paired colours, filled points, etc
+update(obj, par.settings =
+  custom.theme(symbol = brewer.pal(12, "Paired"),
+               fill = brewer.pal(12, "Paired"),
+               region = brewer.pal(9, "Blues"),
+               bg = "grey90", fg = "grey20", pch = 16))
 
 ## draw with custom.theme.2()
 update(obj, par.settings = custom.theme.2())

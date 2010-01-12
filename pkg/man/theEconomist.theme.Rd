@@ -23,7 +23,7 @@ asTheEconomist(x, type = "l",
     par.strip.text = list(font = 2),
     between = list(x = 1, y = 1))
 
-theEconomist.theme(win.fontfamily = "Gill Sans MT", fontfamily = "sans",
+theEconomist.theme(win.fontfamily = NULL,
     with.bg = FALSE, box = "black", \dots)
 }
 \arguments{
@@ -60,9 +60,6 @@ theEconomist.theme(win.fontfamily = "Gill Sans MT", fontfamily = "sans",
   }
   \item{win.fontfamily}{
     on Windows systems, sets the font by name.
-  }
-  \item{fontfamily}{
-    \code{fontfamily} argument used on non-Windows systems.
   }
   \item{box}{
     colour for panel boxes, strip outlines, and axis ticks.

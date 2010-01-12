@@ -98,7 +98,7 @@ xyplot(y ~ x, xy) +
   layer(panel.quantile(x, y, tau = c(.5, .9, .1), superpose = TRUE))
 
 update(trellis.last.object(),
-  key = simpleKey(paste(c(50,90,10), "\% quantile"),
+  auto.key = list(text = paste(c(50,90,10), "\% quantile"),
                   points = FALSE, lines = TRUE))
 
 ## seems not to work...
