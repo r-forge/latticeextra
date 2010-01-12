@@ -1,13 +1,15 @@
 # setwd("X:/Packages/latticeextra/www")
+# Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs8.63/bin/gswin32c.exe")
 
 library(latticeExtra)
 library(grid)
-library(Cairo)
 
 ## stop on errors
 lattice.options(panel.error = NULL)
 
-baseLink <- "http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/"
+helpLinkBase <- "http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/"
+
+imageSrcBase <- "http://150.203.60.53/latticeExtra/"
 
 ## we want to be able to run example() for each function
 ## but only to keep *one* of the plots produced
@@ -18,7 +20,6 @@ baseLink <- "http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/
 
 ## global variables:
 .plotNumber <- 0
-.plotName <- NA
 target <- NA
 
 ## set the lattice print function to keep a counter
@@ -58,8 +59,10 @@ gen <- function(name, which, width = 500, height = 350,
 {
     ## generate PNG image of example number 'which' in ?name
     .plotNumber <<- 0
-    .plotName <<- name
     target <<- which
+    
+    ## for filenames and DOM ids
+    okname <- gsub(" ", "_", name)
 
     tryCatch(eval.parent(call("example", examplename, local = FALSE, ask = FALSE)),
              normalStop = function(e) message(e))
@@ -69,12 +72,14 @@ gen <- function(name, which, width = 500, height = 350,
     themeNames <- c("default", "black_and_white", "classic_gray",
                     "custom_theme", "custom_theme_2", "theEconomist")
 
-    ## need to avoid '.' in javascript
-    okname <- gsub("[\\. ]", "_", name)
-
     for (theme in themeNames) {
         filename <- paste("plots/", theme, "/", okname, ".png", sep = "")
-        CairoPNG(filename, width = width, height = height)
+        ## various attempts to get nice anti-aliased plots
+        #ps.options(fonts = c("sans", "serif"))
+        #bitmap(filename, width = width, height = height,
+        #       units = "px", taa = 4, gaa = 4)
+        #png(filename, width = width/72, height = height/72, units = "in", res = 300)
+        #png(filename, width = width, height = height, units = "px")
         trellis.par.set(switch(theme,
                                default = standard.theme("pdf"),
                                black_and_white = standard.theme(color = FALSE),
@@ -83,10 +88,13 @@ gen <- function(name, which, width = 500, height = 350,
                                custom_theme_2 = custom.theme.2(),
                                theEconomist = theEconomist.theme()))
         plot(thePlot)
-        dev.off()
+        dev2bitmap(filename, width = width, height = height,
+                   units = "px", taa = 4, gaa = 4, method = "pdf")
+        #dev.off()
         message(filename, " generated")
     }
     filename <- paste("plots/default/", okname, ".png", sep = "")
+    fileurl <- paste(imageSrcBase, filename, sep = "")
 
     ## get description of this function
     if (is.null(desc)) {
@@ -95,16 +103,16 @@ gen <- function(name, which, width = 500, height = 350,
             desc <- ""
         } else {
             desc <- sub(sprintf("^%s +", examplename), "", info[i])
-            desc <- gsub(" +", " ", desc)
             if (isTRUE(infoContinues[i+1]))
                 desc <- paste(desc, info[i+1])
+            desc <- gsub(" +", " ", desc)
         }
     }
     ## generate HTML content
     item.id <- paste(okname, "_item", sep = "")
     extlinkBlock <- ""
     if (extlink) {
-        aTag <- sprintf('  <a href="%s%s.html">', baseLink, examplename)
+        aTag <- sprintf('  <a href="%s%s.html">', helpLinkBase, examplename)
         extlinkBlock <-
             paste('  <p>', aTag,
                   'Usage, Details, Examples', '</a>',
@@ -116,7 +124,7 @@ gen <- function(name, which, width = 500, height = 350,
             '  <div class="itemdesc">', desc, '  </div>',
             extlinkBlock,
             sprintf('  <img src="%s" alt="%s" width="%g" height="%g"/>',
-                    filename, name, width, height),
+                    fileurl, name, width, height),
             '</div>', ''), file = out)
     ## generate HTML nav
     write(c('<li>',
@@ -127,7 +135,7 @@ gen <- function(name, which, width = 500, height = 350,
 genGroup("general statistical plots", {
     gen("rootogram", 1)
     gen("segplot", 3, width = 400, height = 500)
-    gen("ecdfplot", 1, height = 280)
+    gen("ecdfplot", 1)
     gen("marginal.plot", 2)
 })
 
@@ -151,7 +159,7 @@ genGroup("functions of two variables", {
 
 genGroup("utilities", {
     gen("useOuterStrips", 1)
-    gen("resizePanels", 3, width = 400, height = 500,
+    gen("resizePanels", 3, width = 400, height = 550,
         examplename = "useOuterStrips",
         desc = "Resize panels to match data scales")
     gen("panel.ablineq", 6, examplename = "panel.lmlineq")
@@ -167,8 +175,8 @@ genGroup("extended trellis framework", {
 })
 
 genGroup("styles", {
-    gen("style_examples", examplename = "custom.theme", which = 1,
-        desc = "Sample plots to demonstrate different graphical settings (themes).",
+    gen("style example", examplename = "custom.theme", which = 1,
+        desc = "This is a sample plot to demonstrate different graphical settings (themes).",
         extlink = FALSE)
     gen("custom.theme", 3)
     gen("theEconomist.theme", 2)
@@ -182,6 +190,10 @@ write(c('<div id="versiontag">',
         ' on ',
         R.version.string,
         '</div>'), file = out)
+
+write(c('<script type="text/javascript">',
+        paste('var imageSrcBase = "', imageSrcBase, '";', sep = ""),
+        '</script>'), file = out)
 
 close(nav)
 close(out)

@@ -1,10 +1,16 @@
 
 var theme = "default";
+var imageSrcBase = "";
 
 $(document).ready(function(){
 	$(".groupname").hide();
 	$(".item").hide();
 	$("#intro_item").fadeIn("slow");
+
+	/* escapes . and : for element id selectors */
+	function jq(myid) { 
+	    return '#' + myid.replace(/(:|\.)/g,'\\$1');
+	}
 
 	/*$("#nav").accordion({ header: "li.group" });*/
 	$("#nav li.group a").click(function() {
@@ -19,13 +25,14 @@ $(document).ready(function(){
 		$("#nav a.active").removeClass("active");
 		$(this).addClass("active");
 		// choose image based on current theme
-		var fname = "plots/" + theme + "/" + new_id + ".png";
-		var img = $("#" + new_id + "_item img");
+		//imageSrcBase = "";
+		var fname = imageSrcBase + "plots/" + theme + "/" + new_id + ".png";
+		var img = $(jq(new_id) + "_item img");
 		img.attr("src", fname);
 		if (old_id != new_id) {
 		    // animate change of page
-		    $("#" + old_id + "_item").slideUp();
-		    $("#" + new_id + "_item").slideDown();
+		    $(jq(old_id) + "_item").slideUp();
+		    $(jq(new_id) + "_item").slideDown();
 		}
 		// do not show theme controls on intro page
 		if (new_id == "intro") {
