@@ -157,3 +157,20 @@ html>body #nav li a {
     font-size: small;
     padding-top: 2em;
 }
+
+#tagline {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: black;
+    background: #ccc url(img/mazewarpbig.jpg);
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+#tagline p {
+    margin: 0;
+    padding: 0.5em;
+}
