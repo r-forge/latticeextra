@@ -109,7 +109,6 @@ gen <- function(name, which, width = 500, height = 350,
         }
     }
     ## generate HTML content
-    item.id <- paste(okname, "_item", sep = "")
     extlinkBlock <- ""
     if (extlink) {
         aTag <- sprintf('  <a href="%s%s.html">', helpLinkBase, examplename)
@@ -119,7 +118,7 @@ gen <- function(name, which, width = 500, height = 350,
                   '  </p>',
                   '  <p>One example:</p>')
     }
-    write(c(sprintf('<div class="item" id="%s">', item.id),
+    write(c(sprintf('<div class="item" id="%s">', okname),
             '  <h3 class="itemname">', name, '  </h3>',
             '  <div class="itemdesc">', desc, '  </div>',
             extlinkBlock,
@@ -127,9 +126,10 @@ gen <- function(name, which, width = 500, height = 350,
                     fileurl, name, width, height),
             '</div>', ''), file = out)
     ## generate HTML nav
+    navid <- paste("nav_", okname, sep = "")
     write(c('<li>',
             sprintf('<a class="nav" href="%s" title="%s" id="%s">%s</a>',
-                    paste("#", item.id, sep=""), desc, okname, name),
+                    paste("#", okname, sep=""), desc, navid, name),
             '</li>'), file = nav)}
 
 genGroup("general statistical plots", {
