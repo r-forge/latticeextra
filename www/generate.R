@@ -184,13 +184,6 @@ genGroup("styles", {
 
 ## TODO: include the dataset examples too?
 
-write(c('<div id="versiontag">',
-        'latticeExtra version',
-        packageDescription("latticeExtra")$Version,
-        ' on ',
-        R.version.string,
-        '</div>'), file = out)
-
 write(c('<script type="text/javascript">',
         paste('var imageSrcBase = "', imageSrcBase, '";', sep = ""),
         '</script>'), file = out)
@@ -198,12 +191,18 @@ write(c('<script type="text/javascript">',
 close(nav)
 close(out)
 
+vTag <- paste("latticeExtra version",
+              packageDescription("latticeExtra")$Version,
+              "on", R.version.string)
+
 ## merge content.html into template.html
 content <- readLines("content.html")
 navtxt <- readLines("nav.html")
 index <- readLines("template.html")
 index <- sub("@CONTENT", paste(content, collapse = "\n"), index)
 index <- sub("@NAV", paste(navtxt, collapse = "\n"), index)
+index <- sub("@VERSIONTAG", vTag, index)
+
 write(index, file = "index.html")
 
 ## reset to normal plotting
