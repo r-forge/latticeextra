@@ -93,6 +93,8 @@ html>body #nav li a {
 }
 
 #themer {
+    max-width: 750px;
+    text-align: center;
     margin-left: 16em;
     margin-right: 1em;
     margin-bottom: 0;
@@ -101,12 +103,13 @@ html>body #nav li a {
 }
 
 #themer a {
-    margin: 0;
+    margin: 0em;
     margin-right: 0.3em;
     padding: 0.3em;
-    background: #ccc url(img/mazewarpbig.jpg);
+    !background: #ccc url(img/mazewarpbig.jpg);
+    background: #bbb;
     border: 1px solid #666;
-    border-bottom: 0;
+    !border-bottom: 0;
     text-decoration: none;
 }
 
@@ -117,7 +120,7 @@ html>body #nav li a {
 #content_container {
     margin: 0em 1em 1em 16em;
     padding: 0;
-    max-width: 650px;
+    max-width: 750px;
     color: black;
 }
 
