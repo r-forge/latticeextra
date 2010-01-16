@@ -111,6 +111,7 @@ html>body #nav li a {
     border: 1px solid #666;
     !border-bottom: 0;
     text-decoration: none;
+    font-size: small;
 }
 
 #themer a.active_theme {
@@ -118,7 +119,7 @@ html>body #nav li a {
 }
 
 #content_container {
-    margin: 0em 1em 1em 16em;
+    margin: 0em 1em 3em 16em;
     padding: 0;
     max-width: 750px;
     color: black;
@@ -158,6 +159,12 @@ html>body #nav li a {
 .item img {
     margin: 0.5em 0;
     border: 1px solid #aaa;
+}
+
+.loading {
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
 }
 
 #versiontag {

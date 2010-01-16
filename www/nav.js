@@ -37,17 +37,23 @@ function setAnchor(newItem) {
 }
 
 function loadItem(newItem) {
-    // set menu item to 'active'
-    $("#nav a.active").removeClass("active");
-    var navEl = $("#nav " + jq("nav_" + newItem));
-    navEl.addClass("active");
     if (newItem != "intro") {
-	// expand the corresponding nav group
-	navEl.parent().parent().parent().slideDown();
+	var imgEl = $(jq(newItem) + " img");
+	// add "loading" message first
+	if ($(jq(newItem) + " .loading").length == 0) {
+	    imgEl.before('<div class="loading">Loading...</div>');
+	}
+	loadEl = $(jq(newItem) + " .loading");
+	loadEl.hide().show("fast");
+	imgEl.fadeTo("fast", 0.5)
 	// choose image based on current theme
 	//imageSrcBase = "";
 	var fname = imageSrcBase + "plots/" + theme + "/" + newItem + ".png";
-	$(jq(newItem) + " img").attr("src", fname);
+	imgEl.load(function(e) {
+		loadEl.hide("fast");
+		imgEl.fadeTo("fast", 1);
+	    });
+	imgEl.attr("src", fname);
     }
     // animate change of page
     if (currentItem != newItem) {
@@ -55,6 +61,14 @@ function loadItem(newItem) {
 	currentItem = newItem;
     }
     $(jq(newItem)).slideDown();
+    // set menu item to 'active'
+    $("#nav a.active").removeClass("active");
+    var navEl = $("#nav " + jq("nav_" + newItem));
+    navEl.addClass("active");
+    if (newItem != "intro") {
+	// expand the corresponding nav group
+	navEl.parent().parent().parent().slideDown();
+    }
     // do not show theme controls on intro page
     if (newItem == "intro") {
 	$("#themer").slideUp();
@@ -93,6 +107,8 @@ jQuery(function(){
 		theme = $(this).attr("id").substring(6);
 		// set the URL anchor, will trigger loadItem()
 		setAnchor(currentItem);
+		checkAnchor();
+		return false;
 	    });
 
 	checkAnchor();
