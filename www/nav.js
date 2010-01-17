@@ -73,9 +73,9 @@ function loadItem(newItem) {
     }
     // do not show theme controls on intro page
     if (newItem == "intro") {
-	$("#themer").slideUp();
+	$("#themer").fadeOut();
     } else {
-	$("#themer").slideDown();
+	$("#themer").fadeIn();
 	$("#themer .active_theme").removeClass("active_theme");
 	$("#themer #theme_" + theme).addClass("active_theme");
     }

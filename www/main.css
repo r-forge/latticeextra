@@ -22,9 +22,12 @@ body {
 }
 
 #banner {
+    position: absolute;
+    top: 0;
+    left: 0;
     margin: 0;
     padding: 1em;
-    padding-left: 20em;
+    padding-left: 2em;
 }
 
 #banner h1 {
@@ -34,9 +37,13 @@ body {
 }
 
 #nav {
-    float: left;
+    !float: left;
+    !clear: left;
+    position: absolute;
+    left: 0;
+    top: 4em;
     width: 13em;
-    margin: 0 1em;
+    margin: 0em 1em;
     padding: 0;
 }
 
@@ -44,6 +51,10 @@ body {
     margin: 0;
     padding: 0;
     background: #ccc url(img/blur_grey.jpg) top right repeat-y;
+}
+
+#nav > ul {
+    border-bottom: 1px solid black;
 }
 
 #nav li {
@@ -93,43 +104,52 @@ html>body #nav li a {
 }
 
 #themer {
-    max-width: 750px;
+    position: absolute;
+    top: 2.5em;
+    left: 16em;
+    max-height: 1.5em;
+    min-width: 480px;
     text-align: center;
-    margin-left: 16em;
-    margin-right: 1em;
+    white-space: nowrap;
+    margin-right: 2em;
     margin-bottom: 0;
     padding: 0;
     display: none;
 }
 
 #themer a {
+    !float: left;
+    !display: block;
+    !width: auto;
+    height: 1.5em;
+    line-height: 1.5em;
     margin: 0em;
     margin-right: 0.3em;
     padding: 0.3em;
-    !background: #ccc url(img/mazewarpbig.jpg);
-    background: #bbb;
-    border: 1px solid #666;
-    !border-bottom: 0;
+    background: #A9C0D4 url(img/mazewarpblue60.png);
+    color: black;
     text-decoration: none;
     font-size: small;
     white-space: nowrap;
 }
 
 #themer a.active_theme {
-    background: #eee;
+    background: #fff;
+    font-weight: bold;
 }
 
 #content_container {
-    margin: 0em 1em 3em 16em;
+    margin: 4em 1em 3em 16em;
     padding: 0;
-    max-width: 750px;
+    max-width: 650px;
+    min-width: 480px;
     color: black;
 }
 
 #content {
     margin:0;
-    padding: 1em 1em 1em 2em;
-    background: #ccc url(img/mazewarpbig.jpg);
+    padding: 1em 2em 2em 2em;
+    background: #fff url(img/blur.jpg) top right repeat-y;
 }
 
 #content div {
@@ -140,6 +160,7 @@ html>body #nav li a {
 #content h2, h3 {
     margin-top: 0;
     padding-top: 0;
+    border-bottom: 1px solid #369;
 }
 
 .groupname {
@@ -157,9 +178,12 @@ html>body #nav li a {
     padding-top: 0.5em;
 }
 
+.item p {
+    margin-bottom: 0;
+}
+
 .item img {
-    margin: 0.5em 0;
-    border: 1px solid #aaa;
+    margin: 0;
 }
 
 .loading {
@@ -175,7 +199,7 @@ html>body #nav li a {
     font-size: small;
     float: right;
     color: black;
-    background: #ccc url(img/mazewarpbig.jpg);
+    background: #fff url(img/blur.jpg) top right repeat-y;
     opacity: 0.5;
     filter: alpha(opacity=50);
 }
