@@ -112,6 +112,7 @@ html>body #nav li a {
     !border-bottom: 0;
     text-decoration: none;
     font-size: small;
+    white-space: nowrap;
 }
 
 #themer a.active_theme {

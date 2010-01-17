@@ -27,11 +27,11 @@ function setAnchor(newItem) {
     if (newItem == "intro") {
 	a = "#";
     } else {
-	if (theme == "default") {
-	    a = "#" + newItem;
-	} else {
+	//if (theme == "default") {
+	//    a = "#" + newItem;
+	//} else {
 	    a = "#" + newItem + "&theme=" + theme;
-	}
+	//}
     }
     document.location.hash = a;
 }
@@ -39,21 +39,23 @@ function setAnchor(newItem) {
 function loadItem(newItem) {
     if (newItem != "intro") {
 	var imgEl = $(jq(newItem) + " img");
-	// add "loading" message first
-	if ($(jq(newItem) + " .loading").length == 0) {
-	    imgEl.before('<div class="loading">Loading...</div>');
-	}
-	loadEl = $(jq(newItem) + " .loading");
-	loadEl.hide().show("fast");
-	imgEl.fadeTo("fast", 0.5)
-	// choose image based on current theme
-	//imageSrcBase = "";
 	var fname = imageSrcBase + "plots/" + theme + "/" + newItem + ".png";
-	imgEl.load(function(e) {
-		loadEl.hide("fast");
-		imgEl.fadeTo("fast", 1);
-	    });
-	imgEl.attr("src", fname);
+	if (imgEl.attr("src") != fname) {
+	    // add "loading" message first
+	    if ($(jq(newItem) + " .loading").length == 0) {
+		imgEl.before('<div class="loading">Loading...</div>');
+	    }
+	    loadEl = $(jq(newItem) + " .loading");
+	    loadEl.hide().show("fast");
+	    imgEl.fadeTo("fast", 0.5);
+	    // choose image based on current theme
+	    //imageSrcBase = "";
+	    imgEl.load(function(e) {
+		    loadEl.hide("fast");
+		    imgEl.fadeTo("fast", 1);
+		});
+	    imgEl.attr("src", fname);
+	}
     }
     // animate change of page
     if (currentItem != newItem) {
