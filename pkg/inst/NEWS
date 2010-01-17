@@ -1,5 +1,5 @@
 
-Changes in Version 0.6-5 (in development)
+Changes in Version 0.6-5
 
  o new panel functions panel.smoother() and panel.quantile().
    The latter requires the quantreg package.
