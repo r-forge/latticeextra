@@ -19,8 +19,6 @@ S3method(segplot, formula)
 
 S3method(mapplot, formula)
 
-## TODO: remove this after lattice releases xyplot.ts
-S3method(xyplot, ts)
 S3method(xyplot, stl)
 
 
@@ -30,6 +28,10 @@ export(custom.theme)
 export(custom.theme.2)
 
 ## contributions from Felix Andrews
+
+export(horizonplot)
+S3method(horizonplot, default)
+export(panel.horizonplot, prepanel.horizonplot)
 
 export(panel.smoother)
 export(panel.quantile)

@@ -1,4 +1,10 @@
 
+Changes in Version 0.6-6 (under development)
+
+ o xyplot.ts actually removed now.
+ 
+ o new function horizonplot().
+
 Changes in Version 0.6-5
 
  o new panel functions panel.smoother() and panel.quantile().
