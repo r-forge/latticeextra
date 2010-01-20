@@ -1,3 +1,6 @@
+##
+## Copyright (c) 2010 Felix Andrews <felix@nfrac.org>
+## GPL version 2 or newer
 
 
 horizonplot <- function(x, data, ...)
@@ -7,9 +10,10 @@ horizonplot.default <-
     function(x, data = NULL, ...,
              panel = panel.horizonplot,
              prepanel = prepanel.horizonplot,
-             strip = FALSE, groups = NULL, 
-             layout = c(1, Inf),
-             default.scales = list(y = list(relation = "sliced")))
+             strip = FALSE, groups = NULL,
+             layout = c(1, NA),
+             default.scales =
+               list(y = list(relation = "sliced", draw = FALSE)))
 {
     stopifnot(is.null(data))
     if (!is.null(groups))
@@ -29,17 +33,12 @@ panel.horizonplot <-
 {
     regions <- trellis.par.get("regions")
     origin <- current.panel.limits()$y[1]
-    #if (is.function(origin))
-    #    origin <- origin(y)
-    #scale <- max(abs(range(y, finite = TRUE) - origin)) / 3
     scale <- diff(current.panel.limits()$y)
     ## ordered for drawing, from least extreme to most extreme
-    sections <- c(-1, 0, -2, 1, -3, 2, -4, 3) ## these are the lower bounds
-    #ycut <- cut(y, breaks = c(-Inf, breaks, Inf))
+    sections <- c(0, -1, 1, -2, 2, -3, 3, -4) ## these are the lower bounds
     ii <- quantile(seq_along(col.regions),
                    (sections - min(sections)) / (length(sections)-1),
                    type = 1)
-    #col <- col.regions[1 + (length(col.regions)-1) * 0:5/5]
     col <- col.regions[ii]
     for (i in seq_along(sections)) {
         section <- sections[i]

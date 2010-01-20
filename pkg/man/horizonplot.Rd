@@ -17,12 +17,12 @@ horizonplot(x, data, \dots)
 \S3method{horizonplot}{default}(x, data = NULL, \dots,
             panel = panel.horizonplot,
             prepanel = prepanel.horizonplot,
-            strip = FALSE, groups = NULL, 
-            layout = c(1, Inf),
+            strip = FALSE, groups = NULL,
+            layout = c(1, NA),
             default.scales = list(
-                y = list(draw = FALSE, relation = "sliced")))
+                y = list(relation = "sliced", draw = FALSE)))
 
-panel.horizonplot(x, y, ..., origin, 
+panel.horizonplot(x, y, ..., origin,
              border = NA, col.regions = regions$col)
 
 prepanel.horizonplot(x, y, ..., origin = function(y) na.omit(y)[1])
@@ -46,35 +46,46 @@ prepanel.horizonplot(x, y, ..., origin = function(y) na.omit(y)[1])
     by default strips are not drawn, to save space.
   }
   \item{groups}{
-    not applicable to this plot type.
+    not applicable to this type of plot.
   }
   \item{layout, default.scales}{
     see xyplot.
   }
   \item{origin}{
-    the baseline y value for the first positive segment. This can be a
-    number, which is then constant across all panels, or it can be a
+    the baseline y value for the first (positive) segment. This can be a
+    number, which is then fixed across all panels, or it can be a
     function, which is evaluated with the \code{y} values in each
-    panel. The default is to take the first non-missing y value in each
+    panel. The default is the first non-missing y value in each
     panel.
 
     See the Details section.
   }
   \item{border}{
-    border color for the filled polygons, defaults to none.
+    border color for the filled polygons, defaults to no border.
   }
   \item{col.regions}{
-    color scale, taken by default from
+    color scale, taken by default from the current theme,
     \code{trellis.par.get("regions")$col}. This should be a divergent
     color scale (with white as the central color).
   }
 }
 
 \details{
-  Note that \code{ylim} defines the actual origin and scale used.
-  The \code{origin} argument is only used in the \code{prepanel}
-  function to choose an appropriate \code{ylim} (it is ignored by the
-  \code{panel} function). 
+  This function draws time series as filled areas, with modifications
+  to effectively visualise many time series in parallel. Data that would
+  be drawn off the top of each panel is redrawn from the bottom of the
+  panel in a darker color. Values below the origin are inverted and
+  drawn in the opposite color. There are up to three shades (typically
+  in blue) for data above the baseline and up to three shades (typically
+  in red) for data below the baseline. See the article referenced below
+  for an introduction to Horizon plots.
+
+  Note that the y scale in each panel defines the actual origin and
+  scale used. The \code{origin} argument is only used in the \code{prepanel}
+  function to choose an appropriate y scale (it is ignored by the
+  \code{panel} function). The \code{ylim} argument therefore over-rides
+  \code{origin}. The choice of \code{scales$y$relation} is also crucial;
+  see \code{\link[lattice]{xyplot}} and the examples below.
 }
 
 
@@ -121,10 +132,19 @@ horizonplot(dat, scales = "same")
 horizonplot(dat, scales = "same", origin = 0)
 
 ## illustration of the cut points used in the following plot
-xyplot(EuStockMarkets, strip.left = TRUE, scales = list(y = "same")) +
-  layer(panel.abline(h = 4000 + 1000 * -2:2, lty = c(3,2,1,2,3)))
+xyplot(EuStockMarkets, scales = list(y = "same"),
+  panel = function(x, y, ...) {
+    rgn <- trellis.par.get("regions")$col
+    col <- rgn[1 + (length(rgn)-1) * 0:7/7]
+    for (i in -4:3) {
+      ilim <- 4000 + 1000 * c(i, i+1)
+      panel.xyarea(x, pmax(pmin(y, ilim[2]), ilim[1]),
+        origin = ilim[if (i < 0) 2 else 1], col = col[i+5])
+    }
+  })
 
-horizonplot(EuStockMarkets, strip.left = TRUE, 
+## compare with previous plot
+horizonplot(EuStockMarkets, strip.left = TRUE,
   scales = list(y = "same"), ylim = c(4000, 5000))
 
 ## a cut-and-stack plot; should use "same" y scales!
@@ -135,3 +155,4 @@ layer(grid::grid.text(round(x[1]), x = 0, just = "left"))
 
 }
 \keyword{hplot}
+\keyword{ts}
