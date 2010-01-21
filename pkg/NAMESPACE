@@ -52,6 +52,7 @@ export(panel.qqmath.xyarea)
 export(panel.qqmath.tails)
 
 export(panel.lmlineq, panel.ablineq)
+export(panel.scaleArrow)
 
 export(marginal.plot)
 S3method(c, trellis)
