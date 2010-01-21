@@ -117,26 +117,25 @@ html>body #nav li a {
     position: absolute;
     top: 2.5em;
     left: 16em;
-    max-height: 1.5em;
+    height: 1.6em;
     min-width: 480px;
     text-align: center;
     white-space: nowrap;
+    margin: 0;
     margin-right: 2em;
-    margin-bottom: 0;
     padding: 0;
     display: none;
 }
 
 #themer a {
-    height: 1.5em;
-    line-height: 1.5em;
+    line-height: 1.6em;
     margin: 0em;
     margin-right: 0.3em;
     padding: 0.3em;
     background: #A9C0D4 url(img/mazewarpblue60.png);
     color: black;
     text-decoration: none;
-    font-size: small;
+    font-size: 90%;
     white-space: nowrap;
 }
 
