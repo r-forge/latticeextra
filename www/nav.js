@@ -69,7 +69,7 @@ function loadItem(newItem) {
     navEl.addClass("active");
     if (newItem != "intro") {
 	// expand the corresponding nav group
-	navEl.parent().parent().parent().slideDown();
+	openNavGroup(navEl.parents("li.navgroup"));
     }
     // do not show theme controls on intro page
     if (newItem == "intro") {
@@ -86,18 +86,26 @@ function jq(myid) {
     return '#' + myid.replace(/(:|\.)/g,'\\$1');
 }
 
+function openNavGroup(el) {
+    el.siblings("li.opengroup").slideUp();
+    //$("#nav li.opengroup").slideUp();
+    el.slideDown().addClass("opengroup");
+    el;
+}
+
 jQuery(function(){
 	$(".groupname").hide();
 	$(".item").hide();
+	$("#nav li.navgroup").hide();
 	//$("#intro").show();
 
 	/*$("#nav").accordion({ header: "li.group" });*/
-	$("#nav li.group a").click(function() {
-		$(this).parent().next().slideToggle();
+	$("#nav li.navhead a").click(function() {
+		openNavGroup($(this).parent().next());
 		return false;
-	    }).parent().next().hide();
+	    });
 
-	$("#nav a.nav").click(function(e) {
+	$("#nav li.navgroup a").click(function(e) {
 		e.preventDefault();
 		var newItem = $(this).attr("id").substring(4);
 		// set the URL anchor, will trigger loadItem()

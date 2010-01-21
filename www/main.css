@@ -19,25 +19,8 @@ html>body, html>body #container {
 	src: url('delicious-123/Delicious-Roman.otf');
 }
 @font-face {
-	font-family: Delicious;
-	font-weight: bold;
-	src: url('delicious-123/Delicious-Bold.otf');
-}
-@font-face {
-	font-family: FertigoPro;
-	src: url('Fertigo_PRO.otf');
-}
-@font-face {
-	font-family: MuseoSans;
-	src: url('MuseoSans_500.otf');
-}
-@font-face {
-	font-family: MuseoSansItalic;
-	src: url('MuseoSans_500_Italic.otf');
-}
-@font-face {
-	font-family: Calluna;
-	src: url('Calluna-Regular.otf');
+	font-family: DeliciousBoldItalic;
+	src: url('delicious-123/Delicious-BoldItalic.otf');
 }
 */
 
@@ -46,7 +29,7 @@ body {
     min-height: 100%;
     color: white;
     font-family: sans-serif;
-    font-size: 11pt;
+    font-size: 16px;
     background: #369 url(img/mazewarpblue.png);
 }
 
@@ -60,7 +43,7 @@ body {
 }
 
 #banner h1 {
-    font-size: 30px;
+    font-size: 34px;
     margin: 0;
     padding: 0;
 }
@@ -71,6 +54,7 @@ body {
     top: 4em;
     width: 13em;
     margin: 0em 1em;
+    margin-bottom: 3em;
     padding: 0;
 }
 
@@ -97,22 +81,21 @@ body {
     margin: 0;
     padding: 2px 0.75em;
     text-decoration: none;
-    font-weight: bold;
     border-top: 1px solid black;
     border-left: 1em solid #444;
     border-bottom: 0px;
     color: black;
     width: 100%;
 }
-#nav a.nav {
+#nav a.navitem {
     background: #fff url(img/blur.jpg) top right repeat-y;
 }
-#nav a.subnav {
+#nav li.navhead a {
     background: #ccc url(img/blur_grey.jpg) top right repeat-y;
 }
-#nav a.nav:link { color: #14b; }
-#nav a.nav:visited { color: #14b; }
-#nav a:hover {
+#nav a.navitem:link { color: #14b; }
+#nav a.navitem:visited { color: #14b; }
+#nav a.navitem:hover {
     border-color: #222;
     background: #ccc url(img/blur_grey.jpg) top right repeat-y;
 }
@@ -159,7 +142,6 @@ html>body #nav li a {
 
 #themer a.active_theme {
     background: #fff;
-    font-weight: bold;
 }
 
 #content_container {
@@ -222,7 +204,7 @@ html>body #nav li a {
     width: auto;
     margin: 0;
     padding: 0.3em 0.5em;
-    font-size: small;
+    font-size: 90%;
     float: right;
     color: black;
     background: #fff url(img/blur.jpg) top right repeat-y;
@@ -232,13 +214,13 @@ html>body #nav li a {
 
 #tagline {
     position: fixed;
-    left: 0.5em;
+    right: 0.5em;
     bottom: 0.5em;
     margin: 0;
     padding: 0;
     width: 10em;
     width: auto;
-    font-size: small;
+    font-size: 90%;
     opacity: 0.75;
     filter: alpha(opacity=75);
 }

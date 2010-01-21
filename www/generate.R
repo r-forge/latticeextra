@@ -47,8 +47,8 @@ genGroup <- function(txt, expr)
 {
     write(sprintf('  <h2 class="groupname">%s</h2>', txt),
           file = out)
-    write(c('<li class="group"><a class="subnav" href="#">', txt, '</a></li>',
-            '<li><ul>'), file = nav)
+    write(c('<li class="navhead"><a href="#">', txt, '</a></li>',
+            '<li class="navgroup"><ul>'), file = nav)
     force(expr)
     write('</ul></li>', file = nav)
     write(c('', ''), file = out)
@@ -73,8 +73,11 @@ gen <- function(name, which, width = 500, height = 350,
                     "custom_theme", "custom_theme_2", "theEconomist")
 
     for (theme in themeNames) {
-        filename <- paste("plots/", theme, "/", okname, ".png", sep = "")
+        if (!file.exists(file.path("plots", theme)))
+            dir.create(paste("plots/", theme, sep = ""), recursive = TRUE)
+        filename <- file.path("plots", theme, paste(okname, ".png", sep = ""))
         ## various attempts to get nice anti-aliased plots
+        ## and trying to get theEconomist.theme fonts to work in various devices...
         #ps.options(fonts = c("sans", "serif"))
         #bitmap(filename, width = width, height = height,
         #       units = "px", taa = 4, gaa = 4)
@@ -128,7 +131,7 @@ gen <- function(name, which, width = 500, height = 350,
     ## generate HTML nav
     navid <- paste("nav_", okname, sep = "")
     write(c('<li>',
-            sprintf('<a class="nav" href="%s" title="%s" id="%s">%s</a>',
+            sprintf('<a class="navitem" href="%s" title="%s" id="%s">%s</a>',
                     paste("#", okname, sep=""), desc, navid, name),
             '</li>'), file = nav)}
 
@@ -145,6 +148,7 @@ genGroup("functions of one variable", {
     gen("panel.xblocks", 3, width = 600, height = 200)
     gen("panel.xyarea", 1)
     gen("panel.tskernel", 1)
+    gen("horizonplot", 6, height = 550)
     ## xyplot.stl?
 })
 
@@ -163,6 +167,7 @@ genGroup("utilities", {
         examplename = "useOuterStrips",
         desc = "Resize panels to match data scales")
     gen("panel.ablineq", 6, examplename = "panel.lmlineq")
+    gen("panel.scaleArrow", 1, height = 400)
     gen("panel.3dmisc", 2, height = 400)
     ## panel.qqmath.tails
 })
