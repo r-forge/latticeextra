@@ -17,20 +17,25 @@ horizonplot(x, data, \dots)
 \S3method{horizonplot}{default}(x, data = NULL, \dots,
             panel = panel.horizonplot,
             prepanel = prepanel.horizonplot,
-            strip = FALSE, groups = NULL,
-            layout = c(1, NA),
-            default.scales = list(
-                y = list(relation = "sliced", draw = FALSE)))
+            strip = FALSE, strip.left = TRUE,
+            par.strip.text = list(cex = 0.6),
+            layout = c(1, NA), groups = NULL,
+            default.scales =
+              list(y = list(relation = "sliced", axs = "i", 
+                            draw = FALSE, tick.number = 2)))
 
 panel.horizonplot(x, y, ..., origin,
-             border = NA, col.regions = regions$col)
+            border = NA, col.regions = regions$col)
 
 prepanel.horizonplot(x, y, ..., origin = function(y) na.omit(y)[1])
 }
 
 \arguments{
-  \item{x}{ Argument on which argument dispatch is carried
+  \item{x, y}{ Argument on which argument dispatch is carried
     out. Typically this will be a multivariate time series.
+
+    In the panel and prepanel functions, these are the data
+    coordinates. 
   }
   \item{data}{
     Not used, and must be left as \code{NULL}.
@@ -42,14 +47,19 @@ prepanel.horizonplot(x, y, ..., origin = function(y) na.omit(y)[1])
     the function that actually implements the display.  }
   \item{prepanel}{ function determining range of the data rectangle from
     data to be used in a panel. }
-  \item{strip}{
-    by default strips are not drawn, to save space.
+  \item{strip, strip.left}{
+    by default strips are only drawn on the left, to save space.
+  }
+  \item{par.strip.text}{
+    graphical parameters for the strip text; see
+    \code{\link[lattice]{xyplot}}. One notable argument here is
+    \code{lines}, allowing multi-line text.
+  }
+  \item{layout, default.scales}{
+    see \code{\link[lattice]{xyplot}}.
   }
   \item{groups}{
     not applicable to this type of plot.
-  }
-  \item{layout, default.scales}{
-    see xyplot.
   }
   \item{origin}{
     the baseline y value for the first (positive) segment. This can be a
@@ -116,41 +126,52 @@ prepanel.horizonplot(x, y, ..., origin = function(y) na.omit(y)[1])
 \examples{
 ## generate a random time series object with 12 columns
 set.seed(1)
-dat <- ts(matrix(cumsum(rnorm(200)), nrow = 200, ncol = 12)) +
-          matrix(cumsum(rnorm(200 * 12)), ncol = 12)
+dat <- ts(matrix(cumsum(rnorm(200 * 12)), ncol = 12))
 colnames(dat) <- paste("series", LETTERS[1:12])
 
+## show simple line plot first, for reference.
+xyplot(dat, scales = list(y = "same"))
+
+## horizonplot:
 ## draw each series with a different baseline;
 ## ('origin' default is the first data value in each series).
-## distances are comparable, but not values (scales = "sliced").
-horizonplot(dat, scales = list(y = list(draw = FALSE)),
-    ylab = list(colnames(dat), rot = 0))
+## This highlights deviations within each series.
+horizonplot(dat)
 
-## use same scales in each panel
-## (so colours represent fixed ranges across all panels)
-horizonplot(dat, scales = "same")
-horizonplot(dat, scales = "same", origin = 0)
+## now use same scales in each panel
+## (so colours represent common ranges across all panels).
+## This highlights differences across series.
+## One could potentially draw a colorkey in this case.
+horizonplot(dat, scales = list(y = list(relation = "same")),
+            origin = 0) +
+  layer(panel.scaleArrow(x = .99, pos = 2))
 
 ## illustration of the cut points used in the following plot
 xyplot(EuStockMarkets, scales = list(y = "same"),
   panel = function(x, y, ...) {
     rgn <- trellis.par.get("regions")$col
     col <- rgn[1 + (length(rgn)-1) * 0:7/7]
-    for (i in -4:3) {
-      ilim <- 4000 + 1000 * c(i, i+1)
-      panel.xyarea(x, pmax(pmin(y, ilim[2]), ilim[1]),
-        origin = ilim[if (i < 0) 2 else 1], col = col[i+5])
+    for (i in c(-4:-1, 3:0)) {
+      if (i >= 0)
+        yi <- pmax(4000, pmin(y, 4000 + 1000 * (i+1)))
+      if (i < 0)
+        yi <- pmin(4000, pmax(y, 4000 + 1000 * i))
+      panel.xyarea(x, yi, origin = 4000,
+        col = col[i+5], border = NA)
     }
+    panel.lines(x, y)
+    panel.abline(h = 4000, lty = 2)
   })
 
 ## compare with previous plot
 horizonplot(EuStockMarkets, strip.left = TRUE,
-  scales = list(y = "same"), ylim = c(4000, 5000))
+  scales = list(y = list(relation = "same")), ylim = c(4000, 5000)) +
+layer(panel.scaleArrow(x = 0.99, col = "grey", srt = 90, cex = 0.75))
 
 ## a cut-and-stack plot; should use "same" y scales!
 horizonplot(sunspots, cut = list(n = 23, overlap = 0),
-  scales = list(y = "same", x = list(draw = FALSE)),
-  origin = mean(sunspots)) +
+  scales = list(y = list(relation = "same"), draw = FALSE),
+  origin = mean(sunspots), strip.left = FALSE) +
 layer(grid::grid.text(round(x[1]), x = 0, just = "left"))
 
 }
