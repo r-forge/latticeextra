@@ -171,9 +171,8 @@ layer(panel.scaleArrow(x = 0.99, col = "grey", srt = 90, cex = 0.75))
 ## a cut-and-stack plot; should use "same" y scales!
 horizonplot(sunspots, cut = list(n = 23, overlap = 0),
   scales = list(y = list(relation = "same"), draw = FALSE),
-  origin = mean(sunspots), strip.left = FALSE) +
+  origin = 100, strip.left = FALSE) +
 layer(grid::grid.text(round(x[1]), x = 0, just = "left"))
-
 }
 \keyword{hplot}
 \keyword{ts}
