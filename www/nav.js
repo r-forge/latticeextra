@@ -81,15 +81,14 @@ function loadItem(newItem) {
     }
 }
 
-/* constructs an id selector, escaping '.' and ':' (jquery.com) */
+/* constructs an id selector, escaping '.' and ':' (from jquery.com) */
 function jq(myid) { 
     return '#' + myid.replace(/(:|\.)/g,'\\$1');
 }
 
 function openNavGroup(el) {
-    el.siblings("li.opengroup").slideUp();
-    //$("#nav li.opengroup").slideUp();
-    el.slideDown().addClass("opengroup");
+    el.siblings("li.navgroup:visible").slideUp();
+    el.slideDown();
     el;
 }
 
@@ -97,7 +96,6 @@ jQuery(function(){
 	$(".groupname").hide();
 	$(".item").hide();
 	$("#nav li.navgroup").hide();
-	//$("#intro").show();
 
 	/*$("#nav").accordion({ header: "li.group" });*/
 	$("#nav li.navhead a").click(function() {
