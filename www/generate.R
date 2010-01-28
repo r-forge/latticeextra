@@ -123,7 +123,7 @@ gen <- function(name, which, width = 500, height = 350,
         aTag <- sprintf('  <a href="%s%s.html">', helpLinkBase, examplename)
         extlinkBlock <-
             paste('  <p>', aTag,
-                  'Usage, Details, Examples', '</a>',
+                  'Usage, Details, Examples', '</a> (may be out of date)',
                   '  </p>',
                   '  <p>One example:</p>')
     }
@@ -228,4 +228,4 @@ index <- sub("@VERSIONTAG", vTag, index)
 write(index, file = "index.html")
 
 ## reset to normal plotting
-lattice.options(print.function = NULL, default.theme = theme)
+lattice.options(print.function = NULL, default.theme = NULL)
