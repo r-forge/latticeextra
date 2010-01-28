@@ -12,8 +12,10 @@ panel.tskernel <-
     x <- as.ts(x)
     if (sides == 2) {
         i <- -kern$m:kern$m
+        filter <- kern[i]
     } else if (sides == 1) {
         i <- -kern$m:0
+        filter <- kern[i] / sum(kern[i])
     } else stop("unrecognised value of 'sides'")
-    panel.lines(filter(x, kern[i], sides = sides, circular = circular), ...)
+    panel.lines(filter(x, filter, sides = sides, circular = circular), ...)
 }
