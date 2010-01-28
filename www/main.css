@@ -188,6 +188,12 @@ html>body #nav li a {
     padding-top: 0.5em;
 }
 
+.itemcode {
+    font-family: monospace;
+    whitespace: pre-wrap;
+    color: #666;
+}
+
 .item p {
     margin-bottom: 0;
 }

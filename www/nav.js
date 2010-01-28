@@ -39,6 +39,9 @@ function setAnchor(newItem) {
 function loadItem(newItem) {
     if (newItem != "intro") {
 	var imgEl = $(jq(newItem) + " img");
+	// choose image based on current theme
+	// uncomment this to use local images:
+	//imageSrcBase = "";
 	var fname = imageSrcBase + "plots/" + theme + "/" + newItem + ".png";
 	if (imgEl.attr("src") != fname) {
 	    // add "loading" message first
@@ -48,8 +51,6 @@ function loadItem(newItem) {
 	    loadEl = $(jq(newItem) + " .loading");
 	    loadEl.hide().show("fast");
 	    imgEl.fadeTo("fast", 0.5);
-	    // choose image based on current theme
-	    //imageSrcBase = "";
 	    imgEl.load(function(e) {
 		    loadEl.hide("fast");
 		    imgEl.fadeTo("fast", 1);
