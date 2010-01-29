@@ -1,0 +1,233 @@
+
+<html><head><title>R: Draw a line with a label, by default its equation</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for panel.lmlineq {latticeExtra}"><tr><td>panel.lmlineq {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Draw a line with a label, by default its equation</h2>
+
+
+<h3>Description</h3>
+
+
+This is an extension of the panel functions <code>panel.abline</code> and
+<code>panel.lmline</code> to also draw a label on the line. The
+default label is the line equation, and optionally the R squared value
+of its fit to the data points.
+
+
+
+<h3>Usage</h3>
+
+<pre>
+panel.ablineq(a = NULL, b = 0,
+              h = NULL, v = NULL,
+              reg = NULL, coef = NULL,
+              pos = if (rotate) 1 else NULL,
+              offset = 0.5, adj = NULL,
+              at = 0.5, x, y,
+              rotate = FALSE, srt = 0,
+              label = NULL,
+              varNames = alist(y = y, x = x),
+              varStyle = "italic",
+              fontfamily = "serif",
+              digits = 3,
+              r.squared = FALSE, sep = ", ", sep.end = "",
+              col, col.text, col.line,
+              ..., reference = FALSE)
+
+panel.lmlineq(x, y, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>a, b, h, v, reg, coef</code></td>
+<td>
+
+specification of the line.
+The simplest usage is to give <code>a</code> and <code>b</code> to describe the
+line <EM>y = a + b x</EM>.
+Horizontal or vertical lines can be specified as
+arguments <code>h</code> or <code>v</code>, respectively.
+The first argument (<code>a</code>) can also be a model object produced by
+<code>lm</code>.
+See <code>panel.abline</code> for more details.
+</td></tr>
+<tr valign="top"><td><code>pos, offset, adj, fontfamily</code></td>
+<td>
+
+passed on to <code>panel.text</code>.
+
+
+For <code>pos</code>: 1 = below, 2 = left, 3 = above, 4 = right,
+and the <code>offset</code> (in character widths) is applied.
+
+
+For <code>adj</code>: c(0,0) = above right, c(1,0) = above left,
+c(0,1) = below right, c(1,1) = below left;
+offset does not apply when using <code>adj</code>.
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+position of the equation as a fractional distance along the line.
+This should be in the range 0 to 1.
+When a vertical line is drawn, this gives the vertical position of
+the equation.
+</td></tr>
+<tr valign="top"><td><code>x, y</code></td>
+<td>
+
+position of the equation in native units. If given, this over-rides
+<code>at</code>.
+
+
+For <code>panel.lmlineq</code> this is the data, passed on as <code>lm(y ~ x)</code>.
+</td></tr>
+<tr valign="top"><td><code>rotate, srt</code></td>
+<td>
+
+set <code>rotate = TRUE</code> to align the equation with the line.
+This will over-ride <code>srt</code>, which otherwise gives the rotation
+angle.
+Note that the calculated angle depends on the current device size;
+this will be wrong if you change the device aspect ratio after plotting.
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+
+the text to draw along with the line. If specified, this will be
+used instead of an equation.
+</td></tr>
+<tr valign="top"><td><code>varNames</code></td>
+<td>
+
+names to display for <code>x</code> and/or <code>y</code>.
+This should be a list
+like <code>list(y = "Q", x = "X")</code>
+or, for mathematical symbols,
+<code>alist(y = (alpha + beta), x = sqrt(x[t]))</code>.
+</td></tr>
+<tr valign="top"><td><code>varStyle</code></td>
+<td>
+
+the name of a <code>plotmath</code> function to wrap around the
+equation expression, or <code>NULL</code>. E.g. <code>"bolditalic"</code>,
+<code>"displaystyle"</code>.
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+
+number of decimal places to show for coefficients in equation.
+</td></tr>
+<tr valign="top"><td><code>r.squared, sep, sep.end</code></td>
+<td>
+
+the <i>R^2</i> statistic to display along with the equation of a line.
+This can be given directly as a number, or <code>TRUE</code>, in which
+case the function expects a model object (typically
+<code>lm</code>) and extracts the <i>R^2</i> statistic from it.
+
+
+The <i>R^2</i> value is separated from the equation by <code>sep</code>, and
+also <code>sep.end</code> is added to the end. For example:
+<code>panel.ablineq(lm(y ~ x), r.squared = TRUE, sep = " (", sep.end
+    = ")")</code>.
+</td></tr>
+<tr valign="top"><td><code>..., col, col.text, col.line</code></td>
+<td>
+
+passed on to <code>panel.abline</code> and
+<code>panel.text</code>.
+Note that <code>col</code> applies to both text and line; <code>col.text</code>
+applies to the equation only, and <code>col.line</code> applies to line only.
+</td></tr>
+<tr valign="top"><td><code>reference</code></td>
+<td>
+
+whether to draw the line in a "reference line" style, like that used
+for grid lines.
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+The equation is constructed as an expression using <code>plotmath</code>.
+
+
+
+<h3>Author(s)</h3>
+
+
+Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
+
+
+
+<h3>See Also</h3>
+
+
+<code>panel.abline</code>,
+<code>panel.text</code>,
+<code>lm</code>,
+<code>plotmath</code>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(0)
+xsim &lt;- rnorm(50, mean = 3)
+ysim &lt;- (0 + 2 * xsim) * (1 + rnorm(50, sd = 0.3))
+
+## basic use as a panel function
+xyplot(ysim ~ xsim, panel = function(x, y, ...) {
+  panel.xyplot(x, y, ...)
+  panel.ablineq(a = 0, b = 2, adj = c(0,1))
+  panel.lmlineq(x, y, adj = c(1,0), lty = 2,
+                col.line = "grey", digits = 1)
+})
+
+## using layers:
+xyplot(ysim^2 ~ xsim) +
+  layer(panel.ablineq(lm(y ~ x, subset = x &lt;= 3),
+    varNames = alist(y = y^2, x = x[x &lt;= 3]), pos = 4))
+
+## rotated equation (depends on device aspect at plotting time)
+xyplot(ysim ~ xsim) +
+  layer(panel.ablineq(lm(y ~ x), rotate = TRUE, at = 0.8))
+
+## horizontal and vertical lines
+xyplot(ysim ~ xsim) +
+  layer(panel.ablineq(v = 3, pos = 4, at = 0.1, lty = 2,
+                      label = "3.0 (critical value)")) +
+  layer(panel.ablineq(h = mean(ysim), pos = 3, at = 0.15, lty = 2,
+                      varNames = alist(y = plain(mean)(y))))
+
+## using layer styles, r.squared
+xyplot(ysim ~ xsim) +
+  layer(panel.ablineq(lm(y ~ x), r.sq = TRUE,
+                      at = 0.4, adj=0:1), style = 1) +
+  layer(panel.ablineq(lm(y ~ x + 0), r.sq = TRUE,
+                      at = 0.6, adj=0:1), style = 2)
+
+## alternative placement of equations
+xyplot(ysim ~ xsim) +
+  layer(panel.ablineq(lm(y ~ x), r.sq = TRUE, rot = TRUE,
+                      at = 0.8, pos = 3), style = 1) +
+  layer(panel.ablineq(lm(y ~ x + 0), r.sq = TRUE, rot = TRUE,
+                      at = 0.8, pos = 1), style = 2)
+
+update(trellis.last.object(),
+  auto.key = list(text = c("intercept", "no intercept"),
+                  points = FALSE, lines = TRUE))
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

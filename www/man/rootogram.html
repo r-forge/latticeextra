@@ -1,0 +1,212 @@
+
+<html><head><title>R: Trellis Displays of Tukey's Hanging Rootograms</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for rootogram {latticeExtra}"><tr><td>rootogram {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Trellis Displays of Tukey's Hanging Rootograms</h2>
+
+
+<h3>Description</h3>
+
+
+Displays hanging rootograms. 
+
+
+
+<h3>Usage</h3>
+
+<pre>
+rootogram(x, ...)
+
+## S3 method for class 'formula':
+rootogram(x, data = parent.frame(),
+          ylab = expression(sqrt(P(X == x))),
+          prepanel = prepanel.rootogram,
+          panel = panel.rootogram,
+          ...)
+
+prepanel.rootogram(x, y = table(x),
+                   dfun = NULL,
+                   transformation = sqrt,
+                   hang = TRUE,
+                   ...)
+
+panel.rootogram(x, y = table(x),
+                dfun = NULL,
+                col = plot.line$col,
+                lty = plot.line$lty,
+                lwd = plot.line$lwd,
+                alpha = plot.line$alpha,
+                transformation = sqrt,
+                hang = TRUE,
+                ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y</code></td>
+<td>
+ For <code>rootogram</code>, <code>x</code> is the object on which
+method dispatch is carried out.  For the <code>"formula"</code> method,
+<code>x</code> is a formula describing the form of conditioning plot.  The
+formula can be either of the form <code>~x</code> or of the form
+<code>y~x</code>.  In the first case, <code>x</code> is assumed to be a vector
+of raw observations, and an observed frequency distribution is
+computed from it.  In the second case, <code>x</code> is assumed to be
+unique values and <code>y</code> the corresponding frequencies.  In either
+case, further conditioning variables are allowed.
+
+
+A similar interpretation holds for <code>x</code> and <code>y</code> in
+<code>prepanel.rootogram</code> and <code>panel.rootogram</code>.
+</td></tr>
+
+
+<tr valign="top"><td><code>data</code></td>
+<td>
+ For the <code>"formula"</code> method, a data frame containing
+values for any variables in the formula, as well as those in
+<code>groups</code> and <code>subset</code> if applicable (<code>groups</code> is
+currently ignored by the default panel function).  By default the
+environment where the function was called from is used.  </td></tr>
+
+
+<tr valign="top"><td><code>dfun</code></td>
+<td>
+ a probability mass function, to be evaluated at unique x
+values </td></tr>
+
+
+<tr valign="top"><td><code>prepanel, panel</code></td>
+<td>
+ panel and prepanel function used to create the
+display.  </td></tr>
+
+
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+ the y-axis label; typically a character string or an
+expression. </td></tr>
+
+
+<tr valign="top"><td><code>col, lty, lwd, alpha</code></td>
+<td>
+ graphical parameters </td></tr>
+
+
+<tr valign="top"><td><code>transformation</code></td>
+<td>
+ a vectorized function.  Relative frequencies
+(observed) and theoretical probabilities (<code>dfun</code>) are
+transformed by this function before being plotted. </td></tr>
+
+
+<tr valign="top"><td><code>hang</code></td>
+<td>
+logical, whether lines representing observed relative
+freuqncies should &ldquo;hang&rdquo; from the curve representing the
+theoretical probabilities. </td></tr>
+
+
+<tr valign="top"><td><code>...</code></td>
+<td>
+ extra arguments, passed on as appropriate.  Standard
+lattice arguments as well as arguments to <code>panel.rootogram</code>
+can be supplied directly in the high level <code>rootogram</code> call.
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+This function implements Tukey's hanging rootograms.  Also consider
+the <code>rootogram</code> function in the <code>vcd</code> package, especially if
+the number of unique values is small.  
+
+
+<h3>Value</h3>
+
+
+<code>rootogram</code> produces an object of class <code>"trellis"</code>. The
+<code>update</code> method can be used to update components of the object and
+the <code>print</code> method (usually called by default) will plot it on an
+appropriate plotting device.
+
+
+
+
+
+<h3>Author(s)</h3>
+
+ Deepayan Sarkar <a href="mailto:deepayan.sarkar@gmail.com">deepayan.sarkar@gmail.com</a>
+
+
+<h3>See Also</h3>
+
+
+<code>xyplot</code>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+
+library(lattice)
+
+x &lt;- rpois(1000, lambda = 50)
+
+p &lt;- rootogram(~x, dfun = function(x) dpois(x, lambda = 50))
+p
+
+lambdav &lt;- c(30, 40, 50, 60, 70)
+
+update(p[rep(1, length(lambdav))],
+       aspect = "xy",
+       panel = function(x, ...) {
+           panel.rootogram(x,
+                           dfun = function(x)
+                           dpois(x, lambda = lambdav[panel.number()]))
+       })
+
+
+lambdav &lt;- c(46, 48, 50, 52, 54)
+
+update(p[rep(1, length(lambdav))],
+       aspect = "xy",
+       prepanel = function(x, ...) {
+           tmp &lt;-
+               lapply(lambdav,
+                      function(lambda) {
+                          prepanel.rootogram(x,
+                                             dfun = function(x)
+                                             dpois(x, lambda = lambda))
+                      })
+           list(xlim = range(sapply(tmp, "[[", "xlim")),
+                ylim = range(sapply(tmp, "[[", "ylim")),
+                dx = do.call("c", lapply(tmp, "[[", "dx")),
+                dy = do.call("c", lapply(tmp, "[[", "dy")))
+       },
+       panel = function(x, ...) {
+           panel.rootogram(x,
+                           dfun = function(x)
+                           dpois(x, lambda = lambdav[panel.number()]))
+           grid::grid.text(bquote(Poisson(lambda == .(foo)),
+                                  where = list(foo = lambdav[panel.number()])),
+                           y = 0.15,
+                           gp = grid::gpar(cex = 1.5))
+       },
+       xlab = "",
+       sub = "Random sample from Poisson(50)")
+
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

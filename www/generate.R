@@ -8,8 +8,6 @@ library(grid)
 ## stop on errors
 lattice.options(panel.error = NULL)
 
-helpLinkBase <- "http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/"
-#helpLinkBase <- "http://finzi.psych.upenn.edu/R/library/latticeExtra/html/"
 imageSrcBase <- "http://150.203.60.53/latticeExtra/"
 
 ## we want to be able to run example() for each function
@@ -48,7 +46,7 @@ infoContinues <- grepl("^ ", info)
 
 genGroup <- function(txt, expr)
 {
-    write(sprintf('  <h2 class="groupname">%s</h2>', txt),
+    write(sprintf('  <h1 class="groupname">%s</h1>', txt),
           file = out)
     write(c('<li class="navhead"><a href="#">', txt, '</a></li>',
             '<li class="navgroup"><ul>'), file = nav)
@@ -58,7 +56,7 @@ genGroup <- function(txt, expr)
 }
 
 gen <- function(name, which, width = 500, height = 350,
-                desc = NULL, examplename = name, extlink = TRUE,
+                desc = NULL, examplename = name, helplink = TRUE,
                 rerun = FALSE)
 {
     ## generate PNG image of example number 'which' in ?name
@@ -94,7 +92,7 @@ gen <- function(name, which, width = 500, height = 350,
             thePlot <- .thePlot
             firstrun <- FALSE
         }
-        dev.new(width = width/96, height = height/96)
+        dev.new(width = width/72, height = height/72)
         trellis.par.set(theme)
         plot(thePlot)
         dev2bitmap(thisfile, width = width, height = height,
@@ -117,13 +115,27 @@ gen <- function(name, which, width = 500, height = 350,
             desc <- gsub(" +", " ", desc)
         }
     }
+    ## generate HTML man page file
+    manhtml <- paste("man/", examplename, ".html", sep = "")
+    system(sprintf('R CMD Rdconv --package=latticeExtra -t html -o %s %s',
+                   manhtml, paste("../pkg/man/", examplename, ".Rd", sep = "")))
+    ## generated HTML is invalid (R 2.10.0); fix it:
+    tmp <- readLines(manhtml)
+    tmp <- gsub('</p>\n<p>', '<br/>', tmp)
+    tmp <- gsub('</?p>', '', tmp)
+    tmp <- sub('^<!DOCTYPE .*$', '', tmp)
+    tmp <- sub('^<meta .*$', '', tmp)
+    tmp <- sub('^<link .*$', '', tmp)
+    tmp <- gsub('</?hr>', "", tmp)
+    write(tmp, manhtml)
     ## generate HTML content
-    extlinkBlock <- ""
-    if (extlink) {
-        aTag <- sprintf('  <a href="%s%s.html">', helpLinkBase, examplename)
-        extlinkBlock <-
+    helplinkBlock <- ""
+    if (helplink) {
+        aTag <- sprintf('  <a href="man/%s.html" class="helplink">',
+                        examplename)
+        helplinkBlock <-
             paste('  <p>', aTag,
-                  'Usage, Details, Examples', '</a> (may be out of date)',
+                  'Usage, Details, Examples', '</a>',
                   '  </p>',
                   '  <p>One example:</p>')
     }
@@ -137,9 +149,9 @@ gen <- function(name, which, width = 500, height = 350,
                                collapse = "\n"),
                          width = 160)
     write(c(sprintf('<div class="item" id="%s">', okname),
-            '  <h3 class="itemname">', name, '  </h3>',
+            '  <h2 class="itemname">', name, '  </h2>',
             '  <div class="itemdesc">', desc, '  </div>',
-            extlinkBlock,
+            helplinkBlock,
             sprintf('  <img src="%s" alt="%s" width="%g" height="%g"/>',
                     fileurl, name, width, height),
             '  <pre class="itemcode">', itemCode,
@@ -150,7 +162,8 @@ gen <- function(name, which, width = 500, height = 350,
     write(c('<li>',
             sprintf('<a class="navitem" href="%s" title="%s" id="%s">%s</a>',
                     paste("#", okname, sep=""), desc, navid, name),
-            '</li>'), file = nav)}
+            '</li>'), file = nav)
+}
 
 genGroup("general statistical plots", {
     gen("rootogram", 1)
@@ -199,7 +212,7 @@ genGroup("extended trellis framework", {
 genGroup("styles", {
     gen("style example", examplename = "custom.theme", which = 1,
         desc = "This is a sample plot to demonstrate different graphical settings (themes).",
-        extlink = FALSE)
+        helplink = FALSE)
     gen("custom.theme", 3)
     gen("theEconomist.theme", 2)
 })

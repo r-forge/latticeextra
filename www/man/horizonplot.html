@@ -1,0 +1,236 @@
+
+<html><head><title>R: Plot many time series in parallel</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for horizonplot {latticeExtra}"><tr><td>horizonplot {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Plot many time series in parallel</h2>
+
+
+<h3>Description</h3>
+
+
+Plot many time series in parallel by cutting the y range into segments
+and overplotting them with color representing the magnitude and
+direction of deviation.
+
+
+
+<h3>Usage</h3>
+
+<pre>
+horizonplot(x, data, ...)
+
+## Default S3 method:
+horizonplot(x, data = NULL, ...,
+            panel = panel.horizonplot,
+            prepanel = prepanel.horizonplot,
+            strip = FALSE, strip.left = TRUE,
+            par.strip.text = list(cex = 0.6),
+            layout = c(1, NA), groups = NULL,
+            default.scales =
+              list(y = list(relation = "sliced", axs = "i", 
+                            draw = FALSE, tick.number = 2)))
+
+panel.horizonplot(x, y, ..., origin,
+            border = NA, col.regions = regions$col)
+
+prepanel.horizonplot(x, y, ..., origin = function(y) na.omit(y)[1])
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y</code></td>
+<td>
+ Argument on which argument dispatch is carried
+out. Typically this will be a multivariate time series.
+
+
+In the panel and prepanel functions, these are the data
+coordinates. 
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+
+Not used, and must be left as <code>NULL</code>.
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+ further arguments.  Arguments to <code>xyplot</code> as
+well as to the default panel function <code>panel.horizonplot</code>
+can be supplied directly to <code>horizonplot</code>. </td></tr>
+<tr valign="top"><td><code>panel</code></td>
+<td>
+ function to render the graphic given the data.  This is
+the function that actually implements the display.  </td></tr>
+<tr valign="top"><td><code>prepanel</code></td>
+<td>
+ function determining range of the data rectangle from
+data to be used in a panel. </td></tr>
+<tr valign="top"><td><code>strip, strip.left</code></td>
+<td>
+
+by default strips are only drawn on the left, to save space.
+</td></tr>
+<tr valign="top"><td><code>par.strip.text</code></td>
+<td>
+
+graphical parameters for the strip text; see
+<code>xyplot</code>. One notable argument here is
+<code>lines</code>, allowing multi-line text.
+</td></tr>
+<tr valign="top"><td><code>layout, default.scales</code></td>
+<td>
+
+see <code>xyplot</code>.
+</td></tr>
+<tr valign="top"><td><code>groups</code></td>
+<td>
+
+not applicable to this type of plot.
+</td></tr>
+<tr valign="top"><td><code>origin</code></td>
+<td>
+
+the baseline y value for the first (positive) segment. This can be a
+number, which is then fixed across all panels, or it can be a
+function, which is evaluated with the <code>y</code> values in each
+panel. The default is the first non-missing y value in each
+panel.
+
+
+See the Details section.
+</td></tr>
+<tr valign="top"><td><code>border</code></td>
+<td>
+
+border color for the filled polygons, defaults to no border.
+</td></tr>
+<tr valign="top"><td><code>col.regions</code></td>
+<td>
+
+color scale, taken by default from the current theme,
+<code>trellis.par.get("regions")$col</code>. This should be a divergent
+color scale (with white as the central color).
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+This function draws time series as filled areas, with modifications
+to effectively visualise many time series in parallel. Data that would
+be drawn off the top of each panel is redrawn from the bottom of the
+panel in a darker color. Values below the origin are inverted and
+drawn in the opposite color. There are up to three shades (typically
+in blue) for data above the baseline and up to three shades (typically
+in red) for data below the baseline. See the article referenced below
+for an introduction to Horizon plots.
+
+
+Note that the y scale in each panel defines the actual origin and
+scale used. The <code>origin</code> argument is only used in the <code>prepanel</code>
+function to choose an appropriate y scale (it is ignored by the
+<code>panel</code> function). The <code>ylim</code> argument therefore over-rides
+<code>origin</code>. The choice of <code>scales$y$relation</code> is also crucial;
+see <code>xyplot</code> and the examples below.
+
+
+
+<h3>Value</h3>
+
+
+An object of class <code>"trellis"</code>. The
+<code>update</code> method can be used to
+update components of the object and the
+<code>print</code> method (usually called by
+default) will plot it on an appropriate plotting device.
+
+
+
+<h3>Author(s)</h3>
+
+
+Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
+
+
+
+<h3>References</h3>
+
+
+Stephen Few (2008). Time on the Horizon.
+<EM>Visual Business Intelligence Newsletter</EM>, June/July 2008
+<a href="http://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf">http://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf</a>
+
+
+
+<h3>See Also</h3>
+
+
+<code>Lattice</code>,
+<code>xyplot.ts</code>,
+<code>panel.xyarea</code>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## generate a random time series object with 12 columns
+set.seed(1)
+dat &lt;- ts(matrix(cumsum(rnorm(200 * 12)), ncol = 12))
+colnames(dat) &lt;- paste("series", LETTERS[1:12])
+
+## show simple line plot first, for reference.
+xyplot(dat, scales = list(y = "same"))
+
+## horizonplot:
+## draw each series with a different baseline;
+## ('origin' default is the first data value in each series).
+## This highlights deviations within each series.
+horizonplot(dat)
+
+## now use same scales in each panel
+## (so colours represent common ranges across all panels).
+## This highlights differences across series.
+## One could potentially draw a colorkey in this case.
+horizonplot(dat, scales = list(y = list(relation = "same")),
+            origin = 0) +
+  layer(panel.scaleArrow(x = .99, pos = 2))
+
+## illustration of the cut points used in the following plot
+xyplot(EuStockMarkets, scales = list(y = "same"),
+  panel = function(x, y, ...) {
+    rgn &lt;- trellis.par.get("regions")$col
+    col &lt;- rgn[1 + (length(rgn)-1) * 0:7/7]
+    for (i in c(-4:-1, 3:0)) {
+      if (i &gt;= 0)
+        yi &lt;- pmax(4000, pmin(y, 4000 + 1000 * (i+1)))
+      if (i &lt; 0)
+        yi &lt;- pmin(4000, pmax(y, 4000 + 1000 * i))
+      panel.xyarea(x, yi, origin = 4000,
+        col = col[i+5], border = NA)
+    }
+    panel.lines(x, y)
+    panel.abline(h = 4000, lty = 2)
+  })
+
+## compare with previous plot
+horizonplot(EuStockMarkets, strip.left = TRUE,
+  scales = list(y = list(relation = "same")), ylim = c(4000, 5000)) +
+layer(panel.scaleArrow(x = 0.99, col = "grey", srt = 90, cex = 0.75))
+
+## a cut-and-stack plot; should use "same" y scales!
+horizonplot(sunspots, cut = list(n = 23, overlap = 0),
+  scales = list(y = list(relation = "same"), draw = FALSE),
+  origin = 100, strip.left = FALSE) +
+layer(grid::grid.text(round(x[1]), x = 0, just = "left"))
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

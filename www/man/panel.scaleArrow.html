@@ -1,0 +1,107 @@
+
+<html><head><title>R: Draw a scale bar as an arrow, labelled with its length in plot units.</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for panel.scaleArrow {latticeExtra}"><tr><td>panel.scaleArrow {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Draw a scale bar as an arrow, labelled with its length in plot units.</h2>
+
+
+<h3>Description</h3>
+
+
+Draw a scale bar as an arrow, labelled with its length in plot units.
+
+
+
+<h3>Usage</h3>
+
+<pre>
+panel.scaleArrow(x = unit(0:1, "npc"), y = unit(0:1, "npc"),
+                 default.units = "npc",
+                 digits = 0, append = "", label = NULL,
+                 angle = 30, length = 0.5, unit = "char",
+                 type = "open", ends = "both",
+                 ...,
+                 col = add.line$col, fill = col, alpha = add.line$alpha,
+                 lty = add.line$lty, lwd = add.line$lwd,
+                 col.text = add.text$col, alpha.text = add.text$alpha)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y, default.units</code></td>
+<td>
+
+coordinates of the line ends as <span class="pkg">grid</span> <code>unit</code>s or
+otherwise interpreted in <code>default.units</code>.
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+
+number of decimal places to keep for the distance measure.
+</td></tr>
+<tr valign="top"><td><code>append</code></td>
+<td>
+
+a string to append to the distance for the label.
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+
+label to place on the mid point of the scale, over-riding the default.
+</td></tr>
+<tr valign="top"><td><code>angle, length, unit, type, ends</code></td>
+<td>
+
+specification of the arrow style; see <code>panel.arrows</code>.
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+further arguments passed to <code>panel.text</code>.
+You will need at least the <code>pos</code> or <code>adj</code> arguments.
+</td></tr>
+<tr valign="top"><td><code>col, fill, alpha, lty, lwd</code></td>
+<td>
+
+graphical parameters relevant to the line.
+</td></tr>
+<tr valign="top"><td><code>col.text, alpha.text</code></td>
+<td>
+
+graphical parameters relevant to the text label. Others like
+<code>cex</code> and <code>font</code> can be passed though <code>...</code>.
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+
+Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
+
+
+
+<h3>See Also</h3>
+
+
+<code>panel.abline</code>,
+<code>grid.text</code>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+xyplot(EuStockMarkets) +
+  layer(panel.scaleArrow(x = 0.99, append = " units",
+          col = "grey", srt = 90, cex = 0.8))
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

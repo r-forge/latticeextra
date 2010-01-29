@@ -1,0 +1,202 @@
+
+<html><head><title>R: Trellis displays on Maps a.k.a. Choropleth maps</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for mapplot {latticeExtra}"><tr><td>mapplot {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Trellis displays on Maps a.k.a. Choropleth maps</h2>
+
+
+<h3>Description</h3>
+
+
+Produces Trellis displays of numeric (and eventually categorical) data
+on a map.  This is largely meant as a demonstration, and users looking
+for serious map drawing capabilities should look elsewhere (see below).
+
+
+
+<h3>Usage</h3>
+
+<pre>
+
+mapplot(x, data, ...)
+
+## S3 method for class 'formula':
+mapplot(x, data, map, outer = TRUE,
+        prepanel = prepanel.mapplot,
+        panel = panel.mapplot,
+        aspect = "iso",
+        legend = NULL,
+        breaks, cuts = 30,
+        colramp = colorRampPalette(brewer.pal(n = 11, name = "Spectral")),
+        colorkey = TRUE,
+        ...)
+
+
+prepanel.mapplot(x, y, map, ...)
+panel.mapplot(x, y, map, breaks, colramp, lwd = 0.5, ...)
+
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y</code></td>
+<td>
+ For <code>mapplot</code>, an object on which method dispatch is
+carried out.  For the formula method, a formula of the form <code>y
+      ~ x</code>, with additional conditioning variables as desired.  The
+extended form of conditioning using <code>y ~ x1 + x2</code> etc. is also
+allowed.  The formula might be interpreted as in a dot plot, except
+that <code>y</code> is taken to be the names of geographical units in
+<code>map</code>.
+
+
+Suitable subsets (packets) of <code>x</code> and <code>y</code> are passed to
+the prepanel and panel functions.
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+ A data source where names in the formula are evaluated </td></tr>
+<tr valign="top"><td><code>map</code></td>
+<td>
+ An object of class <code>"map"</code> (package <code>maps</code>),
+containing boundary information.  The names of the geographical
+units must match the <code>y</code> variable in the formula.  </td></tr>
+
+
+The remaining arguments are standard lattice arguments, relvant here
+mostly because they have different defaults than usual:
+
+
+<tr valign="top"><td><code>outer</code></td>
+<td>
+ logical; how variables separated by <code>+</code> in the
+formula are interpreted.  It is not advisable to change the
+default.  </td></tr>
+<tr valign="top"><td><code>prepanel, panel</code></td>
+<td>
+ the prepanel and panel functions </td></tr>
+<tr valign="top"><td><code>aspect</code></td>
+<td>
+ aspect ratio</td></tr>
+<tr valign="top"><td><code>breaks, cuts, colramp</code></td>
+<td>
+ controls conversion of numeric <code>x</code>
+values to a false color.  <code>colramp</code> should be
+a function that produces colors (such as <code>cm.colors</code>).
+If it is <code>NULL</code>, colors are taken from
+<code>trellis.par.get("regions")</code>. </td></tr>
+<tr valign="top"><td><code>legend, colorkey</code></td>
+<td>
+ controls legends; usually just a color key
+giving the association between numeric values of <code>x</code> and
+color.  </td></tr>
+<tr valign="top"><td><code>lwd</code></td>
+<td>
+line width</td></tr> 
+<tr valign="top"><td><code>...</code></td>
+<td>
+ Further arguments passed on to the underlying engine.
+See <code>xyplot</code> for details.  </td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+An object of class <code>"trellis"</code>.
+
+
+
+<h3>Note</h3>
+
+
+
+
+This function is meant to demonstrate how maps can be incorporated in
+a Trellis display.  Users seriously interested in geographical data
+should consider using software written by people who know what they
+are doing.
+
+
+
+
+
+<h3>Author(s)</h3>
+
+ Deepayan Sarkar 
+
+
+<h3>References</h3>
+
+ <a href="http://en.wikipedia.org/wiki/Choropleth_map">http://en.wikipedia.org/wiki/Choropleth_map</a> 
+
+
+<h3>See Also</h3>
+
+ <code>Lattice</code>  
+
+
+<h3>Examples</h3>
+
+<pre>
+
+library(maps)
+library(mapproj)
+
+
+data(USCancerRates)
+
+mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
+        data = USCancerRates,
+        map = map("county", plot = FALSE, fill = TRUE,
+                  projection = "mercator"))
+
+mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
+        data = USCancerRates,
+        map = map("county", plot = FALSE, fill = TRUE,
+                  projection = "tetra"),
+        scales = list(draw = FALSE))
+
+
+data(ancestry)
+
+county.map &lt;- 
+    map('county', plot = FALSE, fill = TRUE, 
+        projection = "azequalarea")
+
+## set a sequential color palette as current theme, and use it
+opar &lt;- trellis.par.get()
+trellis.par.set(custom.theme(region = brewer.pal(9, "Purples"),
+                             alpha.line = 0.5))
+mapplot(county ~ log10(population), ancestry, map = county.map,
+    colramp = NULL)
+trellis.par.set(opar)
+
+## Not run: 
+
+## this may take a while (should get better area records)
+
+county.areas &lt;- 
+    area.map(county.map, regions = county.map$names, sqmi = FALSE)
+    
+ancestry$density &lt;- 
+    with(ancestry, population / county.areas[as.character(county)])
+
+mapplot(county ~ log(density), ancestry,
+        map = county.map, border = NA,
+        colramp = colorRampPalette(c("white", "black")))
+
+
+## End(Not run)
+
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

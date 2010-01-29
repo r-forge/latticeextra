@@ -1,0 +1,160 @@
+
+<html><head><title>R: Miscellanous panel utilities for three dimensional Trellis Displays</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for panel.3dmisc {latticeExtra}"><tr><td>panel.3dmisc {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Miscellanous panel utilities for three dimensional Trellis Displays</h2>
+
+
+<h3>Description</h3>
+
+
+Miscellanous panel functions for use with  three dimensional Lattice
+functions such as cloud and wireframe
+
+
+
+<h3>Usage</h3>
+
+<pre>
+
+panel.3dbars(x, y, z,
+             rot.mat = diag(4), distance,
+             xbase = 1, ybase = 1,
+             xlim, xlim.scaled,
+             ylim, ylim.scaled,
+             zlim, zlim.scaled,
+             zero.scaled,
+             col = "black",
+             lty = 1, lwd = 1,
+             alpha,
+             ...,
+             col.facet = "white",
+             alpha.facet = 1)
+
+
+panel.3dpolygon(x, y, z, rot.mat = diag(4), distance,
+                xlim.scaled,
+                ylim.scaled,
+                zlim.scaled,
+                zero.scaled,
+                col = "white",
+                border = "black",
+                font, fontface,
+                ...)
+
+panel.3dtext(x, y, z, labels = seq_along(x),
+             rot.mat = diag(4), distance, ...)
+
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y, z</code></td>
+<td>
+
+data to be plotted
+</td></tr>
+<tr valign="top"><td><code>rot.mat, distance</code></td>
+<td>
+
+arguments controlling projection
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+ character or expression vectors to be uses as labels </td></tr>
+<tr valign="top"><td><code>xlim, ylim, zlim</code></td>
+<td>
+
+limits in the original scale
+</td></tr>
+<tr valign="top"><td><code>xlim.scaled, ylim.scaled, zlim.scaled</code></td>
+<td>
+
+limits after scaling
+</td></tr>
+<tr valign="top"><td><code>zero.scaled</code></td>
+<td>
+
+the value of z = 0 after scaling
+</td></tr>
+<tr valign="top"><td><code>xbase, ybase</code></td>
+<td>
+
+length of the sides of the bars (which are always centered on the
+<code>x</code> and <code>y</code> values).  Can not be vectorized.
+</td></tr>
+<tr valign="top"><td><code>col, lty, lwd, alpha, border</code></td>
+<td>
+ graphical parameters </td></tr>
+<tr valign="top"><td><code>font, fontface</code></td>
+<td>
+ unused graphical parameters, present in the
+argument list only so that they can be captured and ignored  </td></tr>
+<tr valign="top"><td><code>col.facet, alpha.facet</code></td>
+<td>
+ graphical parameters for sides of the
+bars
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+extra arguments, passed on as appropriate.
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+
+
+<code>panel.3dbars</code> and <code>panel.3dpolygon</code> are both suitable for
+use as (components of) the <code>panel.3d.cloud</code> argument of
+<code>panel.cloud</code>.  The first one produces three dimensional bars,
+and the second one draws three dimensional polygons.
+
+
+
+<h3>Author(s)</h3>
+
+ Deepayan Sarkar <a href="mailto:deepayan.sarkar@gmail.com">deepayan.sarkar@gmail.com</a>
+
+
+<h3>See Also</h3>
+
+
+<code>cloud</code>,
+<code>panel.cloud</code>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+
+library(lattice)
+
+cloud(VADeaths, panel.3d.cloud = panel.3dbars,
+      col.facet = "grey", xbase = 0.4, ybase = 0.4,
+      screen = list(z = 40, x = -30))
+
+cloud(as.table(prop.table(Titanic, margin = 1:3)[,,,2]),
+      type = c("p", "h"),
+      zlab = "Proportion\nSurvived",
+      panel.3d.cloud = panel.3dbars,
+      xbase = 0.4, ybase = 0.4,
+      aspect = c(1, 0.3),
+      scales = list(distance = 2),
+      panel.aspect = 0.5)
+
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

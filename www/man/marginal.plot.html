@@ -1,0 +1,144 @@
+
+<html><head><title>R: Display marginal distributions</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for marginal.plot {latticeExtra}"><tr><td>marginal.plot {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Display marginal distributions</h2>
+
+
+<h3>Description</h3>
+
+
+Display marginal distributions of several variables,
+which may be numeric and/or categorical, on one plot.
+
+
+
+<h3>Usage</h3>
+
+<pre>
+marginal.plot(x,
+              data = NULL,
+              groups = NULL,
+              reorder = !is.table(x),
+              plot.points = FALSE,
+              ref = TRUE, cut = 1,
+              origin = 0,
+              xlab = NULL, ylab = NULL,
+              type = c("p", if (is.null(groups)) "h"),
+              ...,
+              subset = TRUE,
+              as.table = TRUE,
+              subscripts = TRUE,
+              default.scales = list(
+                relation = "free",
+                abbreviate = TRUE, minlength = 5,
+                rot = 30, cex = 0.75, tick.number = 3,
+                y = list(draw = FALSE)),
+             layout = NULL,
+             lattice.options = list(
+               layout.heights = list(
+                 axis.xlab.padding = list(x = 0),
+                 xlab.key.padding = list(x = 0))))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+ a data frame or table, or a formula of which the first term
+is a data frame or table. Otherwise coerced with
+<code>as.data.frame</code>. </td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+ an optional data source in which groups and subset may be
+be evaluated. </td></tr>
+<tr valign="top"><td><code>groups</code></td>
+<td>
+ term, to be evaluated in <code>data</code>, that is used as a
+grouping variable. </td></tr>
+<tr valign="top"><td><code>reorder</code></td>
+<td>
+ whether to reorder factor variables by frequency. </td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+ data subset expression, evaluated in <code>data</code>. </td></tr>
+<tr valign="top"><td><code>plot.points, ref, cut</code></td>
+<td>
+ passed to <code>panel.densityplot</code>. </td></tr>
+<tr valign="top"><td><code>origin, type</code></td>
+<td>
+ passed to <code>panel.dotplot</code>. </td></tr>
+<tr valign="top"><td><code>xlab, ylab, as.table, subscripts</code></td>
+<td>
+
+see <code>xyplot</code>.
+</td></tr>
+<tr valign="top"><td><code>default.scales, layout, lattice.options</code></td>
+<td>
+
+see <code>xyplot</code>.
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+ passed to <code>panel.densityplot</code> and/or
+<code>panel.dotplot</code>. </td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+In the case of mixed numeric and categorical variables,
+the trellis objects from <code>dotplot()</code> and <code>densityplot()</code>
+are merged.
+
+
+
+<h3>Value</h3>
+
+
+a trellis object.
+
+
+
+<h3>Author(s)</h3>
+
+ Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a> 
+
+
+<h3>See Also</h3>
+
+ <code>panel.dotplot</code>,
+<code>panel.densityplot</code> 
+
+
+<h3>Examples</h3>
+
+<pre>
+enviro &lt;- environmental
+## make an ordered factor (so it will not be reordered)
+enviro$smell &lt;- cut(enviro$ozone, breaks = c(0, 30, 50, Inf),
+    labels = c("ok", "hmmm", "yuck"), ordered = TRUE)
+marginal.plot(enviro)
+
+## using groups
+enviro$is.windy &lt;- factor(enviro$wind &gt; 10,
+    levels = c(TRUE, FALSE), labels = c("windy", "calm"))
+marginal.plot(enviro[,1:5], data = enviro, groups = is.windy,
+    auto.key = list(lines = TRUE))
+
+## support for tables
+marginal.plot(Titanic)
+## table with groups
+marginal.plot(~ Titanic, data = Titanic, groups = Survived,
+    type = "b", auto.key = list(title = "Survived?"))
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

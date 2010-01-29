@@ -1,0 +1,152 @@
+
+<html><head><title>R: Trellis Displays of Empirical CDF</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for ecdfplot {latticeExtra}"><tr><td>ecdfplot {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Trellis Displays of Empirical CDF</h2>
+
+
+<h3>Description</h3>
+
+
+Conditional displays of Empirical Cumulative Distribution Functions
+
+
+
+<h3>Usage</h3>
+
+<pre>
+ecdfplot(x, data, ...)
+
+## S3 method for class 'formula':
+ecdfplot(x, data,
+         prepanel = "prepanel.ecdfplot", 
+         panel = "panel.ecdfplot",
+         ylab,
+         ...)
+## S3 method for class 'numeric':
+ecdfplot(x, data = NULL, xlab, ...)
+
+prepanel.ecdfplot(x, f.value = NULL, ...)
+
+panel.ecdfplot(x, f.value = NULL, type = "s",
+               groups = NULL, qtype = 7,
+               ref = TRUE,
+               ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+ For <code>ecdfplot</code>, <code>x</code> is the object on which
+method dispatch is carried out.  For the <code>"formula"</code> method,
+<code>x</code> is a formula describing the form of conditioning plot, and
+has to be of the form <code>~x</code>, where <code>x</code> is assumed to be a
+numeric vector.  Further conditioning variables are allowed as
+usual.
+
+
+A similar interpretation holds for <code>x</code> in the <code>"numeric"</code>
+method as well as <code>prepanel.ecdfplot</code> and
+<code>panel.ecdfplot</code>.
+</td></tr>
+
+
+<tr valign="top"><td><code>data</code></td>
+<td>
+ For the <code>"formula"</code> method, a data frame containing
+values for any variables in the formula, as well as those in
+<code>groups</code> and <code>subset</code> if applicable. </td></tr>
+
+
+<tr valign="top"><td><code>prepanel, panel</code></td>
+<td>
+ panel and prepanel function used to create the
+display.  </td></tr>
+
+
+<tr valign="top"><td><code>xlab, ylab</code></td>
+<td>
+ axis labels; typically a character string or an
+expression. </td></tr>
+
+
+<tr valign="top"><td><code>groups</code></td>
+<td>
+ a grouing variable of the same length as <code>x</code>.  If
+specified, ECDF plots are computed for each subset defined by unique
+values of <code>groups</code> and the resulting functions superposed
+within each panel.
+</td></tr>
+<tr valign="top"><td><code>f.value, qtype</code></td>
+<td>
+ Defines how quantiles are calculated. See
+<code>panel.qqmath</code>. </td></tr>
+<tr valign="top"><td><code>ref</code></td>
+<td>
+ logical, whether a reference line should be drawn at 0 and
+1</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+ how the plot is rendered; see
+<code>panel.xyplot</code> </td></tr>
+<tr valign="top"><td><code></code></td>
+<td>
+</td></tr>
+
+
+<tr valign="top"><td><code>...</code></td>
+<td>
+ extra arguments, passed on as appropriate.  Standard
+lattice arguments as well as arguments to <code>panel.ecdfplot</code>
+can be supplied directly in the high level <code>ecdfplot</code> call.
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+<code>ecdfplot</code> produces an object of class <code>"trellis"</code>. The
+<code>update</code> method can be used to update components of the object and
+the <code>print</code> method (usually called by default) will plot it on an
+appropriate plotting device.
+
+
+
+
+
+<h3>Author(s)</h3>
+
+ Deepayan Sarkar <a href="mailto:deepayan.sarkar@r-project.org">deepayan.sarkar@r-project.org</a>
+
+
+<h3>See Also</h3>
+
+
+<code>qqmath</code> for Quantile plots which are
+more generally useful, especially when comparing with a theoretical
+distribution other than uniform.  An ECDF plot is essentially a
+transposed version (i.e., with axes switched) of a uniform quantile
+plot.
+
+
+
+<h3>Examples</h3>
+
+<pre>
+
+data(singer, package = "lattice")
+ecdfplot(~height | voice.part, data = singer)
+
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

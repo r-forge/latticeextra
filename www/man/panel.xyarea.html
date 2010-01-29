@@ -1,0 +1,126 @@
+
+<html><head><title>R: Plot series as filled polygons.</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for panel.xyarea {latticeExtra}"><tr><td>panel.xyarea {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Plot series as filled polygons.</h2>
+
+
+<h3>Description</h3>
+
+
+Plot series as filled polygons connected at given origin level (on y axis).
+
+
+
+<h3>Usage</h3>
+
+<pre>
+panel.xyarea(x, ...)
+
+## Default S3 method:
+panel.xyarea(x, y, groups = NULL, origin = NULL,
+             col, border, lty, lwd, alpha, ...,
+             col.line, fill, panel.groups = panel.xyarea)
+
+## S3 method for class 'ts':
+panel.xyarea(x, y = NULL, ...)
+
+panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
+                    qtype = 7, groups = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y</code></td>
+<td>
+
+data vectors.
+</td></tr>
+<tr valign="top"><td><code>groups</code></td>
+<td>
+
+a factor defining groups.
+</td></tr>
+<tr valign="top"><td><code>origin</code></td>
+<td>
+
+level on y axis to connect the start and end of the series.
+If <code>NULL</code>, the polygon is filled to the bottom of the panel.
+</td></tr>
+<tr valign="top"><td><code>col, border, lty, lwd, alpha, col.line</code></td>
+<td>
+
+graphical parameters taken from
+<code>trellis.par.get("plot.polygon")</code> or
+<code>trellis.par.get("superpose.polygon")</code> (when groups defined).
+<code>col.line</code> overrides <code>border</code>.
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+further arguments passed on to <code>panel.polygon</code>.
+For <code>panel.qqmath.xyarea</code>, passed to <code>panel.xyarea</code>.
+</td></tr>
+<tr valign="top"><td><code>fill</code></td>
+<td>
+
+ignored; use <code>col</code> instead.
+</td></tr>
+<tr valign="top"><td><code>panel.groups</code></td>
+<td>
+
+used in <code>panel.superpose</code>.
+</td></tr>
+<tr valign="top"><td><code>f.value, distribution, qtype</code></td>
+<td>
+
+as in <code>panel.qqmath</code>.
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+none yet.
+
+
+
+<h3>Author(s)</h3>
+
+
+Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
+
+
+
+<h3>See Also</h3>
+
+
+<code>panel.xyplot</code>,
+<code>panel.polygon</code>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+xyplot(sunspot.year, panel = panel.xyarea, origin = 0,
+  aspect = "xy", cut = list(n = 3, overlap = 0))
+
+qqmath(~ data, make.groups(baseline = rnorm(100),
+                           other = rnorm(100) * 2 - 0.5),
+  groups = which, distribution = qunif,
+  panel = panel.qqmath.xyarea, xlim = 0:1,
+  auto.key = list(points = FALSE, rectangles = TRUE),
+  par.settings = simpleTheme(col = c("grey", NA),
+                             border = c(NA, "black"), lwd = 2))
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

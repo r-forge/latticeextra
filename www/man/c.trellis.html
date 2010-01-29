@@ -1,0 +1,213 @@
+
+<html><head><title>R: Merge trellis objects, using same or different scales</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for c.trellis {latticeExtra}"><tr><td>c.trellis {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Merge trellis objects, using same or different scales</h2>
+
+
+<h3>Description</h3>
+
+
+Combine the panels of multiple trellis objects into one.
+
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'trellis':
+c(..., x.same = NA, y.same = NA,
+    layout = NULL, recursive = FALSE)
+
+xyplot.list(x, data = NULL, ..., FUN = xyplot,
+    y.same = TRUE, x.same = NA, layout = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+ two or more trellis objects. If these are
+named arguments, the names will be used in the corresponding
+panel strips.
+</td></tr>
+<tr valign="top"><td><code>x.same</code></td>
+<td>
+ if <code>TRUE</code>, set the x scale relation to
+<code>"same"</code> and recalculate panel limits using data
+from all panels. Otherwise, the x scales in each panel
+will be as they were in the original objects
+(so in general not the same), the default behaviour.
+</td></tr>
+<tr valign="top"><td><code>y.same</code></td>
+<td>
+ as above, for y scales.
+Note that <code>xyplot.list</code> defaults to same y scales. Set to
+<code>NA</code> to leave them alone. </td></tr>
+<tr valign="top"><td><code>layout</code></td>
+<td>
+ value for <code>layout</code> of the new plot; see
+<code>xyplot</code>. </td></tr>
+<tr valign="top"><td><code>recursive</code></td>
+<td>
+ for consistency with the generic method, ignored. </td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+ a <code>list</code>; the function <code>FUN</code>, which defaults to
+<code>xyplot</code>, will be called on each element of <code>x</code>, and the
+resulting plots combined into one. </td></tr>
+<tr valign="top"><td><code>FUN, data</code></td>
+<td>
+ a lattice plot function, to be called on each element of
+the list <code>x</code>, along with <code>data</code> and <code>...</code> </td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+This mechanism attempts to merge the panels from multiple trellis
+objects into one. The same effect could generally be achieved by
+either a custom panel function (where the display depends on
+<code>packet.number()</code>), or using <code>print.trellis</code>
+to display multiple trellis objects. However, in some cases it is more
+convenient to use <code>c()</code>. Furthermore, it can be useful to
+maintain the display as a standard lattice display, rather than a
+composite using <code>print.trellis</code>, to simplify
+further interaction.
+
+
+Many properties of the display, such as titles, legends, axis settings
+and aspect ratio will be taken from the first object only.
+
+
+Note that combining panels from different types of plots does not
+really fit the trellis model. Some features of the plot may not work
+as expected. In particular, some work may be needed to
+show or hide scales on selected panels. An example is given below.
+
+
+Any trellis object with more than one conditioning variable will be
+"flattened" to one dimension, eliminating the multi-variate
+conditioning structure.
+
+
+
+<h3>Value</h3>
+
+
+a new trellis object.
+
+
+
+<h3>Author(s)</h3>
+
+ Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a> 
+
+
+<h3>See Also</h3>
+
+
+<code>marginal.plot</code> was the original motivating application,
+<code>print.trellis</code>,
+<code>update.trellis</code>,
+<code>trellis.object</code>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## Combine different types of plots.
+c(wireframe(volcano), contourplot(volcano))
+
+## Merging levelplot with xyplot
+levObj &lt;- levelplot(prop.table(WorldPhones, 1) * 100)
+xyObj &lt;- xyplot(Phones ~ Year, data.frame(Phones = rowSums(WorldPhones),
+      Year = row.names(WorldPhones)), type="b", ylim = c(0, 150000))
+## NOTE: prepanel.levelplot (from first object) is used for entire plot.
+cObj &lt;- c(levObj, xyObj, layout = 1:2)
+update(cObj, scales = list(y = list(rot = 0)),
+       ylab = c("proportional distribution", "number of phones"))
+
+## Combine two xyplots.
+sepals &lt;- xyplot(Sepal.Length ~ Sepal.Width, iris, groups = Species,
+    xlab = "Width", ylab = "Height")
+petals &lt;- xyplot(Petal.Length ~ Petal.Width, iris, groups = Species)
+c(Sepals = sepals, Petals = petals)
+
+## Force same scales (re-calculate panel limits from merged data):
+c(Sepals = sepals, Petals = petals, x.same = TRUE, y.same = TRUE)
+
+## Or - create xyplots from a list of formulas
+xyplot.list(list(Sepals = Sepal.Length ~ Sepal.Width,
+                 Petals = Petal.Length ~ Petal.Width),
+             data = iris, groups = Species, x.same = TRUE,
+             xlab = "Width", ylab = "Height")
+
+## Create histograms from a list of objects, and merge them.
+xyplot.list(iris, FUN = histogram)
+
+## Create cumulative distribution plots from a list of objects
+xyplot.list(iris[1:4], FUN = qqmath, groups = iris$Species,
+            auto.key = TRUE)
+
+## Display a table as both frequencies and proportions:
+data(postdoc)
+## remove last row (containing totals)
+postdoc &lt;- postdoc[1:(nrow(postdoc)-1),]
+pdprops &lt;- barchart(prop.table(postdoc, margin = 1),
+                    auto.key = list(adj = 1))
+pdmargin &lt;- barchart(margin.table(postdoc, 1))
+pdboth &lt;- c(pdprops, pdmargin)
+update(pdboth, xlab = c("Proportion", "Freq"))
+
+## Conditioned 'quakes' plot combined with histogram.
+qua &lt;- xyplot(lat ~ long | equal.count(depth, 3), quakes,
+    aspect = "iso", pch = ".", cex = 2, xlab = NULL, ylab = NULL)
+qua &lt;- c(qua, depth = histogram(quakes$depth), layout = c(4, 1))
+## suppress scales on the first 3 panels
+update(qua, scales = list(at = list(NULL, NULL, NULL, NA),
+                 y = list(draw = FALSE)))
+
+## Visualise statistical and spatial distributions
+## (advanced!)
+library(maps)
+vars &lt;- as.data.frame(state.x77)
+StateName &lt;- tolower(state.name)
+form &lt;- StateName ~ Population + Income + Illiteracy +
+   `Life Exp` + Murder + `HS Grad` + Frost + sqrt(Area)
+## construct independent maps of each variable
+statemap &lt;- map("state", plot = FALSE, fill = TRUE)
+statemap$names &lt;- gsub(":.*", "", statemap$names)
+colkey &lt;- draw.colorkey(list(col = heat.colors(100),
+    at = 0:100, labels = list(labels = c("min","max"), at = c(0,100))))
+panel.mapplot.each &lt;- function(x, breaks, ...)
+   panel.mapplot(x = x, breaks = quantile(x), ...)
+vmaps &lt;- mapplot(form, vars, map = statemap, colramp = heat.colors,
+  panel = panel.mapplot.each, colorkey = FALSE,
+  legend = list(right = list(fun = colkey)), xlab = NULL)
+## construct independent densityplots of each variable
+vdens &lt;- densityplot(form[-2], vars, outer = TRUE,
+   prepanel = function(...)
+      list(xlim = c(0, max(prepanel.default.densityplot(...)$xlim))),
+   scales = list(relation = "free", x = list(axs = "i")),
+   cex = 0.5, ref = TRUE)
+## combine panels from both plots
+combo &lt;- c(vmaps, vdens)
+## rearrange in pairs
+n &lt;- length(vars)
+npairs &lt;- rep(1:n, each = 2) + c(0, n)
+update(combo[npairs], scales = list(draw = FALSE),
+       layout = c(4, 4), between = list(x = c(0, 0.5), y = 0.5))
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 ]</div>
+</body></html>

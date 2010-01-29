@@ -18,12 +18,7 @@
 </div>
 
 <div id="themer">
-  <a href="#" id="theme_default">default</a>
-  <a href="#" id="theme_black_and_white">black and white</a>
-  <a href="#" id="theme_custom_theme">custom theme</a>
-  <a href="#" id="theme_custom_theme_2">custom theme 2</a>
-  <a href="#" id="theme_theEconomist">theEconomist</a>
-  <a href="#" id="theme_classic_gray">classic gray</a>
+  <a href="#" id="theme_default">default</a> <a href="#" id="theme_black_and_white">black and white</a> <a href="#" id="theme_custom_theme">custom theme</a> <a href="#" id="theme_custom_theme_2">custom theme 2</a> <a href="#" id="theme_theEconomist">theEconomist</a> <a href="#" id="theme_classic_gray">classic gray</a>
 </div>
 
 <div id="nav">
@@ -152,7 +147,7 @@ styles
 <div id="content">
 
   <div class="item" id="intro">
-    <h3 class="itemname">introduction</h3>
+    <h2 class="itemname">introduction</h2>
 
     <p><strong>latticeExtra</strong> is an R package (i.e. a package for the <a href="http://www.R-project.org/">R statistical computing environment</a>), providing functions for generating statistical graphics. It extends the <a href="http://cran.r-project.org/package=lattice">Lattice framework</a> (<strong>lattice</strong> package), which is an implementation of Trellis graphics in R.</p>
 
@@ -178,15 +173,15 @@ styles
 
   </div>
 
-  <h2 class="groupname">general statistical plots</h2>
+  <h1 class="groupname">general statistical plots</h1>
 <div class="item" id="rootogram">
-  <h3 class="itemname">
+  <h2 class="itemname">
 rootogram
-  </h3>
+  </h2>
   <div class="itemdesc">
 Trellis Displays of Tukey's Hanging Rootograms
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/rootogram.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/rootogram.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/rootogram.png" alt="rootogram" width="500" height="350"/>
   <pre class="itemcode">
 rootogram(~x, dfun = function(x) dpois(x, lambda = 50))
@@ -194,13 +189,13 @@ rootogram(~x, dfun = function(x) dpois(x, lambda = 50))
 </div>
 
 <div class="item" id="segplot">
-  <h3 class="itemname">
+  <h2 class="itemname">
 segplot
-  </h3>
+  </h2>
   <div class="itemdesc">
 Plot segments using the Trellis framework
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/segplot.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/segplot.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/segplot.png" alt="segplot" width="400" height="500"/>
   <pre class="itemcode">
 segplot(reorder(factor(county), rate.male) ~ LCL95.male + UCL95.male, 
@@ -210,13 +205,13 @@ segplot(reorder(factor(county), rate.male) ~ LCL95.male + UCL95.male,
 </div>
 
 <div class="item" id="ecdfplot">
-  <h3 class="itemname">
+  <h2 class="itemname">
 ecdfplot
-  </h3>
+  </h2>
   <div class="itemdesc">
 Trellis Displays of Empirical CDF
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/ecdfplot.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/ecdfplot.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/ecdfplot.png" alt="ecdfplot" width="500" height="350"/>
   <pre class="itemcode">
 ecdfplot(~height | voice.part, data = singer)
@@ -224,13 +219,13 @@ ecdfplot(~height | voice.part, data = singer)
 </div>
 
 <div class="item" id="marginal.plot">
-  <h3 class="itemname">
+  <h2 class="itemname">
 marginal.plot
-  </h3>
+  </h2>
   <div class="itemdesc">
 Display marginal distributions
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/marginal.plot.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/marginal.plot.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/marginal.plot.png" alt="marginal.plot" width="500" height="350"/>
   <pre class="itemcode">
 marginal.plot(enviro[, 1:5], data = enviro, groups = is.windy, 
@@ -240,15 +235,15 @@ marginal.plot(enviro[, 1:5], data = enviro, groups = is.windy,
 
 
 
-  <h2 class="groupname">functions of one variable</h2>
+  <h1 class="groupname">functions of one variable</h1>
 <div class="item" id="panel.smoother">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.smoother
-  </h3>
+  </h2>
   <div class="itemdesc">
 Plot a smoothing line with standard error bounds.
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.smoother.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.smoother.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.smoother.png" alt="panel.smoother" width="500" height="350"/>
   <pre class="itemcode">
 xyplot(y + y2 ~ x, xy) + glayer(panel.smoother(...))
@@ -256,13 +251,13 @@ xyplot(y + y2 ~ x, xy) + glayer(panel.smoother(...))
 </div>
 
 <div class="item" id="panel.quantile">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.quantile
-  </h3>
+  </h2>
   <div class="itemdesc">
 Plot a quantile regression line with standard error bounds.
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.quantile.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.quantile.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.quantile.png" alt="panel.quantile" width="500" height="350"/>
   <pre class="itemcode">
 update(xyplot(y ~ x, xy) + layer(panel.quantile(x, y, tau = c(0.5, 
@@ -272,13 +267,13 @@ update(xyplot(y ~ x, xy) + layer(panel.quantile(x, y, tau = c(0.5,
 </div>
 
 <div class="item" id="panel.xblocks">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.xblocks
-  </h3>
+  </h2>
   <div class="itemdesc">
 Plot contiguous blocks along x axis.
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.xblocks.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.xblocks.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.xblocks.png" alt="panel.xblocks" width="600" height="200"/>
   <pre class="itemcode">
 xyplot(flow) + layer_(panel.xblocks(time(flow), months(flowdates), 
@@ -287,13 +282,13 @@ xyplot(flow) + layer_(panel.xblocks(time(flow), months(flowdates),
 </div>
 
 <div class="item" id="panel.xyarea">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.xyarea
-  </h3>
+  </h2>
   <div class="itemdesc">
 Plot series as filled polygons.
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.xyarea.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.xyarea.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.xyarea.png" alt="panel.xyarea" width="500" height="350"/>
   <pre class="itemcode">
 xyplot(sunspot.year, panel = panel.xyarea, origin = 0, aspect = "xy", 
@@ -302,13 +297,13 @@ xyplot(sunspot.year, panel = panel.xyarea, origin = 0, aspect = "xy",
 </div>
 
 <div class="item" id="panel.tskernel">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.tskernel
-  </h3>
+  </h2>
   <div class="itemdesc">
 Plot a smoothed time series.
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.tskernel.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.tskernel.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.tskernel.png" alt="panel.tskernel" width="500" height="350"/>
   <pre class="itemcode">
 xyplot(sunspot.year) + layer(panel.tskernel(x, y, width = 20, 
@@ -317,13 +312,13 @@ xyplot(sunspot.year) + layer(panel.tskernel(x, y, width = 20,
 </div>
 
 <div class="item" id="horizonplot">
-  <h3 class="itemname">
+  <h2 class="itemname">
 horizonplot
-  </h3>
+  </h2>
   <div class="itemdesc">
 Plot many time series in parallel
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/horizonplot.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/horizonplot.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/horizonplot.png" alt="horizonplot" width="500" height="550"/>
   <pre class="itemcode">
 horizonplot(sunspots, cut = list(n = 23, overlap = 0), scales = list(y = list(relation = "same"), 
@@ -333,15 +328,15 @@ horizonplot(sunspots, cut = list(n = 23, overlap = 0), scales = list(y = list(re
 
 
 
-  <h2 class="groupname">functions of two variables</h2>
+  <h1 class="groupname">functions of two variables</h1>
 <div class="item" id="mapplot">
-  <h3 class="itemname">
+  <h2 class="itemname">
 mapplot
-  </h3>
+  </h2>
   <div class="itemdesc">
 Trellis displays on Maps a.k.a. Choropleth maps
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/mapplot.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/mapplot.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/mapplot.png" alt="mapplot" width="600" height="350"/>
   <pre class="itemcode">
 mapplot(county ~ log10(population), ancestry, map = county.map, 
@@ -350,13 +345,13 @@ mapplot(county ~ log10(population), ancestry, map = county.map,
 </div>
 
 <div class="item" id="tileplot">
-  <h3 class="itemname">
+  <h2 class="itemname">
 tileplot
-  </h3>
+  </h2>
   <div class="itemdesc">
 Plot a spatial mosaic from irregular 2D points
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/tileplot.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/tileplot.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/tileplot.png" alt="tileplot" width="500" height="350"/>
   <pre class="itemcode">
 tileplot(z ~ x * y, xyz, border = "black", col.regions = grey.colors(100), 
@@ -366,13 +361,13 @@ tileplot(z ~ x * y, xyz, border = "black", col.regions = grey.colors(100),
 </div>
 
 <div class="item" id="panel.levelplot.points">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.levelplot.points
-  </h3>
+  </h2>
   <div class="itemdesc">
 Panel functions for level-coded irregular points
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.voronoi.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.voronoi.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.levelplot.points.png" alt="panel.levelplot.points" width="600" height="350"/>
   <pre class="itemcode">
 levelplot(depth ~ long + lat | Magnitude, data = quakes.ordered, 
@@ -382,13 +377,13 @@ levelplot(depth ~ long + lat | Magnitude, data = quakes.ordered,
 </div>
 
 <div class="item" id="panel.2dsmoother">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.2dsmoother
-  </h3>
+  </h2>
   <div class="itemdesc">
 Plot a smooth approximation of z over x and y.
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.2dsmoother.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.2dsmoother.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.2dsmoother.png" alt="panel.2dsmoother" width="500" height="350"/>
   <pre class="itemcode">
 levelplot(z ~ x * y, xyz, panel = panel.levelplot.points, cex = 1.2) + 
@@ -397,13 +392,13 @@ levelplot(z ~ x * y, xyz, panel = panel.levelplot.points, cex = 1.2) +
 </div>
 
 <div class="item" id="dendrogramGrob">
-  <h3 class="itemname">
+  <h2 class="itemname">
 dendrogramGrob
-  </h3>
+  </h2>
   <div class="itemdesc">
 Create a Grob Representing a Dendrogram
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/dendrogramGrob.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/dendrogramGrob.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/dendrogramGrob.png" alt="dendrogramGrob" width="500" height="550"/>
   <pre class="itemcode">
 levelplot(x[row.ord, col.ord], aspect = "fill", scales = list(x = list(rot = 90)), 
@@ -413,15 +408,15 @@ levelplot(x[row.ord, col.ord], aspect = "fill", scales = list(x = list(rot = 90)
 
 
 
-  <h2 class="groupname">utilities</h2>
+  <h1 class="groupname">utilities</h1>
 <div class="item" id="useOuterStrips">
-  <h3 class="itemname">
+  <h2 class="itemname">
 useOuterStrips
-  </h3>
+  </h2>
   <div class="itemdesc">
 Put Strips on the Boundary of a Lattice Display
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/useOuterStrips.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/useOuterStrips.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/useOuterStrips.png" alt="useOuterStrips" width="500" height="350"/>
   <pre class="itemcode">
 xyplot(mpg ~ disp | HP + factor(cyl), mtcars, layout = dimx, 
@@ -431,13 +426,13 @@ xyplot(mpg ~ disp | HP + factor(cyl), mtcars, layout = dimx,
 </div>
 
 <div class="item" id="resizePanels">
-  <h3 class="itemname">
+  <h2 class="itemname">
 resizePanels
-  </h3>
+  </h2>
   <div class="itemdesc">
 Resize panels to match data scales
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/useOuterStrips.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/useOuterStrips.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/resizePanels.png" alt="resizePanels" width="400" height="550"/>
   <pre class="itemcode">
 dotplot(state.name ~ Frost | reorder(state.region, Frost), data = state, 
@@ -447,13 +442,13 @@ dotplot(state.name ~ Frost | reorder(state.region, Frost), data = state,
 </div>
 
 <div class="item" id="panel.ablineq">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.ablineq
-  </h3>
+  </h2>
   <div class="itemdesc">
 Draw a line with a label, by default its equation
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.lmlineq.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.lmlineq.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.ablineq.png" alt="panel.ablineq" width="500" height="350"/>
   <pre class="itemcode">
 xyplot(ysim ~ xsim) + layer(panel.ablineq(lm(y ~ x), r.sq = TRUE, 
@@ -463,13 +458,13 @@ xyplot(ysim ~ xsim) + layer(panel.ablineq(lm(y ~ x), r.sq = TRUE,
 </div>
 
 <div class="item" id="panel.scaleArrow">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.scaleArrow
-  </h3>
+  </h2>
   <div class="itemdesc">
 Draw a scale bar as an arrow, labelled with its length in plot units.
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.scaleArrow.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.scaleArrow.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.scaleArrow.png" alt="panel.scaleArrow" width="500" height="400"/>
   <pre class="itemcode">
 xyplot(EuStockMarkets) + layer(panel.scaleArrow(x = 0.99, append = " units", 
@@ -478,13 +473,13 @@ xyplot(EuStockMarkets) + layer(panel.scaleArrow(x = 0.99, append = " units",
 </div>
 
 <div class="item" id="panel.3dmisc">
-  <h3 class="itemname">
+  <h2 class="itemname">
 panel.3dmisc
-  </h3>
+  </h2>
   <div class="itemdesc">
 Miscellanous panel utilities for three dimensional Trellis Displays
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/panel.3dmisc.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/panel.3dmisc.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.3dmisc.png" alt="panel.3dmisc" width="500" height="400"/>
   <pre class="itemcode">
 cloud(as.table(prop.table(Titanic, margin = 1:3)[, , , 2]), type = c("p", 
@@ -495,15 +490,15 @@ cloud(as.table(prop.table(Titanic, margin = 1:3)[, , , 2]), type = c("p",
 
 
 
-  <h2 class="groupname">extended trellis framework</h2>
+  <h1 class="groupname">extended trellis framework</h1>
 <div class="item" id="layer">
-  <h3 class="itemname">
+  <h2 class="itemname">
 layer
-  </h3>
+  </h2>
   <div class="itemdesc">
 Add layers to a Trellis plot, optionally using a new data source
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/layer.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/layer.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/layer.png" alt="layer" width="500" height="350"/>
   <pre class="itemcode">
 qua + layer_(panel.contourplot(x = gridlon, y = gridlat, z = dist, 
@@ -512,13 +507,13 @@ qua + layer_(panel.contourplot(x = gridlon, y = gridlat, z = dist,
 </div>
 
 <div class="item" id="as.layer">
-  <h3 class="itemname">
+  <h2 class="itemname">
 as.layer
-  </h3>
+  </h2>
   <div class="itemdesc">
 Overlay panels of Trellis plots on same or different scales
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/as.layer.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/as.layer.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/as.layer.png" alt="as.layer" width="500" height="350"/>
   <pre class="itemcode">
 xyplot(fdeaths ~ mdeaths) + as.layer(bwplot(~mdeaths, box.ratio = 0.2), 
@@ -527,13 +522,13 @@ xyplot(fdeaths ~ mdeaths) + as.layer(bwplot(~mdeaths, box.ratio = 0.2),
 </div>
 
 <div class="item" id="doubleYScale">
-  <h3 class="itemname">
+  <h2 class="itemname">
 doubleYScale
-  </h3>
+  </h2>
   <div class="itemdesc">
 Draw two plot series with different y scales
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/doubleYScale.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/doubleYScale.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/doubleYScale.png" alt="doubleYScale" width="500" height="350"/>
   <pre class="itemcode">
 doubleYScale(obj1, obj2, add.ylab2 = TRUE)
@@ -541,13 +536,13 @@ doubleYScale(obj1, obj2, add.ylab2 = TRUE)
 </div>
 
 <div class="item" id="c.trellis">
-  <h3 class="itemname">
+  <h2 class="itemname">
 c.trellis
-  </h3>
+  </h2>
   <div class="itemdesc">
 Merge trellis objects, using same or different scales
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/c.trellis.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/c.trellis.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/c.trellis.png" alt="c.trellis" width="600" height="350"/>
   <pre class="itemcode">
 update(c(xyplot(lat ~ long | equal.count(depth, 3), quakes, aspect = "iso", 
@@ -558,11 +553,11 @@ update(c(xyplot(lat ~ long | equal.count(depth, 3), quakes, aspect = "iso",
 
 
 
-  <h2 class="groupname">styles</h2>
+  <h1 class="groupname">styles</h1>
 <div class="item" id="style_example">
-  <h3 class="itemname">
+  <h2 class="itemname">
 style example
-  </h3>
+  </h2>
   <div class="itemdesc">
 This is a sample plot to demonstrate different graphical settings (themes).
   </div>
@@ -576,13 +571,13 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width,
 </div>
 
 <div class="item" id="custom.theme">
-  <h3 class="itemname">
+  <h2 class="itemname">
 custom.theme
-  </h3>
+  </h2>
   <div class="itemdesc">
 Create a lattice theme based on specified colors
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/custom.theme.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/custom.theme.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/custom.theme.png" alt="custom.theme" width="500" height="350"/>
   <pre class="itemcode">
 xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width, 
@@ -592,13 +587,13 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width,
 </div>
 
 <div class="item" id="theEconomist.theme">
-  <h3 class="itemname">
+  <h2 class="itemname">
 theEconomist.theme
-  </h3>
+  </h2>
   <div class="itemdesc">
 Generate plots with style like The Economist.
   </div>
-  <p>   <a href="http://bm2.genes.nig.ac.jp/RGM2/R_current/library/latticeExtra/man/theEconomist.theme.html"> Usage, Details, Examples </a> (may be out of date)   </p>   <p>One example:</p>
+  <p>   <a href="man/theEconomist.theme.html" class="helplink"> Usage, Details, Examples </a>   </p>   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/theEconomist.theme.png" alt="theEconomist.theme" width="500" height="350"/>
   <pre class="itemcode">
 trellis.last.object() + layer_(panel.xblocks(x, x >= 1980, col = "#6CCFF6", 

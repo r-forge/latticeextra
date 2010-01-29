@@ -120,6 +120,18 @@ jQuery(function(){
 		return false;
 	    });
 
+	$("a.helplink").click(function(e) {
+		e.preventDefault();
+		$(this).hide("slow");
+		href = $(this).attr("href");
+		man = $('<div class="manpage"></div>');
+		$(this).after(man);
+		man.load(href, function() {
+			$(this).find("h2,table:first,div:last").remove();
+			$(this).hide().slideDown("slow");
+		    });
+	    });
+
 	checkAnchor();
 	setInterval("checkAnchor()", 300);
 });
