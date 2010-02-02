@@ -1,6 +1,8 @@
-# setwd("X:/Packages/latticeextra/www")
-# Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs8.63/bin/gswin32c.exe")
-# source("generate.R", echo = TRUE)
+## Copyright (C) Felix Andrews <felix@nfrac.org>
+
+## setwd("X:/Packages/latticeextra/www")
+## Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs8.63/bin/gswin32c.exe")
+## source("generate.R", echo = TRUE)
 
 library(latticeExtra)
 library(grid)

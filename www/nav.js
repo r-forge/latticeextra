@@ -37,6 +37,8 @@ function setAnchor(newItem) {
 }
 
 function loadItem(newItem) {
+    // record in access log
+    pageTracker._trackPageview("/item/" + newItem);
     if (newItem != "intro") {
 	var imgEl = $(jq(newItem) + " img");
 	// choose image based on current theme
@@ -122,11 +124,18 @@ jQuery(function(){
 
 	$("a.helplink").click(function(e) {
 		e.preventDefault();
-		$(this).hide("slow");
-		href = $(this).attr("href");
+		helplink = $(this);
+		href = helplink.attr("href");
+		// record in access log
+		pageTracker._trackPageview(href);
+		helplink.slideUp();
+		loader = $('<div class="loading">Loading...</div>');
+		loader.hide().slideDown();
+		helplink.after(loader);
 		man = $('<div class="manpage"></div>');
-		$(this).after(man);
+		helplink.after(man);
 		man.load(href, function() {
+			loader.hide();
 			$(this).find("h2,table:first,div:last").remove();
 			$(this).hide().slideDown("slow");
 		    });
