@@ -46,6 +46,11 @@ generateWebsite <-
     info <- library(help = package, character.only = TRUE)$info[[2]]
     infoContinues <- grepl("^ ", info)
 
+    ## this only works for direct links: (names not aliases)
+    itemNames <- unlist(lapply(spec, names), use.names = FALSE)
+    Links <- structure(paste("#", itemNames, sep = ""),
+                       names = itemNames)
+
     genItem <-
         function(name, examplenumber = NA, helpname = name, 
                  desc = NULL, helplink = TRUE,
@@ -129,10 +134,11 @@ generateWebsite <-
             if (helplink) {
                 ## generate HTML man page file
                 manhtml <- paste("man/", helpname, ".html", sep = "")
-                system(sprintf('R CMD Rdconv --package=%s -t html -o %s %s',
-                               package, manhtml, paste(man.src.dir, helpname, ".Rd", sep = "")))
+                manRd <- paste(man.src.dir, helpname, ".Rd", sep = "")
+                tools::Rd2HTML(manRd, out = manhtml, package = package,
+                               Links = Links, Links2 = Links)
                 message(manhtml, " generated")
-                ## generated HTML is invalid (R 2.10.0); fix it:
+                ## generated HTML is invalid (R 2.11.0-devel); fix it:
                 tmp <- readLines(manhtml)
                 tmp <- gsub('</p>\n<p>', '<br/>', tmp)
                 tmp <- gsub('</?p>', '', tmp)

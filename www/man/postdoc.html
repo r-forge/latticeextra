@@ -1,0 +1,61 @@
+
+<html><head><title>R: Reasons for Taking First Postdoctoral Appointment</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for postdoc {latticeExtra}"><tr><td>postdoc {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Reasons for Taking First Postdoctoral Appointment</h2>
+
+
+<h3>Description</h3>
+
+
+Reasons for Taking First Postdoctoral Appointment, by Field of
+Doctrate, 1997
+
+
+
+<h3>Usage</h3>
+
+<pre>data(postdoc)</pre>
+
+
+<h3>Format</h3>
+
+
+The data set is avaliable as a two-way table of counts.  
+
+
+
+<h3>Source</h3>
+
+
+Survey of Doctorate Recipients, 1997
+
+
+
+<h3>References</h3>
+
+
+Enhancing the Postdoctoral Experience for Scientists and Engineers:
+A Guide for Postdoctoral Scholars, Advisers, Institutions, Funding
+Organizations, and Disciplinary Societies
+
+
+<a href="http://books.nap.edu/catalog.php?record_id=9831">http://books.nap.edu/catalog.php?record_id=9831</a>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+data(postdoc)
+library(lattice)
+barchart(prop.table(postdoc, margin = 1),
+         auto.key = TRUE, xlab = "Proportion")
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

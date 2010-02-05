@@ -1,0 +1,118 @@
+
+<html><head><title>R: US national population estimates</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for USAge {latticeExtra}"><tr><td>USAge {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>US national population estimates</h2>
+
+
+<h3>Description</h3>
+
+
+US national population estimates by age and sex from 1900 to 1979.
+The data is available both as a (3-dimensional) table and a data
+frame.  The second form omits the 75+ age group to keep age numeric.
+
+
+
+<h3>Usage</h3>
+
+<pre>
+data(USAge.table)
+data(USAge.df)
+</pre>
+
+
+<h3>Format</h3>
+
+
+<code>USAge.table</code> is a 3-dimensional array with dimensions 
+
+
+<table summary="Rd table">
+<tr>
+ <td align="right">
+No </td><td align="left"> Name </td><td align="left"> Levels</td>
+</tr>
+<tr>
+ <td align="right">
+1 </td><td align="left"> Age </td><td align="left"> 0, 1, 2, ..., 74, 75+</td>
+</tr>
+<tr>
+ <td align="right">
+2 </td><td align="left"> Sex </td><td align="left"> Male, Female</td>
+</tr>
+<tr>
+ <td align="right">
+3 </td><td align="left"> Year </td><td align="left"> 1900, 1901, ..., 1979 </td>
+</tr>
+<tr>
+ <td align="right">
+</td>
+</tr>
+
+</table>
+
+Cells contain raw counts of estimated population.
+
+
+<code>USAge.df</code> is a data frame with 12000 observations on the
+following 4 variables.
+
+<dl>
+<dt><code>Age</code></dt><dd>a numeric vector, giving age in years</dd>
+<dt><code>Sex</code></dt><dd>a factor with levels <code>Male</code> <code>Female</code></dd>
+<dt><code>Year</code></dt><dd>a numeric vector, giving year</dd>
+<dt><code>Population</code></dt><dd>a numeric vector, giving population in
+millions</dd>
+</dl>
+
+
+
+
+<h3>Details</h3>
+
+
+
+
+The data for 1900-1929 are rounded to thousands.  The data for
+1900-1939 exclude the Armed Forces overseas and the population
+residing in Alaska and Hawaii.  The data for 1940-1949 represent the
+resident population plus Armed Forces overseas, but exclude the
+population residing in Alaska and Hawaii.  The data for 1950-1979
+represent the resident population plus Armed Forces overseas, and
+also include the population residing in Alaska and Hawaii.
+
+
+
+
+
+<h3>Source</h3>
+
+
+
+
+<a href="http://www.census.gov/popest/archives/pre-1980/PE-11.html">http://www.census.gov/popest/archives/pre-1980/PE-11.html</a>
+U.S. Census Bureau, Population Division. Internet Release date:
+October 1, 2004
+
+
+The data were available as individual files for year, with varying
+levels for the margins.  The preprocessing steps used to reduce the
+data to the form given here are described in the scripts directory.
+
+
+
+
+
+<h3>Examples</h3>
+
+<pre>
+data(USAge.table)
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>
