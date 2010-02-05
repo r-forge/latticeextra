@@ -130,14 +130,14 @@ jQuery(function(){
 		pageTracker._trackPageview(href);
 		helplink.slideUp();
 		loader = $('<div class="loading">Loading...</div>');
-		loader.hide().slideDown();
 		helplink.after(loader);
+		loader.hide().slideDown();
 		man = $('<div class="manpage"></div>');
 		helplink.after(man);
 		man.load(href, function() {
 			loader.hide();
 			$(this).find("h2,table:first,div:last").remove();
-			$(this).hide().slideDown("slow");
+			$(this).hide().slideDown();
 		    });
 	    });
 
