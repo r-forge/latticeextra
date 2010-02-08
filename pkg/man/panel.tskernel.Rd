@@ -1,5 +1,6 @@
 \name{panel.tskernel}
 \alias{panel.tskernel}
+\alias{simpleSmoothTs}
 \title{
   Plot a smoothed time series.
 }
@@ -11,7 +12,8 @@
 }
 \usage{
 panel.tskernel(x, y, ...,
-    width, c = 1, sides = 2, circular = FALSE,
+    width = NROW(x) \%/\% 10 + 1,
+    c = 1, sides = 2, circular = FALSE,
     kern = kernel("daniell",
            rep(floor((width/sides) / sqrt(c)), c)))
 }

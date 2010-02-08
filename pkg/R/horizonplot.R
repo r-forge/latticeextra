@@ -12,18 +12,19 @@ horizonplot.default <-
              prepanel = prepanel.horizonplot,
              strip = FALSE, strip.left = TRUE,
              par.strip.text = list(cex = 0.6),
-             layout = c(1, NA), groups = NULL,
+             #layout = c(1, NA), ## TODO pending new lattice release
+             groups = NULL,
              default.scales =
                list(y = list(relation = "sliced", axs = "i",
                              draw = FALSE, tick.number = 2)))
 {
-    stopifnot(is.null(data))
     if (!is.null(groups))
         stop("'groups' does not work in this plot")
-    ans <- xyplot(x, ..., panel = panel, prepanel = prepanel,
+    ans <- xyplot(x, data = data, ...,
+                  panel = panel, prepanel = prepanel,
                   strip = strip, strip.left = strip.left,
                   par.strip.text = par.strip.text,
-                  layout = layout,
+                  #layout = layout,
                   default.scales = default.scales)
     ans$call <- match.call()
     ans

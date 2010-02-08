@@ -1,5 +1,5 @@
 
-Changes in Version 0.6-6 (under development)
+Changes in Version 0.6-6
 
  o xyplot.ts actually removed now (forgot to delete it after lattice release).
  

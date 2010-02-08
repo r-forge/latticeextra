@@ -19,7 +19,7 @@ horizonplot(x, data, \dots)
             prepanel = prepanel.horizonplot,
             strip = FALSE, strip.left = TRUE,
             par.strip.text = list(cex = 0.6),
-            layout = c(1, NA), groups = NULL,
+            groups = NULL,
             default.scales =
               list(y = list(relation = "sliced", axs = "i", 
                             draw = FALSE, tick.number = 2)))
@@ -37,12 +37,15 @@ prepanel.horizonplot(x, y, ..., origin = function(y) na.omit(y)[1])
     In the panel and prepanel functions, these are the data
     coordinates. 
   }
-  \item{data}{
-    Not used, and must be left as \code{NULL}.
-  }
-  \item{\dots}{ further arguments.  Arguments to \code{xyplot} as
+  \item{data}{ Not used (at least, not used by \code{xyplot.ts}). }
+  \item{\dots}{
+    further arguments.  Arguments to \code{xyplot} as
     well as to the default panel function \code{\link{panel.horizonplot}}
-    can be supplied directly to \code{horizonplot}. }
+    can be supplied directly to \code{horizonplot}.
+
+    In typical usage, the method of \code{xyplot} called will be
+    \code{\link{xyplot.ts}}.
+  }
   \item{panel}{ function to render the graphic given the data.  This is
     the function that actually implements the display.  }
   \item{prepanel}{ function determining range of the data rectangle from
@@ -55,7 +58,7 @@ prepanel.horizonplot(x, y, ..., origin = function(y) na.omit(y)[1])
     \code{\link[lattice]{xyplot}}. One notable argument here is
     \code{lines}, allowing multi-line text.
   }
-  \item{layout, default.scales}{
+  \item{default.scales}{ %,layout
     see \code{\link[lattice]{xyplot}}.
   }
   \item{groups}{
@@ -136,14 +139,14 @@ xyplot(dat, scales = list(y = "same"))
 ## draw each series with a different baseline;
 ## ('origin' default is the first data value in each series).
 ## This highlights deviations within each series.
-horizonplot(dat)
+horizonplot(dat, layout = c(1,12))
 
 ## now use same scales in each panel
 ## (so colours represent common ranges across all panels).
 ## This highlights differences across series.
 ## One could potentially draw a colorkey in this case.
 horizonplot(dat, scales = list(y = list(relation = "same")),
-            origin = 0) +
+            origin = 0, layout = c(1,12)) +
   layer(panel.scaleArrow(x = .99, pos = 2))
 
 ## illustration of the cut points used in the following plot
@@ -171,7 +174,7 @@ layer(panel.scaleArrow(x = 0.99, col = "grey", srt = 90, cex = 0.75))
 ## a cut-and-stack plot; should use "same" y scales!
 horizonplot(sunspots, cut = list(n = 23, overlap = 0),
   scales = list(y = list(relation = "same"), draw = FALSE),
-  origin = 100, strip.left = FALSE) +
+  origin = 100, strip.left = FALSE, layout = c(1,23)) +
 layer(grid::grid.text(round(x[1]), x = 0, just = "left"))
 }
 \keyword{hplot}

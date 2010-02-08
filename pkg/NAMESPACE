@@ -36,6 +36,7 @@ export(panel.horizonplot, prepanel.horizonplot)
 export(panel.smoother)
 export(panel.quantile)
 export(panel.tskernel)
+export(simpleSmoothTs)
 
 export(panel.2dsmoother)
 
