@@ -12,7 +12,7 @@
 \usage{
 panel.xblocks(x, ...)
 
-\S3method{panel.xblocks}{default}(x, y, ..., , gaps = FALSE,
+\S3method{panel.xblocks}{default}(x, y, ..., gaps = FALSE,
               height = unit(1, "npc"),
               block.y = unit(0, "npc"), vjust = 0,
               col = NULL, border = NA, name = "xblocks",
@@ -120,8 +120,8 @@ xyplot(z, panel = panel.xblocks,
        scales = list(y = list(draw = FALSE)))
 
 ## draw gaps in red
-xyplot(z) +
-  layer_(panel.xblocks(z, gaps = TRUE, col = "red"))
+xyplot(z, type = c("p","s")) +
+  layer_(panel.xblocks(x, y, gaps = TRUE, col = "red"))
 
 ## Example of overlaying blocks from a different series.
 ## Are US presidential approval ratings linked to sunspot activity?
