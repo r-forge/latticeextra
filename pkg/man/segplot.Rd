@@ -102,6 +102,7 @@ data(USCancerRates)
 segplot(reorder(factor(county), rate.male) ~ LCL95.male + UCL95.male,
         data = subset(USCancerRates, state == "Washington"))
 
+\dontshow{ .featured_example <- TRUE }
 segplot(reorder(factor(county), rate.male) ~ LCL95.male + UCL95.male,
         data = subset(USCancerRates, state == "Washington"),
         draw.bands = FALSE, centers = rate.male)

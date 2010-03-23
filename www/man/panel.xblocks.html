@@ -23,7 +23,8 @@ highlight events or periods of missing data.
 panel.xblocks(x, ...)
 
 ## Default S3 method:
-panel.xblocks(x, y, ..., height = unit(1, "npc"),
+panel.xblocks(x, y, ..., gaps = FALSE,
+              height = unit(1, "npc"),
               block.y = unit(0, "npc"), vjust = 0,
               col = NULL, border = NA, name = "xblocks",
               last.step = median(diff(tail(x))))
@@ -41,16 +42,19 @@ panel.xblocks(x, y = NULL, ...)
 
 In the default method, <code>x</code> gives the ordinates along the x axis and
 must be in increasing order. <code>y</code> gives the colour values to plot as
-contiguous blocks. These may be character (or factor) values (colour
-names or hex codes), numbers (indexing <code>palette()</code>), or
-logicals (where <code>TRUE</code> is <code>palette(1)</code> and <code>FALSE</code> is
-transparent). Missing values in <code>y</code> are not plotted.
+contiguous blocks. If <code>y</code> is numeric, data coverage is plotted,
+by converting it into a logical (<code>!is.na(y)</code>). In this case, or
+when a logical <code>y</code> is given, the default block color is
+taken from the current theme: <code>trellis.par.get("plot.line")$col</code>.
 
 
-See also <code>col</code>, below, which over-rides values of <code>y</code>.
+If <code>y</code> has character (or factor) values, these are interpreted
+as colors &ndash; and should therefore be colour names or hex
+codes. Missing values in <code>y</code> are not plotted. 
+If <code>col</code> is given, this over-rides the block colors.
 
 
-In the <code>ts</code> method, plot values against their <code>time()</code>,
+The <code>ts</code> method plots values against their <code>time()</code>,
 unless <code>y</code> is specified, when it acts just like
 the default method.
 </td></tr>
@@ -59,6 +63,13 @@ the default method.
 
 In the default method, further arguments are graphical parameters
 passed on to <code><a href="../../grid/html/gpar.html">gpar</a></code>.
+</td></tr>
+<tr valign="top"><td><code>gaps</code></td>
+<td>
+
+highlights missing values in the data only. This is similar to
+passing <code>y = is.na(y)</code>, but one cannot do that to a
+time series object without losing the time frame attributes.
 </td></tr>
 <tr valign="top"><td><code>height</code></td>
 <td>
@@ -81,12 +92,9 @@ vertical justification of the blocks relative to <code>block.y</code>. See
 <tr valign="top"><td><code>col</code></td>
 <td>
 
-if <code>col</code> is specified, then all blocks are drawn in the given
-colour. That is, all values of <code>y</code> are treated the same except
-<code>NA</code> / <code>FALSE</code> / <code>""</code>.
-
-
-If multiple colours are specified they will cycle.
+if <code>col</code> is specified, it determines the colors of the blocks
+defined by <code>y</code>. If multiple colours are specified they will be
+repeated to cover the total number of blocks.
 </td></tr>
 <tr valign="top"><td><code>border</code></td>
 <td>
@@ -96,7 +104,7 @@ border colour.
 <tr valign="top"><td><code>name</code></td>
 <td>
 
-a name for the grob (grid object).
+a name for the grob (<span class="pkg">grid</span> object).
 </td></tr>
 <tr valign="top"><td><code>last.step</code></td>
 <td>
@@ -111,7 +119,7 @@ the last 5 time steps (assuming steps are regular).
 
 
 Blocks are drawn forward in "time" from the specified x locations,
-up until the following value. Contiguous blocks are calculated by
+up until the following value. Contiguous blocks are calculated using
 <code>rle</code>.
 
 
@@ -148,6 +156,7 @@ xyplot(flow, panel = function(x, y, ...) {
 xyplot(flow) +
   layer_(panel.xblocks(flow &gt; mean(flow), col = "lightgrey"))
 
+
 ## Example of alternating colours, here showing calendar months
 flowdates &lt;- Sys.Date() + as.vector(time(flow))
 xyplot(flow) +
@@ -161,16 +170,13 @@ colnames(z) &lt;- c("A","B","C")
 z[3:4, "B"] &lt;- NA
 z[1, "C"] &lt;- NA
 z
-## Convert to logical time series showing only gaps
-zExists &lt;- !is.na(z)
-attributes(zExists) &lt;- attributes(z)
-zExists
-xyplot(zExists, panel = panel.xblocks, outer = TRUE, layout = c(1,3))
-## Convert to time series of colour names: red indicates missing.
-zCol &lt;- z
-zCol[] &lt;- ifelse(is.na(z), "red", "grey")
-xyplot(zCol, panel = panel.xblocks, outer = TRUE, layout = c(1,3),
+## show data coverage only (highlighting gaps)
+xyplot(z, panel = panel.xblocks,
        scales = list(y = list(draw = FALSE)))
+
+## draw gaps in red
+xyplot(z, type = c("p","s")) +
+  layer_(panel.xblocks(x, y, gaps = TRUE, col = "red"))
 
 ## Example of overlaying blocks from a different series.
 ## Are US presidential approval ratings linked to sunspot activity?
@@ -183,5 +189,5 @@ xyplot(presidents, lwd = 2) +
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -78,6 +78,7 @@ xyplot(y ~ x, xy, panel = function(...) {
        panel.smoother(..., span = 0.9)
 })
 
+\dontshow{ .featured_example <- TRUE }
 ## per-group layers (pass `...` to get styles)
 xyplot(y + y2 ~ x, xy) +
   glayer(panel.smoother(...))

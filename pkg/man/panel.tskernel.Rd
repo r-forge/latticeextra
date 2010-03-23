@@ -71,6 +71,7 @@ panel.tskernel(x, y, ...,
   \code{\link[lattice]{xyplot.ts}}
 }
 \examples{
+\dontshow{ .featured_example <- TRUE }
 ## a Gaussian-like filter (contrast with c = 1 or c = 2)
 xyplot(sunspot.year) +
 layer(panel.tskernel(x, y, width = 20, c = 3, col = 1, lwd = 2))
@@ -91,11 +92,11 @@ width = 100
 kdat <- lapply(1:4, function(c) {
     k <- kernel("daniell", rep(floor(0.5*width / sqrt(c)), c))
     ## demonstrate that the effective bandwidth stays the same:
-    message("c: ", c, ", bandwidth: ", bandwidth.kernel(k))
+    message("c = ", c, ": effective bandwidth = ", bandwidth.kernel(k))
     ## represent the kernel as a time series, for plotting
     ts(k[-k$m:k$m], start = -k$m)
 })
-names(kdat) <- paste("m =", 1:4)
+names(kdat) <- paste("c =", 1:4)
 xyplot(do.call(ts.union, kdat), type = "h",
     scales = list(y = list(relation = "same")))
 }

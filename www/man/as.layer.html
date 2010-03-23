@@ -109,10 +109,24 @@ an updated trellis object.
 <h3>Examples</h3>
 
 <pre>
+b1 &lt;- barley
+b2 &lt;- barley
+b2$yield &lt;- b2$yield + 10
 
-## all same scales:
+## panels are matched up by packet number
+dotplot(variety ~ yield | site * year, b1) +
+  as.layer(dotplot(variety ~ yield | site * year, b2, col = "red"))
+
+## which gives the same result as:
+dotplot(variety ~ yield | site * year, data = b1, subscripts = TRUE) +
+  layer(panel.dotplot(yield[subscripts], variety[subscripts], col = "red"),
+        data = b2)
+
+
+## example with all same scales (the default):
 xyplot(fdeaths ~ mdeaths) +
   as.layer(xyplot(fdeaths ~ mdeaths, col = 2, subset = ldeaths &gt; 2000))
+
 
 ## same x scales, different y scales:
 xyplot(fdeaths ~ mdeaths) +
@@ -131,5 +145,5 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
    as.layer(levelplot(volcano), x.same = FALSE, y.same = FALSE, under = TRUE)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

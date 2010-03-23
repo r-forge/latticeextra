@@ -111,8 +111,16 @@ data to the form given here are described in the scripts directory.
 <h3>Examples</h3>
 
 <pre>
-data(USAge.table)
+data(USAge.df)
+head(USAge.df)
+
+## Figure 10.7 from Sarkar (2008)
+xyplot(Population ~ Age | factor(Year), USAge.df,
+       groups = Sex, type = c("l", "g"),
+       auto.key = list(points = FALSE, lines = TRUE, columns = 2),
+       aspect = "xy", ylab = "Population (millions)",
+       subset = Year %in% seq(1905, 1975, by = 10))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

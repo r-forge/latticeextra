@@ -171,6 +171,7 @@ horizonplot(EuStockMarkets, strip.left = TRUE,
   scales = list(y = list(relation = "same")), ylim = c(4000, 5000)) +
 layer(panel.scaleArrow(x = 0.99, col = "grey", srt = 90, cex = 0.75))
 
+\dontshow{ .featured_example <- TRUE }
 ## a cut-and-stack plot; should use "same" y scales!
 horizonplot(sunspots, cut = list(n = 23, overlap = 0),
   scales = list(y = list(relation = "same"), draw = FALSE),

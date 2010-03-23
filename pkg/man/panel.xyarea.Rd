@@ -63,6 +63,7 @@ panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
   \code{\link{panel.polygon}}
 }
 \examples{
+\dontshow{ .featured_example <- TRUE }
 xyplot(sunspot.year, panel = panel.xyarea, origin = 0,
   aspect = "xy", cut = list(n = 3, overlap = 0))
 

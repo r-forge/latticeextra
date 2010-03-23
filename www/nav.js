@@ -96,8 +96,11 @@ function openNavGroup(el) {
 }
 
 jQuery(function(){
-	$(".groupname").hide();
+	// suppress loading of images until they are needed:
+	$(".item img").attr("src", "");
 	$(".item").hide();
+	$(".groupname").hide();
+	// collapse subnavigation initially
 	$("#nav li.navgroup").hide();
 
 	/*$("#nav").accordion({ header: "li.group" });*/

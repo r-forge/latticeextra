@@ -320,7 +320,7 @@ Plot many time series in parallel
   </div>
   <p>   <a href="man/horizonplot.html" class="helplink"> Usage, Details, Examples </a>   </p>
   <p>One example:</p>   <img src="http://150.203.60.53/latticeExtra/plots/default/horizonplot.png" alt="horizonplot" width="500" height="550"/>   <pre class="itemcode"> horizonplot(sunspots, cut = list(n = 23, overlap = 0), scales = list(y = list(relation = "same"), 
-    draw = FALSE), origin = 100, strip.left = FALSE) + lay....   </pre>
+    draw = FALSE), origin = 100, strip.left = FALSE, layou....   </pre>
 </div>
 
 
@@ -425,9 +425,9 @@ panel.ablineq
 Draw a line with a label, by default its equation
   </div>
   <p>   <a href="man/panel.lmlineq.html" class="helplink"> Usage, Details, Examples </a>   </p>
-  <p>One example:</p>   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.ablineq.png" alt="panel.ablineq" width="500" height="350"/>   <pre class="itemcode"> xyplot(ysim ~ xsim) + layer(panel.ablineq(lm(y ~ x), r.sq = TRUE, 
+  <p>One example:</p>   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.ablineq.png" alt="panel.ablineq" width="500" height="350"/>   <pre class="itemcode"> update(xyplot(ysim ~ xsim) + layer(panel.ablineq(lm(y ~ x), r.sq = TRUE, 
     rot = TRUE, at = 0.8, pos = 3), style = 1) + layer(panel.ablineq(lm(y ~ 
-    x + 0), r.....   </pre>
+    x +....   </pre>
 </div>
 
 <div class="item" id="panel.scaleArrow">
@@ -559,7 +559,9 @@ USAge
 US national population estimates
   </div>
   <p>   <a href="man/USAge.html" class="helplink"> Usage, Details, Examples </a>   </p>
-
+  <p>One example:</p>   <img src="http://150.203.60.53/latticeExtra/plots/default/USAge.png" alt="USAge" width="500" height="350"/>   <pre class="itemcode"> xyplot(Population ~ Age | factor(Year), USAge.df, groups = Sex, 
+    type = c("l", "g"), auto.key = list(points = FALSE, lines = TRUE, 
+        columns = 2), ....   </pre>
 </div>
 
 <div class="item" id="USCancerRates">
@@ -570,7 +572,9 @@ USCancerRates
 Rate of Death Due to Cancer in US Counties
   </div>
   <p>   <a href="man/USCancerRates.html" class="helplink"> Usage, Details, Examples </a>   </p>
-
+  <p>One example:</p>   <img src="http://150.203.60.53/latticeExtra/plots/default/USCancerRates.png" alt="USCancerRates" width="600" height="350"/>   <pre class="itemcode"> mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female), 
+    data = USCancerRates, map = map("county", plot = FALSE, fill = TRUE, 
+        projec....   </pre>
 </div>
 
 <div class="item" id="ancestry">
@@ -616,7 +620,8 @@ gvhd10
 Flow cytometry data from five samples from a patient
   </div>
   <p>   <a href="man/gvhd10.html" class="helplink"> Usage, Details, Examples </a>   </p>
-
+  <p>One example:</p>   <img src="http://150.203.60.53/latticeExtra/plots/default/gvhd10.png" alt="gvhd10" width="500" height="500"/>   <pre class="itemcode"> histogram(~log2(FSC.H) | Days, gvhd10, xlab = "log Forward Scatter", 
+    type = "density", nint = 50, layout = c(2, 4))   </pre>
 </div>
 
 <div class="item" id="SeatacWeather">
@@ -627,7 +632,8 @@ SeatacWeather
 Daily Rainfall and Temperature at the Seattle-Tacoma Airport
   </div>
   <p>   <a href="man/SeatacWeather.html" class="helplink"> Usage, Details, Examples </a>   </p>
-
+  <p>One example:</p>   <img src="http://150.203.60.53/latticeExtra/plots/default/SeatacWeather.png" alt="SeatacWeather" width="500" height="350"/>   <pre class="itemcode"> doubleYScale(temp, rain, style1 = 0, style2 = 3, add.ylab2 = TRUE, 
+    text = c("min. T", "max. T", "rain"), columns = 3)   </pre>
 </div>
 
 <div class="item" id="EastAuClimate">
@@ -652,7 +658,7 @@ var imageSrcBase = "http://150.203.60.53/latticeExtra/";
 </div>
 
 <div id="versiontag">
-latticeExtra version 0.6-6 on R version 2.11.0 (at 2010-02-05)
+latticeExtra version 0.6-8 on R version 2.11.0 (at 2010-03-23)
 </div>
 
 </div>

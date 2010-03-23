@@ -84,6 +84,7 @@ tileplot(z ~ x * y, xyz, xlim = c(-2, 4), ylim = c(-2, 4))
 
 ## insert some missing values
 xyz$z[1:10] &lt;- NA
+
 ## the default na.rm = FALSE shows missing polygons
 tileplot(z ~ x * y, xyz, border = "black",
   col.regions = grey.colors(100),
@@ -105,5 +106,5 @@ tileplot(Income ~ x * y, tmp, border = "black",
   })
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

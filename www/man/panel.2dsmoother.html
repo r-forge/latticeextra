@@ -104,6 +104,7 @@ xyz$z &lt;- with(xyz, x * y + rnorm(100, sd = 1))
 
 levelplot(z ~ x * y, xyz, panel = panel.2dsmoother)
 
+
 ## showing data points on the same color scale
 levelplot(z ~ x * y, xyz,
           panel = panel.levelplot.points, cex = 1.2) +
@@ -120,5 +121,5 @@ if (require("mgcv"))
             form = z ~ s(x) + s(y), method = "gam")
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

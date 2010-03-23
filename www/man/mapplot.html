@@ -153,6 +153,7 @@ library(mapproj)
 
 data(USCancerRates)
 
+
 mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
         data = USCancerRates,
         map = map("county", plot = FALSE, fill = TRUE,
@@ -170,6 +171,7 @@ data(ancestry)
 county.map &lt;- 
     map('county', plot = FALSE, fill = TRUE, 
         projection = "azequalarea")
+
 
 ## set a sequential color palette as current theme, and use it
 opar &lt;- trellis.par.get()
@@ -198,5 +200,5 @@ mapplot(county ~ log(density), ancestry,
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

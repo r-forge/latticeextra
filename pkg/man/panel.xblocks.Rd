@@ -102,6 +102,7 @@ xyplot(flow, panel = function(x, y, ...) {
 xyplot(flow) +
   layer_(panel.xblocks(flow > mean(flow), col = "lightgrey"))
 
+\dontshow{ .featured_example <- TRUE }
 ## Example of alternating colours, here showing calendar months
 flowdates <- Sys.Date() + as.vector(time(flow))
 xyplot(flow) +

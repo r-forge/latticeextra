@@ -114,6 +114,7 @@ pdmargin <- barchart(margin.table(postdoc, 1))
 pdboth <- c(pdprops, pdmargin)
 update(pdboth, xlab = c("Proportion", "Freq"))
 
+\dontshow{ .featured_example <- TRUE }
 ## Conditioned 'quakes' plot combined with histogram.
 qua <- xyplot(lat ~ long | equal.count(depth, 3), quakes,
     aspect = "iso", pch = ".", cex = 2, xlab = NULL, ylab = NULL)

@@ -139,6 +139,7 @@ if (require("maps")) {
 xyplot(WinterMaxTemp ~ Latitude, EastAuClimate, aspect = "xy",
        type = c("p", "a"), ylab = "Temperature (degrees C)")
 
+
 ## (Make a factor with levels in order - by coastal location)
 siteNames &lt;- factor(row.names(EastAuClimate),
            levels = row.names(EastAuClimate))
@@ -175,5 +176,5 @@ xyplot(RainDays + CloudyDays + ClearDays ~ Latitude, EastAuClimate,
        ylab = "Days per year")
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

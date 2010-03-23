@@ -29,7 +29,7 @@ horizonplot(x, data = NULL, ...,
             prepanel = prepanel.horizonplot,
             strip = FALSE, strip.left = TRUE,
             par.strip.text = list(cex = 0.6),
-            layout = c(1, NA), groups = NULL,
+            groups = NULL,
             default.scales =
               list(y = list(relation = "sliced", axs = "i", 
                             draw = FALSE, tick.number = 2)))
@@ -55,14 +55,18 @@ coordinates.
 </td></tr>
 <tr valign="top"><td><code>data</code></td>
 <td>
-
-Not used, and must be left as <code>NULL</code>.
-</td></tr>
+ Not used (at least, not used by <code>xyplot.ts</code>). </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
- further arguments.  Arguments to <code>xyplot</code> as
+
+further arguments.  Arguments to <code>xyplot</code> as
 well as to the default panel function <code>panel.horizonplot</code>
-can be supplied directly to <code>horizonplot</code>. </td></tr>
+can be supplied directly to <code>horizonplot</code>.
+
+
+In typical usage, the method of <code>xyplot</code> called will be
+<code>xyplot.ts</code>.
+</td></tr>
 <tr valign="top"><td><code>panel</code></td>
 <td>
  function to render the graphic given the data.  This is
@@ -83,9 +87,9 @@ graphical parameters for the strip text; see
 <code><a href="../../lattice/html/xyplot.html">xyplot</a></code>. One notable argument here is
 <code>lines</code>, allowing multi-line text.
 </td></tr>
-<tr valign="top"><td><code>layout, default.scales</code></td>
+<tr valign="top"><td><code>default.scales</code></td>
 <td>
-
+ 
 see <code><a href="../../lattice/html/xyplot.html">xyplot</a></code>.
 </td></tr>
 <tr valign="top"><td><code>groups</code></td>
@@ -193,14 +197,14 @@ xyplot(dat, scales = list(y = "same"))
 ## draw each series with a different baseline;
 ## ('origin' default is the first data value in each series).
 ## This highlights deviations within each series.
-horizonplot(dat)
+horizonplot(dat, layout = c(1,12))
 
 ## now use same scales in each panel
 ## (so colours represent common ranges across all panels).
 ## This highlights differences across series.
 ## One could potentially draw a colorkey in this case.
 horizonplot(dat, scales = list(y = list(relation = "same")),
-            origin = 0) +
+            origin = 0, layout = c(1,12)) +
   layer(panel.scaleArrow(x = .99, pos = 2))
 
 ## illustration of the cut points used in the following plot
@@ -225,12 +229,13 @@ horizonplot(EuStockMarkets, strip.left = TRUE,
   scales = list(y = list(relation = "same")), ylim = c(4000, 5000)) +
 layer(panel.scaleArrow(x = 0.99, col = "grey", srt = 90, cex = 0.75))
 
+
 ## a cut-and-stack plot; should use "same" y scales!
 horizonplot(sunspots, cut = list(n = 23, overlap = 0),
   scales = list(y = list(relation = "same"), draw = FALSE),
-  origin = 100, strip.left = FALSE) +
+  origin = 100, strip.left = FALSE, layout = c(1,23)) +
 layer(grid::grid.text(round(x[1]), x = 0, just = "left"))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

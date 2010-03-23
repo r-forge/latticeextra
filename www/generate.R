@@ -15,26 +15,31 @@ generateWebsite <-
              imageSrcBase = "",
              do.examples = TRUE)
 {
-    ## global variables:
-    .plotNumber <<- 0
-    .thePlot <<- NULL
-    .target <<- NA
+    ## persistent global:
+    tracker <- new.env()
+    tracker$plot <- NULL
+    tracker$name <- NA
 
     ## we want to be able to run example() for each function
     ## but only to keep *one* of the lattice plots produced
-    ## (specified by number).
     
     ## the following approach will only work for examples which
     ## don't include post-plotting annotations, or grid.new etc.
 
-    ## set the lattice print function to keep a counter
-    ## and stop after the target plot number.
+    ## set the lattice print function to store the target plot.
     lattice.options(print.function = function(x, ...) {
-        .plotNumber <<- .plotNumber + 1
-        message("  plot number ", .plotNumber)
         plot(x, ...)
-        if (.plotNumber == .target) {
-            .thePlot <<- x
+        ## by default, use the first plot
+        if (is.null(tracker$plot)) {
+            tracker$plot <- x
+        }
+        ## special variable set in example() code:
+        if (exists(".featured_example", globalenv()) &&
+            (identical(.featured_example, TRUE) ||
+             identical(.featured_example, tracker$name)))
+        {
+            tracker$plot <- x
+            rm(list = ".featured_example", envir = globalenv())
         }
     })
 
@@ -47,12 +52,13 @@ generateWebsite <-
     infoContinues <- grepl("^ ", info)
 
     ## this only works for direct links: (names not aliases)
-    itemNames <- unlist(lapply(spec, names), use.names = FALSE)
+    itemNames <- unlist(lapply(spec, lapply, head, 1))
     Links <- structure(paste("#", itemNames, sep = ""),
                        names = itemNames)
 
     genItem <-
-        function(name, examplenumber = NA, helpname = name, 
+        function(name, do.example = do.examples,
+                 helpname = name, examplename = helpname,
                  desc = NULL, helplink = TRUE,
                  width = 500, height = 350,
                  rerun = FALSE)
@@ -60,11 +66,9 @@ generateWebsite <-
             ## for filenames and DOM ids
             okname <- gsub(" ", "_", name)
 
-            if (do.examples == FALSE) examplenumber <- NA
-    
             exampleBlock <- ""
-            if (!is.na(examplenumber)) {
-                ## generate PNG image of example number 'examplenumber' in ?helpname
+            if (do.example) {
+                ## generate PNG image of target plot in example(examplename)
                 firstrun <- TRUE
                 for (themeNm in themeNames) {
                     if (!file.exists(file.path("plots", themeNm)))
@@ -81,18 +85,20 @@ generateWebsite <-
                                     theEconomist = theEconomist.theme())
                     trellis.par.set(theme)
                     if (firstrun || rerun) {
-                        ## run the example() and stop after target plot
-                        .target <<- examplenumber
-                        .plotNumber <<- 0
-                        eval.parent(call("example", helpname, package = package,
+                        tracker$plot <- NULL
+                        tracker$name <- name
+                        if (exists(".featured_example", globalenv()))
+                            rm(list = ".featured_example", envir = globalenv())
+                        ## run the example()s for this function
+                        eval.parent(call("example", examplename, package = package,
                                          local = FALSE, ask = FALSE))
-                        stopifnot(.plotNumber >= .target)
-                        thePlot <- .thePlot
+                        if (is.null(tracker$plot))
+                            stop("no example() plots were found for ", name)
                         firstrun <- FALSE
                     }
                     dev.new(width = width/72, height = height/72)
                     trellis.par.set(theme)
-                    plot(thePlot)
+                    plot(tracker$plot)
                     dev2bitmap(thisfile, width = width, height = height,
                                units = "px", taa = 4, gaa = 4, method = "pdf")
                     dev.off()
@@ -100,7 +106,7 @@ generateWebsite <-
                 }
                 filename <- paste("plots/default/", okname, ".png", sep = "")
                 fileurl <- paste(imageSrcBase, filename, sep = "")
-                theCall <- thePlot$call
+                theCall <- tracker$plot$call
                 if (identical(theCall[[1]], quote(update)) &&
                     (length(theCall) == 2)) {
                     ## redundant `update` wrapper; remove for clarity
@@ -181,9 +187,7 @@ generateWebsite <-
                 '<li class="navgroup"><ul>'), file = nav)
         ## each item:
         for (j in seq_along(group)) {
-            item <- group[[j]]
-            item$name <- names(group)[j]
-            do.call("genItem", item)
+            do.call("genItem", group[[j]])
         }
         write('</ul></li>', file = nav)
         write(c('', ''), file = out)

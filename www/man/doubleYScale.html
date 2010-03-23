@@ -126,10 +126,14 @@ obj2 &lt;- xyplot(y^2 ~ x, foo, type = "l")
 doubleYScale(obj1, obj2, add.axis = FALSE)
 ## draw second y axis
 doubleYScale(obj1, obj2)
+
 ## ...with second ylab
 doubleYScale(obj1, obj2, add.ylab2 = TRUE)
 ## ...or with a key
 doubleYScale(obj1, obj2, text = c("obj1", "obj2"))
+## ...with custom styles
+update(doubleYScale(obj1, obj2, text = c("obj1", "obj2")),
+  par.settings = simpleTheme(col = c('red','black'), lty = 1:2))
 
 ## different plot types
 x &lt;- rnorm(60)
@@ -152,5 +156,5 @@ update(trellis.last.object(),
    par.settings = simpleTheme(col = c("black", "red", "blue")))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

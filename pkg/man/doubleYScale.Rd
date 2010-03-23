@@ -75,10 +75,14 @@ obj2 <- xyplot(y^2 ~ x, foo, type = "l")
 doubleYScale(obj1, obj2, add.axis = FALSE)
 ## draw second y axis
 doubleYScale(obj1, obj2)
+\dontshow{ .featured_example <- "doubleYScale" }
 ## ...with second ylab
 doubleYScale(obj1, obj2, add.ylab2 = TRUE)
 ## ...or with a key
 doubleYScale(obj1, obj2, text = c("obj1", "obj2"))
+## ...with custom styles
+update(doubleYScale(obj1, obj2, text = c("obj1", "obj2")),
+  par.settings = simpleTheme(col = c('red','black'), lty = 1:2))
 
 ## different plot types
 x <- rnorm(60)
@@ -92,7 +96,7 @@ data(SeatacWeather)
 temp <- xyplot(min.temp + max.temp ~ day | month,
                data = SeatacWeather, type = "l", layout = c(3, 1))
 rain <- xyplot(precip ~ day | month, data = SeatacWeather, type = "h")
-
+\dontshow{ .featured_example <- "SeatacWeather" }
 doubleYScale(temp, rain, style1 = 0, style2 = 3, add.ylab2 = TRUE,
    text = c("min. T", "max. T", "rain"), columns = 3)
 

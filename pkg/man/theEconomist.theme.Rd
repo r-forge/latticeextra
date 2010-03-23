@@ -90,6 +90,7 @@ asTheEconomist(xyplot(window(sunspot.year, start = 1900),
   main = "Sunspot cycles", sub = "Number per year",
   scales = list(y = list(relation = "same", axs = "i"))))
 
+\dontshow{ .featured_example <- TRUE }
 trellis.last.object() +
   layer_(panel.xblocks(x, x >= 1980, col = "#6CCFF6", alpha = .5)) +
   layer(panel.text(1988, 180, "Forecast", font = 3, pos = 2))

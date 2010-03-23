@@ -120,6 +120,7 @@ library(lattice)
 
 mtcars$HP &lt;- equal.count(mtcars$hp)
 
+
 useOuterStrips(xyplot(mpg ~ disp | HP + factor(cyl), mtcars))
 
 useOuterStrips(xyplot(mpg ~ disp | factor(cyl) + HP, mtcars),
@@ -136,6 +137,7 @@ dpfrost &lt;-
             data = state, layout = c(1, 4),
             scales = list(y = list(relation = "free")))
 
+
 ## approximate
 resizePanels(dpfrost,
              h = with(state, table(reorder(state.region, Frost))))
@@ -145,5 +147,5 @@ resizePanels()
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
 </body></html>

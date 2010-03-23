@@ -72,6 +72,7 @@ library(lattice)
 
 mtcars$HP <- equal.count(mtcars$hp)
 
+\dontshow{ .featured_example <- "useOuterStrips" }
 useOuterStrips(xyplot(mpg ~ disp | HP + factor(cyl), mtcars))
 
 useOuterStrips(xyplot(mpg ~ disp | factor(cyl) + HP, mtcars),
@@ -88,6 +89,7 @@ dpfrost <-
             data = state, layout = c(1, 4),
             scales = list(y = list(relation = "free")))
 
+\dontshow{ .featured_example <- "resizePanels" }
 ## approximate
 resizePanels(dpfrost,
              h = with(state, table(reorder(state.region, Frost))))
