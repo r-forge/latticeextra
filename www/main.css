@@ -37,6 +37,12 @@ strong, b, h1, h2, h3, h4, #tagline, #versiontag, li.navhead, .loading {
     font-style: italic;
 }
 
+/* fix monospace sizing */
+code {
+    font-family: monospace, serif; 
+    font-size: 1em;
+}
+
 #banner {
     position: absolute;
     top: 0;
@@ -194,7 +200,7 @@ html>body #nav li a {
 
 .itemcode {
     font-family: monospace;
-    whitespace: pre-wrap;
+    white-space: pre-wrap;
     color: #666;
 }
 

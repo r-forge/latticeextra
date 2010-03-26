@@ -13,6 +13,7 @@ generateWebsite <-
              themeNames = c("default", "black_and_white", "classic_gray",
                             "custom_theme", "custom_theme_2", "theEconomist"),
              imageSrcBase = "",
+             codeSrcBase = NA,
              do.examples = TRUE)
 {
     ## persistent global:
@@ -55,10 +56,15 @@ generateWebsite <-
     itemNames <- unlist(lapply(spec, lapply, head, 1))
     Links <- structure(paste("#", itemNames, sep = ""),
                        names = itemNames)
+    itemNames2 <- unlist(lapply(spec, lapply, function(x) toString(x$helpname)))
+    Links2 <- structure(paste("#", itemNames, sep = ""),
+                        names = itemNames2)
+    Links2 <- Links2[Links2 != "#"]
 
     genItem <-
         function(name, do.example = do.examples,
                  helpname = name, examplename = helpname,
+                 codefile = paste(helpname, ".R", sep = ""),
                  desc = NULL, helplink = TRUE,
                  width = 500, height = 350,
                  rerun = FALSE)
@@ -79,6 +85,7 @@ generateWebsite <-
                     theme <- switch(themeNm,
                                     default = standard.theme("pdf"),
                                     black_and_white = standard.theme(color = FALSE),
+                                    col_whitebg = col.whitebg(),
                                     classic_gray = standard.theme("X11"),
                                     custom_theme = custom.theme(),
                                     custom_theme_2 = custom.theme.2(),
@@ -104,7 +111,6 @@ generateWebsite <-
                     dev.off()
                     message(thisfile, " generated")
                 }
-                filename <- paste("plots/default/", okname, ".png", sep = "")
                 fileurl <- paste(imageSrcBase, filename, sep = "")
                 theCall <- tracker$plot$call
                 if (identical(theCall[[1]], quote(update)) &&
@@ -139,10 +145,12 @@ generateWebsite <-
             helplinkBlock <- ""
             if (helplink) {
                 ## generate HTML man page file
+                if (!file.exists("man"))
+                    dir.create("man")
                 manhtml <- paste("man/", helpname, ".html", sep = "")
                 manRd <- paste(man.src.dir, helpname, ".Rd", sep = "")
                 tools::Rd2HTML(manRd, out = manhtml, package = package,
-                               Links = Links, Links2 = Links)
+                               Links = Links, Links2 = Links2)
                 message(manhtml, " generated")
                 ## generated HTML is invalid (R 2.11.0-devel); fix it:
                 tmp <- readLines(manhtml)
@@ -168,6 +176,16 @@ generateWebsite <-
                     helplinkBlock,
                     exampleBlock,
                     '</div>', ''), file = out)
+
+            ## link to source code file
+            if (!is.na(codeSrcBase) && !is.na(codefile)) {
+                codeurl <- paste(codeSrcBase, codefile, sep = "")
+                codeLinkBlock <-
+                    sprintf('<p><a href="%s" class="codelink">Source code</a></p>',
+                            codeurl)
+                write(codeLinkBlock, file = out)
+            }
+            
             ## generate HTML nav
             navid <- paste("nav_", okname, sep = "")
             write(c('<li>',
