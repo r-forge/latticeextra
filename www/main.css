@@ -200,7 +200,6 @@ html>body #nav li a {
 
 .itemcode {
     font-family: monospace;
-    white-space: pre-wrap;
     color: #666;
 }
 
@@ -210,6 +209,11 @@ html>body #nav li a {
 
 .item img {
     margin: 0;
+}
+
+.codelink {
+    display: block;
+    text-align: right;
 }
 
 .loading {

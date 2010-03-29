@@ -56,6 +56,7 @@ generateWebsite <-
     itemNames <- unlist(lapply(spec, lapply, head, 1))
     Links <- structure(paste("#", itemNames, sep = ""),
                        names = itemNames)
+    #tools:::.find_HTML_links_in_package(system.file(package = package))
     itemNames2 <- unlist(lapply(spec, lapply, function(x) toString(x$helpname)))
     Links2 <- structure(paste("#", itemNames, sep = ""),
                         names = itemNames2)
@@ -126,7 +127,7 @@ generateWebsite <-
                           sprintf('  <img src="%s" alt="%s" width="%g" height="%g"/>',
                                   fileurl, name, width, height),
                           '  <pre class="itemcode">', itemCode,
-                          '  </pre>')
+                          '  </pre>', sep = "\n")
             }
 
             if (is.null(desc)) {
@@ -152,39 +153,40 @@ generateWebsite <-
                 tools::Rd2HTML(manRd, out = manhtml, package = package,
                                Links = Links, Links2 = Links2)
                 message(manhtml, " generated")
-                ## generated HTML is invalid (R 2.11.0-devel); fix it:
+                ## generated HTML is invalid; fix it:
                 tmp <- readLines(manhtml)
-                tmp <- gsub('</p>\n<p>', '<br/>', tmp)
-                tmp <- gsub('</?p>', '', tmp)
+                #tmp <- gsub('</p>\n<p>', '<br/>', tmp)
+                #tmp <- gsub('</?p>', '', tmp)
                 tmp <- sub('^<!DOCTYPE .*$', '', tmp)
                 tmp <- sub('^<meta .*$', '', tmp)
                 tmp <- sub('^<link .*$', '', tmp)
                 tmp <- gsub('<hr/?>', "", tmp)
                 write(tmp, manhtml)
                 ## generate HTML content
-                aTag <- sprintf('  <a href="man/%s.html" class="helplink">',
-                                helpname)
                 helplinkBlock <-
-                    paste('  <p>', aTag,
+                    paste('  <p>',
+                          sprintf('  <a href="man/%s.html" class="helplink">',
+                                helpname),
                           'Usage, Details, Examples', '</a>',
-                          '  </p>')
+                          '  </p>', sep = "\n")
             }
-    
+
+            ## link to source code file
+            codelinkBlock <- ""
+            if (!is.na(codeSrcBase) && !is.na(codefile)) {
+                codeurl <- paste(codeSrcBase, codefile, sep = "")
+                codelinkBlock <-
+                    sprintf('<p><a href="%s" class="codelink">Source code</a></p>',
+                            codeurl)
+            }
+            
             write(c(sprintf('<div class="item" id="%s">', okname),
                     '  <h2 class="itemname">', name, '  </h2>',
                     '  <div class="itemdesc">', desc, '  </div>',
                     helplinkBlock,
                     exampleBlock,
+                    codelinkBlock,
                     '</div>', ''), file = out)
-
-            ## link to source code file
-            if (!is.na(codeSrcBase) && !is.na(codefile)) {
-                codeurl <- paste(codeSrcBase, codefile, sep = "")
-                codeLinkBlock <-
-                    sprintf('<p><a href="%s" class="codelink">Source code</a></p>',
-                            codeurl)
-                write(codeLinkBlock, file = out)
-            }
             
             ## generate HTML nav
             navid <- paste("nav_", okname, sep = "")
