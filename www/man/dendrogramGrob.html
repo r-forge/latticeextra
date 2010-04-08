@@ -11,15 +11,15 @@
 
 <h3>Description</h3>
 
-
-
-
+<p>
+</p>
+<p>
 This function creates a grob (a grid graphics object) that can be
 manipulated as such.  In particular, it can be used as a legend in a
 lattice display like <code>levelplot</code> to form heatmaps.
-
-
-
+</p>
+<p>
+</p>
 
 
 <h3>Usage</h3>
@@ -40,23 +40,23 @@ dendrogramGrob(x, ord = order.dendrogram(x),
 <td>
  An object of class <code>"dendrogram"</code>.  See
 <code>dendrogram</code> for details </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>ord</code></td>
 <td>
  A vector of integer indices giving the order in which the
 terminal leaves are to be plotted.  If this is not the same as
 <code>order.dendrogram(x)</code>, then the leaves may not cluster together
 and branches of the dendrogram may intersect.  </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>side</code></td>
 <td>
  Intended position of the dendrogram when added in a
 heatmap.  Currently allowed positions are <code>"right"</code> and
 <code>"top"</code>. </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>add</code></td>
 <td>
  Additional annotation.  Currently, it is only possible to
@@ -84,7 +84,7 @@ two lines (<code>"rectangle"</code>)
 
 <h3>Details</h3>
 
-
+<p>
 The <code>add</code> argument can be used for additional annotation at the
 base of the dendrogram.  It should be a list with one component for
 each row, with names specifying the type of annotation and components
@@ -92,26 +92,26 @@ specifying the contents.  Currently, the only supported name is
 <code>"rect"</code> (which can be repeated), producing rectangles.  The
 components in such a case is a list of graphical parameters, possibly
 vectorized, that are passed on to <code><a href="../../grid/html/gpar.html">gpar</a></code>.
-
+</p>
 
 
 <h3>Value</h3>
 
-
+<p>
 An object of class <code>"grob"</code>
-
+</p>
 
 
 <h3>Author(s)</h3>
 
- Deepayan Sarkar <a href="mailto:deepayan.sarkar@r-project.org">deepayan.sarkar@r-project.org</a> 
+<p> Deepayan Sarkar <a href="mailto:deepayan.sarkar@r-project.org">deepayan.sarkar@r-project.org</a> </p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code>heatmap</code>, <code><a href="../../lattice/html/levelplot.html">levelplot</a></code>
-
+</p>
 
 
 <h3>Examples</h3>

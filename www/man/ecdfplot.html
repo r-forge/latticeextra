@@ -11,9 +11,9 @@
 
 <h3>Description</h3>
 
-
+<p>
 Conditional displays of Empirical Cumulative Distribution Functions
-
+</p>
 
 
 <h3>Usage</h3>
@@ -51,33 +51,33 @@ method dispatch is carried out.  For the <code>"formula"</code> method,
 has to be of the form <code>~x</code>, where <code>x</code> is assumed to be a
 numeric vector.  Further conditioning variables are allowed as
 usual.
-
-
+</p>
+<p>
 A similar interpretation holds for <code>x</code> in the <code>"numeric"</code>
 method as well as <code>prepanel.ecdfplot</code> and
 <code>panel.ecdfplot</code>.
 </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>data</code></td>
 <td>
  For the <code>"formula"</code> method, a data frame containing
 values for any variables in the formula, as well as those in
 <code>groups</code> and <code>subset</code> if applicable. </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>prepanel, panel</code></td>
 <td>
  panel and prepanel function used to create the
 display.  </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>xlab, ylab</code></td>
 <td>
  axis labels; typically a character string or an
 expression. </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>groups</code></td>
 <td>
  a grouing variable of the same length as <code>x</code>.  If
@@ -97,8 +97,8 @@ within each panel.
 <td>
  how the plot is rendered; see
 <code><a href="../../lattice/html/panel.xyplot.html">panel.xyplot</a></code> </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>...</code></td>
 <td>
  extra arguments, passed on as appropriate.  Standard
@@ -110,30 +110,30 @@ can be supplied directly in the high level <code>ecdfplot</code> call.
 
 <h3>Value</h3>
 
-
+<p>
 <code>ecdfplot</code> produces an object of class <code>"trellis"</code>. The
 <code>update</code> method can be used to update components of the object and
 the <code>print</code> method (usually called by default) will plot it on an
 appropriate plotting device.
-
-
-
+</p>
+<p>
+</p>
 
 
 <h3>Author(s)</h3>
 
- Deepayan Sarkar <a href="mailto:deepayan.sarkar@r-project.org">deepayan.sarkar@r-project.org</a>
+<p> Deepayan Sarkar <a href="mailto:deepayan.sarkar@r-project.org">deepayan.sarkar@r-project.org</a></p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code><a href="../../lattice/html/qqmath.html">qqmath</a></code> for Quantile plots which are
 more generally useful, especially when comparing with a theoretical
 distribution other than uniform.  An ECDF plot is essentially a
 transposed version (i.e., with axes switched) of a uniform quantile
 plot.
-
+</p>
 
 
 <h3>Examples</h3>

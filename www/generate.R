@@ -13,7 +13,7 @@ generateWebsite <-
              themeNames = c("default", "black_and_white", "classic_gray",
                             "custom_theme", "custom_theme_2", "theEconomist"),
              imageSrcBase = "",
-             codeSrcBase = NA,
+             codeSrcSpec = NA,
              do.examples = TRUE)
 {
     ## persistent global:
@@ -173,8 +173,8 @@ generateWebsite <-
 
             ## link to source code file
             codelinkBlock <- ""
-            if (!is.na(codeSrcBase) && !is.na(codefile)) {
-                codeurl <- paste(codeSrcBase, codefile, sep = "")
+            if (!is.na(codeSrcSpec) && !is.na(codefile)) {
+                codeurl <- sprintf(codeSrcSpec, codefile)
                 codelinkBlock <-
                     sprintf('<p><a href="%s" class="codelink">Source code</a></p>',
                             codeurl)

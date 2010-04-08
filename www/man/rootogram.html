@@ -11,9 +11,9 @@
 
 <h3>Description</h3>
 
-
+<p>
 Displays hanging rootograms. 
-
+</p>
 
 
 <h3>Usage</h3>
@@ -61,13 +61,13 @@ of raw observations, and an observed frequency distribution is
 computed from it.  In the second case, <code>x</code> is assumed to be
 unique values and <code>y</code> the corresponding frequencies.  In either
 case, further conditioning variables are allowed.
-
-
+</p>
+<p>
 A similar interpretation holds for <code>x</code> and <code>y</code> in
 <code>prepanel.rootogram</code> and <code>panel.rootogram</code>.
 </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>data</code></td>
 <td>
  For the <code>"formula"</code> method, a data frame containing
@@ -75,45 +75,45 @@ values for any variables in the formula, as well as those in
 <code>groups</code> and <code>subset</code> if applicable (<code>groups</code> is
 currently ignored by the default panel function).  By default the
 environment where the function was called from is used.  </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>dfun</code></td>
 <td>
  a probability mass function, to be evaluated at unique x
 values </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>prepanel, panel</code></td>
 <td>
  panel and prepanel function used to create the
 display.  </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>ylab</code></td>
 <td>
  the y-axis label; typically a character string or an
 expression. </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>col, lty, lwd, alpha</code></td>
 <td>
  graphical parameters </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>transformation</code></td>
 <td>
  a vectorized function.  Relative frequencies
 (observed) and theoretical probabilities (<code>dfun</code>) are
 transformed by this function before being plotted. </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>hang</code></td>
 <td>
 logical, whether lines representing observed relative
 freuqncies should &ldquo;hang&rdquo; from the curve representing the
 theoretical probabilities. </td></tr>
-
-
+</p>
+<p>
 <tr valign="top"><td><code>...</code></td>
 <td>
  extra arguments, passed on as appropriate.  Standard
@@ -125,34 +125,34 @@ can be supplied directly in the high level <code>rootogram</code> call.
 
 <h3>Details</h3>
 
-
+<p>
 This function implements Tukey's hanging rootograms.  Also consider
 the <code>rootogram</code> function in the <code>vcd</code> package, especially if
-the number of unique values is small.  
+the number of unique values is small.  </p>
 
 
 <h3>Value</h3>
 
-
+<p>
 <code>rootogram</code> produces an object of class <code>"trellis"</code>. The
 <code>update</code> method can be used to update components of the object and
 the <code>print</code> method (usually called by default) will plot it on an
 appropriate plotting device.
-
-
-
+</p>
+<p>
+</p>
 
 
 <h3>Author(s)</h3>
 
- Deepayan Sarkar <a href="mailto:deepayan.sarkar@gmail.com">deepayan.sarkar@gmail.com</a>
+<p> Deepayan Sarkar <a href="mailto:deepayan.sarkar@gmail.com">deepayan.sarkar@gmail.com</a></p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code><a href="../../lattice/html/xyplot.html">xyplot</a></code>
-
+</p>
 
 
 <h3>Examples</h3>

@@ -11,12 +11,12 @@
 
 <h3>Description</h3>
 
-
+<p>
 This is an extension of the panel functions <code>panel.abline</code> and
 <code>panel.lmline</code> to also draw a label on the line. The
 default label is the line equation, and optionally the R squared value
 of its fit to the data points.
-
+</p>
 
 
 <h3>Usage</h3>
@@ -61,12 +61,12 @@ See <code>panel.abline</code> for more details.
 <td>
 
 passed on to <code>panel.text</code>.
-
-
+</p>
+<p>
 For <code>pos</code>: 1 = below, 2 = left, 3 = above, 4 = right,
 and the <code>offset</code> (in character widths) is applied.
-
-
+</p>
+<p>
 For <code>adj</code>: c(0,0) = above right, c(1,0) = above left,
 c(0,1) = below right, c(1,1) = below left;
 offset does not apply when using <code>adj</code>.
@@ -84,8 +84,8 @@ the equation.
 
 position of the equation in native units. If given, this over-rides
 <code>at</code>.
-
-
+</p>
+<p>
 For <code>panel.lmlineq</code> this is the data, passed on as <code>lm(y ~ x)</code>.
 </td></tr>
 <tr valign="top"><td><code>rotate, srt</code></td>
@@ -131,8 +131,8 @@ the <i>R^2</i> statistic to display along with the equation of a line.
 This can be given directly as a number, or <code>TRUE</code>, in which
 case the function expects a model object (typically
 <code>lm</code>) and extracts the <i>R^2</i> statistic from it.
-
-
+</p>
+<p>
 The <i>R^2</i> value is separated from the equation by <code>sep</code>, and
 also <code>sep.end</code> is added to the end. For example:
 <code>panel.ablineq(lm(y ~ x), r.squared = TRUE, sep = " (", sep.end
@@ -157,26 +157,26 @@ for grid lines.
 
 <h3>Details</h3>
 
-
+<p>
 The equation is constructed as an expression using <code>plotmath</code>.
-
+</p>
 
 
 <h3>Author(s)</h3>
 
-
+<p>
 Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
-
+</p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code>panel.abline</code>,
 <code>panel.text</code>,
 <code>lm</code>,
 <code>plotmath</code>
-
+</p>
 
 
 <h3>Examples</h3>

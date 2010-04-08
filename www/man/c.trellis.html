@@ -11,9 +11,9 @@
 
 <h3>Description</h3>
 
-
+<p>
 Combine the panels of multiple trellis objects into one.
-
+</p>
 
 
 <h3>Usage</h3>
@@ -71,7 +71,7 @@ the list <code>x</code>, along with <code>data</code> and <code>...</code> </td>
 
 <h3>Details</h3>
 
-
+<p>
 This mechanism attempts to merge the panels from multiple trellis
 objects into one. The same effect could generally be achieved by
 either a custom panel function (where the display depends on
@@ -81,44 +81,44 @@ convenient to use <code>c()</code>. Furthermore, it can be useful to
 maintain the display as a standard lattice display, rather than a
 composite using <code><a href="../../lattice/html/print.trellis.html">print.trellis</a></code>, to simplify
 further interaction.
-
-
+</p>
+<p>
 Many properties of the display, such as titles, legends, axis settings
 and aspect ratio will be taken from the first object only.
-
-
+</p>
+<p>
 Note that combining panels from different types of plots does not
 really fit the trellis model. Some features of the plot may not work
 as expected. In particular, some work may be needed to
 show or hide scales on selected panels. An example is given below.
-
-
+</p>
+<p>
 Any trellis object with more than one conditioning variable will be
 "flattened" to one dimension, eliminating the multi-variate
 conditioning structure.
-
+</p>
 
 
 <h3>Value</h3>
 
-
+<p>
 a new trellis object.
-
+</p>
 
 
 <h3>Author(s)</h3>
 
- Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a> 
+<p> Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a> </p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code><a href="#marginal.plot">marginal.plot</a></code> was the original motivating application,
 <code><a href="../../lattice/html/print.trellis.html">print.trellis</a></code>,
 <code><a href="../../lattice/html/update.trellis.html">update.trellis</a></code>,
 <code><a href="../../lattice/html/trellis.object.html">trellis.object</a></code>
-
+</p>
 
 
 <h3>Examples</h3>

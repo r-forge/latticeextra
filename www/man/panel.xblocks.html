@@ -11,10 +11,10 @@
 
 <h3>Description</h3>
 
-
+<p>
 Plot contiguous blocks along x axis. A typical use would be to
 highlight events or periods of missing data.
-
+</p>
 
 
 <h3>Usage</h3>
@@ -46,14 +46,14 @@ contiguous blocks. If <code>y</code> is numeric, data coverage is plotted,
 by converting it into a logical (<code>!is.na(y)</code>). In this case, or
 when a logical <code>y</code> is given, the default block color is
 taken from the current theme: <code>trellis.par.get("plot.line")$col</code>.
-
-
+</p>
+<p>
 If <code>y</code> has character (or factor) values, these are interpreted
 as colors &ndash; and should therefore be colour names or hex
 codes. Missing values in <code>y</code> are not plotted. 
 If <code>col</code> is given, this over-rides the block colors.
-
-
+</p>
+<p>
 The <code>ts</code> method plots values against their <code>time()</code>,
 unless <code>y</code> is specified, when it acts just like
 the default method.
@@ -117,27 +117,27 @@ the last 5 time steps (assuming steps are regular).
 
 <h3>Details</h3>
 
-
+<p>
 Blocks are drawn forward in "time" from the specified x locations,
 up until the following value. Contiguous blocks are calculated using
 <code>rle</code>.
-
+</p>
 
 
 <h3>Author(s)</h3>
 
-
+<p>
 Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
-
+</p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code><a href="../../lattice/html/xyplot.ts.html">xyplot.ts</a></code>,
 <code>panel.rect</code>,
 <code><a href="../../grid/html/grid.rect.html">grid.rect</a></code>
-
+</p>
 
 
 <h3>Examples</h3>

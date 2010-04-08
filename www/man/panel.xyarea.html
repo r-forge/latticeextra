@@ -11,9 +11,9 @@
 
 <h3>Description</h3>
 
-
+<p>
 Plot series as filled polygons connected at given origin level (on y axis).
-
+</p>
 
 
 <h3>Usage</h3>
@@ -30,7 +30,7 @@ panel.xyarea(x, y, groups = NULL, origin = NULL,
 panel.xyarea(x, y = NULL, ...)
 
 panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
-                    qtype = 7, groups = NULL, ...)
+                    qtype = 7, groups = NULL, ..., tails.n = 0)
 </pre>
 
 
@@ -77,7 +77,7 @@ ignored; use <code>col</code> instead.
 
 used in <code>panel.superpose</code>.
 </td></tr>
-<tr valign="top"><td><code>f.value, distribution, qtype</code></td>
+<tr valign="top"><td><code>f.value, distribution, qtype, tails.n</code></td>
 <td>
 
 as in <code>panel.qqmath</code>.
@@ -87,39 +87,51 @@ as in <code>panel.qqmath</code>.
 
 <h3>Details</h3>
 
-
+<p>
 none yet.
-
+</p>
 
 
 <h3>Author(s)</h3>
 
-
+<p>
 Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
-
+</p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code>panel.xyplot</code>,
 <code>panel.polygon</code>
-
+</p>
 
 
 <h3>Examples</h3>
 
 <pre>
-
 xyplot(sunspot.year, panel = panel.xyarea, origin = 0,
   aspect = "xy", cut = list(n = 3, overlap = 0))
 
+
+## two series superposed: one filled, one as a line.
+xyplot(ts.union(data = sunspot.year, lag10 = lag(sunspot.year, 10)),
+  aspect = "xy", cut = list(n = 3, overlap = 0),
+  superpose = TRUE,
+  panel = panel.superpose,
+  panel.groups = function(..., group.number) {
+    str(list(...))
+    if (group.number == 1) panel.xyarea(...) else panel.xyplot(...)
+  },
+  par.settings = simpleTheme(col = c("grey", "black"), lwd = 2))
+
+set.seed(0)
 qqmath(~ data, make.groups(baseline = rnorm(100),
                            other = rnorm(100) * 2 - 0.5),
   groups = which, distribution = qunif,
   panel = panel.qqmath.xyarea, xlim = 0:1,
   auto.key = list(points = FALSE, rectangles = TRUE),
-  par.settings = simpleTheme(col = c("grey", NA),
+  par.settings = simpleTheme(col = c("grey", "transparent"),
                              border = c(NA, "black"), lwd = 2))
 </pre>
 

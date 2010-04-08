@@ -11,11 +11,11 @@
 
 <h3>Description</h3>
 
-
+<p>
 Plot many time series in parallel by cutting the y range into segments
 and overplotting them with color representing the magnitude and
 direction of deviation.
-
+</p>
 
 
 <h3>Usage</h3>
@@ -48,8 +48,8 @@ prepanel.horizonplot(x, y, ..., origin = function(y) na.omit(y)[1])
 <td>
  Argument on which argument dispatch is carried
 out. Typically this will be a multivariate time series.
-
-
+</p>
+<p>
 In the panel and prepanel functions, these are the data
 coordinates. 
 </td></tr>
@@ -62,8 +62,8 @@ coordinates.
 further arguments.  Arguments to <code>xyplot</code> as
 well as to the default panel function <code>panel.horizonplot</code>
 can be supplied directly to <code>horizonplot</code>.
-
-
+</p>
+<p>
 In typical usage, the method of <code>xyplot</code> called will be
 <code>xyplot.ts</code>.
 </td></tr>
@@ -105,8 +105,8 @@ number, which is then fixed across all panels, or it can be a
 function, which is evaluated with the <code>y</code> values in each
 panel. The default is the first non-missing y value in each
 panel.
-
-
+</p>
+<p>
 See the Details section.
 </td></tr>
 <tr valign="top"><td><code>border</code></td>
@@ -126,7 +126,7 @@ color scale (with white as the central color).
 
 <h3>Details</h3>
 
-
+<p>
 This function draws time series as filled areas, with modifications
 to effectively visualise many time series in parallel. Data that would
 be drawn off the top of each panel is redrawn from the bottom of the
@@ -135,51 +135,51 @@ drawn in the opposite color. There are up to three shades (typically
 in blue) for data above the baseline and up to three shades (typically
 in red) for data below the baseline. See the article referenced below
 for an introduction to Horizon plots.
-
-
+</p>
+<p>
 Note that the y scale in each panel defines the actual origin and
 scale used. The <code>origin</code> argument is only used in the <code>prepanel</code>
 function to choose an appropriate y scale (it is ignored by the
 <code>panel</code> function). The <code>ylim</code> argument therefore over-rides
 <code>origin</code>. The choice of <code>scales$y$relation</code> is also crucial;
 see <code><a href="../../lattice/html/xyplot.html">xyplot</a></code> and the examples below.
-
+</p>
 
 
 <h3>Value</h3>
 
-
+<p>
 An object of class <code>"trellis"</code>. The
 <code><a href="../../lattice/html/update.trellis.html">update</a></code> method can be used to
 update components of the object and the
 <code><a href="../../lattice/html/print.trellis.html">print</a></code> method (usually called by
 default) will plot it on an appropriate plotting device.
-
+</p>
 
 
 <h3>Author(s)</h3>
 
-
+<p>
 Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
-
+</p>
 
 
 <h3>References</h3>
 
-
+<p>
 Stephen Few (2008). Time on the Horizon.
 <EM>Visual Business Intelligence Newsletter</EM>, June/July 2008
 <a href="http://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf">http://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf</a>
-
+</p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code><a href="../../lattice/html/Lattice.html">Lattice</a></code>,
 <code><a href="../../lattice/html/xyplot.ts.html">xyplot.ts</a></code>,
 <code><a href="#panel.xyarea">panel.xyarea</a></code>
-
+</p>
 
 
 <h3>Examples</h3>

@@ -31,27 +31,26 @@ spec[["functions of two variables"]] <-
          list("mapplot", width = 600),
          list("tileplot"),
          list("panel.levelplot.points", width = 600,
-           helpname = "panel.voronoi"),
+           helpname = "panel.voronoi", codefile = "tileplot.R"),
          list("panel.2dsmoother"),
          list("dendrogramGrob", height = 550)
      )
 
 spec[["utilities"]] <-
     list(
-         list("useOuterStrips"),
+         list("useOuterStrips", codefile = "utilities.R"),
          list("resizePanels", width = 400, height = 550,
-           helpname = "useOuterStrips",
+           helpname = "useOuterStrips", codefile = "utilities.R",
            desc = "Resize panels to match data scales"),
          list("panel.ablineq", helpname = "panel.lmlineq"),
          list("panel.scaleArrow", height = 400, rerun = TRUE),
          list("panel.3dmisc", height = 400)
-         ## panel.qqmath.tails
      )
 
 spec[["extended trellis framework"]] <-
     list(
          list("layer"),
-         list("as.layer"),
+         list("as.layer", codefile = "doubleYScale.R"),
          list("doubleYScale"),
          list("c.trellis", width = 600)
      )
@@ -60,21 +59,21 @@ spec[["styles"]] <-
     list(
          list("style example", examplename = "custom.theme", 
            desc = "This is a sample plot to demonstrate different graphical settings (themes).",
-           helplink = FALSE),
+           helplink = FALSE, codefile = NA),
          list("custom.theme"),
-         list("theEconomist.theme")
+         list("theEconomist.theme", codefile = "theeconomist.R")
          )
 
 spec[["data"]] <-
     list(
-         list("USAge"),
-         list("USCancerRates", examplename = "mapplot", width = 600),
-         list("ancestry", do.example = FALSE),
-         list("postdoc"),
-         list("biocAccess", height = 550),
-         list("gvhd10", height = 500),
-         list("SeatacWeather", examplename = "doubleYScale"),
-         list("EastAuClimate")
+         list("USAge", codefile = NA),
+         list("USCancerRates", examplename = "mapplot", width = 600, codefile = NA),
+         list("ancestry", do.example = FALSE, codefile = NA),
+         list("postdoc", codefile = NA),
+         list("biocAccess", height = 550, codefile = NA),
+         list("gvhd10", height = 500, codefile = NA),
+         list("SeatacWeather", examplename = "doubleYScale", codefile = NA),
+         list("EastAuClimate", codefile = NA)
      )
 
 source("generate.R")
@@ -85,4 +84,5 @@ lattice.options(panel.error = NULL)
 generateWebsite("latticeExtra", spec = spec, 
                 man.src.dir = "../pkg/man/",
                 imageSrcBase = "http://150.203.60.53/latticeExtra/",
+                codeSrcSpec = "http://r-forge.r-project.org/plugins/scmsvn/viewcvs.php/pkg/R/%s?root=latticeextra&view=markup",
                 do.examples = TRUE)

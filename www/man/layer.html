@@ -11,11 +11,11 @@
 
 <h3>Description</h3>
 
-
+<p>
 A mechanism to add new layers to a trellis object, optionally using a
 new data source. This is an alternative to modifying the
-panel function.
-
+panel function. Note the non-standard evaluation used in <code>layer()</code>!
+</p>
 
 
 <h3>Usage</h3>
@@ -47,8 +47,10 @@ flattenPanel(object)
 expressions as they would appear in a panel function.
 These can refer to the panel function arguments
 (typically <code>x</code>, <code>y</code> and <code>subscripts</code>), or
-alternatively <code>...</code>, which represents all panel function arguments.
-In addition, <code>data</code> is used as the evaluation frame.
+<STRONG>alternatively</STRONG> <code>...</code>, which represents all panel
+function arguments. 
+In addition, <code>data</code>, if given, is used as the evaluation frame.
+See also the discussion under Details, below.
 </td></tr>
 <tr valign="top"><td><code>data</code></td>
 <td>
@@ -64,18 +66,18 @@ evaluated  immediately (in the calling environment). This makes it
 easier to pass in values from local variables. This should only be
 used when the layer code consists of simple top-level function calls
 (e.g. no <code>if</code> statements or <code>{braces}</code>).
-
-
+</p>
+<p>
 The default is <code>eval = FALSE</code>.
-
-
+</p>
+<p>
 When <code>eval = TRUE</code>, you can not directly refer to the panel
 function internal variables (because they would be interpreted as
 local variables in the calling frame). Instead you can use the
 special names <code>.x</code>, <code>.y</code>, <code>.z</code>, <code>.subscripts</code>
 and <code>.groups</code>.
-
-
+</p>
+<p>
 The <code>etc</code> can be used to pass other variables in to the layer
 code calls: if <code>etc = TRUE</code> then all remaining panel function
 arguments are passed through. If <code>etc</code> is a character vector
@@ -89,8 +91,8 @@ restricts the layer to draw only in specified packets (which refer
 to individual panels, but are independent of their layout), or rows
 or columns of the trellis layout.
 See <code>trellis.currentLayout</code>.
-
-
+</p>
+<p>
 For group layers (using <code>glayer</code> or <code>superpose = TRUE</code>),
 the groups can be restricted also, by specifying group numbers.
 </td></tr>
@@ -131,68 +133,77 @@ a style specification to be passed to <code>trellis.par.set</code>.
 
 <h3>Details</h3>
 
-
+<p>
 The <code>layer</code> mechanism is a method for augmenting a panel
 function. It allows expressions to be added to the
 panel function without knowing what the original panel function
 was. In this way it can be useful for quick augmentation of trellis
 plots.
-
-
+</p>
+<p>
+Note that the evaluation used in <code>layer</code> is non-standard, and can
+be confusing at first: you typically refer to variables as if inside
+the panel function (<code>x</code>, <code>y</code>, etc); you can usually refer to
+objects which exist in the global environment (workspace), but it is
+safer to pass them in by name in the <code>data</code> argument to
+<code>layer</code>. This is not to be confused with the <code>data</code> argument
+to the original <code>xyplot</code>. 
+</p>
+<p>
 A simple example is adding a reference line
 to each panel: <code>layer(panel.refline(h = 0))</code>. Note that the
 expressions are quoted, so if you have local variables they
 will need to be either (a) accessible globally, or (b) evaluated using
 the argument <code>eval = TRUE</code>, or (c) passed in via
 the <code>data</code> argument For example:
-
-
+</p>
+<p>
 <code>layer(panel.refline(h = myVal)) ## if myVal is global</code>
-
-
+</p>
+<p>
 <code>layer(panel.refline(h = h), eval = TRUE)</code>
-
-
+</p>
+<p>
 <code>layer(panel.refline(h = h), data = list(h = myVal))</code>
-
-
+</p>
+<p>
 The layer mechanism should probably still be considered experimental.
-
-
+</p>
+<p>
 <code>drawLayer()</code> actually draws the given layer object, applying the
 panel specification, style settings and so on. It should only be
 called while a panel is in focus.
-
-
+</p>
+<p>
 The <code>flattenPanel</code> function will construct a human-readable
 function incorporating code from all layers (and the original panel
 function). Note that this does not return a usable function, as it
 lacks the correct argument list and ignores any extra data sources
 that layers might use. It is intended be edited manually.
-
+</p>
 
 
 <h3>Value</h3>
 
-
+<p>
 a <code>layer</code> object is defined as a list of expression objects,
 each of which may have a set of attributes. The result of "adding"
 a layer to a trellis object (<code>+.trellis</code>) is the updated trellis
 object.
-
+</p>
 
 
 <h3>Author(s)</h3>
 
- Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a> 
+<p> Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a> </p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code><a href="../../lattice/html/update.trellis.html">update.trellis</a></code>,
 <code><a href="#as.layer">as.layer</a></code> for overlaying entire plots
-
+</p>
 
 
 <h3>Examples</h3>

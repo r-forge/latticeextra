@@ -11,12 +11,12 @@
 
 <h3>Description</h3>
 
-
+<p>
 Compute and plot discrete symmetric smoothing kernels.
 These kernels can be used to smooth time series objects.
 Options include moving averages, triangular filters, or
 approximately Gaussian filters.
-
+</p>
 
 
 <h3>Usage</h3>
@@ -52,8 +52,8 @@ further arguments passed on to <code>panel.lines</code>.
 case, which is a simple moving average, this is the actual width.
 When <code>c &gt; 1</code> the number of time steps used in the kernel
 increases but the equivalent bandwidth stays the same.
-
-
+</p>
+<p>
 If only past values are used (with <code>sides = 1</code>) then
 <code>width</code> refers to one side of the symmetric kernel.
 </td></tr>
@@ -63,12 +63,12 @@ If only past values are used (with <code>sides = 1</code>) then
 smoothness of the kernel: <code>c = 1</code> is a moving average,
 <code>c = 2</code> is a triangular kernel, <code>c = 3</code> and higher
 approximate smooth Gaussian kernels.
-
-
+</p>
+<p>
 <code>c</code> is actually the number of times to
 recursively convolve a simple moving average kernel with itself.
-
-
+</p>
+<p>
 The kernel size is adjusted to maintain a constant equivalent
 bandwidth as <code>c</code> increases.
 </td></tr>
@@ -95,25 +95,25 @@ a <code>tskernel</code> object; if given, this over-rides <code>width</code> and
 
 <h3>Note</h3>
 
-
+<p>
 The author is not an expert on time series theory.
-
+</p>
 
 
 <h3>Author(s)</h3>
 
-
+<p>
 Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
-
+</p>
 
 
 <h3>See Also</h3>
 
-
+<p>
 <code>kernel</code>,
 <code>filter</code>,
 <code><a href="../../lattice/html/xyplot.ts.html">xyplot.ts</a></code>
-
+</p>
 
 
 <h3>Examples</h3>

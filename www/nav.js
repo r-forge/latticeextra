@@ -70,7 +70,9 @@ function loadItem(newItem) {
     $("#nav a.active").removeClass("active");
     var navEl = $("#nav " + jq("nav_" + newItem));
     navEl.addClass("active");
-    if (newItem != "intro") {
+    if (newItem == "intro") {
+	$("#nav li.navgroup:visible").slideUp();
+    } else {
 	// expand the corresponding nav group
 	openNavGroup(navEl.parents("li.navgroup"));
 	// load man page immediately if there is no example image
