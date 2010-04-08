@@ -1,9 +1,18 @@
 
-Changes in Version 0.6-7 (in development)
+Changes in Version 0.6-8 (in development)
 
- o function simpleSmoothTs (calculations for panel.tskernel).
+ o support arrows with panel.segplot.
 
  o changed panel.xblocks() to show data coverage by default.
+
+ o panel.smoother(), panel.2dsmoother() now omit non-finite values.
+
+ o panel.qqmath.tails() is now deprecated as its main functionality
+   has been moved into lattice::panel.qqmath().
+
+ o glayer() was failing on plots with an existing 'panel.groups'.
+
+ o function simpleSmoothTs (calculations for panel.tskernel).
 
 Changes in Version 0.6-6
 

@@ -2,6 +2,7 @@
 \alias{panel.xblocks}
 \alias{panel.xblocks.default}
 \alias{panel.xblocks.ts}
+\alias{panel.xblocks.zoo}
 \title{
   Plot contiguous blocks along x axis.
 }

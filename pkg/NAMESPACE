@@ -45,12 +45,14 @@ export(tileplot, panel.voronoi, panel.levelplot.points)
 export(panel.xblocks)
 S3method(panel.xblocks, default)
 S3method(panel.xblocks, ts)
+S3method(panel.xblocks, zoo)
 export(panel.xyarea)
 S3method(panel.xyarea, default)
 S3method(panel.xyarea, ts)
+S3method(panel.xyarea, zoo)
 export(panel.qqmath.xyarea)
 
-export(panel.qqmath.tails)
+export(panel.qqmath.tails) ## Deprecated as of lattice 0.18-4
 
 export(panel.lmlineq, panel.ablineq)
 export(panel.scaleArrow)

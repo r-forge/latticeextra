@@ -50,29 +50,58 @@ panel.xyarea.ts <- function(x, y = NULL, ...)
 
 ## A slightly modified copy of panel.qqmath
 panel.qqmath.xyarea <-
-    function(x, y = NULL, f.value = NULL, distribution = qnorm, qtype = 7,
-             groups = NULL, ...)
+    function(x, y = NULL,
+             f.value = NULL,
+             distribution = qnorm,
+             qtype = 7,
+             groups = NULL, ...,
+             tails.n = 0)
 {
     x <- as.numeric(x)
-    distribution <- if (is.function(distribution))
-        distribution
-    else if (is.character(distribution))
-        get(distribution)
-    else eval(distribution)
+    distribution <-
+        if (is.function(distribution)) distribution 
+        else if (is.character(distribution)) get(distribution)
+        else eval(distribution)
     nobs <- sum(!is.na(x))
     if (!is.null(groups))
-        panel.xyarea(x, y = NULL, f.value = f.value, distribution = distribution,
-                     qtype = qtype, groups = groups, ...,
-                     panel.groups = panel.qqmath.xyarea)
-    else if (nobs) {
-        if (is.null(f.value))
-            panel.xyarea(x = distribution(ppoints(nobs)), y = sort(x),
-                ...)
-        else panel.xyarea(x = distribution(if (is.numeric(f.value))
-            f.value
-        else f.value(nobs)), y = quantile(x, if (is.numeric(f.value))
-            f.value
-        else f.value(nobs), names = FALSE, type = qtype, na.rm = TRUE),
-            ...)
+        panel.xyarea(x, y = NULL,
+                     f.value = f.value,
+                     distribution = distribution,
+                     qtype = qtype,
+                     groups = groups,
+                     panel.groups = panel.qqmath.xyarea,
+                     ...,
+                     tails.n = tails.n)
+    else if (nobs)
+    {
+        if (is.null(f.value)) # exact data instead of quantiles
+        {
+            panel.xyarea(x = distribution(ppoints(nobs)),
+                         y = sort(x),
+                         ...)
+        }
+        else
+        {
+            pp <- if (is.numeric(f.value)) f.value else f.value(nobs)
+            if (tails.n > 0)
+            {
+                ## use exact data for tails of distribution
+                tails.n <- min(tails.n, nobs %/% 2)
+                ppd <- ppoints(nobs)
+                ## omit probabilities within the exact tails
+                pp <- pp[(pp > ppd[tails.n] &
+                          pp < ppd[nobs + 1 - tails.n])]
+                ## add on probs corresponding to exact tails
+                pp <- c(head(ppd, tails.n), pp, tail(ppd, tails.n))
+                ## must use a quantile type that recovers exact values:
+                qtype <- 1
+            }
+            xx <- distribution(pp)
+            yy <- quantile(x, pp, 
+                                  names = FALSE,
+                                  type = qtype,
+                                  na.rm = TRUE)
+            panel.xyarea(x = xx, y = yy, ...)
+        }
     }
 }

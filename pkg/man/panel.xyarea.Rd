@@ -2,6 +2,7 @@
 \alias{panel.xyarea}
 \alias{panel.xyarea.default}
 \alias{panel.xyarea.ts}
+\alias{panel.xyarea.zoo}
 \alias{panel.qqmath.xyarea}
 \title{
   Plot series as filled polygons.
@@ -19,7 +20,7 @@ panel.xyarea(x, ...)
 \S3method{panel.xyarea}{ts}(x, y = NULL, ...)
 
 panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
-                    qtype = 7, groups = NULL, ...)
+                    qtype = 7, groups = NULL, ..., tails.n = 0)
 }
 \arguments{
   \item{x, y}{
@@ -48,7 +49,7 @@ panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
   \item{panel.groups}{
     used in \code{\link{panel.superpose}}.
   }
-  \item{f.value, distribution, qtype}{
+  \item{f.value, distribution, qtype, tails.n}{
     as in \code{\link{panel.qqmath}}.
   }
 }
@@ -63,16 +64,28 @@ panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
   \code{\link{panel.polygon}}
 }
 \examples{
-\dontshow{ .featured_example <- TRUE }
 xyplot(sunspot.year, panel = panel.xyarea, origin = 0,
   aspect = "xy", cut = list(n = 3, overlap = 0))
 
+\dontshow{ .featured_example <- TRUE }
+## two series superposed: one filled, one as a line.
+xyplot(ts.union(data = sunspot.year, lag10 = lag(sunspot.year, 10)),
+  aspect = "xy", cut = list(n = 3, overlap = 0),
+  superpose = TRUE,
+  panel = panel.superpose,
+  panel.groups = function(..., group.number) {
+    str(list(...))
+    if (group.number == 1) panel.xyarea(...) else panel.xyplot(...)
+  },
+  par.settings = simpleTheme(col = c("grey", "black"), lwd = 2))
+
+set.seed(0)
 qqmath(~ data, make.groups(baseline = rnorm(100),
                            other = rnorm(100) * 2 - 0.5),
   groups = which, distribution = qunif,
   panel = panel.qqmath.xyarea, xlim = 0:1,
   auto.key = list(points = FALSE, rectangles = TRUE),
-  par.settings = simpleTheme(col = c("grey", NA),
+  par.settings = simpleTheme(col = c("grey", "transparent"),
                              border = c(NA, "black"), lwd = 2))
 }
 \keyword{ dplot }

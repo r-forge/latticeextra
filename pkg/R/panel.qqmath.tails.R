@@ -7,6 +7,7 @@ panel.qqmath.tails <-
     function(x, f.value = NULL, distribution = qnorm,
     groups = NULL, ..., approx.n = 100, tails.n = 10)
 {
+    .Deprecated("panel.qqmath")
     x <- as.numeric(x)
     distribution <- if (is.function(distribution))
         distribution

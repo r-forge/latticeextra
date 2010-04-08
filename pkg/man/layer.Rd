@@ -12,7 +12,7 @@
 \description{
   A mechanism to add new layers to a trellis object, optionally using a
   new data source. This is an alternative to modifying the
-  panel function.
+  panel function. Note the non-standard evaluation used in \code{layer()}!
 }
 \usage{
 layer(..., data, eval, etc,
@@ -34,8 +34,10 @@ flattenPanel(object)
     expressions as they would appear in a panel function.
     These can refer to the panel function arguments
     (typically \code{x}, \code{y} and \code{subscripts}), or
-    alternatively \code{\dots}, which represents all panel function arguments.
-    In addition, \code{data} is used as the evaluation frame.
+    \strong{alternatively} \code{\dots}, which represents all panel
+    function arguments. 
+    In addition, \code{data}, if given, is used as the evaluation frame.
+    See also the discussion under Details, below.
   }
   \item{data}{
     optional. A named \code{list} containing objects needed when
@@ -98,6 +100,14 @@ flattenPanel(object)
   panel function without knowing what the original panel function
   was. In this way it can be useful for quick augmentation of trellis
   plots.
+
+  Note that the evaluation used in \code{layer} is non-standard, and can
+  be confusing at first: you typically refer to variables as if inside
+  the panel function (\code{x}, \code{y}, etc); you can usually refer to
+  objects which exist in the global environment (workspace), but it is
+  safer to pass them in by name in the \code{data} argument to
+  \code{layer}. This is not to be confused with the \code{data} argument
+  to the original \code{xyplot}. 
 
   A simple example is adding a reference line
   to each panel: \code{layer(panel.refline(h = 0))}. Note that the
