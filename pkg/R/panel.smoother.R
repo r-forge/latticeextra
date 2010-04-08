@@ -28,6 +28,11 @@ panel.smoother <-
         x <- environment(form)$x
     if (missing(y))
         y <- environment(form)$y
+    ok <- is.finite(x) & is.finite(y)
+    if (sum(ok) < 1) 
+        return()
+    x <- x[ok]
+    y <- y[ok]
     data <- list(x = x, y = y)
     mod <- do.call(method,
                    c(alist(form, data = data), list(...)))

@@ -23,6 +23,12 @@ panel.2dsmoother <-
     x <- x[subscripts]
     y <- y[subscripts]
     z <- z[subscripts]
+    ok <- is.finite(x) & is.finite(y) & is.finite(z)
+    if (sum(ok) < 1) 
+        return()
+    x <- x[ok]
+    y <- y[ok]
+    z <- z[ok]
     data <- list(x = x, y = y, z = z)
     mod <- do.call(method,
                    c(alist(form, data = data), args))

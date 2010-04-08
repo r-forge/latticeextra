@@ -193,7 +193,7 @@ drawLayerItem <- function(layer.item)
     ## call panel.superpose for group layers
     if (isTRUE(attr(layer.item, "superpose"))) {
         do.call("panel.superpose",
-                c(trellis.panelArgs(),
+                modifyList(trellis.panelArgs(),
                   list(panel.groups = drawLayerItemPerGroup)))
     } else {
         do.call("drawLayerItemPerGroup", trellis.panelArgs())
