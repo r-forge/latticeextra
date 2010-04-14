@@ -13,10 +13,10 @@
 \usage{
 panel.xblocks(x, ...)
 
-\S3method{panel.xblocks}{default}(x, y, ..., gaps = FALSE,
+\S3method{panel.xblocks}{default}(x, y, ..., col = NULL, border = NA, 
               height = unit(1, "npc"),
               block.y = unit(0, "npc"), vjust = 0,
-              col = NULL, border = NA, name = "xblocks",
+              name = "xblocks", gaps = FALSE,
               last.step = median(diff(tail(x))))
 
 \S3method{panel.xblocks}{ts}(x, y = NULL, ...)
@@ -24,29 +24,32 @@ panel.xblocks(x, ...)
 \arguments{
   \item{x, y}{
     In the default method, \code{x} gives the ordinates along the x axis and
-    must be in increasing order. \code{y} gives the colour values to plot as
+    must be in increasing order. \code{y} gives the color values to plot as
     contiguous blocks. If \code{y} is numeric, data coverage is plotted,
     by converting it into a logical (\code{!is.na(y)}). In this case, or
-    when a logical \code{y} is given, the default block color is
-    taken from the current theme: \code{trellis.par.get("plot.line")$col}.
+    when a logical \code{y} is given, the default block color is taken
+    from the current theme: \code{trellis.par.get("plot.line")$col}. 
     
     If \code{y} has character (or factor) values, these are interpreted
-    as colors -- and should therefore be colour names or hex
-    codes. Missing values in \code{y} are not plotted. 
-    If \code{col} is given, this over-rides the block colors.
+    as colors -- and should therefore be color names or hex
+    codes. Missing values in \code{y} are not plotted.  If \code{col} is 
+    given, this over-rides the block colors.
 
     The \code{ts} method plots values against their \code{time()},
-    unless \code{y} is specified, when it acts just like
-    the default method.
+    unless \code{y} is specified, when it acts just like the default
+    method. 
   }
   \item{\dots}{
     In the default method, further arguments are graphical parameters
     passed on to \code{\link[grid]{gpar}}.
   }
-  \item{gaps}{
-    highlights missing values in the data only. This is similar to
-    passing \code{y = is.na(y)}, but one cannot do that to a
-    time series object without losing the time frame attributes.
+  \item{col}{
+    if \code{col} is specified, it determines the colors of the blocks
+    defined by \code{y}. If multiple colors are specified they will be
+    repeated to cover the total number of blocks.
+  }
+  \item{border}{
+    border color.
   }
   \item{height}{
     height of blocks, defaulting to the full panel height. Numeric
@@ -60,16 +63,12 @@ panel.xblocks(x, ...)
     vertical justification of the blocks relative to \code{block.y}. See
     \code{\link[grid]{grid.rect}}.
   }
-  \item{col}{
-    if \code{col} is specified, it determines the colors of the blocks
-    defined by \code{y}. If multiple colours are specified they will be
-    repeated to cover the total number of blocks.
-  }
-  \item{border}{
-    border colour.
-  }
   \item{name}{
     a name for the grob (\pkg{grid} object).
+  }
+  \item{gaps}{
+    Deprecated.
+    Use \code{panel.xblocks(time(z), is.na(z))} instead.
   }
   \item{last.step}{
     width (in native units) of the final block. Defaults to the median of
@@ -104,7 +103,7 @@ xyplot(flow) +
   layer_(panel.xblocks(flow > mean(flow), col = "lightgrey"))
 
 \dontshow{ .featured_example <- TRUE }
-## Example of alternating colours, here showing calendar months
+## Example of alternating colors, here showing calendar months
 flowdates <- Sys.Date() + as.vector(time(flow))
 xyplot(flow) +
   layer_(panel.xblocks(time(flow), months(flowdates),
@@ -112,24 +111,21 @@ xyplot(flow) +
 
 ## Example of highlighting gaps (NAs) in time series.
 ## set up example data
-z <- ts(matrix(1:18-1, ncol = 3))
-colnames(z) <- c("A","B","C")
-z[3:4, "B"] <- NA
-z[1, "C"] <- NA
-z
+z <- ts(cbind(A = 0:5, B = c(6:7, NA, NA, 10:11), C = c(NA, 13:17)))
+
 ## show data coverage only (highlighting gaps)
 xyplot(z, panel = panel.xblocks,
        scales = list(y = list(draw = FALSE)))
 
 ## draw gaps in red
 xyplot(z, type = c("p","s")) +
-  layer_(panel.xblocks(x, y, gaps = TRUE, col = "red"))
+  layer_(panel.xblocks(x, is.na(y), col = "red"))
 
 ## Example of overlaying blocks from a different series.
 ## Are US presidential approval ratings linked to sunspot activity?
 ## Set block height, default justification is along the bottom.
 xyplot(presidents) + layer(panel.xblocks(sunspot.year > 50, height = 3))
-## Multiple colour values given in the 'y' argument.
+## Multiple color values given in the 'y' argument.
 sscols <- cut(sunspot.year, c(50,150,Inf), labels=c("yellow","orange"))
 xyplot(presidents, lwd = 2) +
   layer_(panel.xblocks(time(sunspot.year), y = sscols))

@@ -29,7 +29,6 @@ panel.smoother(x, y, form = y ~ x, method = "loess", ...,
   \item{form, method}{
     the smoothing model is constructed (approximately) as
     \code{method(form, data = list(x=x, y=y), ...)}.
-
     See the Examples section for common choices.
   }
   \item{\dots}{

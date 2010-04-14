@@ -32,7 +32,7 @@ panel.levelplot.points(x, y, z, subscripts = TRUE, at = pretty(z),
   \item{at, col.regions, alpha.regions}{ color scale definition;
     see \code{\link[lattice]{panel.levelplot}}. }
   \item{points}{ whether to draw the (x, y) points. }
-  \item{border}{ colour for polygon borders. }
+  \item{border}{ color for polygon borders. }
   \item{na.rm}{ if \code{TRUE}, points with missing \code{z} values will
     be excluded from the calculation of polygons. If \code{FALSE},
     those polygons are calculated but are not drawn (i.e. are

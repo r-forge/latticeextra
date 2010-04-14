@@ -34,8 +34,8 @@ flattenPanel(object)
     expressions as they would appear in a panel function.
     These can refer to the panel function arguments
     (typically \code{x}, \code{y} and \code{subscripts}), or
-    \strong{alternatively} \code{\dots}, which represents all panel
-    function arguments. 
+    \strong{alternatively} the special argument \dQuote{\code{\dots}},
+    which represents all panel function arguments. 
     In addition, \code{data}, if given, is used as the evaluation frame.
     See also the discussion under Details, below.
   }
@@ -43,35 +43,51 @@ flattenPanel(object)
     optional. A named \code{list} containing objects needed when
     evaluating (drawing) the layer.
   }
-  \item{eval, etc}{
+  \item{eval}{
     if \code{eval = TRUE}, arguments given in the layer code will be
     evaluated  immediately (in the calling environment). This makes it
     easier to pass in values from local variables. This should only be
     used when the layer code consists of simple top-level function calls
     (e.g. no \code{if} statements or \code{\{braces\}}).
-
     The default is \code{eval = FALSE}.
 
     When \code{eval = TRUE}, you can not directly refer to the panel
-    function internal variables (because they would be interpreted as
-    local variables in the calling frame). Instead you can use the
-    special names \code{.x}, \code{.y}, \code{.z}, \code{.subscripts}
-    and \code{.groups}.
-
-    The \code{etc} can be used to pass other variables in to the layer
-    code calls: if \code{etc = TRUE} then all remaining panel function
-    arguments are passed through. If \code{etc} is a character vector
-    then only the named arguments are passed through. The default is
-    \code{etc = FALSE}.
+    function internal variables such as \code{x} and \code{y} (because
+    they would be interpreted as local variables in your calling frame),
+    but see the \code{etc} argument for a way around this.
+    % DEPRECATED:
+    %Instead you can use the
+    %special names \code{.x}, \code{.y}, \code{.z}, \code{.subscripts}
+    %and \code{.groups}.
+  }
+  \item{etc}{
+    The \code{etc} argument can be used to pass the panel function
+    internal variables through to the call inside \code{layer()}, while
+    allowing some of these to be replaced or omitted. If none of the
+    internal variables are to be replaced or omitted, then one can
+    simply use the \dQuote{\dots}, as in
+    \code{layer(panel.xyplot(...))}.  If \code{etc = TRUE} then all
+    remaining (un-named) panel function arguments are passed through. If
+    \code{etc} is a character vector then only those named arguments are
+    passed through.  For example, to over-ride the \code{type} argument
+    in a layer: \code{layer(panel.xyplot(type = "h"), etc = TRUE)}. This
+    passes through all the arguments except \code{type} from
+    \dQuote{\code{\dots}}.
+    
+    The \code{etc} argument can be used with \code{eval = TRUE},
+    allowing access to the panel function internal variables. For
+    example, to pass through an argument by value from the current
+    frame, while also passing on the internal \code{x} argument:
+    \code{layer(panel.lines(y = myFancyY), eval = TRUE, etc = "x")}.
   }
   \item{packets, rows, columns, groups}{
     restricts the layer to draw only in specified packets (which refer
     to individual panels, but are independent of their layout), or rows
-    or columns of the trellis layout.
-    See \code{\link{trellis.currentLayout}}.
-
+    or columns of the trellis layout (\code{\link{trellis.currentLayout}}).
     For group layers (using \code{glayer} or \code{superpose = TRUE}),
-    the groups can be restricted also, by specifying group numbers.
+    the groups can be restricted also, by specifying group numbers (or
+    group values, as character strings). Negative values exclude the
+    given items. 
   }
   \item{superpose}{
     if \code{TRUE}, the layer will be drawn once for
@@ -89,7 +105,8 @@ flattenPanel(object)
     parameters (same effect as in grouped displays).
   }
   \item{theme}{
-    a style specification to be passed to \code{\link{trellis.par.set}}.
+    a style specification to be passed to \code{\link{trellis.par.set}}
+    which has effect only while drawing the layer.
   }
   \item{object}{ a trellis object. }
   \item{lay}{ a layer object. }
@@ -106,8 +123,8 @@ flattenPanel(object)
   the panel function (\code{x}, \code{y}, etc); you can usually refer to
   objects which exist in the global environment (workspace), but it is
   safer to pass them in by name in the \code{data} argument to
-  \code{layer}. This is not to be confused with the \code{data} argument
-  to the original \code{xyplot}. 
+  \code{layer}. (This is not to be confused with the \code{data} argument
+  to the original \code{xyplot}.)
 
   A simple example is adding a reference line
   to each panel: \code{layer(panel.refline(h = 0))}. Note that the
@@ -153,7 +170,7 @@ foo
 foo <- foo + layer(panel.abline(h = 0)) +
              layer(panel.lmline(x, y, lty = 2))
 
-## underlay a flat colour
+## underlay a flat color
 foo <- foo + layer(panel.fill(grey(.98)), under = TRUE)
 foo
 
@@ -168,7 +185,7 @@ flattenPanel(foo)
 
 ## group layers, drawn for each group in each panel
 dotplot(VADeaths, type = "o") +
-glayer(ltext(x[5],y[5],colnames(VADeaths)[group.number],srt=40))
+  glayer(ltext(x[5],y[5],group.value,srt=40))
 
 ## a quick way to print out the panel.groups arguments:
 dotplot(VADeaths, type = "o") + glayer(str(list(...)))

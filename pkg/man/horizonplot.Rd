@@ -142,7 +142,7 @@ xyplot(dat, scales = list(y = "same"))
 horizonplot(dat, layout = c(1,12))
 
 ## now use same scales in each panel
-## (so colours represent common ranges across all panels).
+## (so colors represent common ranges across all panels).
 ## This highlights differences across series.
 ## One could potentially draw a colorkey in this case.
 horizonplot(dat, scales = list(y = list(relation = "same")),

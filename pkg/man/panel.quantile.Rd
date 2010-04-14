@@ -30,7 +30,6 @@ panel.quantile(x, y, form = y ~ x, method = "rq", ...,
   \item{form, method}{
     the model is constructed (approximately) as
     \code{method(form, tau = tau, data = list(x=x, y=y), ...)}.
-
     See the Examples section for common choices.
   }
   \item{\dots}{

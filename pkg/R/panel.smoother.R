@@ -31,11 +31,12 @@ panel.smoother <-
     ok <- is.finite(x) & is.finite(y)
     if (sum(ok) < 1) 
         return()
-    x <- x[ok]
-    y <- y[ok]
+    x <- as.numeric(x)[ok]
+    y <- as.numeric(y)[ok]
     data <- list(x = x, y = y)
     mod <- do.call(method,
-                   c(alist(form, data = data), list(...)))
+                   c(alist(form, data = list(x = x, y = y)),
+                     list(...)))
     ## use the limits of the data, or panel limits, whichever is smaller
     lims <- current.panel.limits()
     xrange <- c(max(min(lims$x), min(x)), min(max(lims$x), max(x)))

@@ -23,6 +23,8 @@ panel.tskernel <-
              kern = kernel("daniell", rep(floor((width/sides)/sqrt(c)), c)))
 {
     if (!missing(y)) {
+        x <- as.numeric(x)
+        y <- as.numeric(y)
         if (diff(range(diff(x))) > getOption("ts.eps"))
             stop("'x' should be a regular series")
         x <- ts(y, start = x[1], end = tail(x,1), deltat = diff(x[1:2]))

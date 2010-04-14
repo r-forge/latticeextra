@@ -18,17 +18,25 @@ layer <-
     ## set layer to quoted expressions in `...`
     foo <- eval(substitute(expression(...)))
     if (eval) {
+        ## evaluate arguments to calls immediately in the calling environment
         for (i in seq_along(foo)) {
             icall <- foo[[i]]
+            ## allow special names to refer to common internal arguments;
+            ## but this is now Deprecated in favour of the 'etc' argument.
             icall <- eval(call("substitute",
                                icall, list(.x = quote(quote(x)),
                                            .y = quote(quote(y)),
                                            .z = quote(quote(z)),
                                            .groups = quote(quote(groups)),
                                            .subscripts = quote(quote(subscripts)))))
+            if (!identical(icall, foo[[1]]))
+                .Deprecated(msg = "The use of '.x', '.y', and so on is Deprecated; use the 'etc' argument.")
             if (identical(etc, FALSE)) {
                 icall[-1] <- lapply(icall[-1], eval.parent)
             } else {
+                if (any(sapply(Args, identical, as.symbol("..."))))
+                    stop("The dots `...` should not be included when etc = TRUE.")
+                ## pass on all un-named arguments from dots
                 Args <- lapply(icall[-1], eval.parent)
                 icall <-
                     substitute(do.call(.FUN,
@@ -37,6 +45,20 @@ layer <-
                                     Args = Args,
                                     etc = etc))
             }
+            foo[[i]] <- icall
+        }
+    } else if (!identical(etc, FALSE)) {
+        ## pass on all un-named arguments from dots
+        for (i in seq_along(foo)) {
+            icall <- foo[[i]]
+            Args <- as.list(icall)[-1]
+            if (any(sapply(Args, identical, as.symbol("..."))))
+                stop("The dots `...` should not be included when etc = TRUE.")
+            icall <- substitute(do.call(.FUN,
+                                        modifyList(list(...)[etc], Args)),
+                                list(.FUN = icall[[1]],
+                                    Args = Args,
+                                    etc = etc))
             foo[[i]] <- icall
         }
     }
@@ -146,7 +168,7 @@ drawLayerItem <- function(layer.item)
     ## check that any restrictions on packets/rows/columns are met
     matchesok <- function(spec, value) {
         if (is.null(spec)) return(TRUE)
-        if (all(spec <= 0))
+        if (is.numeric(spec) && all(spec <= 0))
             ## negative indexes exclude items
             return(value %in% -spec == FALSE)
         else
@@ -170,7 +192,9 @@ drawLayerItem <- function(layer.item)
         ## Note: layer.item is found in this function's environment
         dots <- list(...)
         ## restrict to specified group numbers
-        if (!matchesok(attr(layer.item, "groups"), dots$group.number))
+        groupok <- (matchesok(attr(layer.item, "groups"), dots$group.number) ||
+                    matchesok(attr(layer.item, "groups"), as.character(dots$group.value)))
+        if (!groupok)
             return()
         if (!is.null(attr(layer.item, "style"))) {
             ## extract plot style attributes from given index into superpose.*

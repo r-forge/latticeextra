@@ -7,7 +7,7 @@ panel.qqmath.tails <-
     function(x, f.value = NULL, distribution = qnorm,
     groups = NULL, ..., approx.n = 100, tails.n = 10)
 {
-    .Deprecated("panel.qqmath")
+    .Deprecated(msg = "'panel.qqmath.tails' is deprecated. Use 'panel.qqmath' from lattice 0.18-4 onwards.")
     x <- as.numeric(x)
     distribution <- if (is.function(distribution))
         distribution

@@ -24,7 +24,6 @@ panel.2dsmoother(x, y, z, subscripts = TRUE,
   \item{form, method}{
     the smoothing model is constructed (approximately) as
     \code{method(form, data = list(x=x, y=y, z=z), {args})}.
-
     See the Examples section for common choices.
   }
   \item{subscripts}{

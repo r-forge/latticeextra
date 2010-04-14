@@ -7,10 +7,10 @@ panel.xblocks <- function(x, ...)
     UseMethod("panel.xblocks")
 
 panel.xblocks.default <-
-    function (x, y, ..., gaps = FALSE,
+    function (x, y, ..., col = NULL, border = NA, 
               height = unit(1, "npc"),
               block.y = unit(0, "npc"), vjust = 0,
-              col = NULL, border = NA, name = "xblocks",
+              name = "xblocks", gaps = FALSE,
               last.step = median(diff(tail(x))))
 {
     x <- as.numeric(x)
@@ -23,8 +23,10 @@ panel.xblocks.default <-
     y <- as.vector(y)
     ## gaps: can't just call is.na() on the input because
     ## zoo and ts objects lose their time attributes.
-    if (gaps)
+    if (gaps) {
+        .Deprecated(msg = "The 'gaps' argument is deprecated; use panel.xblocks(time(z), is.na(z))")
         y <- is.na(y)
+    }
     ## Three cases:
     ## (1) If y is character, assume it gives the block colours
     ## -- unless 'col' is given, which over-rides it.
@@ -72,7 +74,7 @@ panel.xblocks.ts <-
     function(x, y = NULL, ...)
 {
     if (!is.null(y)) {
-        panel.xblocks.default(x, y, ...)
+        panel.xblocks.default(as.vector(time(x)), y, ...)
     } else {
         panel.xblocks.default(as.vector(time(x)), as.vector(x), ...)
     }

@@ -30,7 +30,6 @@ doubleYScale(obj1, obj2, use.style = TRUE,
     Therefore these should be integers between 1 and 6;
     a value of 0 or NULL can be given to leave the default settings.
     These will also be applied to the y-axes and ylab, if relevant.
-
     \code{use.style} simply changes the defaults of the style arguments.
   }
   \item{add.axis}{
