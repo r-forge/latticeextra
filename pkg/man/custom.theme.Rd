@@ -32,9 +32,9 @@ custom.theme.2(\dots)
 \value{
 
   A list that can be supplied to
-  \code{\link[lattice:trellis.par.get]{trellis.par.get}} or as the
+  \code{\link{trellis.par.get}} or as the
   \code{theme} argument to
-  \code{\link[lattice:trellis.device]{trellis.device}}.
+  \code{\link{trellis.device}}.
 
 }
 \author{ Deepayan Sarkar }

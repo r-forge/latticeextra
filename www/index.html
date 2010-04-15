@@ -350,8 +350,8 @@ Usage, Details, Examples
   <p>One example:</p>
   <img src="http://150.203.60.53/latticeExtra/plots/default/panel.xblocks.png" alt="panel.xblocks" width="600" height="200"/>
   <pre class="itemcode">
-xyplot(flow) + layer_(panel.xblocks(time(flow), months(flowdates), 
-    col = c("lightgrey", "#e6e6e6"), border = "darkgrey"))
+xyplot(flow ~ flowdates, type = "l") + layer_(panel.xblocks(x, 
+    months, col = c("lightgray", "#e6e6e6"), border = "darkgray"))
   </pre>
 <p><a href="http://r-forge.r-project.org/plugins/scmsvn/viewcvs.php/pkg/R/panel.xblocks.R?root=latticeextra&view=markup" class="codelink">Source code</a></p>
 </div>
@@ -972,7 +972,7 @@ var imageSrcBase = "http://150.203.60.53/latticeExtra/";
 </div>
 
 <div id="versiontag">
-latticeExtra version 0.6-8 on R version 2.11.0 (at 2010-04-08)
+latticeExtra version 0.6-10 on R version 2.11.0 (at 2010-04-15)
 </div>
 
 </div>

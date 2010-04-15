@@ -5,7 +5,7 @@
 }
 \description{
   Plot a smoothing line with standard error bounds.
-  This is based on the \code{\link[ggplot2]{stat_smooth}}
+  This is based on the \code{\link{stat_smooth}}
   function from \pkg{ggplot2}.
 }
 \usage{
@@ -59,12 +59,12 @@ panel.smoother(x, y, form = y ~ x, method = "loess", ...,
 \author{
   Felix Andrews \email{felix@nfrac.org}
 
-  Based on \code{\link[ggplot2]{stat_smooth}} by Hadley Wickham.
+  Based on \code{\link{stat_smooth}} by Hadley Wickham.
 }
 \seealso{
   \code{\link{panel.loess}},
   \code{\link{panel.quantile}},
-  \code{\link[ggplot2]{stat_smooth}}
+  \code{\link{stat_smooth}}
 }
 \examples{
 set.seed(1)

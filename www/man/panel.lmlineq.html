@@ -57,19 +57,25 @@ The first argument (<code>a</code>) can also be a model object produced by
 <code>lm</code>.
 See <code>panel.abline</code> for more details.
 </td></tr>
-<tr valign="top"><td><code>pos, offset, adj, fontfamily</code></td>
+<tr valign="top"><td><code>pos, offset</code></td>
 <td>
 
 passed on to <code>panel.text</code>.
-</p>
-<p>
 For <code>pos</code>: 1 = below, 2 = left, 3 = above, 4 = right,
 and the <code>offset</code> (in character widths) is applied.
-</p>
-<p>
-For <code>adj</code>: c(0,0) = above right, c(1,0) = above left,
+</td></tr>
+<tr valign="top"><td><code>adj</code></td>
+<td>
+
+passed on to <code>panel.text</code>.
+c(0,0) = above right, c(1,0) = above left,
 c(0,1) = below right, c(1,1) = below left;
 offset does not apply when using <code>adj</code>.
+</td></tr>
+<tr valign="top"><td><code>fontfamily</code></td>
+<td>
+
+passed on to <code>panel.text</code>.
 </td></tr>
 <tr valign="top"><td><code>at</code></td>
 <td>
@@ -84,8 +90,6 @@ the equation.
 
 position of the equation in native units. If given, this over-rides
 <code>at</code>.
-</p>
-<p>
 For <code>panel.lmlineq</code> this is the data, passed on as <code>lm(y ~ x)</code>.
 </td></tr>
 <tr valign="top"><td><code>rotate, srt</code></td>
@@ -124,19 +128,22 @@ equation expression, or <code>NULL</code>. E.g. <code>"bolditalic"</code>,
 
 number of decimal places to show for coefficients in equation.
 </td></tr>
-<tr valign="top"><td><code>r.squared, sep, sep.end</code></td>
+<tr valign="top"><td><code>r.squared</code></td>
 <td>
 
 the <i>R^2</i> statistic to display along with the equation of a line.
 This can be given directly as a number, or <code>TRUE</code>, in which
 case the function expects a model object (typically
 <code>lm</code>) and extracts the <i>R^2</i> statistic from it.
-</p>
-<p>
-The <i>R^2</i> value is separated from the equation by <code>sep</code>, and
-also <code>sep.end</code> is added to the end. For example:
-<code>panel.ablineq(lm(y ~ x), r.squared = TRUE, sep = " (", sep.end
-    = ")")</code>.
+</td></tr>
+<tr valign="top"><td><code>sep, sep.end</code></td>
+<td>
+
+The <i>R^2</i> (<code>r.squared</code>) value is separated from the
+equation by the string <code>sep</code>, and also <code>sep.end</code> is added
+to the end. For example: 
+<code>panel.ablineq(lm(y ~ x), r.squared = TRUE,
+      sep = " (", sep.end = ")")</code>.
 </td></tr>
 <tr valign="top"><td><code>..., col, col.text, col.line</code></td>
 <td>
@@ -230,5 +237,5 @@ update(trellis.last.object(),
                   points = FALSE, lines = TRUE))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
 </body></html>

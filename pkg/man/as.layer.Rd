@@ -53,7 +53,7 @@ as.layer(x, ...)
 \seealso{
   \code{\link{doubleYScale}},
   \code{\link{layer}},
-  \code{\link[lattice]{panel.axis}}
+  \code{\link{panel.axis}}
 }
 \examples{
 b1 <- barley

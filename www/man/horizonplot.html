@@ -84,13 +84,13 @@ by default strips are only drawn on the left, to save space.
 <td>
 
 graphical parameters for the strip text; see
-<code><a href="../../lattice/html/xyplot.html">xyplot</a></code>. One notable argument here is
+<code>xyplot</code>. One notable argument here is
 <code>lines</code>, allowing multi-line text.
 </td></tr>
 <tr valign="top"><td><code>default.scales</code></td>
 <td>
  
-see <code><a href="../../lattice/html/xyplot.html">xyplot</a></code>.
+see <code>xyplot</code>.
 </td></tr>
 <tr valign="top"><td><code>groups</code></td>
 <td>
@@ -142,7 +142,7 @@ scale used. The <code>origin</code> argument is only used in the <code>prepanel<
 function to choose an appropriate y scale (it is ignored by the
 <code>panel</code> function). The <code>ylim</code> argument therefore over-rides
 <code>origin</code>. The choice of <code>scales$y$relation</code> is also crucial;
-see <code><a href="../../lattice/html/xyplot.html">xyplot</a></code> and the examples below.
+see <code>xyplot</code> and the examples below.
 </p>
 
 
@@ -150,9 +150,9 @@ see <code><a href="../../lattice/html/xyplot.html">xyplot</a></code> and the exa
 
 <p>
 An object of class <code>"trellis"</code>. The
-<code><a href="../../lattice/html/update.trellis.html">update</a></code> method can be used to
+<code>update</code> method can be used to
 update components of the object and the
-<code><a href="../../lattice/html/print.trellis.html">print</a></code> method (usually called by
+<code>print</code> method (usually called by
 default) will plot it on an appropriate plotting device.
 </p>
 
@@ -176,8 +176,8 @@ Stephen Few (2008). Time on the Horizon.
 <h3>See Also</h3>
 
 <p>
-<code><a href="../../lattice/html/Lattice.html">Lattice</a></code>,
-<code><a href="../../lattice/html/xyplot.ts.html">xyplot.ts</a></code>,
+<code>Lattice</code>,
+<code>xyplot.ts</code>,
 <code><a href="#panel.xyarea">panel.xyarea</a></code>
 </p>
 
@@ -200,7 +200,7 @@ xyplot(dat, scales = list(y = "same"))
 horizonplot(dat, layout = c(1,12))
 
 ## now use same scales in each panel
-## (so colours represent common ranges across all panels).
+## (so colors represent common ranges across all panels).
 ## This highlights differences across series.
 ## One could potentially draw a colorkey in this case.
 horizonplot(dat, scales = list(y = list(relation = "same")),
@@ -237,5 +237,5 @@ horizonplot(sunspots, cut = list(n = 23, overlap = 0),
 layer(grid::grid.text(round(x[1]), x = 0, just = "left"))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
 </body></html>

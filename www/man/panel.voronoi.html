@@ -12,7 +12,7 @@
 <h3>Description</h3>
 
 <p>
-These panel functions for <code><a href="../../lattice/html/levelplot.html">levelplot</a></code>
+These panel functions for <code>levelplot</code>
 can represent irregular (x, y) points with a color covariate.
 <code>panel.levelplot.points</code> simply draws color-coded points.
 <code>panel.voronoi</code> uses the <span class="pkg">deldir</span> package to
@@ -49,17 +49,17 @@ value z. </td></tr>
 <tr valign="top"><td><code>subscripts</code></td>
 <td>
  integer vector indicating what subset of x, y and z
-to draw. Typically passed by <code><a href="../../lattice/html/levelplot.html">levelplot</a></code>. </td></tr>
+to draw. Typically passed by <code>levelplot</code>. </td></tr>
 <tr valign="top"><td><code>at, col.regions, alpha.regions</code></td>
 <td>
  color scale definition;
-see <code><a href="../../lattice/html/panel.levelplot.html">panel.levelplot</a></code>. </td></tr>
+see <code>panel.levelplot</code>. </td></tr>
 <tr valign="top"><td><code>points</code></td>
 <td>
  whether to draw the (x, y) points. </td></tr>
 <tr valign="top"><td><code>border</code></td>
 <td>
- colour for polygon borders. </td></tr>
+ color for polygon borders. </td></tr>
 <tr valign="top"><td><code>na.rm</code></td>
 <td>
  if <code>TRUE</code>, points with missing <code>z</code> values will
@@ -79,7 +79,7 @@ than <span class="pkg">deldir</span>. See Details. </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
  further arguments are
-passed to <code><a href="../../lattice/html/panel.xyplot.html">panel.xyplot</a></code> if <code>points =
+passed to <code>panel.xyplot</code> if <code>points =
       TRUE</code>. </td></tr>
 <tr valign="top"><td><code>pch, col.symbol</code></td>
 <td>
@@ -108,8 +108,8 @@ be clipped to a rectangular window (the <code>win.expand</code> argument).
 <h3>See Also</h3>
 
 <p> <code><a href="#tileplot">tileplot</a></code>,
-<code><a href="../../lattice/html/panel.levelplot.html">panel.levelplot</a></code>,
-<code><a href="../../deldir/html/deldir.html">deldir</a></code>  </p>
+<code>panel.levelplot</code>,
+<code>deldir</code>  </p>
 
 
 <h3>Examples</h3>
@@ -139,5 +139,5 @@ xyz$y &lt;- xyz$y + c(0, 0.5)
 levelplot(z ~ x * y, xyz, panel = panel.voronoi, points = FALSE)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
 </body></html>

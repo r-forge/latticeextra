@@ -80,7 +80,7 @@ panel.mapplot(x, y, map, breaks, colramp, lwd = 0.5, \dots)
   are doing.
 
 }
-\seealso{ \code{\link[lattice:Lattice]{Lattice}}  }
+\seealso{ \code{\link{Lattice}}  }
 \examples{
 
 library(maps)

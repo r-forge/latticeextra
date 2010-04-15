@@ -19,7 +19,7 @@
   \emph{
     This function is deprecated as of \pkg{lattice} 0.18-4 (available for
     R 2.11.0). Use the \code{tails.n} argument of
-    \code{\link[lattice]{panel.qqmath}} instead.
+    \code{\link{panel.qqmath}} instead.
   }
   
 }

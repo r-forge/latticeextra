@@ -13,7 +13,7 @@
 
 <p>
 Plot a quantile regression line with standard error bounds, using the
-<span class="pkg">quantreg</span> package. This is based on the <code><a href="../../ggplot2/html/stat_quantile.html">stat_quantile</a></code>
+<span class="pkg">quantreg</span> package. This is based on the <code>stat_quantile</code>
 function from <span class="pkg">ggplot2</span>.
 </p>
 
@@ -50,15 +50,13 @@ can be passed as the first argument (i.e. <code>x</code>).
 
 the model is constructed (approximately) as
 <code>method(form, tau = tau, data = list(x=x, y=y), ...)</code>.
-</p>
-<p>
 See the Examples section for common choices.
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
 
 further arguments passed on to the model function (<code>method</code>),
-typically <code><a href="../../quantreg/html/rq.html">rq</a></code>.
+typically <code>rq</code>.
 </td></tr>
 <tr valign="top"><td><code>tau</code></td>
 <td>
@@ -73,7 +71,7 @@ estimating confidence intervals with <code>ci</code>.
 <td>
 
 estimate a confidence interval at level <code>level</code> using the
-method <code>ci.type</code>; see <code><a href="../../quantreg/html/predict.rq.html">predict.rq</a></code>.
+method <code>ci.type</code>; see <code>predict.rq</code>.
 </td></tr>
 <tr valign="top"><td><code>n</code></td>
 <td>
@@ -116,16 +114,16 @@ It is recommended to look at <code>vignette("rq",package="quantreg")</code>.
 Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
 </p>
 <p>
-Based on <code><a href="../../ggplot2/html/stat_quantile.html">stat_quantile</a></code> by Hadley Wickham.
+Based on <code>stat_quantile</code> by Hadley Wickham.
 </p>
 
 
 <h3>See Also</h3>
 
 <p>
-<code><a href="../../quantreg/html/rq.html">rq</a></code>,
+<code>rq</code>,
 <code><a href="#panel.smoother">panel.smoother</a></code>,
-<code><a href="../../ggplot2/html/stat_quantile.html">stat_quantile</a></code>
+<code>stat_quantile</code>
 </p>
 
 
@@ -159,5 +157,5 @@ update(trellis.last.object(),
 #  layer(panel.quantile(y ~ qss(x, lambda=1), method = "rqss"))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-8 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
 </body></html>

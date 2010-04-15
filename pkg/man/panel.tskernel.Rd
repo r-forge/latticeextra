@@ -68,7 +68,7 @@ panel.tskernel(x, y, ...,
 \seealso{
   \code{\link{kernel}},
   \code{\link{filter}},
-  \code{\link[lattice]{xyplot.ts}}
+  \code{\link{xyplot.ts}}
 }
 \examples{
 \dontshow{ .featured_example <- TRUE }
