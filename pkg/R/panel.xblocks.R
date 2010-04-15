@@ -13,16 +13,14 @@ panel.xblocks.default <-
               name = "xblocks", gaps = FALSE,
               last.step = median(diff(tail(x))))
 {
+    if (is.function(y))
+        y <- y(x)
     x <- as.numeric(x)
     if (length(x) == 0) return()
     if (is.unsorted(x, na.rm = TRUE))
         stop("'x' should be ordered (increasing)")
     if (is.na(last.step))
         last.step <- 0
-    ## this will convert factor to character:
-    y <- as.vector(y)
-    ## gaps: can't just call is.na() on the input because
-    ## zoo and ts objects lose their time attributes.
     if (gaps) {
         .Deprecated(msg = "The 'gaps' argument is deprecated; use panel.xblocks(time(z), is.na(z))")
         y <- is.na(y)
@@ -32,8 +30,14 @@ panel.xblocks.default <-
     ## -- unless 'col' is given, which over-rides it.
     ## (2) If y is logical, show blocks of TRUE values.
     ## (3) If y is numeric, show blocks of non-NA values.
-    if (mode(y) == "numeric") ## includes Date etc
+    if (is.logical(y)) {
+        y <- y
+    } else if (is.numeric(y)) {
         y <- !is.na(y)
+    } else {
+        ## this will convert factor, Date, etc to character:
+        y <- as.character(y)
+    }
     ## Note: rle treats each NA as unique (does not combine runs of NAs)
     ## so we need to replace NAs with a temporary value.
     NAval <-
@@ -49,6 +53,8 @@ panel.xblocks.default <-
         col <- trellis.par.get("plot.line")$col
     ## set block colours if 'col' given
     if (length(col) > 0) {
+        if (is.character(col))
+            col[col == ""] <- NA
         ok <- !is.na(blockCol)
         blockCol[ok] <- rep(col, length = sum(ok)) ## rep to avoid warnings
     }
@@ -71,11 +77,9 @@ panel.xblocks.default <-
 
 panel.xblocks.zoo <-
 panel.xblocks.ts <-
-    function(x, y = NULL, ...)
+    function(x, y = x, ...)
 {
-    if (!is.null(y)) {
-        panel.xblocks.default(as.vector(time(x)), y, ...)
-    } else {
-        panel.xblocks.default(as.vector(time(x)), as.vector(x), ...)
-    }
+    if (!is.function(y))
+        y <- as.vector(y)
+    panel.xblocks.default(time(x), y, ...)
 }

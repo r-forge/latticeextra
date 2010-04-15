@@ -19,6 +19,7 @@ layer <-
     foo <- eval(substitute(expression(...)))
     if (eval) {
         ## evaluate arguments to calls immediately in the calling environment
+        .Deprecated(msg = "The 'eval' argument of layer() is Deprecated; use 'data'.")
         for (i in seq_along(foo)) {
             icall <- foo[[i]]
             ## allow special names to refer to common internal arguments;
@@ -29,8 +30,6 @@ layer <-
                                            .z = quote(quote(z)),
                                            .groups = quote(quote(groups)),
                                            .subscripts = quote(quote(subscripts)))))
-            if (!identical(icall, foo[[1]]))
-                .Deprecated(msg = "The use of '.x', '.y', and so on is Deprecated; use the 'etc' argument.")
             if (identical(etc, FALSE)) {
                 icall[-1] <- lapply(icall[-1], eval.parent)
             } else {

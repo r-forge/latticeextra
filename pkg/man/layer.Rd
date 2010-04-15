@@ -12,7 +12,7 @@
 \description{
   A mechanism to add new layers to a trellis object, optionally using a
   new data source. This is an alternative to modifying the
-  panel function. Note the non-standard evaluation used in \code{layer()}!
+  panel function. Note the non-standard evaluation in \code{layer()}!
 }
 \usage{
 layer(..., data, eval, etc,
@@ -45,20 +45,9 @@ flattenPanel(object)
   }
   \item{eval}{
     if \code{eval = TRUE}, arguments given in the layer code will be
-    evaluated  immediately (in the calling environment). This makes it
-    easier to pass in values from local variables. This should only be
-    used when the layer code consists of simple top-level function calls
-    (e.g. no \code{if} statements or \code{\{braces\}}).
-    The default is \code{eval = FALSE}.
-
-    When \code{eval = TRUE}, you can not directly refer to the panel
-    function internal variables such as \code{x} and \code{y} (because
-    they would be interpreted as local variables in your calling frame),
-    but see the \code{etc} argument for a way around this.
-    % DEPRECATED:
-    %Instead you can use the
-    %special names \code{.x}, \code{.y}, \code{.z}, \code{.subscripts}
-    %and \code{.groups}.
+    evaluated  immediately (in the calling environment). However, this
+    argument is now deprecated; new code should pass objects by name
+    through the \code{data} argument.
   }
   \item{etc}{
     The \code{etc} argument can be used to pass the panel function
@@ -73,12 +62,6 @@ flattenPanel(object)
     in a layer: \code{layer(panel.xyplot(type = "h"), etc = TRUE)}. This
     passes through all the arguments except \code{type} from
     \dQuote{\code{\dots}}.
-    
-    The \code{etc} argument can be used with \code{eval = TRUE},
-    allowing access to the panel function internal variables. For
-    example, to pass through an argument by value from the current
-    frame, while also passing on the internal \code{x} argument:
-    \code{layer(panel.lines(y = myFancyY), eval = TRUE, etc = "x")}.
   }
   \item{packets, rows, columns, groups}{
     restricts the layer to draw only in specified packets (which refer
@@ -123,19 +106,16 @@ flattenPanel(object)
   the panel function (\code{x}, \code{y}, etc); you can usually refer to
   objects which exist in the global environment (workspace), but it is
   safer to pass them in by name in the \code{data} argument to
-  \code{layer}. (This is not to be confused with the \code{data} argument
-  to the original \code{xyplot}.)
+  \code{layer}. (And this should not to be confused with the \code{data}
+  argument to the original \code{xyplot}.)
 
   A simple example is adding a reference line
   to each panel: \code{layer(panel.refline(h = 0))}. Note that the
   expressions are quoted, so if you have local variables they
-  will need to be either (a) accessible globally, or (b) evaluated using
-  the argument \code{eval = TRUE}, or (c) passed in via
-  the \code{data} argument For example:
+  will need to be either accessible globally, or passed in via
+  the \code{data} argument. For example:
 
   \code{layer(panel.refline(h = myVal)) ## if myVal is global}
-
-  \code{layer(panel.refline(h = h), eval = TRUE)}
 
   \code{layer(panel.refline(h = h), data = list(h = myVal))}
 
@@ -159,7 +139,7 @@ flattenPanel(object)
 }
 \author{ Felix Andrews \email{felix@nfrac.org} }
 \seealso{
-  \code{\link[lattice]{update.trellis}},
+  \code{\link{update.trellis}},
   \code{\link{as.layer}} for overlaying entire plots
 }
 \examples{
