@@ -1,6 +1,8 @@
 \name{panel.tskernel}
 \alias{panel.tskernel}
 \alias{simpleSmoothTs}
+\alias{simpleSmoothTs.default}
+\alias{simpleSmoothTs.zoo}
 \title{
   Plot a smoothed time series.
 }
@@ -11,11 +13,21 @@
   approximately Gaussian filters.
 }
 \usage{
-panel.tskernel(x, y, ...,
-    width = NROW(x) \%/\% 10 + 1,
+panel.tskernel(x, y, ..., 
+    width = NROW(x) \%/\% 10 + 1, n = 300,
     c = 1, sides = 2, circular = FALSE,
     kern = kernel("daniell",
            rep(floor((width/sides) / sqrt(c)), c)))
+
+simpleSmoothTs(x, ...)
+
+\method{simpleSmoothTs}{default}(x, ...,
+    width = NROW(x) \%/\% 10 + 1, n = Inf,
+    c = 1, sides = 2, circular = FALSE,
+    kern = kernel("daniell",
+           rep(floor((width/sides)/sqrt(c)), c)))
+
+\method{simpleSmoothTs}{zoo}(x, ..., n = Inf)
 }
 \arguments{
   \item{x, y}{
@@ -25,6 +37,13 @@ panel.tskernel(x, y, ...,
   }
   \item{\dots}{
     further arguments passed on to \code{\link{panel.lines}}.
+  }
+  \item{n}{
+    approximate number of time steps desired for the result. If this is
+    less than the length of \code{x}, the smoothed time series will be
+    aggregated by averaging blocks of (an integer number of) time
+    steps, and this aggregated series will be centered with respect to
+    the original series.
   }
   \item{width}{
     ``width'' of the smoothing kernel in time steps. In the default

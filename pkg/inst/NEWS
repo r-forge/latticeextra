@@ -1,5 +1,5 @@
 
-Changes in Version 0.6-8 (in development)
+Changes in Version 0.6-10 (in development)
 
  o support arrows with panel.segplot.
 
@@ -16,7 +16,12 @@ Changes in Version 0.6-8 (in development)
 
  o layer(etc = TRUE) now works in the default case of eval = FALSE.
 
- o function simpleSmoothTs (calculations for panel.tskernel).
+ o new function simpleSmoothTs (calculations as in panel.tskernel).
+
+ o panel.tskernel() gains a new argument 'n' (default 300) to reduce the
+   number of plotted points.
+
+ o panel.xyarea() (and thus horizonplot()) now handles missing values.
 
 Changes in Version 0.6-6
 

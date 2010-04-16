@@ -37,6 +37,8 @@ export(panel.smoother)
 export(panel.quantile)
 export(panel.tskernel)
 export(simpleSmoothTs)
+S3method(simpleSmoothTs, default)
+S3method(simpleSmoothTs, zoo)
 
 export(panel.2dsmoother)
 

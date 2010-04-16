@@ -13,11 +13,12 @@
 \usage{
 panel.xyarea(x, ...)
 
-\S3method{panel.xyarea}{default}(x, y, groups = NULL, origin = NULL,
+\method{panel.xyarea}{default}(x, y, groups = NULL, origin = NULL,
              col, border, lty, lwd, alpha, ...,
              col.line, fill, panel.groups = panel.xyarea)
 
-\S3method{panel.xyarea}{ts}(x, y = NULL, ...)
+\method{panel.xyarea}{ts}(x, y = NULL, ...)
+\method{panel.xyarea}{zoo}(x, y = NULL, ...)
 
 panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
                     qtype = 7, groups = NULL, ..., tails.n = 0)
@@ -74,10 +75,15 @@ xyplot(ts.union(data = sunspot.year, lag10 = lag(sunspot.year, 10)),
   superpose = TRUE,
   panel = panel.superpose,
   panel.groups = function(..., group.number) {
-    str(list(...))
-    if (group.number == 1) panel.xyarea(...) else panel.xyplot(...)
+    if (group.number == 1)
+      panel.xyarea(...) else panel.xyplot(...)
   },
-  par.settings = simpleTheme(col = c("grey", "black"), lwd = 2))
+  par.settings = simpleTheme(col = c("grey", "black"), lwd = c(5,2)))
+
+## missing values are handled by splitting the series
+tmp <- window(sunspot.year, start = 1900)
+tmp[c(1:2, 50:60)] <- NA
+xyplot(tmp, panel = panel.xyarea, origin = 0)
 
 set.seed(0)
 qqmath(~ data, make.groups(baseline = rnorm(100),
