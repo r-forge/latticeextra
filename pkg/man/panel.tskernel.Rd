@@ -4,16 +4,16 @@
 \alias{simpleSmoothTs.default}
 \alias{simpleSmoothTs.zoo}
 \title{
-  Plot a smoothed time series.
+  Calculate and plot smoothed time series.
 }
 \description{
-  Compute and plot discrete symmetric smoothing kernels.
+  Plot time series smoothed by discrete symmetric smoothing kernels.
   These kernels can be used to smooth time series objects.
   Options include moving averages, triangular filters, or
   approximately Gaussian filters.
 }
 \usage{
-panel.tskernel(x, y, ..., 
+panel.tskernel(x, y, ...,
     width = NROW(x) \%/\% 10 + 1, n = 300,
     c = 1, sides = 2, circular = FALSE,
     kern = kernel("daniell",
@@ -22,21 +22,31 @@ panel.tskernel(x, y, ...,
 simpleSmoothTs(x, ...)
 
 \method{simpleSmoothTs}{default}(x, ...,
-    width = NROW(x) \%/\% 10 + 1, n = Inf,
+    width = NROW(x) \%/\% 10 + 1, n = NROW(x),
     c = 1, sides = 2, circular = FALSE,
     kern = kernel("daniell",
            rep(floor((width/sides)/sqrt(c)), c)))
 
-\method{simpleSmoothTs}{zoo}(x, ..., n = Inf)
+\method{simpleSmoothTs}{zoo}(x, ..., n = NROW(x))
 }
 \arguments{
   \item{x, y}{
     data points. Should define a regular, ordered series.
-    Alternatively a time series object can be passed as the
-    first argument, and \code{y} can be omitted.
+    A time series object can be passed as the first argument, in which
+    case \code{y} can be omitted. The \code{x} argument given to
+    \code{simpleSmoothTs} is allowed to be a multivariate time series,
+    i.e. to have multiple columns.
   }
   \item{\dots}{
     further arguments passed on to \code{\link{panel.lines}}.
+  }
+  \item{width}{
+    nominal width of the smoothing kernel in time steps. In the default
+    case, which is a simple moving average, this is the actual width.
+    When \code{c > 1} the number of time steps used in the kernel
+    increases but the equivalent bandwidth stays the same.
+    If only past values are used (with \code{sides = 1}) then
+    \code{width} refers to one side of the symmetric kernel.
   }
   \item{n}{
     approximate number of time steps desired for the result. If this is
@@ -45,23 +55,12 @@ simpleSmoothTs(x, ...)
     steps, and this aggregated series will be centered with respect to
     the original series.
   }
-  \item{width}{
-    ``width'' of the smoothing kernel in time steps. In the default
-    case, which is a simple moving average, this is the actual width.
-    When \code{c > 1} the number of time steps used in the kernel
-    increases but the equivalent bandwidth stays the same.
-
-    If only past values are used (with \code{sides = 1}) then
-    \code{width} refers to one side of the symmetric kernel.
-  }
   \item{c}{
     smoothness of the kernel: \code{c = 1} is a moving average,
     \code{c = 2} is a triangular kernel, \code{c = 3} and higher
     approximate smooth Gaussian kernels.
-
     \code{c} is actually the number of times to
     recursively convolve a simple moving average kernel with itself.
-
     The kernel size is adjusted to maintain a constant equivalent
     bandwidth as \code{c} increases.
   }
@@ -102,7 +101,7 @@ xyplot(EuStockMarkets[,1]) +
   layer(panel.tskernel(x, y, width = 20, col = 2, sides = 1))
 
 ## per group, with a triangular filter
-xyplot(EuStockMarkets) +
+xyplot(EuStockMarkets, superpose = TRUE) +
   glayer(panel.tskernel(..., width = 100, c = 2),
          theme = simpleTheme(lwd = 2))
 

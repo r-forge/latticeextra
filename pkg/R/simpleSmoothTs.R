@@ -1,14 +1,14 @@
 
 
-simpleSmoothTs <- 
+simpleSmoothTs <-
     function(x, ...)
 {
     UseMethod("simpleSmoothTs")
 }
 
-simpleSmoothTs.default <- 
+simpleSmoothTs.default <-
     function(x, ...,
-             width = NROW(x) %/% 10 + 1, n = Inf,
+             width = NROW(x) %/% 10 + 1, n = NROW(x),
              c = 1, sides = 2, circular = FALSE,
              kern = kernel("daniell", rep(floor((width/sides)/sqrt(c)), c)))
 {
@@ -21,12 +21,13 @@ simpleSmoothTs.default <-
         filter <- kern[ii] / sum(kern[ii]) ## normalise
     } else stop("unrecognised value of 'sides'")
     x <- as.ts(x)
-    xf <- filter(x, filter, sides = sides, circular = circular)
+    xf <- x
+    xf[] <- filter(x, filter, sides = sides, circular = circular)
     if (n < NROW(x)) {
         ## reduce the number of points by aggregating chunks of 'reduce' time steps
         reduce <- round(NROW(x) / n)
         if (reduce > 1) {
-            xf <- aggregate(xf, ndeltat = deltat(xf) * reduce, FUN = mean, na.rm = TRUE)
+            xf <- aggregate(xf, ndeltat = deltat(xf) * reduce, FUN = mean)
             ## and adjust it so that each point is centered compared to the original series
             tsp(xf)[1:2] <- tsp(xf)[1:2] + (deltat(xf) %/% 2)
         }
@@ -35,7 +36,7 @@ simpleSmoothTs.default <-
 }
 
 simpleSmoothTs.zoo <-
-    function(x, ..., n = Inf)
+    function(x, ..., n = NROW(x))
 {
     xts <- as.ts(x)
     xtsf <- simpleSmoothTs(xts, ..., n = n)
@@ -43,7 +44,11 @@ simpleSmoothTs.zoo <-
     if (n < NROW(x)) {
         ## find indices of aggregated time series in the original data
         ii <- findInterval(time(xtsf), time(xts))
+        ## extract elements of time index corresponding to aggregated series
+        ans <- zoo(as.matrix(xtsf), time(x)[ii])
+    } else {
+        ans <- x
+        coredata(ans) <- coredata(xtsf)
     }
-    ## resample
-    zoo(as.matrix(xtsf)[ii,], time(x)[ii])
+    ans
 }
