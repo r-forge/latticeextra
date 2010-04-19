@@ -5,21 +5,21 @@ Changes in Version 0.6-10 (in development)
 
  o several changes to panel.xblocks().
 
- o panel.smoother() now omits non-finite values and converts to numeric.
+ o layer() now has a 'magicdots' argument, which is TRUE by default.
 
- o glayer() was failing on plots with an existing 'panel.groups'.
-
- o panel.qqmath.tails() is now deprecated as its main functionality
-   has been moved into lattice::panel.qqmath().
-
- o use of the 'eval' argument to layer() is now deprecated.
-
- o layer(etc = TRUE) now works in the default case of eval = FALSE.
+ o use of the 'eval' and 'etc' arguments to layer() are now deprecated.
 
  o new function simpleSmoothTs (calculations as in panel.tskernel).
 
  o panel.tskernel() gains a new argument 'n' (default 300) to reduce the
    number of plotted points.
+
+ o panel.qqmath.tails() is now deprecated as its main functionality
+   has been moved into lattice::panel.qqmath().
+
+ o glayer() was failing on plots with an existing 'panel.groups'.
+
+ o panel.smoother() now omits non-finite values and converts to numeric.
 
  o panel.xyarea() (and thus horizonplot()) now handles missing values.
 

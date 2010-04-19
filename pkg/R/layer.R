@@ -9,11 +9,16 @@ as.layer.layer <- function(x, ...)
     x
 
 layer <-
-    function(..., data = NULL, eval = FALSE, etc = FALSE,
-             packets = NULL,
-             rows = NULL, columns = NULL, groups = NULL,
+    function(..., data = NULL,
+             magicdots = TRUE, exclude = NULL,
+             packets = NULL, 
+             rows = NULL, columns = NULL,
+             groups = NULL,
+             style = NULL, force = FALSE,
+             theme = if (force) trellis.par.get() else NULL,
              under = FALSE, superpose = FALSE,
-             style = NULL, theme = NULL)
+             ## Deprecated:
+             eval = FALSE, etc = FALSE)
 {
     ## set layer to quoted expressions in `...`
     foo <- eval(substitute(expression(...)))
@@ -48,6 +53,7 @@ layer <-
         }
     } else if (!identical(etc, FALSE)) {
         ## pass on all un-named arguments from dots
+        .Deprecated(msg = "The 'etc' argument of layer() is Deprecated; it happens automatically now.")
         for (i in seq_along(foo)) {
             icall <- foo[[i]]
             Args <- as.list(icall)[-1]
@@ -59,6 +65,12 @@ layer <-
                                     Args = Args,
                                     etc = etc))
             foo[[i]] <- icall
+        }
+    } else {
+        ## The dots `...` are magic:
+        ## pass on only those arguments not named in each call
+        if (magicdots) {
+            foo <- as.expression(lapply(foo, magicDots, exclude = exclude))
         }
     }
     mostattributes(foo) <-
@@ -74,6 +86,56 @@ layer <-
     lay <- list(foo)
     class(lay) <- c("layer", "trellis")
     lay
+}
+
+## convert a call containing `...` to only pass on arguments
+## not named in the call
+magicDots <- function(ocall, exclude = NULL, assume.xy = TRUE)
+{
+    stopifnot(is.call(ocall))
+    ## call recursively with any calls inside this one
+    for (i in seq_along(ocall)[-1]) {
+        thisArg <- ocall[[i]]
+        if (is.call(thisArg)) {
+            ## skip function definitions
+            if (identical(thisArg[[1]], as.symbol("function")))
+                next
+            ocall[[i]] <- Recall(thisArg, exclude = exclude, assume.xy = assume.xy)
+        }
+    }
+    Args <- as.list(ocall)[-1]
+    ## nothing to do if there are no dots in the call
+    idots <- sapply(Args, identical, as.symbol("..."))
+    if (!any(idots))
+        return(ocall)
+    Args <- Args[!idots]
+    ## nothing to do if there are only dots in the call (unless exclude)
+    if ((length(Args) == 0) && (length(exclude) == 0))
+        return(ocall)
+    ## assume first argument is 'x' if is un-named, and second 'y'
+    if (assume.xy && (length(Args) > 0)) {
+        if (is.null(names(Args)))
+            names(Args) <- rep("", length = length(Args))
+        if (identical(names(Args)[1], ""))
+            names(Args)[1] <- "x"
+        if (identical(names(Args)[2], ""))
+            names(Args)[2] <- "y"
+    }
+    if (length(exclude) == 0) {
+        ## simple case
+        mcall <-
+            substitute(do.call(FUN,
+                               modifyList(list(...), Args)),
+                       list(FUN = ocall[[1]], Args = Args))
+    } else {
+        ## exclude named arguments from dots
+        mcall <-
+            substitute(do.call(FUN,
+                               modifyList(list(...)[!(names(list(...)) %in% exclude)],
+                                          Args)),
+                       list(FUN = ocall[[1]], Args = Args, exclude = exclude))
+    }
+    mcall
 }
 
 layer_ <- function(...)
