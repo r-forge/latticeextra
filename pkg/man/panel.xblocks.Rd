@@ -13,14 +13,14 @@
 \usage{
 panel.xblocks(x, ...)
 
-\S3method{panel.xblocks}{default}(x, y, ..., col = NULL, border = NA, 
+\method{panel.xblocks}{default}(x, y, ..., col = NULL, border = NA, 
               height = unit(1, "npc"),
               block.y = unit(0, "npc"), vjust = 0,
               name = "xblocks", gaps = FALSE,
               last.step = median(diff(tail(x))))
 
-\S3method{panel.xblocks}{ts}(x, y = x, ...)
-\S3method{panel.xblocks}{zoo}(x, y = x, ...)
+\method{panel.xblocks}{ts}(x, y = x, ...)
+\method{panel.xblocks}{zoo}(x, y = x, ...)
 }
 \arguments{
   \item{x, y}{

@@ -6,7 +6,7 @@
   Combine the panels of multiple trellis objects into one.
 }
 \usage{
-\S3method{c}{trellis}(..., x.same = NA, y.same = NA,
+\method{c}{trellis}(..., x.same = NA, y.same = NA,
     layout = NULL, recursive = FALSE)
 
 xyplot.list(x, data = NULL, ..., FUN = xyplot,

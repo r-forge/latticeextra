@@ -21,9 +21,10 @@ panel function. Note the non-standard evaluation in <code>layer()</code>!
 <h3>Usage</h3>
 
 <pre>
-layer(..., data, eval, etc,
+layer(..., data, magicdots, exclude,
       packets, rows, columns, groups,
-      under, superpose, style, theme)
+      style, force, theme, under, superpose, 
+      eval, etc) ## these 2 deprecated
 
 layer_(...)
 glayer(...)
@@ -44,13 +45,15 @@ flattenPanel(object)
 <tr valign="top"><td><code>...</code></td>
 <td>
 
-expressions as they would appear in a panel function.
-These can refer to the panel function arguments
-(typically <code>x</code>, <code>y</code> and <code>subscripts</code>), or
-<STRONG>alternatively</STRONG> the special argument &ldquo;<code>...</code>&rdquo;,
-which represents all panel function arguments. 
-In addition, <code>data</code>, if given, is used as the evaluation frame.
-See also the discussion under Details, below.
+expressions as they would appear in a panel function. These can
+refer to the panel function arguments (such as <code>x</code>, <code>y</code>
+and <code>subscripts</code>), and also to any named objects passed in
+through the <code>data</code> argument. The calls can also include the
+special argument &ldquo;<code>...</code>&rdquo;; in the default case of
+<code>magicdots = TRUE</code>, only those arguments which are not already
+named in a call are passed on through &ldquo;<code>...</code>&rdquo;.
+Otherwise, &ldquo;<code>...</code>&rdquo; simply represents all panel
+function arguments. See Details, below.
 </td></tr>
 <tr valign="top"><td><code>data</code></td>
 <td>
@@ -58,29 +61,18 @@ See also the discussion under Details, below.
 optional. A named <code>list</code> containing objects needed when
 evaluating (drawing) the layer.
 </td></tr>
-<tr valign="top"><td><code>eval</code></td>
+<tr valign="top"><td><code>magicdots, exclude</code></td>
 <td>
 
-if <code>eval = TRUE</code>, arguments given in the layer code will be
-evaluated  immediately (in the calling environment). However, this
-argument is now deprecated; new code should pass objects by name
-through the <code>data</code> argument.
-</td></tr>
-<tr valign="top"><td><code>etc</code></td>
-<td>
-
-The <code>etc</code> argument can be used to pass the panel function
-internal variables through to the call inside <code>layer()</code>, while
-allowing some of these to be replaced or omitted. If none of the
-internal variables are to be replaced or omitted, then one can
-simply use the &ldquo;...&rdquo;, as in
-<code>layer(panel.xyplot(...))</code>.  If <code>etc = TRUE</code> then all
-remaining (un-named) panel function arguments are passed through. If
-<code>etc</code> is a character vector then only those named arguments are
-passed through.  For example, to over-ride the <code>type</code> argument
-in a layer: <code>layer(panel.xyplot(type = "h"), etc = TRUE)</code>. This
-passes through all the arguments except <code>type</code> from
-&ldquo;<code>...</code>&rdquo;.
+if <code>magicdots = TRUE</code>, the default, any reference to
+&ldquo;<code>...</code>&rdquo; 
+in the layer expressions will only pass on those arguments from the
+panel function which are not named in the call (thus avoiding 
+duplicate argument errors). If the first argument in a call is not
+named, it is assumed to be named <code>"x"</code>, and if the second
+argument is not named it is assumed to be named
+<code>"y"</code>. Furthermore, any argument names given in <code>exclude</code>
+will not be passed on through &ldquo;<code>...</code>&rdquo;.
 </td></tr>
 <tr valign="top"><td><code>packets, rows, columns, groups</code></td>
 <td>
@@ -93,13 +85,34 @@ the groups can be restricted also, by specifying group numbers (or
 group values, as character strings). Negative values exclude the
 given items. 
 </td></tr>
-<tr valign="top"><td><code>superpose</code></td>
+<tr valign="top"><td><code>style</code></td>
 <td>
 
-if <code>TRUE</code>, the layer will be drawn once for
-each level of any <code>groups</code> in the plot, using
-<code>panel.superpose</code>. This defaults to <code>TRUE</code> in the
-convenience functions <code>glayer()</code> and <code>glayer_()</code>.
+style index of the layer, used only to set lattice graphical
+parameters (same effect as in grouped displays). Note that this will
+use the theme settings in effect in the existing plot, which may or
+may not be what is desired. It may be necessary to use <code>force =
+      TRUE</code> to escape from the plot's settings and use the current
+theme. 
+</td></tr>
+<tr valign="top"><td><code>force</code></td>
+<td>
+
+<code>force = TRUE</code> is just a shorthand for
+<code>theme = trellis.par.get()</code>, which is useful for over-riding
+the theme settings in effect in an existing plot. For instance, if
+the original plot specified <code>par.settings = simpleTheme(col =
+      "red")</code> then the theme settings in effect will be entirely
+red. Use <code>force = TRUE</code> to reset the current theme for this
+layer, or use <code>theme</code> directly.
+</td></tr>
+<tr valign="top"><td><code>theme</code></td>
+<td>
+
+a style specification to be passed to <code>trellis.par.set</code>
+which has effect only while drawing the layer. One can pass a whole
+theme specification list, such as <code>theme = custom.theme()</code>, or
+a more specific list, such as <code>theme = simpleTheme(col = "red")</code>.
 </td></tr>
 <tr valign="top"><td><code>under</code></td>
 <td>
@@ -108,17 +121,26 @@ whether the layer should be drawn before the existing panel
 function. This defaults to <code>TRUE</code> in the convenience functions
 <code>layer_()</code> and <code>glayer_()</code>.
 </td></tr>
-<tr valign="top"><td><code>style</code></td>
+<tr valign="top"><td><code>superpose</code></td>
 <td>
 
-style index of the layer, used only to set lattice graphical
-parameters (same effect as in grouped displays).
+if <code>TRUE</code>, the layer will be drawn once for
+each level of any <code>groups</code> in the plot, using
+<code>panel.superpose</code>. This defaults to <code>TRUE</code> in the
+convenience functions <code>glayer()</code> and <code>glayer_()</code>.
 </td></tr>
-<tr valign="top"><td><code>theme</code></td>
+<tr valign="top"><td><code>eval, etc</code></td>
 <td>
 
-a style specification to be passed to <code>trellis.par.set</code>
-which has effect only while drawing the layer.
+These two arguments are now Deprecated and should not be used in new
+code. Rather than using <code>eval</code>, use <code>data</code>. It is not
+necessary to use <code>etc</code> because that happens automatically with
+<code>magicdots</code>. 
+if <code>eval = TRUE</code>, arguments given in the layer code will be
+evaluated  immediately (in the calling environment). 
+If <code>etc = TRUE</code> then all remaining (un-named) panel function
+arguments are added on to the call. If <code>etc</code> is a character
+vector then only those named arguments are passed through.
 </td></tr>
 <tr valign="top"><td><code>object</code></td>
 <td>
@@ -133,10 +155,9 @@ which has effect only while drawing the layer.
 
 <p>
 The <code>layer</code> mechanism is a method for augmenting a panel
-function. It allows expressions to be added to the
-panel function without knowing what the original panel function
-was. In this way it can be useful for quick augmentation of trellis
-plots.
+function. It allows expressions to be added to the panel function
+without knowing what the original panel function was. In this way it
+can be useful for convenient augmentation of trellis plots.
 </p>
 <p>
 Note that the evaluation used in <code>layer</code> is non-standard, and can
@@ -148,17 +169,32 @@ safer to pass them in by name in the <code>data</code> argument to
 argument to the original <code>xyplot</code>.)
 </p>
 <p>
-A simple example is adding a reference line
-to each panel: <code>layer(panel.refline(h = 0))</code>. Note that the
-expressions are quoted, so if you have local variables they
-will need to be either accessible globally, or passed in via
-the <code>data</code> argument. For example:
+A simple example is adding a reference line to each panel:
+<code>layer(panel.refline(h = 0))</code>. Note that the expressions are
+quoted, so if you have local variables they will need to be either
+accessible globally, or passed in via the <code>data</code> argument. For
+example:
 </p>
 <p>
 <code>layer(panel.refline(h = myVal)) ## if myVal is global</code>
 </p>
 <p>
 <code>layer(panel.refline(h = h), data = list(h = myVal))</code>
+</p>
+<p>
+Another non-standard aspect is that the special argument
+&ldquo;<code>...</code>&rdquo; will, by default, only pass through those
+argument not already named. For example, this will over-ride the
+<code>x</code> argument and pass on the remaining arguments:
+</p>
+<p>
+<code>layer(panel.xyplot(x = jitter(x), ...))</code>
+</p>
+<p>
+The first un-named argument is assumed to be "x", so that is the same as
+</p>
+<p>
+<code>layer(panel.xyplot(jitter(x), ...))</code>
 </p>
 <p>
 The layer mechanism should probably still be considered experimental.
@@ -219,13 +255,18 @@ foo &lt;- foo + layer({ ok &lt;- (y&gt;100);
             panel.text(x[ok], y[ok], y[ok], pos = 1) })
 foo
 
+## over-ride arguments by name
+foo &lt;- foo +
+  layer(panel.xyplot(y = ave(y, x, FUN = max), type = "a", ...))
+foo
+
 ## see a sketch of the complete panel function
 flattenPanel(foo)
 
 
 ## group layers, drawn for each group in each panel
 dotplot(VADeaths, type = "o") +
-  glayer(ltext(x[5],y[5],group.value,srt=40))
+  glayer(ltext(x[5], y[5], group.value, srt = 40))
 
 ## a quick way to print out the panel.groups arguments:
 dotplot(VADeaths, type = "o") + glayer(str(list(...)))
@@ -238,6 +279,13 @@ zoip &lt;- xyplot(ozone ~ wind | equal.count(temperature, 2),
    layer(panel.loess(x, y, span = 1.0), style = 2)
 update(zoip, auto.key = list(text = c("span = 0.5", "span = 1.0"),
    title = "loess smooth", lines = TRUE, points = FALSE))
+
+## note that styles come from the settings in effect in the plot,
+## which is not always what you want:
+xyplot(1:10 ~ 1:10, type = "b", par.settings = simpleTheme(col = "red")) +
+  layer(panel.lines(x = jitter(x, 2), ...)) +  ## drawn in red
+  layer(panel.lines(x = jitter(x, 2), ...), force = TRUE)  ## reset theme
+
 
 ## using other variables from the original `data` object
 ## NOTE: need subscripts = TRUE in original call!

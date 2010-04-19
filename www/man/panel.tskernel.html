@@ -1,18 +1,18 @@
 
-<html><head><title>R: Plot a smoothed time series.</title>
+<html><head><title>R: Calculate and plot smoothed time series.</title>
 
 
 </head><body>
 
 <table width="100%" summary="page for panel.tskernel {latticeExtra}"><tr><td>panel.tskernel {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Plot a smoothed time series.</h2>
+<h2>Calculate and plot smoothed time series.</h2>
 
 
 <h3>Description</h3>
 
 <p>
-Compute and plot discrete symmetric smoothing kernels.
+Plot time series smoothed by discrete symmetric smoothing kernels.
 These kernels can be used to smooth time series objects.
 Options include moving averages, triangular filters, or
 approximately Gaussian filters.
@@ -23,10 +23,22 @@ approximately Gaussian filters.
 
 <pre>
 panel.tskernel(x, y, ...,
-    width = NROW(x) %/% 10 + 1,
+    width = NROW(x) %/% 10 + 1, n = 300,
     c = 1, sides = 2, circular = FALSE,
     kern = kernel("daniell",
            rep(floor((width/sides) / sqrt(c)), c)))
+
+simpleSmoothTs(x, ...)
+
+## Default S3 method:
+simpleSmoothTs(x, ...,
+    width = NROW(x) %/% 10 + 1, n = NROW(x),
+    c = 1, sides = 2, circular = FALSE,
+    kern = kernel("daniell",
+           rep(floor((width/sides)/sqrt(c)), c)))
+
+## S3 method for class 'zoo':
+simpleSmoothTs(x, ..., n = NROW(x))
 </pre>
 
 
@@ -37,8 +49,10 @@ panel.tskernel(x, y, ...,
 <td>
 
 data points. Should define a regular, ordered series.
-Alternatively a time series object can be passed as the
-first argument, and <code>y</code> can be omitted.
+A time series object can be passed as the first argument, in which
+case <code>y</code> can be omitted. The <code>x</code> argument given to
+<code>simpleSmoothTs</code> is allowed to be a multivariate time series,
+i.e. to have multiple columns.
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
@@ -48,14 +62,21 @@ further arguments passed on to <code>panel.lines</code>.
 <tr valign="top"><td><code>width</code></td>
 <td>
 
-&ldquo;width&rdquo; of the smoothing kernel in time steps. In the default
+nominal width of the smoothing kernel in time steps. In the default
 case, which is a simple moving average, this is the actual width.
 When <code>c &gt; 1</code> the number of time steps used in the kernel
 increases but the equivalent bandwidth stays the same.
-</p>
-<p>
 If only past values are used (with <code>sides = 1</code>) then
 <code>width</code> refers to one side of the symmetric kernel.
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+approximate number of time steps desired for the result. If this is
+less than the length of <code>x</code>, the smoothed time series will be
+aggregated by averaging blocks of (an integer number of) time
+steps, and this aggregated series will be centered with respect to
+the original series.
 </td></tr>
 <tr valign="top"><td><code>c</code></td>
 <td>
@@ -63,12 +84,8 @@ If only past values are used (with <code>sides = 1</code>) then
 smoothness of the kernel: <code>c = 1</code> is a moving average,
 <code>c = 2</code> is a triangular kernel, <code>c = 3</code> and higher
 approximate smooth Gaussian kernels.
-</p>
-<p>
 <code>c</code> is actually the number of times to
 recursively convolve a simple moving average kernel with itself.
-</p>
-<p>
 The kernel size is adjusted to maintain a constant equivalent
 bandwidth as <code>c</code> increases.
 </td></tr>
@@ -131,7 +148,7 @@ xyplot(EuStockMarkets[,1]) +
   layer(panel.tskernel(x, y, width = 20, col = 2, sides = 1))
 
 ## per group, with a triangular filter
-xyplot(EuStockMarkets) +
+xyplot(EuStockMarkets, superpose = TRUE) +
   glayer(panel.tskernel(..., width = 100, c = 2),
          theme = simpleTheme(lwd = 2))
 
