@@ -1,0 +1,107 @@
+
+<html><head><title>R: Display stl fits with Lattice</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for xyplot.stl {latticeExtra}"><tr><td>xyplot.stl {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Display stl fits with Lattice</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Display <code>stl</code> decomposition (seasonal, trend and irregular
+components using loess) with Lattice, like the base graphics function
+<code>plot.stl</code>. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'stl':
+xyplot(x, data = NULL,
+       outer = TRUE,
+       layout = c(1, 4),
+       strip = FALSE,
+       strip.left = TRUE,
+       as.table = TRUE,
+       ylab = "",
+       between = list(y = 0.5),
+       panel =
+       function(..., type) {
+           if (packet.number() == 4) type &lt;- "h"
+           panel.xyplot(..., type = type)
+       },
+       ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+ an <code>stl</code> object. </td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+ ignored. </td></tr>
+<tr valign="top"><td><code>outer, layout, strip, strip.left</code></td>
+<td>
+
+passed to <code>xyplot.ts</code>.
+</td></tr>
+<tr valign="top"><td><code>as.table, ylab, between, panel, ...</code></td>
+<td>
+
+passed to <code>xyplot.ts</code>.
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>
+Unless <code>strip.left</code> is passed in explicitly, a custom strip will
+be drawn, where shaded bars are comparable across panels (representing
+the same data range).
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+An object of class <code>"trellis"</code>. The
+<code>update</code> method can be used to
+update components of the object and the
+<code>print</code> method (usually called by
+default) will plot it on an appropriate plotting device.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Deepayan Sarkar <a href="mailto:deepayan.sarkar@r-project.org">deepayan.sarkar@r-project.org</a> </p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code>stl</code>,
+<code>xyplot.ts</code>,
+<code>xyplot</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## example from ?stl
+xyplot(stl(log(co2), s.window=21),
+       main = "STL decomposition of CO2 data")
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+</body></html>

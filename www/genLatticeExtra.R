@@ -2,6 +2,7 @@
 
 ## setwd("X:/Packages/latticeextra/www")
 ## Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs8.63/bin/gswin32c.exe")
+## Sys.setenv(R_GSCMD = "D:/Program Files/GPLGS/gswin32c.exe")
 ## source("genLatticeExtra.R", echo = TRUE)
 
 library(latticeExtra)
@@ -41,8 +42,7 @@ spec[["utilities"]] <-
     list(
          list("useOuterStrips", codefile = "utilities.R"),
          list("resizePanels", width = 400, height = 550,
-           helpname = "useOuterStrips", codefile = "utilities.R",
-           desc = "Resize panels to match data scales"),
+           codefile = "utilities.R"),
          list("panel.ablineq", helpname = "panel.lmlineq"),
          list("panel.scaleArrow", height = 400, rerun = TRUE),
          list("panel.3dmisc", height = 400)
@@ -58,7 +58,7 @@ spec[["extended trellis framework"]] <-
 
 spec[["styles"]] <-
     list(
-         list("style example", examplename = "custom.theme", 
+         list("style example", examplename = "custom.theme",
            desc = "This is a sample plot to demonstrate different graphical settings (themes).",
            helplink = FALSE, codefile = NA),
          list("custom.theme"),
@@ -71,7 +71,7 @@ spec[["data"]] <-
          list("USCancerRates", examplename = "mapplot", width = 600, codefile = NA),
          list("ancestry", do.example = FALSE, codefile = NA),
          list("postdoc", codefile = NA),
-         list("biocAccess", height = 550, codefile = NA),
+         list("biocAccess", height = 550, codefile = NA, rerun = TRUE),
          list("gvhd10", height = 500, codefile = NA),
          list("SeatacWeather", examplename = "doubleYScale", codefile = NA),
          list("EastAuClimate", codefile = NA)
@@ -82,7 +82,7 @@ source("generate.R")
 ## stop on errors
 lattice.options(panel.error = NULL)
 
-generateWebsite("latticeExtra", spec = spec, 
+generateWebsite("latticeExtra", spec = spec,
                 man.src.dir = "../pkg/man/",
                 imageSrcBase = "http://150.203.60.53/latticeExtra/",
                 codeSrcSpec = "http://r-forge.r-project.org/plugins/scmsvn/viewcvs.php/pkg/R/%s?root=latticeextra&view=markup",

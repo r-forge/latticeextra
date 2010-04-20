@@ -23,7 +23,7 @@ generateWebsite <-
 
     ## we want to be able to run example() for each function
     ## but only to keep *one* of the lattice plots produced
-    
+
     ## the following approach will only work for examples which
     ## don't include post-plotting annotations, or grid.new etc.
 
@@ -48,19 +48,42 @@ generateWebsite <-
     out <- textConnection("out_dump", "w") ## @CONTENT
     nav <- textConnection("nav_dump", "w") ## @NAV
 
-    ## get function descriptions
-    info <- library(help = package, character.only = TRUE)$info[[2]]
-    infoContinues <- grepl("^ ", info)
+    ## get names, aliases and descriptions from help pages
+    info <- .readRDS(system.file("Meta", "Rd.rds", package = package))
 
-    ## this only works for direct links: (names not aliases)
+    ## work out which help page (which element of 'info') each item belongs to
     itemNames <- unlist(lapply(spec, lapply, head, 1))
-    Links <- structure(paste("#", itemNames, sep = ""),
-                       names = itemNames)
-    #tools:::.find_HTML_links_in_package(system.file(package = package))
-    itemNames2 <- unlist(lapply(spec, lapply, function(x) toString(x$helpname)))
-    Links2 <- structure(paste("#", itemNames, sep = ""),
-                        names = itemNames2)
-    Links2 <- Links2[names(Links2) != ""]
+    in.info <- unlist(lapply(spec, lapply, function(x) {
+        name <- x[[1]]
+        helpname <- if (is.null(x$helpname)) name else x$helpname
+        i <- which(info$Name == helpname)
+        if (length(i) == 0) NA else i
+    }))
+    ok <- !is.na(in.info)
+    info$itemName <- NA
+    info$itemName[in.info[ok]] <- itemNames[ok]
+    ## TODO: insert website items which do not match a help page name?
+    #itemNames[!ok]
+    ## remove help pages for which there is no item on website
+    info <- info[!is.na(info$itemName),]
+
+    ## construct local HTML links
+    lens <- sapply(info$Aliases, length)
+    Links <- structure(paste("#", rep.int(info$itemName, lens), sep = ""),
+                       names = unlist(info$Aliases))
+    Links2 <- character()
+
+    ## fill in 'desc' element of spec from Title field for each item
+    spec <- lapply(spec, lapply, function(x) {
+        if (is.null(x$desc)) {
+            name <- x[[1]]
+            helpname <- if (is.null(x$helpname)) name else x$helpname
+            i <- which(sapply(info$Aliases, function(aa) helpname %in% aa))
+            x$desc <- info$Title[i]
+            if (is.null(x$desc)) stop("no description found for ", name)
+        }
+        x
+    })
 
     genItem <-
         function(name, do.example = do.examples,
@@ -130,19 +153,6 @@ generateWebsite <-
                           '  </pre>', sep = "\n")
             }
 
-            if (is.null(desc)) {
-                ## get description of this function
-                i <- grep(sprintf("^%s ", helpname), info)
-                if (length(i) == 0) {
-                    desc <- ""
-                } else {
-                    desc <- sub(sprintf("^%s +", helpname), "", info[i])
-                    if (isTRUE(infoContinues[i+1]))
-                        desc <- paste(desc, info[i+1])
-                    desc <- gsub(" +", " ", desc)
-                }
-            }
-    
             helplinkBlock <- ""
             if (helplink) {
                 ## generate HTML man page file
@@ -179,7 +189,7 @@ generateWebsite <-
                     sprintf('<p><a href="%s" class="codelink">Source code</a></p>',
                             codeurl)
             }
-            
+
             write(c(sprintf('<div class="item" id="%s">', okname),
                     '  <h2 class="itemname">', name, '  </h2>',
                     '  <div class="itemdesc">', desc, '  </div>',
@@ -187,7 +197,7 @@ generateWebsite <-
                     exampleBlock,
                     codelinkBlock,
                     '</div>', ''), file = out)
-            
+
             ## generate HTML nav
             navid <- paste("nav_", okname, sep = "")
             write(c('<li>',
@@ -221,16 +231,19 @@ generateWebsite <-
     close(out)
 
     ## make @INDEX
-    allLinks <- c(Links, Links2)
-    allLinks <- allLinks[order(names(allLinks))]
-    ## TODO: look up descriptions of each item
-    index <- paste("<ul>",
-                   paste('<li><a href="', allLinks, '">', names(allLinks), '</a></li>',
+    tmp <- lapply(spec, lapply, function(x) {
+        c(name = x[[1]], desc = x$desc)
+    })
+    idxmat <- do.call("rbind", unlist(tmp, recursive = FALSE))
+    idxmat <- idxmat[order(idxmat[,1]),]
+    index <-
+        with(as.data.frame(idxmat),
+             paste("<table>",
+                   paste('<tr><th><a href="', paste("#", name, sep = ''), '">',
+                         name, '</a></th>',
+                         '<td>', desc, '</td></tr>',
                          sep = '', collapse = "\n"),
-                   "</ul>", sep = "\n")
-#    idx <- lapply(spec, lapply, function(s) {
-#        list(name = head(s, 1), 
-#    })
+                   "</table>", sep = "\n"))
 
     ## make @VERSIONTAG
     Rvstring <- paste("R version",
@@ -249,7 +262,7 @@ generateWebsite <-
 
     write(html, file = "index.html")
     message("index.html generated")
-    
+
     ## reset to normal plotting
     lattice.options(print.function = NULL, default.theme = NULL)
 }

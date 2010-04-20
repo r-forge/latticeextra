@@ -8,7 +8,7 @@ var currentItem = "intro";
 
 // repeatedly check the anchor in the URL, to detect back/forward
 function checkAnchor() {
-    if (currentAnchor != document.location.hash) {  
+    if (currentAnchor != document.location.hash) {
         currentAnchor = document.location.hash;
 	var newItem;
         if ((!currentAnchor) || (currentAnchor == "#")) {
@@ -20,7 +20,7 @@ function checkAnchor() {
         }
 	loadItem(newItem);
     }
-}  
+}
 
 function setAnchor(newItem) {
     var a;
@@ -39,7 +39,8 @@ function setAnchor(newItem) {
 function loadItem(newItem) {
     // record in access log
     pageTracker._trackPageview("/item/" + newItem);
-    if (newItem != "intro") {
+    isTopLevel = (newItem == "intro") || (newItem == "INDEX");
+    if (isTopLevel == false) {
 	var imgEl = $(jq(newItem) + " img");
 	// choose image based on current theme
 	// uncomment this to use local images:
@@ -70,7 +71,7 @@ function loadItem(newItem) {
     $("#nav a.active").removeClass("active");
     var navEl = $("#nav " + jq("nav_" + newItem));
     navEl.addClass("active");
-    if (newItem == "intro") {
+    if (isTopLevel) {
 	$("#nav li.navgroup:visible").slideUp();
     } else {
 	// expand the corresponding nav group
@@ -83,7 +84,7 @@ function loadItem(newItem) {
 	}
     }
     // do not show theme controls on intro page
-    if (newItem == "intro") {
+    if (isTopLevel) {
 	$("#themer").fadeOut();
     } else {
 	$("#themer").fadeIn();
@@ -93,7 +94,7 @@ function loadItem(newItem) {
 }
 
 /* constructs an id selector, escaping '.' and ':' (from jquery.com) */
-function jq(myid) { 
+function jq(myid) {
     return '#' + myid.replace(/(:|\.)/g,'\\$1');
 }
 
