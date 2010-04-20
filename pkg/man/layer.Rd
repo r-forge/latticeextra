@@ -12,7 +12,7 @@
 \description{
   A mechanism to add new layers to a trellis object, optionally using a
   new data source. This is an alternative to modifying the
-  panel function. Note the non-standard evaluation in \code{layer()}!
+  panel function. Note the non-standard evaluation in \code{layer()}.
 }
 \usage{
 layer(..., data, magicdots, exclude,

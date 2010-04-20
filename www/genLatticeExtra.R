@@ -18,6 +18,7 @@ spec[["general statistical plots"]] <-
 
 spec[["functions of one variable"]] <-
     list(
+         list("xyplot.stl", codefile = "timeseries.R", height = 500, rerun = TRUE),
          list("panel.smoother"),
          list("panel.quantile"),
          list("panel.xblocks", width = 600, height = 200, rerun = TRUE),

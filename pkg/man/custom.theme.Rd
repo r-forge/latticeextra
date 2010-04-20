@@ -39,6 +39,8 @@ custom.theme.2(\dots)
 }
 \author{ Deepayan Sarkar }
 \examples{
+set.seed(0)
+
 ## create a plot to demonstrate graphical settings
 obj <-
 xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width, iris,

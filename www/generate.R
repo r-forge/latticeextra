@@ -60,7 +60,7 @@ generateWebsite <-
     itemNames2 <- unlist(lapply(spec, lapply, function(x) toString(x$helpname)))
     Links2 <- structure(paste("#", itemNames, sep = ""),
                         names = itemNames2)
-    Links2 <- Links2[Links2 != "#"]
+    Links2 <- Links2[names(Links2) != ""]
 
     genItem <-
         function(name, do.example = do.examples,
@@ -220,6 +220,18 @@ generateWebsite <-
     close(nav)
     close(out)
 
+    ## make @INDEX
+    allLinks <- c(Links, Links2)
+    allLinks <- allLinks[order(names(allLinks))]
+    ## TODO: look up descriptions of each item
+    index <- paste("<ul>",
+                   paste('<li><a href="', allLinks, '">', names(allLinks), '</a></li>',
+                         sep = '', collapse = "\n"),
+                   "</ul>", sep = "\n")
+#    idx <- lapply(spec, lapply, function(s) {
+#        list(name = head(s, 1), 
+#    })
+
     ## make @VERSIONTAG
     Rvstring <- paste("R version",
                       paste(R.version[c("major", "minor")], collapse="."))
@@ -229,12 +241,13 @@ generateWebsite <-
                   "on", Rvstring, nowstring)
 
     ## merge content and nav into template.html
-    index <- readLines("template.html")
-    index <- sub("@CONTENT", paste(out_dump, collapse = "\n"), index)
-    index <- sub("@NAV", paste(nav_dump, collapse = "\n"), index)
-    index <- sub("@VERSIONTAG", vTag, index)
+    html <- readLines("template.html")
+    html <- sub("@CONTENT", paste(out_dump, collapse = "\n"), html)
+    html <- sub("@NAV", paste(nav_dump, collapse = "\n"), html)
+    html <- sub("@INDEX", index, html)
+    html <- sub("@VERSIONTAG", vTag, html)
 
-    write(index, file = "index.html")
+    write(html, file = "index.html")
     message("index.html generated")
     
     ## reset to normal plotting

@@ -41,6 +41,12 @@ pageTracker._trackPageview();
      class="navitem active"
      id="nav_intro">introduction</a>
 </li>
+<li>
+  <a href="#INDEX"
+     title="Index"
+     class="navitem"
+     id="nav_INDEX">index</a>
+</li>
 <li class="navhead"><a href="#">general statistical plots</a></li>
 <li class="navgroup"><ul>
 <li>
@@ -58,6 +64,9 @@ pageTracker._trackPageview();
 </ul></li>
 <li class="navhead"><a href="#">functions of one variable</a></li>
 <li class="navgroup"><ul>
+<li>
+<a class="navitem" href="#xyplot.stl" title="Display stl fits with Lattice" id="nav_xyplot.stl">xyplot.stl</a>
+</li>
 <li>
 <a class="navitem" href="#panel.smoother" title="Plot a smoothing line with standard error bounds." id="nav_panel.smoother">panel.smoother</a>
 </li>
@@ -207,6 +216,51 @@ pageTracker._trackPageview();
 
   </div>
 
+  <div class="item" id="INDEX">
+    <h2 class="itemname">index</h2>
+    <ul>
+<li><a href="#ancestry">ancestry</a></li>
+<li><a href="#as.layer">as.layer</a></li>
+<li><a href="#biocAccess">biocAccess</a></li>
+<li><a href="#c.trellis">c.trellis</a></li>
+<li><a href="#custom.theme">custom.theme</a></li>
+<li><a href="#dendrogramGrob">dendrogramGrob</a></li>
+<li><a href="#doubleYScale">doubleYScale</a></li>
+<li><a href="#EastAuClimate">EastAuClimate</a></li>
+<li><a href="#ecdfplot">ecdfplot</a></li>
+<li><a href="#gvhd10">gvhd10</a></li>
+<li><a href="#horizonplot">horizonplot</a></li>
+<li><a href="#layer">layer</a></li>
+<li><a href="#mapplot">mapplot</a></li>
+<li><a href="#marginal.plot">marginal.plot</a></li>
+<li><a href="#panel.2dsmoother">panel.2dsmoother</a></li>
+<li><a href="#panel.3dmisc">panel.3dmisc</a></li>
+<li><a href="#panel.ablineq">panel.ablineq</a></li>
+<li><a href="#panel.levelplot.points">panel.levelplot.points</a></li>
+<li><a href="#panel.ablineq">panel.lmlineq</a></li>
+<li><a href="#panel.quantile">panel.quantile</a></li>
+<li><a href="#panel.scaleArrow">panel.scaleArrow</a></li>
+<li><a href="#panel.smoother">panel.smoother</a></li>
+<li><a href="#panel.tskernel">panel.tskernel</a></li>
+<li><a href="#panel.levelplot.points">panel.voronoi</a></li>
+<li><a href="#panel.xblocks">panel.xblocks</a></li>
+<li><a href="#panel.xyarea">panel.xyarea</a></li>
+<li><a href="#postdoc">postdoc</a></li>
+<li><a href="#resizePanels">resizePanels</a></li>
+<li><a href="#rootogram">rootogram</a></li>
+<li><a href="#SeatacWeather">SeatacWeather</a></li>
+<li><a href="#segplot">segplot</a></li>
+<li><a href="#style example">style example</a></li>
+<li><a href="#theEconomist.theme">theEconomist.theme</a></li>
+<li><a href="#tileplot">tileplot</a></li>
+<li><a href="#USAge">USAge</a></li>
+<li><a href="#USCancerRates">USCancerRates</a></li>
+<li><a href="#useOuterStrips">useOuterStrips</a></li>
+<li><a href="#resizePanels">useOuterStrips</a></li>
+<li><a href="#xyplot.stl">xyplot.stl</a></li>
+</ul>
+  </div>
+
   <h1 class="groupname">general statistical plots</h1>
 <div class="item" id="rootogram">
   <h2 class="itemname">
@@ -294,6 +348,26 @@ marginal.plot(enviro[, 1:5], data = enviro, groups = is.windy,
 
 
   <h1 class="groupname">functions of one variable</h1>
+<div class="item" id="xyplot.stl">
+  <h2 class="itemname">
+xyplot.stl
+  </h2>
+  <div class="itemdesc">
+Display stl fits with Lattice
+  </div>
+  <p>
+  <a href="man/xyplot.stl.html" class="helplink">
+Usage, Details, Examples
+</a>
+  </p>
+  <p>One example:</p>
+  <img src="http://150.203.60.53/latticeExtra/plots/default/xyplot.stl.png" alt="xyplot.stl" width="500" height="500"/>
+  <pre class="itemcode">
+xyplot(stl(log(co2), s.window = 21), main = "STL decomposition of CO2 data")
+  </pre>
+<p><a href="http://r-forge.r-project.org/plugins/scmsvn/viewcvs.php/pkg/R/timeseries.R?root=latticeextra&view=markup" class="codelink">Source code</a></p>
+</div>
+
 <div class="item" id="panel.smoother">
   <h2 class="itemname">
 panel.smoother
@@ -894,8 +968,7 @@ Usage, Details, Examples
   <img src="http://150.203.60.53/latticeExtra/plots/default/biocAccess.png" alt="biocAccess" width="500" height="550"/>
   <pre class="itemcode">
 xyplot(stl(ts(biocAccess$counts[1:(24 * 30)], frequency = 24), 
-    "periodic"), strip.left = strip.custom(horizontal = FALSE, 
-    strip.names = FALSE, strip....
+    "periodic"))
   </pre>
 
 </div>
@@ -973,7 +1046,7 @@ var imageSrcBase = "http://150.203.60.53/latticeExtra/";
 </div>
 
 <div id="versiontag">
-latticeExtra version 0.6-10 on R version 2.11.0 (at 2010-04-19)
+latticeExtra version 0.6-10 on R version 2.11.0 (at 2010-04-20)
 </div>
 
 </div>
