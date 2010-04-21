@@ -1,5 +1,5 @@
 
-Changes in Version 0.6-10 (in development)
+Changes in Version 0.6-10
 
  o support arrows with panel.segplot.
 
@@ -15,7 +15,7 @@ Changes in Version 0.6-10 (in development)
    number of plotted points.
 
  o panel.qqmath.tails() is now deprecated as its main functionality
-   has been moved into lattice::panel.qqmath().
+   has been moved into panel.qqmath() (in lattice 0.18-4, from R 2.11.0).
 
  o glayer() was failing on plots with an existing 'panel.groups'.
 

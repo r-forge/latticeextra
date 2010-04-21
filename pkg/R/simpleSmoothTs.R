@@ -27,7 +27,11 @@ simpleSmoothTs.default <-
         ## reduce the number of points by aggregating chunks of 'reduce' time steps
         reduce <- round(NROW(x) / n)
         if (reduce > 1) {
-            xf <- aggregate(xf, ndeltat = deltat(xf) * reduce, FUN = mean)
+            ndeltat <- deltat(xf) * reduce
+            ## work-around for bug in aggregate.ts (scheduled for fix in R 2.12)
+            if ((ndeltat > 1) && (getRversion() < "2.12.0"))
+                ndeltat <- ndeltat * (1 + getOption("ts.eps")/1000)
+            xf <- aggregate(xf, ndeltat = ndeltat, FUN = mean)
             ## and adjust it so that each point is centered compared to the original series
             tsp(xf)[1:2] <- tsp(xf)[1:2] + (deltat(xf) %/% 2)
         }

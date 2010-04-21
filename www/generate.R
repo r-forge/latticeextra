@@ -239,8 +239,8 @@ generateWebsite <-
     index <-
         with(as.data.frame(idxmat),
              paste("<table>",
-                   paste('<tr><th><a href="', paste("#", name, sep = ''), '">',
-                         name, '</a></th>',
+                   paste('<tr><td><a href="', paste("#", name, sep = ''), '">',
+                         name, '</a></td>',
                          '<td>', desc, '</td></tr>',
                          sep = '', collapse = "\n"),
                    "</table>", sep = "\n"))
