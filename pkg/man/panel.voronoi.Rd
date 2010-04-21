@@ -58,7 +58,7 @@ panel.levelplot.points(x, y, z, subscripts = TRUE, at = pretty(z),
 \author{ Felix Andrews \email{felix@nfrac.org} }
 \seealso{ \code{\link{tileplot}},
   \code{\link{panel.levelplot}},
-  \code{\link{deldir}}  }
+  \code{\link[deldir]{deldir}}  }
 \examples{
 ## a variant of Figure 5.6 from Sarkar (2008)
 ## http://lmdvr.r-forge.r-project.org/figures/figures.html?chapter=05;figure=05_06

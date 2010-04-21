@@ -5,8 +5,8 @@
 }
 \description{
   Plot a quantile regression line with standard error bounds, using the
-  \pkg{quantreg} package. This is based on the \code{\link{stat_quantile}}
-  function from \pkg{ggplot2}.
+  \pkg{quantreg} package. This is based on the
+  \code{\link[ggplot2]{stat_quantile}} function from \pkg{ggplot2}.
 }
 \usage{
 panel.quantile(x, y, form = y ~ x, method = "rq", ...,
@@ -34,7 +34,7 @@ panel.quantile(x, y, form = y ~ x, method = "rq", ...,
   }
   \item{\dots}{
     further arguments passed on to the model function (\code{method}),
-    typically \code{\link{rq}}.
+    typically \code{\link[quantreg]{rq}}.
   }
   \item{tau}{
     \var{p} values for the quantiles to estimate.
@@ -44,7 +44,7 @@ panel.quantile(x, y, form = y ~ x, method = "rq", ...,
   }
   \item{ci, ci.type, level}{
     estimate a confidence interval at level \code{level} using the
-    method \code{ci.type}; see \code{\link{predict.rq}}.
+    method \code{ci.type}; see \code{\link[quantreg]{predict.rq}}.
   }
   \item{n}{
     number of equi-spaced points on which to evaluate the function.
@@ -70,12 +70,12 @@ panel.quantile(x, y, form = y ~ x, method = "rq", ...,
 \author{
   Felix Andrews \email{felix@nfrac.org}
 
-  Based on \code{\link{stat_quantile}} by Hadley Wickham.
+  Based on \code{\link[ggplot2]{stat_quantile}} by Hadley Wickham.
 }
 \seealso{
-  \code{\link{rq}},
+  \code{\link[quantreg]{rq}},
   \code{\link{panel.smoother}},
-  \code{\link{stat_quantile}}
+  \code{\link[ggplot2]{stat_quantile}}
 }
 \examples{
 library("quantreg")
