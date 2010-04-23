@@ -1,4 +1,9 @@
 
+Changes in Version 0.6-12
+
+ o the 'style' argument to layer() now applies to the "superpose" styles
+   also, which fixes some cases with xyplot.ts.
+
 Changes in Version 0.6-10
 
  o support arrows with panel.segplot.

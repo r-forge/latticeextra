@@ -260,15 +260,23 @@ drawLayerItem <- function(layer.item)
         if (!is.null(attr(layer.item, "style"))) {
             ## extract plot style attributes from given index into superpose.*
             .TRELLISPAR <- trellis.par.get()
-            .STY <- attr(layer.item, "style")
-            trellis.par.set(plot.line = Rows(trellis.par.get("superpose.line"), .STY),
-                            add.line = Rows(trellis.par.get("superpose.line"), .STY),
-                            add.text = Rows(trellis.par.get("superpose.line"), .STY),
-                            plot.symbol = Rows(trellis.par.get("superpose.symbol"), .STY),
-                            plot.polygon = Rows(trellis.par.get("superpose.polygon"), .STY),
-                            axis.text = Rows(trellis.par.get("superpose.line"), .STY),
-                            axis.line = Rows(trellis.par.get("superpose.line"), .STY)
-                            )
+            local({
+                i <- attr(layer.item, "style")
+                line <- Rows(trellis.par.get("superpose.line"), i)
+                symbol <- Rows(trellis.par.get("superpose.symbol"), i)
+                polygon <- Rows(trellis.par.get("superpose.polygon"), i)
+                trellis.par.set(plot.line = line,
+                                superpose.line = line,
+                                add.line = line,
+                                add.text = line,
+                                plot.symbol = symbol,
+                                superpose.symbol = symbol,
+                                plot.polygon = polygon,
+                                superpose.polygon = polygon,
+                                axis.text = line,
+                                axis.line = line
+                                )
+            })
             on.exit(trellis.par.set(.TRELLISPAR))
         }
         with(dots,

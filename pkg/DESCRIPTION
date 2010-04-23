@@ -1,6 +1,6 @@
 Package: latticeExtra
-Version: 0.6-11
-Date: 2010/04/21
+Version: 0.6-12
+Date: 2010/04/22
 Title: Extra Graphical Utilities Based on Lattice
 Author: Deepayan Sarkar <deepayan.sarkar@r-project.org>, Felix Andrews <felix@nfrac.org>
 Maintainer: Deepayan Sarkar <deepayan.sarkar@r-project.org>
