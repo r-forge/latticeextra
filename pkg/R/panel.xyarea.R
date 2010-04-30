@@ -53,14 +53,15 @@ panel.xyarea.default <-
     }
 }
 
-panel.xyarea.zoo <-
-panel.xyarea.ts <- function(x, y = NULL, ...)
+panel.xyarea.ts <- function(x, y = x, ...)
 {
-    if (!is.null(y)) {
-        panel.xyarea.default(x, y, ...)
-    } else {
-        panel.xyarea.default(time(x), as.vector(x), ...)
-    }
+    panel.xyarea(as.vector(time(x)), y, ...)
+}
+
+panel.xyarea.zoo <-
+    function(x, y = x, ...)
+{
+    panel.xyarea(index(x), coredata(y), ...)
 }
 
 ## A slightly modified copy of panel.qqmath

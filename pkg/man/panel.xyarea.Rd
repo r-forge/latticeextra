@@ -17,8 +17,8 @@ panel.xyarea(x, ...)
              col, border, lty, lwd, alpha, ...,
              col.line, fill, panel.groups = panel.xyarea)
 
-\method{panel.xyarea}{ts}(x, y = NULL, ...)
-\method{panel.xyarea}{zoo}(x, y = NULL, ...)
+\method{panel.xyarea}{ts}(x, y = x, ...)
+\method{panel.xyarea}{zoo}(x, y = x, ...)
 
 panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
                     qtype = 7, groups = NULL, ..., tails.n = 0)

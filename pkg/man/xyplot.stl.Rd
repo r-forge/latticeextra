@@ -75,6 +75,11 @@ resizePanels()
 ## two different spans
 xyplot(stl(nottem, s.window = 4)) +
 as.layer(xyplot(stl(nottem, s.window = "periodic")), style = 2)
+
+## components superposed
+xyplot(stl(nottem, s.window = 4), superpose=TRUE,
+  screens = list(data = "trend", trend = "trend", "residuals"),
+  strip.left = TRUE, layout = c(1,2))
 }
 \keyword{hplot}
 \keyword{ts}
