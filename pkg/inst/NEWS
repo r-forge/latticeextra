@@ -4,6 +4,11 @@ Changes in Version 0.6-12
  o new convenience functions xscale.components.* and yscale.components.*
    where * is in {logpower,fractions,log10ticks,log10.3,subticks}.
 
+ o new function panel.key().
+
+ o the layer() function now takes an 'update' argument, used to update the
+   target plot object.
+
  o the 'style' argument to layer() now applies to the "superpose" styles
    also, which fixes some cases with xyplot.ts.
 

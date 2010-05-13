@@ -40,6 +40,8 @@ export(yscale.components.subticks)
 
 ## contributions from Felix Andrews
 
+export(panel.key)
+
 export(horizonplot)
 S3method(horizonplot, default)
 export(panel.horizonplot, prepanel.horizonplot)

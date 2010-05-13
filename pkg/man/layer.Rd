@@ -17,7 +17,8 @@
 \usage{
 layer(..., data, magicdots, exclude,
       packets, rows, columns, groups,
-      style, force, theme, under, superpose, 
+      style, force, theme, under, superpose,
+      update,
       eval, etc) ## these 2 deprecated
 
 layer_(...)
@@ -99,6 +100,10 @@ flattenPanel(object)
     each level of any \code{groups} in the plot, using
     \code{\link{panel.superpose}}. This defaults to \code{TRUE} in the
     convenience functions \code{glayer()} and \code{glayer_()}.
+  }
+  \item{update}{
+    an optional \code{list} of arguments to update the trellis plot with
+    (passed to \code{\link{update.trellis}}) before the layer is drawn.
   }
   \item{eval, etc}{
     These two arguments are now Deprecated and should not be used in new
@@ -207,12 +212,12 @@ dotplot(VADeaths, type = "o") + glayer(str(list(...)))
 
 
 ## layers with superposed styles
-zoip <- xyplot(ozone ~ wind | equal.count(temperature, 2),
-        data = environmental) +
+xyplot(ozone ~ wind | equal.count(temperature, 2),
+       data = environmental) +
    layer(panel.loess(x, y, span = 0.5), style = 1) +
-   layer(panel.loess(x, y, span = 1.0), style = 2)
-update(zoip, auto.key = list(text = c("span = 0.5", "span = 1.0"),
-   title = "loess smooth", lines = TRUE, points = FALSE))
+   layer(panel.loess(x, y, span = 1.0), style = 2) +
+   layer(panel.key(c("span = 0.5", "span = 1.0"), corner = c(1,.98),
+                   lines = TRUE, points = FALSE), packets = 1)
 
 ## note that styles come from the settings in effect in the plot,
 ## which is not always what you want:
