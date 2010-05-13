@@ -27,6 +27,17 @@ export(useOuterStrips, resizePanels)
 export(custom.theme)
 export(custom.theme.2)
 
+export(xscale.components.logpower)
+export(yscale.components.logpower)
+export(xscale.components.fractions)
+export(yscale.components.fractions)
+export(xscale.components.log10ticks)
+export(yscale.components.log10ticks)
+export(xscale.components.log10.3)
+export(yscale.components.log10.3)
+export(xscale.components.subticks)
+export(yscale.components.subticks)
+
 ## contributions from Felix Andrews
 
 export(horizonplot)

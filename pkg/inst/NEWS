@@ -1,6 +1,9 @@
 
 Changes in Version 0.6-12
 
+ o new convenience functions xscale.components.* and yscale.components.*
+   where * is in {logpower,fractions,log10ticks,log10.3,subticks}.
+
  o the 'style' argument to layer() now applies to the "superpose" styles
    also, which fixes some cases with xyplot.ts.
 
