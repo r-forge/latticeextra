@@ -4,6 +4,8 @@ Changes in Version 0.6-12
  o new convenience functions xscale.components.* and yscale.components.*
    where * is in {logpower,fractions,log10ticks,log10.3,subticks}.
 
+ o panel.mapplot() not takes an 'exact' argument, similar to map().
+
  o new function panel.key().
 
  o the layer() function now takes an 'update' argument, used to update the

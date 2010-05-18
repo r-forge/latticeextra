@@ -25,7 +25,7 @@ mapplot(x, data, \dots)
 
 
 prepanel.mapplot(x, y, map, \dots)
-panel.mapplot(x, y, map, breaks, colramp, lwd = 0.5, \dots)
+panel.mapplot(x, y, map, breaks, colramp, exact = FALSE, lwd = 0.5, \dots)
 
 
 }
@@ -60,6 +60,11 @@ panel.mapplot(x, y, map, breaks, colramp, lwd = 0.5, \dots)
     a function that produces colors (such as \code{\link{cm.colors}}).
     If it is \code{NULL}, colors are taken from
     \code{trellis.par.get("regions")}. }
+  \item{exact}{ the default \code{exact = FALSE} allows the given
+    \code{y} values to match sub-regions of \code{map},
+    i.e. region names with a qualifier following \code{":"}, like
+    \code{"michigan:north", "michigan:south"}. These will both match a
+    \code{y} value of \code{"Michigan"}. }
   \item{legend, colorkey}{ controls legends; usually just a color key
     giving the association between numeric values of \code{x} and
     color.  }
