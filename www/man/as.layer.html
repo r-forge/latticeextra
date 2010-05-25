@@ -127,7 +127,6 @@ dotplot(variety ~ yield | site * year, data = b1, subscripts = TRUE) +
 xyplot(fdeaths ~ mdeaths) +
   as.layer(xyplot(fdeaths ~ mdeaths, col = 2, subset = ldeaths &gt; 2000))
 
-
 ## same x scales, different y scales:
 xyplot(fdeaths ~ mdeaths) +
   as.layer(bwplot(~ mdeaths, box.ratio = 0.2), y.same = FALSE)
@@ -145,5 +144,5 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
    as.layer(levelplot(volcano), x.same = FALSE, y.same = FALSE, under = TRUE)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>

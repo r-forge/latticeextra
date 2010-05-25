@@ -13,7 +13,7 @@
 
 <p>
 Plot a smoothing line with standard error bounds.
-This is based on the <code>stat_smooth</code>
+This is based on the <code><a href="../../ggplot2/html/stat_smooth.html">stat_smooth</a></code>
 function from <span class="pkg">ggplot2</span>.
 </p>
 
@@ -98,7 +98,7 @@ argument, and has a <code>predict</code> method with a <code>se</code> argument.
 Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
 </p>
 <p>
-Based on <code>stat_smooth</code> by Hadley Wickham.
+Based on <code><a href="../../ggplot2/html/stat_smooth.html">stat_smooth</a></code> by Hadley Wickham.
 </p>
 
 
@@ -107,7 +107,7 @@ Based on <code>stat_smooth</code> by Hadley Wickham.
 <p>
 <code>panel.loess</code>,
 <code><a href="#panel.quantile">panel.quantile</a></code>,
-<code>stat_smooth</code>
+<code><a href="../../ggplot2/html/stat_smooth.html">stat_smooth</a></code>
 </p>
 
 
@@ -123,7 +123,6 @@ xyplot(y ~ x, xy, panel = function(...) {
        panel.xyplot(...)
        panel.smoother(..., span = 0.9)
 })
-
 
 ## per-group layers with glayer (pass `...` to get styles)
 xyplot(y + y2 ~ x, xy) +
@@ -145,5 +144,5 @@ xyplot(y ~ x, xy) +
   layer(panel.smoother(x, y, method = "lm"), style = 2)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>

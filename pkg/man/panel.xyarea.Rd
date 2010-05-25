@@ -68,7 +68,6 @@ panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
 xyplot(sunspot.year, panel = panel.xyarea, origin = 0,
   aspect = "xy", cut = list(n = 3, overlap = 0))
 
-\dontshow{ .featured_example <- TRUE }
 ## two series superposed: one filled, one as a line.
 xyplot(ts.union(data = sunspot.year, lag10 = lag(sunspot.year, 10)),
   aspect = "xy", cut = list(n = 3, overlap = 0),

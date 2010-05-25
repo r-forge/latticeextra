@@ -153,7 +153,6 @@ data(USCancerRates)
 segplot(reorder(factor(county), rate.male) ~ LCL95.male + UCL95.male,
         data = subset(USCancerRates, state == "Washington"))
 
-
 segplot(reorder(factor(county), rate.male) ~ LCL95.male + UCL95.male,
         data = subset(USCancerRates, state == "Washington"),
         draw.bands = FALSE, centers = rate.male)
@@ -170,5 +169,5 @@ segplot(reorder(factor(county), rate.male) ~ LCL95.male + UCL95.male,
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -74,7 +74,6 @@ dotplot(variety ~ yield | site * year, data = b1, subscripts = TRUE) +
 xyplot(fdeaths ~ mdeaths) +
   as.layer(xyplot(fdeaths ~ mdeaths, col = 2, subset = ldeaths > 2000))
 
-\dontshow{ .featured_example <- TRUE }
 ## same x scales, different y scales:
 xyplot(fdeaths ~ mdeaths) +
   as.layer(bwplot(~ mdeaths, box.ratio = 0.2), y.same = FALSE)

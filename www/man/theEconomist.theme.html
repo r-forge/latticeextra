@@ -149,7 +149,6 @@ asTheEconomist(xyplot(window(sunspot.year, start = 1900),
   main = "Sunspot cycles", sub = "Number per year",
   scales = list(y = list(relation = "same", axs = "i"))))
 
-
 trellis.last.object() +
   layer_(panel.xblocks(x, x &gt;= 1980, col = "#6CCFF6", alpha = .5)) +
   layer(panel.text(1988, 180, "Forecast", font = 3, pos = 2))
@@ -174,5 +173,5 @@ glayer(d &lt;- density(x), i &lt;- which.max(d$y),
   ltext(d$x[i], d$y[i], paste("Group", group.number), pos = 3))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -94,7 +94,6 @@ library(mapproj)
 
 data(USCancerRates)
 
-\dontshow{ .featured_example <- "USCancerRates" }
 mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
         data = USCancerRates,
         map = map("county", plot = FALSE, fill = TRUE,
@@ -113,7 +112,6 @@ county.map <-
     map('county', plot = FALSE, fill = TRUE, 
         projection = "azequalarea")
 
-\dontshow{ .featured_example <- "mapplot" }
 ## set a sequential color palette as current theme, and use it
 opar <- trellis.par.get()
 trellis.par.set(custom.theme(region = brewer.pal(9, "Purples"),

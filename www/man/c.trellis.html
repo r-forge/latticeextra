@@ -169,7 +169,6 @@ pdmargin &lt;- barchart(margin.table(postdoc, 1))
 pdboth &lt;- c(pdprops, pdmargin)
 update(pdboth, xlab = c("Proportion", "Freq"))
 
-
 ## Conditioned 'quakes' plot combined with histogram.
 qua &lt;- xyplot(lat ~ long | equal.count(depth, 3), quakes,
     aspect = "iso", pch = ".", cex = 2, xlab = NULL, ylab = NULL)
@@ -210,5 +209,5 @@ update(combo[npairs], scales = list(draw = FALSE),
        layout = c(4, 4), between = list(x = c(0, 0.5), y = 0.5))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -37,7 +37,7 @@ mapplot(x, data, map, outer = TRUE,
 
 
 prepanel.mapplot(x, y, map, ...)
-panel.mapplot(x, y, map, breaks, colramp, lwd = 0.5, ...)
+panel.mapplot(x, y, map, breaks, colramp, exact = FALSE, lwd = 0.5, ...)
 
 
 </pre>
@@ -92,6 +92,13 @@ values to a false color.  <code>colramp</code> should be
 a function that produces colors (such as <code>cm.colors</code>).
 If it is <code>NULL</code>, colors are taken from
 <code>trellis.par.get("regions")</code>. </td></tr>
+<tr valign="top"><td><code>exact</code></td>
+<td>
+ the default <code>exact = FALSE</code> allows the given
+<code>y</code> values to match sub-regions of <code>map</code>,
+i.e. region names with a qualifier following <code>":"</code>, like
+<code>"michigan:north", "michigan:south"</code>. These will both match a
+<code>y</code> value of <code>"Michigan"</code>. </td></tr>
 <tr valign="top"><td><code>legend, colorkey</code></td>
 <td>
  controls legends; usually just a color key
@@ -153,7 +160,6 @@ library(mapproj)
 
 data(USCancerRates)
 
-
 mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
         data = USCancerRates,
         map = map("county", plot = FALSE, fill = TRUE,
@@ -171,7 +177,6 @@ data(ancestry)
 county.map &lt;- 
     map('county', plot = FALSE, fill = TRUE, 
         projection = "azequalarea")
-
 
 ## set a sequential color palette as current theme, and use it
 opar &lt;- trellis.par.get()
@@ -200,5 +205,5 @@ mapplot(county ~ log(density), ancestry,
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -18,11 +18,12 @@ generateWebsite <-
 {
     ## persistent global:
     tracker <- new.env()
-    tracker$plot <- NULL
-    tracker$name <- NA
+    tracker$plots <- list()
+    tracker$counter <- 0
 
     ## we want to be able to run example() for each function
     ## but only to keep *one* of the lattice plots produced
+    ## (specified by number)
 
     ## the following approach will only work for examples which
     ## don't include post-plotting annotations, or grid.new etc.
@@ -30,18 +31,8 @@ generateWebsite <-
     ## set the lattice print function to store the target plot.
     lattice.options(print.function = function(x, ...) {
         plot(x, ...)
-        ## by default, use the first plot
-        if (is.null(tracker$plot)) {
-            tracker$plot <- x
-        }
-        ## special variable set in example() code:
-        if (exists(".featured_example", globalenv()) &&
-            (identical(.featured_example, TRUE) ||
-             identical(.featured_example, tracker$name)))
-        {
-            tracker$plot <- x
-            rm(list = ".featured_example", envir = globalenv())
-        }
+        tracker$counter <- tracker$counter + 1
+        tracker$plots[[tracker$counter]] <- x
     })
 
     ## set up connections for HTML
@@ -86,7 +77,7 @@ generateWebsite <-
     })
 
     genItem <-
-        function(name, do.example = do.examples,
+        function(name, plotnumber = 1, do.example = do.examples,
                  helpname = name, examplename = helpname,
                  codefile = paste(helpname, ".R", sep = ""),
                  desc = NULL, helplink = TRUE,
@@ -97,9 +88,10 @@ generateWebsite <-
             okname <- gsub(" ", "_", name)
 
             exampleBlock <- ""
-            if (do.example) {
+            if (do.example && (plotnumber != 0)) {
                 ## generate PNG image of target plot in example(examplename)
                 firstrun <- TRUE
+                plotobj <- NULL
                 for (themeNm in themeNames) {
                     if (!file.exists(file.path("plots", themeNm)))
                         dir.create(paste("plots/", themeNm, sep = ""), recursive = TRUE)
@@ -116,27 +108,29 @@ generateWebsite <-
                                     theEconomist = theEconomist.theme())
                     trellis.par.set(theme)
                     if (firstrun || rerun) {
-                        tracker$plot <- NULL
-                        tracker$name <- name
-                        if (exists(".featured_example", globalenv()))
-                            rm(list = ".featured_example", envir = globalenv())
+                        tracker$plots <- list()
+                        tracker$counter <- 0
                         ## run the example()s for this function
                         eval.parent(call("example", examplename, package = package,
                                          local = FALSE, ask = FALSE))
-                        if (is.null(tracker$plot))
-                            stop("no example() plots were found for ", name)
+                        if (length(tracker$plots) == 0)
+                            stop("no lattice plots found in example(", name, ")")
+                        ## plotnumber can be negative, counts back from the end
+                        n <- if (plotnumber >= 0)
+                            plotnumber else tracker$counter - (-plotnumber) + 1
+                        plotobj <- tracker$plots[[n]]
                         firstrun <- FALSE
                     }
                     dev.new(width = width/72, height = height/72)
                     trellis.par.set(theme)
-                    plot(tracker$plot)
+                    plot(plotobj)
                     dev2bitmap(thisfile, width = width, height = height,
                                units = "px", taa = 4, gaa = 4, method = "pdf")
                     dev.off()
                     message(thisfile, " generated")
                 }
                 fileurl <- paste(imageSrcBase, filename, sep = "")
-                theCall <- tracker$plot$call
+                theCall <- plotobj$call
                 if (identical(theCall[[1]], quote(update)) &&
                     (length(theCall) == 2)) {
                     ## redundant `update` wrapper; remove for clarity

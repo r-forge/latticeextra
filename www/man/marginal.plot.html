@@ -127,7 +127,6 @@ enviro$smell &lt;- cut(enviro$ozone, breaks = c(0, 30, 50, Inf),
     labels = c("ok", "hmmm", "yuck"), ordered = TRUE)
 marginal.plot(enviro)
 
-
 ## using groups
 enviro$is.windy &lt;- factor(enviro$wind &gt; 10,
     levels = c(TRUE, FALSE), labels = c("windy", "calm"))
@@ -141,5 +140,5 @@ marginal.plot(~ Titanic, data = Titanic, groups = Survived,
     type = "b", auto.key = list(title = "Survived?"))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>

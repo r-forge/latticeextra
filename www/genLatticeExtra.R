@@ -12,29 +12,29 @@ spec <- list()
 spec[["general statistical plots"]] <-
     list(
          list("rootogram"),
-         list("segplot", width = 400, height = 500),
+         list("segplot", 3, width = 400, height = 500),
          list("ecdfplot"),
-         list("marginal.plot")
+         list("marginal.plot", 2)
          )
 
 spec[["functions of one variable"]] <-
     list(
          list("xyplot.stl", codefile = "timeseries.R", height = 500, rerun = TRUE),
-         list("panel.smoother"),
-         list("panel.quantile"),
-         list("panel.xblocks", width = 600, height = 200, rerun = TRUE),
-         list("panel.xyarea", rerun = TRUE),
+         list("panel.smoother", 2),
+         list("panel.quantile", -1),
+         list("panel.xblocks", 3, width = 600, height = 200, rerun = TRUE),
+         list("panel.xyarea", 2, rerun = TRUE),
          list("panel.tskernel", rerun = TRUE),
-         list("horizonplot", height = 550)
+         list("horizonplot", -1, height = 550)
      )
 
 spec[["functions of two variables"]] <-
     list(
-         list("mapplot", width = 600),
-         list("tileplot"),
+         list("mapplot", -1, width = 600),
+         list("tileplot", 3),
          list("panel.levelplot.points", width = 600,
            helpname = "panel.voronoi", codefile = "tileplot.R"),
-         list("panel.2dsmoother"),
+         list("panel.2dsmoother", 2),
          list("dendrogramGrob", height = 550)
      )
 
@@ -43,17 +43,19 @@ spec[["utilities"]] <-
          list("useOuterStrips", codefile = "utilities.R"),
          list("resizePanels", width = 400, height = 550,
            codefile = "utilities.R"),
-         list("panel.ablineq", helpname = "panel.lmlineq"),
+         #list("scale.components"),
+         list("panel.ablineq", helpname = "panel.lmlineq", -1),
          list("panel.scaleArrow", height = 400, rerun = TRUE),
-         list("panel.3dmisc", height = 400)
+         list("panel.3dmisc", 2, height = 400)
+         #list("panel.key")
      )
 
 spec[["extended trellis framework"]] <-
     list(
-         list("layer"),
-         list("as.layer", codefile = "doubleYScale.R"),
-         list("doubleYScale"),
-         list("c.trellis", width = 600)
+         list("layer", -1),
+         list("as.layer", 4, codefile = "doubleYScale.R"),
+         list("doubleYScale", 4),
+         list("c.trellis", -2, width = 600)
      )
 
 spec[["styles"]] <-
@@ -61,20 +63,20 @@ spec[["styles"]] <-
          list("style example", examplename = "custom.theme",
            desc = "This is a sample plot to demonstrate different graphical settings (themes).",
            helplink = FALSE, codefile = NA),
-         list("custom.theme"),
-         list("theEconomist.theme", codefile = "theeconomist.R")
+         list("custom.theme", -2),
+         list("theEconomist.theme", 2, codefile = "theeconomist.R")
          )
 
 spec[["data"]] <-
     list(
          list("USAge", codefile = NA),
-         list("USCancerRates", examplename = "mapplot", width = 600, codefile = NA),
+         list("USCancerRates", examplename = "mapplot", 1, width = 600, codefile = NA),
          list("ancestry", do.example = FALSE, codefile = NA),
          list("postdoc", codefile = NA),
          list("biocAccess", height = 550, codefile = NA, rerun = TRUE),
          list("gvhd10", height = 500, codefile = NA),
-         list("SeatacWeather", examplename = "doubleYScale", codefile = NA),
-         list("EastAuClimate", codefile = NA)
+         list("SeatacWeather", examplename = "doubleYScale", -2, codefile = NA),
+         list("EastAuClimate", 4, codefile = NA)
      )
 
 source("generate.R")
@@ -85,5 +87,5 @@ lattice.options(panel.error = NULL)
 generateWebsite("latticeExtra", spec = spec,
                 man.src.dir = "../pkg/man/",
                 imageSrcBase = "http://150.203.60.53/latticeExtra/",
-                codeSrcSpec = "http://r-forge.r-project.org/plugins/scmsvn/viewcvs.php/pkg/R/%s?root=latticeextra&view=markup",
+                codeSrcSpec = "http://r-forge.r-project.org/scm/viewvc.php/pkg/R/%s?view=markup&root=lattice",
                 do.examples = TRUE)

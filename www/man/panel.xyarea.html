@@ -27,9 +27,9 @@ panel.xyarea(x, y, groups = NULL, origin = NULL,
              col.line, fill, panel.groups = panel.xyarea)
 
 ## S3 method for class 'ts':
-panel.xyarea(x, y = NULL, ...)
+panel.xyarea(x, y = x, ...)
 ## S3 method for class 'zoo':
-panel.xyarea(x, y = NULL, ...)
+panel.xyarea(x, y = x, ...)
 
 panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
                     qtype = 7, groups = NULL, ..., tails.n = 0)
@@ -115,7 +115,6 @@ Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
 xyplot(sunspot.year, panel = panel.xyarea, origin = 0,
   aspect = "xy", cut = list(n = 3, overlap = 0))
 
-
 ## two series superposed: one filled, one as a line.
 xyplot(ts.union(data = sunspot.year, lag10 = lag(sunspot.year, 10)),
   aspect = "xy", cut = list(n = 3, overlap = 0),
@@ -142,5 +141,5 @@ qqmath(~ data, make.groups(baseline = rnorm(100),
                              border = c(NA, "black"), lwd = 2))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>

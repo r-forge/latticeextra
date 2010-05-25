@@ -23,7 +23,8 @@ panel function. Note the non-standard evaluation in <code>layer()</code>.
 <pre>
 layer(..., data, magicdots, exclude,
       packets, rows, columns, groups,
-      style, force, theme, under, superpose, 
+      style, force, theme, under, superpose,
+      update,
       eval, etc) ## these 2 deprecated
 
 layer_(...)
@@ -128,6 +129,12 @@ if <code>TRUE</code>, the layer will be drawn once for
 each level of any <code>groups</code> in the plot, using
 <code>panel.superpose</code>. This defaults to <code>TRUE</code> in the
 convenience functions <code>glayer()</code> and <code>glayer_()</code>.
+</td></tr>
+<tr valign="top"><td><code>update</code></td>
+<td>
+
+an optional <code>list</code> of arguments to update the trellis plot with
+(passed to <code>update.trellis</code>) before the layer is drawn.
 </td></tr>
 <tr valign="top"><td><code>eval, etc</code></td>
 <td>
@@ -273,12 +280,12 @@ dotplot(VADeaths, type = "o") + glayer(str(list(...)))
 
 
 ## layers with superposed styles
-zoip &lt;- xyplot(ozone ~ wind | equal.count(temperature, 2),
-        data = environmental) +
+xyplot(ozone ~ wind | equal.count(temperature, 2),
+       data = environmental) +
    layer(panel.loess(x, y, span = 0.5), style = 1) +
-   layer(panel.loess(x, y, span = 1.0), style = 2)
-update(zoip, auto.key = list(text = c("span = 0.5", "span = 1.0"),
-   title = "loess smooth", lines = TRUE, points = FALSE))
+   layer(panel.loess(x, y, span = 1.0), style = 2) +
+   layer(panel.key(c("span = 0.5", "span = 1.0"), corner = c(1,.98),
+                   lines = TRUE, points = FALSE), packets = 1)
 
 ## note that styles come from the settings in effect in the plot,
 ## which is not always what you want:
@@ -308,7 +315,6 @@ layer(ltext(tapply(y, x, max), lab = abbreviate(levels(x)),
 qua &lt;- xyplot(lat ~ long | cut(depth, 2), quakes,
     aspect = "iso", pch = ".", cex = 2)
 qua
-
 ## add layer showing distance from Auckland
 newdat &lt;- with(quakes, expand.grid(
             gridlat = seq(min(lat), max(lat), length = 60),
@@ -319,5 +325,5 @@ qua + layer_(panel.contourplot(x = gridlon, y = gridlat, z = dist,
    contour = TRUE, subscripts = TRUE), data = newdat)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>

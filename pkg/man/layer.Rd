@@ -247,7 +247,6 @@ layer(ltext(tapply(y, x, max), lab = abbreviate(levels(x)),
 qua <- xyplot(lat ~ long | cut(depth, 2), quakes,
     aspect = "iso", pch = ".", cex = 2)
 qua
-\dontshow{ .featured_example <- TRUE }
 ## add layer showing distance from Auckland
 newdat <- with(quakes, expand.grid(
             gridlat = seq(min(lat), max(lat), length = 60),

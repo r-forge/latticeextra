@@ -229,7 +229,6 @@ horizonplot(EuStockMarkets, strip.left = TRUE,
   scales = list(y = list(relation = "same")), ylim = c(4000, 5000)) +
 layer(panel.scaleArrow(x = 0.99, col = "grey", srt = 90, cex = 0.75))
 
-
 ## a cut-and-stack plot; should use "same" y scales!
 horizonplot(sunspots, cut = list(n = 23, overlap = 0),
   scales = list(y = list(relation = "same"), draw = FALSE),
@@ -237,5 +236,5 @@ horizonplot(sunspots, cut = list(n = 23, overlap = 0),
 layer(grid::grid.text(round(x[1]), x = 0, just = "left"))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-10 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
 </body></html>
