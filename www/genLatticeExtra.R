@@ -87,5 +87,5 @@ lattice.options(panel.error = NULL)
 generateWebsite("latticeExtra", spec = spec,
                 man.src.dir = "../pkg/man/",
                 imageSrcBase = "http://150.203.60.53/latticeExtra/",
-                codeSrcSpec = "http://r-forge.r-project.org/scm/viewvc.php/pkg/R/%s?view=markup&root=lattice",
+                codeSrcSpec = "http://r-forge.r-project.org/scm/viewvc.php/pkg/R/%s?view=markup&root=latticeextra",
                 do.examples = TRUE)

@@ -276,7 +276,7 @@ Usage, Details, Examples
   <pre class="itemcode">
 rootogram(~x, dfun = function(x) dpois(x, lambda = 50))
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/rootogram.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/rootogram.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="segplot">
@@ -298,7 +298,7 @@ segplot(reorder(factor(county), rate.male) ~ LCL95.male + UCL95.male,
     data = subset(USCancerRates, state == "Washington"), draw.bands = FALSE, 
     cente....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/segplot.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/segplot.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="ecdfplot">
@@ -318,7 +318,7 @@ Usage, Details, Examples
   <pre class="itemcode">
 ecdfplot(~height | voice.part, data = singer)
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/ecdfplot.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/ecdfplot.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="marginal.plot">
@@ -339,7 +339,7 @@ Usage, Details, Examples
 marginal.plot(enviro[, 1:5], data = enviro, groups = is.windy, 
     auto.key = list(lines = TRUE))
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/marginal.plot.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/marginal.plot.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 
@@ -362,7 +362,7 @@ Usage, Details, Examples
   <pre class="itemcode">
 xyplot(stl(log(co2), s.window = 21), main = "STL decomposition of CO2 data")
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/timeseries.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/timeseries.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.smoother">
@@ -382,7 +382,7 @@ Usage, Details, Examples
   <pre class="itemcode">
 xyplot(y + y2 ~ x, xy) + glayer(panel.smoother(...))
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.smoother.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.smoother.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.quantile">
@@ -404,7 +404,7 @@ update(xyplot(y ~ x, xy) + layer(panel.quantile(x, y, tau = c(0.5,
     0.9, 0.1), superpose = TRUE)), auto.key = list(text = paste(c(50, 
     90, 10), "% qua....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.quantile.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.quantile.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.xblocks">
@@ -425,7 +425,7 @@ Usage, Details, Examples
 xyplot(flow ~ flowdates, type = "l") + layer_(panel.xblocks(x, 
     months, col = c("lightgray", "#e6e6e6"), border = "darkgray"))
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.xblocks.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.xblocks.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.xyarea">
@@ -447,7 +447,7 @@ xyplot(ts.union(data = sunspot.year, lag10 = lag(sunspot.year,
     10)), aspect = "xy", cut = list(n = 3, overlap = 0), superpose = TRUE, 
     panel = panel.....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.xyarea.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.xyarea.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.tskernel">
@@ -468,7 +468,7 @@ Usage, Details, Examples
 xyplot(sunspot.year) + layer(panel.tskernel(x, y, width = 20, 
     c = 3, col = 1, lwd = 2))
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.tskernel.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.tskernel.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="horizonplot">
@@ -489,7 +489,7 @@ Usage, Details, Examples
 horizonplot(sunspots, cut = list(n = 23, overlap = 0), scales = list(y = list(relation = "same"), 
     draw = FALSE), origin = 100, strip.left = FALSE, layou....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/horizonplot.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/horizonplot.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 
@@ -513,7 +513,7 @@ Usage, Details, Examples
 mapplot(county ~ log10(population), ancestry, map = county.map, 
     colramp = NULL)
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/mapplot.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/mapplot.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="tileplot">
@@ -535,7 +535,7 @@ tileplot(z ~ x * y, xyz, border = "black", col.regions = grey.colors(100),
     pch = ifelse(is.na(xyz$z), 4, 21), panel = function(...) {
         panel.fill(....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/tileplot.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/tileplot.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.levelplot.points">
@@ -557,7 +557,7 @@ levelplot(depth ~ long + lat | Magnitude, data = quakes.ordered,
     panel = panel.levelplot.points, type = c("p", "g"), aspect = "iso", 
     prepanel = prep....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/tileplot.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/tileplot.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.2dsmoother">
@@ -578,7 +578,7 @@ Usage, Details, Examples
 levelplot(z ~ x * y, xyz, panel = panel.levelplot.points, cex = 1.2) + 
     layer_(panel.2dsmoother(..., n = 200))
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.2dsmoother.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.2dsmoother.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="dendrogramGrob">
@@ -599,7 +599,7 @@ Usage, Details, Examples
 levelplot(x[row.ord, col.ord], aspect = "fill", scales = list(x = list(rot = 90)), 
     colorkey = list(space = "left"), legend = list(right = list(fun = den....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/dendrogramGrob.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/dendrogramGrob.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 
@@ -624,7 +624,7 @@ xyplot(mpg ~ disp | HP + factor(cyl), mtcars, layout = dimx,
     par.strip.text = list(lines = 0.5), strip = new.strip, strip.left = new.strip.left, 
     par....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/utilities.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/utilities.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="resizePanels">
@@ -646,7 +646,7 @@ dotplot(state.name ~ Frost | reorder(state.region, Frost), data = state,
     layout = c(1, 4), scales = list(y = list(relation = "free")), 
     par.settings ....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/utilities.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/utilities.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.ablineq">
@@ -668,7 +668,7 @@ update(xyplot(ysim ~ xsim) + layer(panel.ablineq(lm(y ~ x), r.sq = TRUE,
     rot = TRUE, at = 0.8, pos = 3), style = 1) + layer(panel.ablineq(lm(y ~ 
     x +....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.lmlineq.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.lmlineq.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.scaleArrow">
@@ -689,7 +689,7 @@ Usage, Details, Examples
 xyplot(EuStockMarkets) + layer(panel.scaleArrow(x = 0.99, append = " units", 
     col = "grey", srt = 90, cex = 0.8))
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.scaleArrow.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.scaleArrow.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="panel.3dmisc">
@@ -711,7 +711,7 @@ cloud(as.table(prop.table(Titanic, margin = 1:3)[, , , 2]), type = c("p",
     "h"), zlab = "ProportionnSurvived", panel.3d.cloud = panel.3dbars, 
     xbase ....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.3dmisc.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.3dmisc.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 
@@ -735,7 +735,7 @@ Usage, Details, Examples
 qua + layer_(panel.contourplot(x = gridlon, y = gridlat, z = dist, 
     contour = TRUE, subscripts = TRUE), data = newdat)
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/layer.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/layer.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="as.layer">
@@ -756,7 +756,7 @@ Usage, Details, Examples
 xyplot(fdeaths ~ mdeaths) + as.layer(bwplot(~mdeaths, box.ratio = 0.2), 
     y.same = FALSE)
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/doubleYScale.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/doubleYScale.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="doubleYScale">
@@ -776,7 +776,7 @@ Usage, Details, Examples
   <pre class="itemcode">
 doubleYScale(obj1, obj2, add.ylab2 = TRUE)
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/doubleYScale.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/doubleYScale.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="c.trellis">
@@ -798,7 +798,7 @@ update(c(xyplot(lat ~ long | equal.count(depth, 3), quakes, aspect = "iso",
     pch = ".", cex = 2, xlab = NULL, ylab = NULL), histogram(quakes$depth), 
     ....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/c.trellis.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/c.trellis.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 
@@ -841,7 +841,7 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width,
     iris, type = c("p", "r"), jitter.x = TRUE, jitter.y = TRUE, 
     factor = 5, auto.key = l....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/custom.theme.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/custom.theme.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 <div class="item" id="theEconomist.theme">
@@ -863,7 +863,7 @@ trellis.last.object() + layer_(panel.xblocks(x, x >= 1980, col = "#6CCFF6",
     alpha = 0.5)) + layer(panel.text(1988, 180, "Forecast", font = 3, 
     pos = ....
   </pre>
-<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/theeconomist.R?view=markup&root=lattice" class="codelink">Source code</a></p>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/theeconomist.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 
