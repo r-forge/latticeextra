@@ -1,33 +1,97 @@
 ## Copyright (C) Felix Andrews <felix@nfrac.org>
 
 
-## reads template.html from current directory.
-## [over]writes index.html.
+webitem.default <-
+    function(name, ...,
+             do.example = TRUE, do.helplink = TRUE,
+             content = NULL)
+{
+    c(webitem.basic(name, ...),
+      if (do.helplink) webitem.helplink(name, ...),
+      content,
+      if (do.example) webitem.lattice.example(name, ...),
+      webitem.codelink(name, ...))
+}
+
+webitem.basic <- function(name, ..., desc = NULL)
+{
+    c('  <h2 class="itemname">', name, '  </h2>',
+      '  <div class="itemdesc">', desc, '  </div>')
+}
+
+## runs Rdconv and puts HTML into 'man' dir.
+## 'man.src.dir': path to man/.Rd files
+webitem.helplink <-
+    function(name, ..., package, 
+             helpname = name, examplename = helpname,
+             man.src.dir, Links, Links2 = character(),
+             helplinktext = "Usage, Details, Examples")
+{
+    ## generate HTML man page file
+    if (!file.exists("man"))
+        dir.create("man")
+    manhtml <- paste("man/", helpname, ".html", sep = "")
+    manRd <- paste(man.src.dir, helpname, ".Rd", sep = "")
+    tools::Rd2HTML(manRd, out = manhtml, package = package,
+                   Links = Links, Links2 = Links2)
+    message(manhtml, " generated")
+    ## generated HTML is invalid; fix it:
+    tmp <- readLines(manhtml)
+                                        #tmp <- gsub('</p>\n<p>', '<br/>', tmp)
+                                        #tmp <- gsub('</?p>', '', tmp)
+    tmp <- sub('^<!DOCTYPE .*$', '', tmp)
+    tmp <- sub('^<meta .*$', '', tmp)
+    tmp <- sub('^<link .*$', '', tmp)
+    tmp <- gsub('<hr/?>', "", tmp)
+    write(tmp, manhtml)
+    ## generate HTML content
+    c('  <p>',
+      sprintf('  <a href="man/%s.html" class="helplink">',
+              helpname),
+      helplinktext, '</a>',
+      '  </p>')
+}
+
+webitem.codelink <-
+    function(name, ...,
+             helpname = name,
+             codefile = paste(helpname, ".R", sep = ""),
+             code.url = NA)
+{
+    if (is.na(code.url) || is.na(codefile))
+        return("")
+    url <- sprintf(code.url, codefile)
+    sprintf('<p><a href="%s" class="codelink">Source code</a></p>',
+            url)
+}
+
 ## runs examples and puts images into 'plots' dir.
 ##   (currently uses dev2bitmap to make pngs)
-## runs Rdconv and puts HTML into 'man' dir.
-## 'spec': see arguments to nested "genItem" function...
-## 'man.src.dir': path to man/.Rd files
-generateWebsite <-
-    function(package, spec, man.src.dir,
-             themeNames = c("default", "black_and_white", "classic_gray",
-                            "custom_theme", "custom_theme_2", "theEconomist"),
-             imageSrcBase = "",
-             codeSrcSpec = NA,
-             do.examples = TRUE)
+webitem.lattice.example <-
+    function(name, plotnumber = 1, ..., package,
+             helpname = name, examplename = helpname,
+             themes = list(default = standard.theme("pdf")),
+             image.src.base = "",
+             width = 500, height = 350, rerun = FALSE)
 {
-    ## persistent global:
-    tracker <- new.env()
-    tracker$plots <- list()
-    tracker$counter <- 0
+    ## for filenames and DOM ids
+    okname <- gsub(" ", "_", name)
 
+    if (plotnumber == 0)
+        return("")
+    
     ## we want to be able to run example() for each function
     ## but only to keep *one* of the lattice plots produced
     ## (specified by number)
-
+    
     ## the following approach will only work for examples which
     ## don't include post-plotting annotations, or grid.new etc.
-
+        
+    ## keep track of examples as they run
+    tracker <- new.env()
+    tracker$plots <- list()
+    tracker$counter <- 0
+        
     ## set the lattice print function to store the target plot.
     lattice.options(print.function = function(x, ...) {
         plot(x, ...)
@@ -35,194 +99,157 @@ generateWebsite <-
         tracker$plots[[tracker$counter]] <- x
     })
 
-    ## set up connections for HTML
-    out <- textConnection("out_dump", "w") ## @CONTENT
-    nav <- textConnection("nav_dump", "w") ## @NAV
+    ## generate PNG image of target plot in example(examplename)
+    firstrun <- TRUE
+    plotobj <- NULL
+    for (themeNm in names(themes)) {
+        if (!file.exists(file.path("plots", themeNm)))
+            dir.create(paste("plots/", themeNm, sep = ""), recursive = TRUE)
+        thisfile <- file.path("plots", themeNm, paste(okname, ".png", sep = ""))
+        if (firstrun)
+            filename <- thisfile
+        trellis.par.set(themes[[themeNm]])
+        if (firstrun || rerun) {
+            tracker$plots <- list()
+            tracker$counter <- 0
+            ## run the example()s for this function
+            eval.parent(call("example", examplename, package = package,
+                             local = FALSE, ask = FALSE))
+            if (length(tracker$plots) == 0)
+                stop("no lattice plots found in example(", name, ")")
+            ## plotnumber can be negative, counts back from the end
+            n <- if (plotnumber >= 0)
+                plotnumber else tracker$counter - (-plotnumber) + 1
+            plotobj <- tracker$plots[[n]]
+            firstrun <- FALSE
+        }
+        dev.new(width = width/72, height = height/72)
+        trellis.par.set(themes[[themeNm]])
+        plot(plotobj)
+        dev2bitmap(thisfile, width = width, height = height,
+                   units = "px", taa = 4, gaa = 4, method = "pdf")
+        dev.off()
+        message(thisfile, " generated")
+    }
 
+    ## reset to normal plotting
+    lattice.options(print.function = NULL, default.theme = NULL)
+
+    fileurl <- paste(image.src.base, filename, sep = "")
+    theCall <- plotobj$call
+    if (identical(theCall[[1]], quote(update)) &&
+        (length(theCall) == 2)) {
+        ## redundant `update` wrapper; remove for clarity
+        theCall <- theCall[[2]]
+    }
+    itemCode <- toString(paste(deparse(theCall, control = c()),
+                               collapse = "\n"),
+                         width = 160)
+
+    c('<p>One example:</p>',
+      sprintf('<img src="%s" alt="%s" width="%g" height="%g"/>',
+              fileurl, name, width, height),
+      '<pre class="itemcode">', itemCode,
+      '</pre>')
+}
+
+## reads template.html from current directory.
+## replacing strings @CONTENT @NAV @INDEX @VERSIONTAG
+## [over]writes index.html.
+## 'spec': a nested list defining groups of items for website.
+## 'webitemfun' is called for each item in each group.
+generateWebsite <-
+    function(package, spec, ...,
+             webitemfun = webitem.default,
+             toplevelcontent = NULL,
+             topleveljs = NULL)
+{
     ## get names, aliases and descriptions from help pages
     info <- .readRDS(system.file("Meta", "Rd.rds", package = package))
 
     ## work out which help page (which element of 'info') each item belongs to
-    itemNames <- unlist(lapply(spec, lapply, head, 1))
-    in.info <- unlist(lapply(spec, lapply, function(x) {
+    spec <- lapply(spec, lapply, function(x) {
         name <- x[[1]]
         helpname <- if (is.null(x$helpname)) name else x$helpname
-        i <- which(info$Name == helpname)
-        if (length(i) == 0) NA else i
-    }))
-    ok <- !is.na(in.info)
+        i <- which(sapply(info$Aliases, function(aa) helpname %in% aa))
+        stopifnot(length(i) <= 1)
+        if (length(i) == 0) i <- NA
+        x$info.i <- i
+        ## fill in 'desc' element from Title field if missing
+        if (is.null(x$desc)) {
+            x$desc <- info$Title[i]
+            if (is.null(x$desc)) stop("no description found for ", name)
+        }
+        x
+    })
+    infoIndex <- unlist(lapply(spec, lapply, function(x) x$info.i))
+    itemNames <- unlist(lapply(spec, lapply, head, 1))
+    ok <- !is.na(infoIndex)
     info$itemName <- NA
-    info$itemName[in.info[ok]] <- itemNames[ok]
+    info$itemName[infoIndex[ok]] <- itemNames[ok]
     ## TODO: insert website items which do not match a help page name?
-    #itemNames[!ok]
-    ## remove help pages for which there is no item on website
+                                        #itemNames[!ok]
+    ## remove help pages for which there is no item in spec
     info <- info[!is.na(info$itemName),]
 
     ## construct local HTML links
     lens <- sapply(info$Aliases, length)
     Links <- structure(paste("#", rep.int(info$itemName, lens), sep = ""),
                        names = unlist(info$Aliases))
-    Links2 <- character()
 
-    ## fill in 'desc' element of spec from Title field for each item
-    spec <- lapply(spec, lapply, function(x) {
-        if (is.null(x$desc)) {
-            name <- x[[1]]
-            helpname <- if (is.null(x$helpname)) name else x$helpname
-            i <- which(sapply(info$Aliases, function(aa) helpname %in% aa))
-            x$desc <- info$Title[i]
-            if (is.null(x$desc)) stop("no description found for ", name)
-        }
-        x
-    })
-
-    genItem <-
-        function(name, plotnumber = 1, do.example = do.examples,
-                 helpname = name, examplename = helpname,
-                 codefile = paste(helpname, ".R", sep = ""),
-                 desc = NULL, helplink = TRUE,
-                 width = 500, height = 350,
-                 rerun = FALSE)
-        {
-            ## for filenames and DOM ids
-            okname <- gsub(" ", "_", name)
-
-            exampleBlock <- ""
-            if (do.example && (plotnumber != 0)) {
-                ## generate PNG image of target plot in example(examplename)
-                firstrun <- TRUE
-                plotobj <- NULL
-                for (themeNm in themeNames) {
-                    if (!file.exists(file.path("plots", themeNm)))
-                        dir.create(paste("plots/", themeNm, sep = ""), recursive = TRUE)
-                    thisfile <- file.path("plots", themeNm, paste(okname, ".png", sep = ""))
-                    if (firstrun)
-                        filename <- thisfile
-                    theme <- switch(themeNm,
-                                    default = standard.theme("pdf"),
-                                    black_and_white = standard.theme(color = FALSE),
-                                    col_whitebg = col.whitebg(),
-                                    classic_gray = standard.theme("X11"),
-                                    custom_theme = custom.theme(),
-                                    custom_theme_2 = custom.theme.2(),
-                                    theEconomist = theEconomist.theme())
-                    trellis.par.set(theme)
-                    if (firstrun || rerun) {
-                        tracker$plots <- list()
-                        tracker$counter <- 0
-                        ## run the example()s for this function
-                        eval.parent(call("example", examplename, package = package,
-                                         local = FALSE, ask = FALSE))
-                        if (length(tracker$plots) == 0)
-                            stop("no lattice plots found in example(", name, ")")
-                        ## plotnumber can be negative, counts back from the end
-                        n <- if (plotnumber >= 0)
-                            plotnumber else tracker$counter - (-plotnumber) + 1
-                        plotobj <- tracker$plots[[n]]
-                        firstrun <- FALSE
-                    }
-                    dev.new(width = width/72, height = height/72)
-                    trellis.par.set(theme)
-                    plot(plotobj)
-                    dev2bitmap(thisfile, width = width, height = height,
-                               units = "px", taa = 4, gaa = 4, method = "pdf")
-                    dev.off()
-                    message(thisfile, " generated")
-                }
-                fileurl <- paste(imageSrcBase, filename, sep = "")
-                theCall <- plotobj$call
-                if (identical(theCall[[1]], quote(update)) &&
-                    (length(theCall) == 2)) {
-                    ## redundant `update` wrapper; remove for clarity
-                    theCall <- theCall[[2]]
-                }
-                itemCode <- toString(paste(deparse(theCall, control = c()),
-                                           collapse = "\n"),
-                                     width = 160)
-                exampleBlock <-
-                    paste('  <p>One example:</p>',
-                          sprintf('  <img src="%s" alt="%s" width="%g" height="%g"/>',
-                                  fileurl, name, width, height),
-                          '  <pre class="itemcode">', itemCode,
-                          '  </pre>', sep = "\n")
-            }
-
-            helplinkBlock <- ""
-            if (helplink) {
-                ## generate HTML man page file
-                if (!file.exists("man"))
-                    dir.create("man")
-                manhtml <- paste("man/", helpname, ".html", sep = "")
-                manRd <- paste(man.src.dir, helpname, ".Rd", sep = "")
-                tools::Rd2HTML(manRd, out = manhtml, package = package,
-                               Links = Links, Links2 = Links2)
-                message(manhtml, " generated")
-                ## generated HTML is invalid; fix it:
-                tmp <- readLines(manhtml)
-                #tmp <- gsub('</p>\n<p>', '<br/>', tmp)
-                #tmp <- gsub('</?p>', '', tmp)
-                tmp <- sub('^<!DOCTYPE .*$', '', tmp)
-                tmp <- sub('^<meta .*$', '', tmp)
-                tmp <- sub('^<link .*$', '', tmp)
-                tmp <- gsub('<hr/?>', "", tmp)
-                write(tmp, manhtml)
-                ## generate HTML content
-                helplinkBlock <-
-                    paste('  <p>',
-                          sprintf('  <a href="man/%s.html" class="helplink">',
-                                helpname),
-                          'Usage, Details, Examples', '</a>',
-                          '  </p>', sep = "\n")
-            }
-
-            ## link to source code file
-            codelinkBlock <- ""
-            if (!is.na(codeSrcSpec) && !is.na(codefile)) {
-                codeurl <- sprintf(codeSrcSpec, codefile)
-                codelinkBlock <-
-                    sprintf('<p><a href="%s" class="codelink">Source code</a></p>',
-                            codeurl)
-            }
-
-            write(c(sprintf('<div class="item" id="%s">', okname),
-                    '  <h2 class="itemname">', name, '  </h2>',
-                    '  <div class="itemdesc">', desc, '  </div>',
-                    helplinkBlock,
-                    exampleBlock,
-                    codelinkBlock,
-                    '</div>', ''), file = out)
-
-            ## generate HTML nav
-            navid <- paste("nav_", okname, sep = "")
-            write(c('<li>',
-                    sprintf('<a class="navitem" href="%s" title="%s" id="%s">%s</a>',
-                            paste("#", okname, sep=""), desc, navid, name),
-                    '</li>'), file = nav)
-        }
+    ## set up HTML buffers
+    out <- character() ## @CONTENT
+    nav <- character() ## @NAV
 
     ## process the given spec
+    commonArgs <- list(..., package = package, Links = Links)
     for (i in seq_along(spec)) {
         groupName <- names(spec)[i]
         group <- spec[[i]]
-        write(sprintf('  <h1 class="groupname">%s</h1>', groupName),
-              file = out)
-        write(c(sprintf('<li class="navhead"><a href="#">%s</a></li>',
-                        groupName),
-                '<li class="navgroup"><ul>'), file = nav)
+        ## group level headers / containers
+        out <- c(out,
+                 '',
+                 sprintf('<h1 class="groupname">%s</h1>', groupName),
+                 '')
+        nav <- c(nav,
+                 sprintf('<li class="navhead"><a href="#">%s</a></li>',
+                         groupName),
+                 '<li class="navgroup"><ul>')
         ## each item:
         for (j in seq_along(group)) {
-            do.call("genItem", group[[j]])
+            item <- group[[j]]
+            name <- item[[1]]
+            okname <- gsub(" ", "_", name)
+            ## generate HTML nav entries
+            navid <- paste("nav_", okname, sep = "")
+            nav <- c(nav,
+                     '<li>',
+                     sprintf('<a class="navitem" href="#%s" title="%s" id="%s">%s</a>',
+                             okname, item$desc, navid, name),
+                     '</li>')
+            ## generate HTML content (from webitemfun)
+            common.masked <- names(commonArgs) %in% names(item)
+            webitemArgs <- c(item,
+                             commonArgs[!common.masked])
+            itemContent <- do.call(webitemfun, webitemArgs)
+            out <- c(out,
+                     '',
+                     sprintf('<div class="item" id="%s">', okname),
+                     itemContent,
+                     '</div>', '')
         }
-        write('</ul></li>', file = nav)
-        write(c('', ''), file = out)
+        nav <- c(nav, '</ul></li>', '')
+        out <- c(out, '', '')
     }
 
-    write(c('<script type="text/javascript">',
-            paste('var imageSrcBase = "', imageSrcBase, '";', sep = ""),
-            '</script>'), file = out)
-
-    close(nav)
-    close(out)
+    ## custom top-level stuff
+    out <- c(out, toplevelcontent)
+    if (!is.null(topleveljs)) {
+        out <- c(out,
+                 '<script type="text/javascript">',
+                 topleveljs,
+                 '</script>')
+    }
 
     ## make @INDEX
     tmp <- lapply(spec, lapply, function(x) {
@@ -249,14 +276,11 @@ generateWebsite <-
 
     ## merge content and nav into template.html
     html <- readLines("template.html")
-    html <- sub("@CONTENT", paste(out_dump, collapse = "\n"), html)
-    html <- sub("@NAV", paste(nav_dump, collapse = "\n"), html)
+    html <- sub("@CONTENT", paste(out, collapse = "\n"), html)
+    html <- sub("@NAV", paste(nav, collapse = "\n"), html)
     html <- sub("@INDEX", index, html)
     html <- sub("@VERSIONTAG", vTag, html)
 
     write(html, file = "index.html")
     message("index.html generated")
-
-    ## reset to normal plotting
-    lattice.options(print.function = NULL, default.theme = NULL)
 }

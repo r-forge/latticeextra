@@ -62,7 +62,7 @@ spec[["styles"]] <-
     list(
          list("style example", examplename = "custom.theme",
            desc = "This is a sample plot to demonstrate different graphical settings (themes).",
-           helplink = FALSE, codefile = NA),
+           do.helplink = FALSE, codefile = NA),
          list("custom.theme", -2),
          list("theEconomist.theme", 2, codefile = "theeconomist.R")
          )
@@ -84,8 +84,20 @@ source("generate.R")
 ## stop on errors
 lattice.options(panel.error = NULL)
 
+themes <-
+    list(default = standard.theme("pdf"),
+         black_and_white = standard.theme(color = FALSE),
+         col_whitebg = col.whitebg(),
+         classic_gray = standard.theme("X11"),
+         custom_theme = custom.theme(),
+         custom_theme_2 = custom.theme.2(),
+         theEconomist = theEconomist.theme())
+
+imageSrcBase <- "http://150.203.60.53/latticeExtra/"
+
 generateWebsite("latticeExtra", spec = spec,
                 man.src.dir = "../pkg/man/",
-                imageSrcBase = "http://150.203.60.53/latticeExtra/",
-                codeSrcSpec = "http://r-forge.r-project.org/scm/viewvc.php/pkg/R/%s?view=markup&root=latticeextra",
-                do.examples = TRUE)
+                image.src.base = imageSrcBase,
+                topleveljs = paste('var imageSrcBase = "', imageSrcBase, '";', sep = ""),
+                code.url = "http://r-forge.r-project.org/scm/viewvc.php/pkg/R/%s?view=markup&root=latticeextra",
+                themes = themes)
