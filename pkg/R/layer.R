@@ -98,6 +98,8 @@ magicDots <- function(ocall, exclude = NULL, assume.xy = TRUE)
     ## call recursively with any calls inside this one
     for (i in seq_along(ocall)[-1]) {
         thisArg <- ocall[[i]]
+        if (missing(thisArg)) ## eg x[,1]
+            next
         if (is.call(thisArg)) {
             ## skip function definitions
             if (identical(thisArg[[1]], as.symbol("function")))
