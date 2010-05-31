@@ -46,8 +46,8 @@ asTheEconomist <-
                   par.strip.text = par.strip.text,
                   between = between)
     ans <- ans +
-        eval(bquote(layer_(panel.xticksgrid(vertical = .(vertical),
-                                            zeroline = .(zeroline)))))
+        layer_(panel.xticksgrid(vertical = V, zeroline = ZL, ...),
+               data = list(V = vertical, ZL = zeroline))
     ans$call <- match.call()
     ans
 }
@@ -110,16 +110,16 @@ theEconomist.theme <-
 }
 
 panel.xticksgrid <-
-    function(..., vertical = FALSE, zeroline = "red")
+    function(..., vertical = FALSE, zeroline = "red", x = NULL, y = NULL)
 {
     lims <- current.panel.limits()
     xminor <- pretty(lims$x, n = 25)
     if (vertical) {
-        panel.grid(h = 0, v = -1)
+        panel.grid(h = 0, v = -1, x = x, y = y)
         if (abs(lims$x[1]) > abs(diff(lims$x)) / 20)
             panel.refline(v = 0, col = zeroline, alpha = 0.8)
     } else {
-        panel.grid(h = -1, v = 0)
+        panel.grid(h = -1, v = 0, x = x, y = y)
         if (abs(lims$y[1]) > abs(diff(lims$y)) / 20)
             panel.refline(h = 0, col = zeroline, alpha = 0.8)
     }

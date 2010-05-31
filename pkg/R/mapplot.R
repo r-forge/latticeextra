@@ -20,7 +20,8 @@ panel.mapplot <-
         xmatched <- xmatched | (names(x) %in% mapnames)
     }
     if (any(!xmatched))
-        warning("unmatched regions: ", toString(y[!xmatched]))
+        warning(sum(!xmatched), " unmatched regions: ",
+                toString(y[!xmatched], width = 60))
     interval <-
         cut(mapval, breaks = breaks,
             labels = FALSE, include.lowest = TRUE)

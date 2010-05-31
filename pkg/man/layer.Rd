@@ -8,7 +8,7 @@
 \alias{flattenPanel}
 \alias{[.layer}
 \alias{print.layer}
-\title{ Add layers to a Trellis plot, optionally using a new data source }
+\title{ Add layers to a lattice plot, optionally using a new data source }
 \description{
   A mechanism to add new layers to a trellis object, optionally using a
   new data source. This is an alternative to modifying the
@@ -18,7 +18,6 @@
 layer(..., data, magicdots, exclude,
       packets, rows, columns, groups,
       style, force, theme, under, superpose,
-      update,
       eval, etc) ## these 2 deprecated
 
 layer_(...)
@@ -100,10 +99,6 @@ flattenPanel(object)
     each level of any \code{groups} in the plot, using
     \code{\link{panel.superpose}}. This defaults to \code{TRUE} in the
     convenience functions \code{glayer()} and \code{glayer_()}.
-  }
-  \item{update}{
-    an optional \code{list} of arguments to update the trellis plot with
-    (passed to \code{\link{update.trellis}}) before the layer is drawn.
   }
   \item{eval, etc}{
     These two arguments are now Deprecated and should not be used in new

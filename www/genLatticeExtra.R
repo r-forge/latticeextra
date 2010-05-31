@@ -43,11 +43,11 @@ spec[["utilities"]] <-
          list("useOuterStrips", codefile = "utilities.R"),
          list("resizePanels", width = 400, height = 550,
            codefile = "utilities.R"),
-         #list("scale.components"),
+         list("scale.components"),
          list("panel.ablineq", helpname = "panel.lmlineq", -1),
          list("panel.scaleArrow", height = 400, rerun = TRUE),
-         list("panel.3dmisc", 2, height = 400)
-         #list("panel.key")
+         list("panel.3dmisc", 2, height = 400),
+         list("panel.key")
      )
 
 spec[["extended trellis framework"]] <-

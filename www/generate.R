@@ -71,8 +71,9 @@ webitem.lattice.example <-
     function(name, plotnumber = 1, ..., package,
              helpname = name, examplename = helpname,
              themes = list(default = standard.theme("pdf")),
+             width = 500, height = 350, rerun = FALSE,
              image.src.base = "",
-             width = 500, height = 350, rerun = FALSE)
+             call.width = 48, call.maxchar = 250)
 {
     ## for filenames and DOM ids
     okname <- gsub(" ", "_", name)
@@ -136,15 +137,17 @@ webitem.lattice.example <-
     lattice.options(print.function = NULL, default.theme = NULL)
 
     fileurl <- paste(image.src.base, filename, sep = "")
+    
     theCall <- plotobj$call
     if (identical(theCall[[1]], quote(update)) &&
         (length(theCall) == 2)) {
         ## redundant `update` wrapper; remove for clarity
         theCall <- theCall[[2]]
     }
-    itemCode <- toString(paste(deparse(theCall, control = c()),
-                               collapse = "\n"),
-                         width = 160)
+    itemCode <-
+        toString(paste(deparse(theCall, width = call.width, control = c()),
+                       collapse = "\n"),
+                 width = call.maxchar)
 
     c('<p>One example:</p>',
       sprintf('<img src="%s" alt="%s" width="%g" height="%g"/>',

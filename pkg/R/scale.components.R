@@ -37,25 +37,6 @@ yscale.components.fractions <- function(lim, logsc = FALSE, ...) {
     ans
 }
 
-xscale.components.eval <- function(lim, ..., digits = 3) {
-    ans <- xscale.components.default(lim, ...)
-    ## get 'at' in data coordinates (log base)^at
-    at <- sapply(parse(text = ans$left$labels$labels), eval)
-    ans$bottom$labels$labels <-
-        format(at, digits = digits, trim = TRUE)
-    ans
-}
-
-yscale.components.eval <- function(lim, ..., digits = 3) {
-    ans <- yscale.components.default(lim, ...)
-    ## get 'at' in data coordinates (log base)^at
-    at <- sapply(parse(text = ans$left$labels$labels), eval)
-    ans$left$labels$labels <-
-        format(at, digits = digits, trim = TRUE)
-    ans
-}
-
-
 logTicks <- function (lim, loc = c(1, 5)) {
     ii <- floor(log10(range(lim))) + c(-1, 2)
     main <- 10^(ii[1]:ii[2])

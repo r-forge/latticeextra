@@ -1,12 +1,12 @@
 
-<html><head><title>R: Add layers to a Trellis plot, optionally using a new data source</title>
+<html><head><title>R: Add layers to a lattice plot, optionally using a new data source</title>
 
 
 </head><body>
 
 <table width="100%" summary="page for layer {latticeExtra}"><tr><td>layer {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Add layers to a Trellis plot, optionally using a new data source</h2>
+<h2>Add layers to a lattice plot, optionally using a new data source</h2>
 
 
 <h3>Description</h3>
@@ -24,7 +24,6 @@ panel function. Note the non-standard evaluation in <code>layer()</code>.
 layer(..., data, magicdots, exclude,
       packets, rows, columns, groups,
       style, force, theme, under, superpose,
-      update,
       eval, etc) ## these 2 deprecated
 
 layer_(...)
@@ -129,12 +128,6 @@ if <code>TRUE</code>, the layer will be drawn once for
 each level of any <code>groups</code> in the plot, using
 <code>panel.superpose</code>. This defaults to <code>TRUE</code> in the
 convenience functions <code>glayer()</code> and <code>glayer_()</code>.
-</td></tr>
-<tr valign="top"><td><code>update</code></td>
-<td>
-
-an optional <code>list</code> of arguments to update the trellis plot with
-(passed to <code>update.trellis</code>) before the layer is drawn.
 </td></tr>
 <tr valign="top"><td><code>eval, etc</code></td>
 <td>

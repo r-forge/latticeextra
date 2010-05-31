@@ -17,7 +17,6 @@ layer <-
              style = NULL, force = FALSE,
              theme = if (force) trellis.par.get() else NULL,
              under = FALSE, superpose = FALSE,
-             update = NULL,
              ## Deprecated:
              eval = FALSE, etc = FALSE)
 {
@@ -83,8 +82,7 @@ layer <-
              groups = groups,
              superpose = superpose,
              style = style,
-             theme = theme,
-             update = update)
+             theme = theme)
     lay <- list(foo)
     class(lay) <- c("layer", "trellis")
     lay
@@ -211,14 +209,6 @@ print.layer <- print.default
     object <- update(object, panel = newpanel)
     ## need this to allow further calls to update() to insert arguments:
     object$call <- call("update", ocall)
-    ## allow arbitrary update()s specified by the layers
-    for (lay.i in lay) {
-        if (length(attr(lay.i, "update")) > 0) {
-            object <-
-                do.call("update",
-                        c(list(object), attr(lay.i, "update")))
-        }
-    }
     object
 }
 

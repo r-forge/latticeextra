@@ -91,20 +91,25 @@ panel.mapplot(x, y, map, breaks, colramp, exact = FALSE, lwd = 0.5, \dots)
 library(maps)
 library(mapproj)
 
+## Note: Alaska, Hawaii and others are not included in county map;
+## this generates warnings with both USCancerRates and ancestry.
 
 data(USCancerRates)
 
+suppressWarnings(print(
 mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
         data = USCancerRates,
         map = map("county", plot = FALSE, fill = TRUE,
                   projection = "mercator"))
+))
 
+suppressWarnings(print(
 mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
         data = USCancerRates,
         map = map("county", plot = FALSE, fill = TRUE,
                   projection = "tetra"),
         scales = list(draw = FALSE))
-
+))
 
 data(ancestry)
 
@@ -116,8 +121,10 @@ county.map <-
 opar <- trellis.par.get()
 trellis.par.set(custom.theme(region = brewer.pal(9, "Purples"),
                              alpha.line = 0.5))
+suppressWarnings(print(
 mapplot(county ~ log10(population), ancestry, map = county.map,
     colramp = NULL)
+))
 trellis.par.set(opar)
 
 \dontrun{

@@ -63,18 +63,18 @@ yscale.components.subticks(lim, ..., n = 5, n2 = n * 3, min.n2 = n + 3)
   \url{http://lmdvr.r-forge.r-project.org/figures/figures.html?chapter=08;figure=08_04}
 }
 \examples{
-xyplot(1:100 ~ 1:100,
-  scales = list(x = list(log = 2), y = list(log = 10)),
-  xscale.components = xscale.components.logpower,
-  yscale.components = yscale.components.log10ticks)
-
-xyplot(1:100 ~ 1:100,
+xyplot((1:200)/20 ~ (1:200)/20, type = c("p", "g"),
   scales = list(x = list(log = 2), y = list(log = 10)),
   xscale.components = xscale.components.fractions,
+  yscale.components = yscale.components.log10ticks)
+
+xyplot((1:200)/20 ~ (1:200)/20, type = c("p", "g"),
+  scales = list(x = list(log = 2), y = list(log = 10)),
+  xscale.components = xscale.components.logpower,
   yscale.components = yscale.components.log10.3)
 
 dd <- as.Date("2000-01-01") + 0:365
-xyplot(0:365 ~ dd,
+xyplot(0:365 ~ dd, type = c("p", "g"),
   xscale.components = xscale.components.subticks,
   yscale.components = yscale.components.subticks)
 }

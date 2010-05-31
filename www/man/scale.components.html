@@ -1,0 +1,112 @@
+
+<html><head><title>R: Custom lattice axis scales</title>
+
+
+</head><body>
+
+<table width="100%" summary="page for scale.components {latticeExtra}"><tr><td>scale.components {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Custom lattice axis scales</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Convenience functions for drawing axes with various non-default tick
+positions and labels. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+xscale.components.logpower(lim, ...)
+yscale.components.logpower(lim, ...)
+
+xscale.components.fractions(lim, logsc = FALSE, ...)
+yscale.components.fractions(lim, logsc = FALSE, ...)
+
+xscale.components.log10ticks(lim, logsc = FALSE, ...)
+yscale.components.log10ticks(lim, logsc = FALSE, ...)
+
+xscale.components.log10.3(lim, logsc = FALSE, ...)
+yscale.components.log10.3(lim, logsc = FALSE, ...)
+
+xscale.components.subticks(lim, ..., n = 5, n2 = n * 3, min.n2 = n + 3)
+yscale.components.subticks(lim, ..., n = 5, n2 = n * 3, min.n2 = n + 3)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>lim</code></td>
+<td>
+ scale limits. </td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+passed on to <code>xscale.components.default</code> or
+<code>yscale.components.default</code>. 
+</td></tr>
+<tr valign="top"><td><code>logsc</code></td>
+<td>
+
+<code>log</code> base, typically specified in the <code>scales</code>
+argument to a high-level lattice plot.
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+desired number of intervals between major axis ticks (passed to
+<code>pretty</code>.
+</td></tr>
+<tr valign="top"><td><code>n2, min.n2</code></td>
+<td>
+
+desired, and minimum, number of intervals been minor axis ticks
+(passed to <code>pretty</code>.
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>
+These functions are intended to be passed to the
+<code>xscale.components</code> or <code>yscale.components</code> arguments of
+high-level lattice plots. See
+<code>xscale.components.default</code>. 
+</p>
+
+
+<h3>References</h3>
+
+<p>
+Sarkar, Deepayan (2008) &ldquo;Lattice: Multivariate Data
+Visualization with R&rdquo;, Springer.  ISBN: 978-0-387-75968-5
+<a href="http://lmdvr.r-forge.r-project.org/figures/figures.html?chapter=08;figure=08_04">http://lmdvr.r-forge.r-project.org/figures/figures.html?chapter=08;figure=08_04</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+xyplot((1:200)/20 ~ (1:200)/20, type = c("p", "g"),
+  scales = list(x = list(log = 2), y = list(log = 10)),
+  xscale.components = xscale.components.fractions,
+  yscale.components = yscale.components.log10ticks)
+
+xyplot((1:200)/20 ~ (1:200)/20, type = c("p", "g"),
+  scales = list(x = list(log = 2), y = list(log = 10)),
+  xscale.components = xscale.components.logpower,
+  yscale.components = yscale.components.log10.3)
+
+dd &lt;- as.Date("2000-01-01") + 0:365
+xyplot(0:365 ~ dd, type = c("p", "g"),
+  xscale.components = xscale.components.subticks,
+  yscale.components = yscale.components.subticks)
+</pre>
+
+<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
+</body></html>
