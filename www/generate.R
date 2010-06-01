@@ -103,6 +103,7 @@ webitem.lattice.example <-
     ## generate PNG image of target plot in example(examplename)
     firstrun <- TRUE
     plotobj <- NULL
+    pdf("Rplots.pdf")
     for (themeNm in names(themes)) {
         if (!file.exists(file.path("plots", themeNm)))
             dir.create(file.path("plots", themeNm), recursive = TRUE)
@@ -124,7 +125,10 @@ webitem.lattice.example <-
             plotobj <- tracker$plots[[n]]
             firstrun <- FALSE
         }
-        dev.new(width = width/72, height = height/72)
+        ## need to use dev2bitmap(method="pdf"); bitmap() uses postscript
+        ## (using postscipt loses translucency and family="serif" fails)
+        pdf("tmp.pdf", width = width/72, height = height/72)
+        dev.control(displaylist = "enable")
         trellis.par.set(themes[[themeNm]])
         plot(plotobj)
         dev2bitmap(thisfile, width = width, height = height,
@@ -132,6 +136,7 @@ webitem.lattice.example <-
         dev.off()
         message(thisfile, " generated")
     }
+    dev.off()
 
     ## reset to normal plotting
     lattice.options(print.function = NULL, default.theme = NULL)
