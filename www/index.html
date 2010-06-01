@@ -135,7 +135,7 @@ pageTracker._trackPageview();
 <li class="navhead"><a href="#">extended trellis framework</a></li>
 <li class="navgroup"><ul>
 <li>
-<a class="navitem" href="#layer" title="Add layers to a lattice plot, optionally using a new data source" id="nav_layer">layer</a>
+<a class="navitem" href="#layer" title="Add layers to a Trellis plot, optionally using a new data source" id="nav_layer">layer</a>
 </li>
 <li>
 <a class="navitem" href="#as.layer" title="Overlay panels of Trellis plots on same or different scales" id="nav_as.layer">as.layer</a>
@@ -243,7 +243,7 @@ pageTracker._trackPageview();
 <tr><td><a href="#ecdfplot">ecdfplot</a></td><td>Trellis Displays of Empirical CDF</td></tr>
 <tr><td><a href="#gvhd10">gvhd10</a></td><td>Flow cytometry data from five samples from a patient</td></tr>
 <tr><td><a href="#horizonplot">horizonplot</a></td><td>Plot many time series in parallel</td></tr>
-<tr><td><a href="#layer">layer</a></td><td>Add layers to a lattice plot, optionally using a new data source</td></tr>
+<tr><td><a href="#layer">layer</a></td><td>Add layers to a Trellis plot, optionally using a new data source</td></tr>
 <tr><td><a href="#mapplot">mapplot</a></td><td>Trellis displays on Maps a.k.a. Choropleth maps</td></tr>
 <tr><td><a href="#marginal.plot">marginal.plot</a></td><td>Display marginal distributions</td></tr>
 <tr><td><a href="#panel.2dsmoother">panel.2dsmoother</a></td><td>Plot a smooth approximation of z over x and y.</td></tr>
@@ -717,9 +717,8 @@ Usage, Details, Examples
 <p>One example:</p>
 <img src="http://150.203.60.53/latticeExtra/plots/default/scale.components.png" alt="scale.components" width="500" height="350"/>
 <pre class="itemcode">
-xyplot((1:200)/20 ~ (1:200)/20, type = c("p", "g"), 
-    scales = list(x = list(log = 2), y = list(log = 10)), 
-    xscale.components = xscale.components.fractions, 
+xyplot(1:100 ~ 1:100, scales = list(x = list(log = 2), 
+    y = list(log = 10)), xscale.components = xscale.components.logpower, 
     yscale.components = yscale.components.log10ticks)
 </pre>
 <p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/scale.components.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
@@ -833,7 +832,7 @@ xyplot(ozone ~ wind | equal.count(temperature, 2),
 layer
   </h2>
   <div class="itemdesc">
-Add layers to a lattice plot, optionally using a new data source
+Add layers to a Trellis plot, optionally using a new data source
   </div>
   <p>
   <a href="man/layer.html" class="helplink">
@@ -1180,7 +1179,7 @@ var imageSrcBase = "http://150.203.60.53/latticeExtra/";
 </div>
 
 <div id="versiontag">
-latticeExtra version 0.6-12 on R version 2.11.0 (at 2010-06-01)
+latticeExtra version 0.6-12 on R version 2.12.0 (at 2010-06-01)
 </div>
 
 </div>

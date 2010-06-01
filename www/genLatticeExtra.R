@@ -15,7 +15,7 @@ spec[["general statistical plots"]] <-
          list("segplot", 3, width = 400, height = 500),
          list("ecdfplot"),
          list("marginal.plot", 2)
-         )
+     )
 
 spec[["functions of one variable"]] <-
     list(
@@ -65,7 +65,7 @@ spec[["styles"]] <-
            do.helplink = FALSE, codefile = NA),
          list("custom.theme", -2),
          list("theEconomist.theme", 2, codefile = "theeconomist.R")
-         )
+     )
 
 spec[["data"]] <-
     list(

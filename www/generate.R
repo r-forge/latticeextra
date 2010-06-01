@@ -105,7 +105,7 @@ webitem.lattice.example <-
     plotobj <- NULL
     for (themeNm in names(themes)) {
         if (!file.exists(file.path("plots", themeNm)))
-            dir.create(paste("plots/", themeNm, sep = ""), recursive = TRUE)
+            dir.create(file.path("plots", themeNm), recursive = TRUE)
         thisfile <- file.path("plots", themeNm, paste(okname, ".png", sep = ""))
         if (firstrun)
             filename <- thisfile
