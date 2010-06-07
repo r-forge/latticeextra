@@ -23,7 +23,7 @@ S3method(xyplot, stl)
 
 
 export(panel.3dbars, panel.3dpolygon, panel.3dtext)
-export(useOuterStrips, resizePanels)
+export(useOuterStrips, resizePanels, combineLimits)
 export(custom.theme)
 export(custom.theme.2)
 
