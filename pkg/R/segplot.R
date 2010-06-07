@@ -1,7 +1,5 @@
 
 
-
-
 ## Want to plot intervals from start to end, color coded by decoded, 
 ## and several in a panel  according to source
 
@@ -10,18 +8,15 @@
 
 
 
-
-
 prepanel.segplot <- 
     function(x, y, z, subscripts, horizontal = TRUE, ...)
 {
     ans <- 
         list(xlim = range(x[subscripts], y[subscripts], finite = TRUE), 
-             ylim =
-             if (is.numeric(z)) range(z[subscripts], finite = TRUE)
-             else levels(z))
+             ylim = if (is.numeric(z)) range(z[subscripts], finite = TRUE) else levels(z),
+             yat = if (is.factor(z)) sort(unique(as.numeric(z[subscripts]))) else NULL)
     if (horizontal) ans
-    else with(ans, list(xlim = ylim, ylim = xlim))
+    else with(ans, list(xlim = ylim, ylim = xlim, xat = yat))
 }
 
 
