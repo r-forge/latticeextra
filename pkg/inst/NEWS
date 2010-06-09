@@ -14,6 +14,10 @@ Changes in Version 0.6-12
  o the 'style' argument to layer() now applies to the "superpose" styles
    also, which fixes some cases with xyplot.ts.
 
+ o doubleYScale() now accepts an 'under' argument.
+
+ o as.layer() was not keeping existing scales if x.same or y.same = FALSE.
+
  o the 'zoo' methods for panel.xblocks() and panel.xyarea() now use 
    coredata() rather than as.vector(), so can keep factors intact.
 

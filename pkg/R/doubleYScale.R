@@ -8,7 +8,7 @@ doubleYScale <-
              add.axis = TRUE, add.ylab2 = FALSE,
              text = NULL, auto.key = if (!is.null(text))
                list(text, points = points, lines = lines, ...),
-             points = FALSE, lines = TRUE, ...)
+             points = FALSE, lines = TRUE, ..., under = FALSE)
 {
     stopifnot(inherits(obj1, "trellis"))
     stopifnot(inherits(obj2, "trellis"))
@@ -88,7 +88,7 @@ doubleYScale <-
                          axes = "y", out = TRUE, opp = FALSE) +
                 as.layer(obj2, style = style2,
                          x.same = TRUE, y.same = FALSE,
-                         axes = "y", out = TRUE, opp = TRUE)
+                         axes = "y", out = TRUE, opp = TRUE, under = under)
     }
     foo$call <- sys.call(sys.parent())
     foo
@@ -102,6 +102,7 @@ as.layer.trellis <-
              axes = c(if (!x.same) "x", if (!y.same) "y"),
              opposite = TRUE,
              outside = FALSE,
+             theme = x$par.settings,
              ...)
 {
     if (identical(axes, TRUE)) axes <- c("x", "y")
@@ -110,12 +111,10 @@ as.layer.trellis <-
     outside <- rep(outside, length = 2)
     if (x.same && y.same) {
         ## simply run the panel function in existing panel viewport
-        return(
-               layer({
+        return(layer({
                    packet.number <- min(packet.number(), prod(dim(x)))
                    do.call(x$panel, trellis.panelArgs(x, packet.number))
-               }, data = list(x = x), ...)
-               )
+               }, data = list(x = x), theme = theme, ...))
     }
     ## else
     ## take one or more scales from layered object (so new viewport)
@@ -207,9 +206,9 @@ as.layer.trellis <-
         yscale <- yscale.comps$num.limit
         ## maybe over-ride with original limits
         if (x.same)
-            x.scale <- current.panel.limits()$xlim
+            xscale <- current.panel.limits()$xlim
         if (y.same)
-            y.scale <- current.panel.limits()$ylim
+            yscale <- current.panel.limits()$ylim
         ## do panel(); need a new viewport with scales from 'x'
         pushViewport(viewport(xscale = xscale, yscale = yscale))
         do.call(x$panel, trellis.panelArgs(x, packet.number))
@@ -278,5 +277,5 @@ as.layer.trellis <-
         upViewport(2)
     }, data = list(x = x, x.same = x.same, y.same = y.same,
        axes = axes, opposite = opposite, outside = outside),
-          ...)
+          theme = theme, ...)
 }
