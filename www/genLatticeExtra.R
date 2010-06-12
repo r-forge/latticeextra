@@ -55,7 +55,7 @@ spec[["extended trellis framework"]] <-
          list("layer", -1),
          list("as.layer", 4, codefile = "doubleYScale.R"),
          list("doubleYScale", 4),
-         list("c.trellis", -2, width = 600)
+         list("c.trellis", -3, width = 600)
      )
 
 spec[["styles"]] <-

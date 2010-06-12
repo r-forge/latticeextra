@@ -11,8 +11,8 @@ marginal.plot(x,
               groups = NULL,
               reorder = !is.table(x),
               plot.points = FALSE,
-              ref = TRUE, cut = 1,
-              origin = 0,
+              ref = TRUE, cut = 0,
+              origin = 0, ylim = c(0, NA),
               xlab = NULL, ylab = NULL,
               type = c("p", if (is.null(groups)) "h"),
               ...,
@@ -42,7 +42,7 @@ marginal.plot(x,
   \item{subset}{ data subset expression, evaluated in \code{data}. }
   \item{plot.points, ref, cut}{ passed to \code{panel.densityplot}. }
   \item{origin, type}{ passed to \code{panel.dotplot}. }
-  \item{xlab, ylab, as.table, subscripts}{
+  \item{ylim, xlab, ylab, as.table, subscripts}{
     see \code{\link{xyplot}}.
   }
   \item{default.scales, layout, lattice.options}{

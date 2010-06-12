@@ -1,22 +1,28 @@
 
 Changes in Version 0.6-12
 
- o new convenience functions xscale.components.* and yscale.components.*
+ o new combineLimits() function for per-row and per-column limits.
+
+ o new functions xscale.components.* and yscale.components.*
    where * is in {logpower,fractions,log10ticks,log10.3,subticks}.
 
- o panel.mapplot() not takes an 'exact' argument, similar to map().
+ o panel.mapplot() now takes an 'exact' argument, similar to map().
 
  o new function panel.key().
 
- o the layer() function now takes an 'update' argument, used to update the
-   target plot object.
+ o c.trellis() and doubleYScale() now merge legends from multiple plots.
+
+ o c.trellis(), as.layer() and doubleYScale() now try to combine 
+   'par.settings' from multiple plots.
+
+ o doubleYScale() now accepts an 'under' argument (applies to 2nd plot).
+
+ o marginal.plot() now has a default cut = 0.
+
+ o as.layer() was not keeping existing scales if x.same or y.same = FALSE.
 
  o the 'style' argument to layer() now applies to the "superpose" styles
    also, which fixes some cases with xyplot.ts.
-
- o doubleYScale() now accepts an 'under' argument.
-
- o as.layer() was not keeping existing scales if x.same or y.same = FALSE.
 
  o the 'zoo' methods for panel.xblocks() and panel.xyarea() now use 
    coredata() rather than as.vector(), so can keep factors intact.

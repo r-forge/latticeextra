@@ -181,7 +181,7 @@ foo <- foo + layer(panel.abline(h = 0)) +
              layer(panel.lmline(x, y, lty = 2))
 
 ## underlay a flat color
-foo <- foo + layer(panel.fill(grey(.98)), under = TRUE)
+foo <- foo + layer(panel.fill(grey(.95)), under = TRUE)
 foo
 
 ## layers can access the panel function arguments

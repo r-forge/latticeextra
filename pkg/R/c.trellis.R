@@ -6,7 +6,8 @@
 
 xyplot.list <-
     function(x, data = NULL, ..., FUN = xyplot,
-             y.same = TRUE, x.same = NA, layout = NULL)
+             y.same = TRUE, x.same = NA, layout = NULL,
+             merge.legends = FALSE)
 {
     if (length(x) == 0) return(NULL)
     ## NOTE lapply here causes problems with eval.parent and `...` later.
@@ -24,14 +25,16 @@ xyplot.list <-
              toString(class(objs[[ which(!ok)[1] ]])),
              ", not trellis.")
     ans <- do.call("c", c(objs,
-                   list(x.same = x.same, y.same = y.same, layout = layout)))
+                   list(x.same = x.same, y.same = y.same,
+                        layout = layout, merge.legends = merge.legends)))
     ans$call <- match.call()
     ans
 }
 
 c.trellis <-
     function(..., x.same = NA, y.same = NA,
-             layout = NULL, recursive = FALSE)
+             layout = NULL, merge.legends = TRUE,
+             recursive = FALSE)
 {
     objs <- list(...)
     if (length(objs) == 0) return(NULL)
@@ -47,10 +50,11 @@ c.trellis <-
         ## merge first two objects, and call again
         first2Merged <-
             do.call("c.trellis", c(objs[1:2],
-                           list(x.same = x.same, y.same = y.same)))
+                           list(x.same = x.same, y.same = y.same,
+                                merge.legends = merge.legends)))
         return(do.call("c.trellis", c(list(first2Merged), objs[-(1:2)],
                               list(x.same = x.same, y.same = y.same,
-                                   layout = layout))))
+                                   layout = layout, merge.legends = merge.legends))))
     }
     ## now exactly 2 objects
     obj1 <- objs[[1]]
@@ -203,6 +207,13 @@ c.trellis <-
             !is.null(names(objs)))
             obj1$strip <- "strip.default"
     }
+
+    ## TODO: can use 'par.settings' from obj2 only for obj2 panels?
+    obj1$par.settings <- modifyList(as.list(obj2$par.settings),
+                                    as.list(obj1$par.settings))
+    if (merge.legends)
+        obj1$legend <- mergeTrellisLegends(obj1$legend, obj2$legend)
+    
     obj1$layout <- layout
     obj1$call <- call("c", obj1$call, obj2$call,
                       x.same = x.same, y.same = y.same,

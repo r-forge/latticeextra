@@ -32,6 +32,10 @@ doubleYScale <-
         names(keyLeg) <- space
         obj1 <- update(obj1, legend = keyLeg)
     }
+
+    ## merge legends
+    obj1$legend <- mergeTrellisLegends(obj1$legend, obj2$legend)
+    
     if (add.ylab2) {
         ## add ylab2 as a 'legend' (idea from John Maindonald)
         ## draw both ylabs in their style, if specified
@@ -48,30 +52,36 @@ doubleYScale <-
             if (is.list(ylab1))
                 ylab1 <- obj1$ylab.default
             if (is.characterOrExpression(ylab1)) {
-                obj1 <-
-                    update(obj1, legend = list(left =
-                                 list(fun = ylabStyledGrob,
+                obj1$legend <-
+                    mergeTrellisLegends(obj1$legend,
+                             list(left = 
+                                  list(fun = ylabStyledGrob,
                                       args = list(label = ylab1,
-                                      style = style1))))
+                                      style = style1))),
+                             vertical = FALSE)
                 obj1$ylab <- expression(NULL)
             }
         }
+        ## TODO: use ylab.right from lattice 0.19-6
         ylab2 <- obj2$ylab
         if (is.list(ylab2))
             ylab2 <- obj2$ylab.default
         if (is.characterOrExpression(ylab2)) {
-            obj1 <-
-                update(obj1, legend = list(right =
+            obj1$legend <-
+                    mergeTrellisLegends(list(right =
                              list(fun = ylabStyledGrob,
                                   args = list(label = ylab2,
-                                  style = style2))))
+                                  style = style2))),
+                             obj1$legend,
+                             vertical = FALSE)
         }
     }
 
     if (add.axis == FALSE) {
         ## if not drawing a second axis, nothing to do but...
-        foo <- obj1 + as.layer(obj2, x.same = TRUE, y.same = FALSE,
-                               axes = NULL, style = style2)
+        foo <- obj1 + as.layer(obj2, style = style2,
+                               x.same = TRUE, y.same = FALSE,
+                               axes = NULL, under = under)
     } else {
         ## need to specify padding to draw second y axis
         yAxPad <- list(layout.widths = list(
@@ -81,6 +91,7 @@ doubleYScale <-
         dummy <- update(obj1, panel = function(...) NULL,
                         scales = list(y = list(draw = FALSE)),
                         lattice.options = yAxPad)
+        
         foo <-
             dummy +
                 as.layer(obj1, style = style1,
@@ -88,12 +99,12 @@ doubleYScale <-
                          axes = "y", out = TRUE, opp = FALSE) +
                 as.layer(obj2, style = style2,
                          x.same = TRUE, y.same = FALSE,
-                         axes = "y", out = TRUE, opp = TRUE, under = under)
+                         axes = "y", out = TRUE, opp = TRUE,
+                         under = under)
     }
-    foo$call <- sys.call(sys.parent())
+    foo$call <- match.call()
     foo
 }
-
 
 as.layer.trellis <-
     function(x,
@@ -123,6 +134,7 @@ as.layer.trellis <-
         packet.number <- min(packet.number(), prod(dim(x)))
         ## axis details...
         ## this all copied from lattice:::plot.trellis
+        ## TODO: this is horrible; can use the axis function instead?
         x.relation.same <- x$x.scales$relation == "same"
         y.relation.same <- x$y.scales$relation == "same"
         xscale.comps <-
