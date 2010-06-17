@@ -8,7 +8,7 @@
 }
 \usage{
 \method{c}{trellis}(..., x.same = NA, y.same = NA,
-    layout = NULL, merge.legends = TRUE, recursive = FALSE)
+    layout = NULL, merge.legends = FALSE, recursive = FALSE)
 
 xyplot.list(x, data = NULL, ..., FUN = xyplot,
     y.same = TRUE, x.same = NA, layout = NULL,

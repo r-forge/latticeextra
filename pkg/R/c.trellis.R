@@ -33,7 +33,7 @@ xyplot.list <-
 
 c.trellis <-
     function(..., x.same = NA, y.same = NA,
-             layout = NULL, merge.legends = TRUE,
+             layout = NULL, merge.legends = FALSE,
              recursive = FALSE)
 {
     objs <- list(...)

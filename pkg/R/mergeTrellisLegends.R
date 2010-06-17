@@ -25,14 +25,13 @@ mergeTrellisLegends <- function(legend, legend2, vertical = NULL)
 }
 
 ## exported, to be called at plot time from 'legend'
-## TODO: allow padding?
-mergedTrellisLegendGrob <- function(a, b, vertical = FALSE)
+mergedTrellisLegendGrob <-
+    function(a, b, vertical = FALSE, border = NULL)
 {
     if (is.null(a))
         return(b)
     if (is.null(b))
         return(a)
-    g <- frameGrob(name = "mergedLegend")
     if (!inherits(a$fun, "grob")) {
         fun <- a$fun
         if (is.character(a$fun)) a$fun <- as.symbol(a$fun)
@@ -42,8 +41,9 @@ mergedTrellisLegendGrob <- function(a, b, vertical = FALSE)
         if (is.character(b$fun)) b$fun <- as.symbol(b$fun)
         b$fun <- eval(as.call(c(b$fun, b$args)), getNamespace("lattice"))
     }
-    g <- packGrob(g, a$fun, side = if (vertical) "top" else "left")
-    g <- packGrob(g, b$fun, side = if (vertical) "bottom" else "right")
+    g <- frameGrob(name = "mergedLegend")
+    g <- packGrob(g, a$fun, side = if (vertical) "top" else "left", border = border)
+    g <- packGrob(g, b$fun, side = if (vertical) "bottom" else "right", border = border)
     g
 }
 
