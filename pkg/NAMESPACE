@@ -88,7 +88,8 @@ S3method(as.layer, layer)
 S3method(as.layer, trellis)
 export(doubleYScale)
 
-export(ggplot2like.theme)
+export(ggplot2like)
+export(ggplot2like.opts)
 export(axis.grid)
 
 export(asTheEconomist)

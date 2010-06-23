@@ -54,7 +54,7 @@ xscale.components.log10ticks <- function(lim, logsc = FALSE, ...) {
     tick.at.major <- logTicks(logbase^lim, loc = 1)
     major <- tick.at %in% tick.at.major
     ans$bottom$ticks$at <- log(tick.at, logbase)
-    ans$bottom$ticks$tck <- ifelse(major, 1.5, 0.75)
+    ans$bottom$ticks$tck <- ifelse(major, 1, 0.5)
     ans$bottom$labels$at <- log(tick.at, logbase)
     ans$bottom$labels$labels <- as.character(tick.at)
     ans$bottom$labels$labels[!major] <- ""
@@ -72,7 +72,7 @@ yscale.components.log10ticks <- function(lim, logsc = FALSE, ...) {
     tick.at.major <- logTicks(logbase^lim, loc = 1)
     major <- tick.at %in% tick.at.major
     ans$left$ticks$at <- log(tick.at, logbase)
-    ans$left$ticks$tck <- ifelse(major, 1.5, 0.75)
+    ans$left$ticks$tck <- ifelse(major, 1, 0.5)
     ans$left$labels$at <- log(tick.at, logbase)
     ans$left$labels$labels <- as.character(tick.at)
     ans$left$labels$labels[!major] <- ""
@@ -117,8 +117,8 @@ xscale.components.subticks <-
     ticks2 <- ans2$bottom$ticks$at
     ticks2 <- ticks2[!(ticks2 %in% ticks)]
     ans$bottom$ticks$at <- c(ticks, ticks2)
-    ans$bottom$ticks$tck <- c(rep(1.5, length(ticks)),
-                              rep(0.75, length(ticks2)))
+    ans$bottom$ticks$tck <- c(rep(1, length(ticks)),
+                              rep(0.5, length(ticks2)))
     ans$bottom$labels$at <- ans$bottom$ticks$at
     ans$bottom$labels$labels <- c(ans$bottom$labels$labels,
                                   rep("", length(ticks2)))
@@ -135,8 +135,8 @@ yscale.components.subticks <-
     ticks2 <- ans2$left$ticks$at
     ticks2 <- ticks2[!(ticks2 %in% ticks)]
     ans$left$ticks$at <- c(ticks, ticks2)
-    ans$left$ticks$tck <- c(rep(1.5, length(ticks)),
-                            rep(0.75, length(ticks2)))
+    ans$left$ticks$tck <- c(rep(1, length(ticks)),
+                            rep(0.5, length(ticks2)))
     ans$left$labels$at <- ans$left$ticks$at
     ans$left$labels$labels <- c(ans$left$labels$labels,
                                 rep("", length(ticks2)))

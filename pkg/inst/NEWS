@@ -6,7 +6,7 @@ Changes in Version 0.6-12
  o new functions xscale.components.* and yscale.components.*
    where * is in {logpower,fractions,log10ticks,log10.3,subticks}.
 
- o new functions ggplot2like.theme() and axis.grid().
+ o new functions ggplot2like(), ggplot2like.opts() and axis.grid().
 
  o panel.mapplot() now takes an 'exact' argument, similar to map().
 
