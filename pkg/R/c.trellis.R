@@ -14,9 +14,13 @@ xyplot.list <-
     #objs <- lapply(x, FUN, data = data, ...)
     objs <- vector(mode = "list", length = length(x))
     for (i in as.numeric(seq_along(x))) {
-        ## use substitute to get reasonable ylab (but still has [[1]])
-        ## and to avoid warnings about 'data' in e.g. qqmath.numeric
-        objs[[i]] <- eval.parent(substitute(FUN(x[[i]], data = data, ...)))
+        ## this is what we had previously, but it seemed to cause failures
+        ## in complex call structures (e.g. pch=pch ==> object 'pch' not found)
+        ## (use substitute to get reasonable ylab)
+        #objs[[i]] <- eval.parent(substitute(FUN(x[[i]], data = data, ...)))
+        ## check for 'data' to avoid warnings in e.g. qqmath.numeric
+        objs[[i]] <-
+            if (!is.null(data)) FUN(x[[i]], data = data, ...) else FUN(x[[i]], ...)
     }
     names(objs) <- names(x)
     ok <- unlist(lapply(objs, inherits, "trellis"))

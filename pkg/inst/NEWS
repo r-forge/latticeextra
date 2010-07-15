@@ -26,6 +26,8 @@ Changes in Version 0.6-12
 
  o as.layer() was not keeping existing scales if x.same or y.same = FALSE.
 
+ o xyplot.list() now applies 'FUN' directly, avoiding some evaluation issues.
+
  o the 'style' argument to layer() now applies to the "superpose" styles
    also, which fixes some cases with xyplot.ts.
 
