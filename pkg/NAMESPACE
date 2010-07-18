@@ -96,16 +96,18 @@ export(asTheEconomist)
 export(theEconomist.theme)
 export(panel.xticksgrid)
 
+export(panel.ellipse)
+
 ## obsolete, will go away at some point
 
-export(gplot, gplotArgs, "gplotArgs<-")
+## export(gplot, gplotArgs, "gplotArgs<-")
 
-S3method(gplot, default)
-S3method(gplotArgs, default)
-S3method(gplotArgs, data.frame)
+## S3method(gplot, default)
+## S3method(gplotArgs, default)
+## S3method(gplotArgs, data.frame)
 
-S3method("gplotArgs<-", default)
-S3method("gplotArgs<-", data.frame)
+## S3method("gplotArgs<-", default)
+## S3method("gplotArgs<-", data.frame)
 
 
 
