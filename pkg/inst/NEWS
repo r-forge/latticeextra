@@ -1,12 +1,18 @@
 
-Changes in Version 0.6-12
+Changes in Version 0.6-14
 
  o new combineLimits() function for per-row and per-column limits.
 
  o new functions xscale.components.* and yscale.components.*
    where * is in {logpower,fractions,log10ticks,log10.3,subticks}.
 
+ o horizonplot substantially revised, with an argument 'horizonscale'
+   (actually for prepanel), "free" scales and colorkey support. 
+   Also the default colors are better now (thanks to Joseph Guillaume).
+
  o new functions ggplot2like(), ggplot2like.opts() and axis.grid().
+
+ o new functions theEconomist.opts() and theEconomist.axis().
 
  o panel.mapplot() now takes an 'exact' argument, similar to map().
 

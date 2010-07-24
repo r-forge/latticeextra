@@ -31,6 +31,7 @@ panel.xyarea.default <-
             col <- col.line
         if (is.null(origin))
             origin <- current.panel.limits()$ylim[1]
+        stopifnot(is.numeric(origin))
         ## need to split up the series into chunks without any missing values
         ## (because NAs split the polygon)
         xy <- data.frame(x = x, y = y)
