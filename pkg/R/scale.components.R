@@ -14,7 +14,7 @@ yscale.components.logpower <- function(lim, ...) {
 }
 
 xscale.components.fractions <- function(lim, logsc = FALSE, ...) {
-    ans <- xscale.components.default(lim, ...)
+    ans <- xscale.components.default(lim, logsc = logsc, ...)
     ## get 'at' in data coordinates
     if (identical(logsc, TRUE)) logsc <- 10
     if (identical(logsc, "e")) logsc <- exp(1)
@@ -26,7 +26,7 @@ xscale.components.fractions <- function(lim, logsc = FALSE, ...) {
 }
 
 yscale.components.fractions <- function(lim, logsc = FALSE, ...) {
-    ans <- yscale.components.default(lim, ...)
+    ans <- yscale.components.default(lim, logsc = logsc, ...)
     ## get 'at' in data coordinates
     if (identical(logsc, TRUE)) logsc <- 10
     if (identical(logsc, "e")) logsc <- exp(1)
@@ -44,8 +44,9 @@ logTicks <- function (lim, loc = c(1, 5)) {
     r[lim[1] <= r & r <= lim[2]]
 }
 
-xscale.components.log10ticks <- function(lim, logsc = FALSE, ...) {
-    ans <- xscale.components.default(lim = lim, ...)
+xscale.components.log10ticks <- function(lim, logsc = FALSE, at = NULL, ...) {
+    ans <- xscale.components.default(lim = lim, logsc = logsc, at = at, ...)
+    if (is.null(at)) return(ans)
     if (identical(logsc, FALSE)) return(ans)
     logbase <- logsc
     if (identical(logbase, TRUE)) logbase <- 10
@@ -62,8 +63,9 @@ xscale.components.log10ticks <- function(lim, logsc = FALSE, ...) {
     ans
 }
 
-yscale.components.log10ticks <- function(lim, logsc = FALSE, ...) {
-    ans <- yscale.components.default(lim = lim, ...)
+yscale.components.log10ticks <- function(lim, logsc = FALSE, at = NULL, ...) {
+    ans <- yscale.components.default(lim = lim, logsc = logsc, at = at, ...)
+    if (is.null(at)) return(ans)
     if (identical(logsc, FALSE)) return(ans)
     logbase <- logsc
     if (identical(logbase, TRUE)) logbase <- 10
@@ -80,8 +82,9 @@ yscale.components.log10ticks <- function(lim, logsc = FALSE, ...) {
     ans
 }
 
-xscale.components.log10.3 <- function(lim, logsc = FALSE, ...) {
-    ans <- xscale.components.default(lim = lim, ...)
+xscale.components.log10.3 <- function(lim, logsc = FALSE, at = NULL, ...) {
+    ans <- xscale.components.default(lim = lim, logsc = logsc, at = at, ...)
+    if (is.null(at)) return(ans)
     if (identical(logsc, FALSE)) return(ans)
     logbase <- logsc
     if (identical(logbase, TRUE)) logbase <- 10
@@ -93,8 +96,9 @@ xscale.components.log10.3 <- function(lim, logsc = FALSE, ...) {
     ans 
 }
 
-yscale.components.log10.3 <- function(lim, logsc = FALSE, ...) {
-    ans <- yscale.components.default(lim = lim, ...)
+yscale.components.log10.3 <- function(lim, logsc = FALSE, at = NULL, ...) {
+    ans <- yscale.components.default(lim = lim, logsc = logsc, at = at, ...)
+    if (is.null(at)) return(ans)
     if (identical(logsc, FALSE)) return(ans)
     logbase <- logsc
     if (identical(logbase, TRUE)) logbase <- 10
@@ -109,7 +113,7 @@ yscale.components.log10.3 <- function(lim, logsc = FALSE, ...) {
 ## major + minor ticks (e.g. for date/time axes):
 
 xscale.components.subticks <-
-    function(lim, ..., n = 5, n2 = n * 3, min.n2 = n + 3)
+    function(lim, ..., n = 5, n2 = n * 5, min.n2 = n + 5)
 {
     ans <- xscale.components.default(lim = lim, ..., n = n)
     ans2 <- xscale.components.default(lim = lim, ..., n = n2, min.n = min.n2)
@@ -121,13 +125,13 @@ xscale.components.subticks <-
                               rep(0.5, length(ticks2)))
     ans$bottom$labels$at <- ans$bottom$ticks$at
     ans$bottom$labels$labels <- c(ans$bottom$labels$labels,
-                                  rep("", length(ticks2)))
+                                  rep(" ", length(ticks2)))
     ans$bottom$labels$check.overlap <- FALSE
     ans
 }
 
 yscale.components.subticks <-
-    function(lim, ..., n = 5, n2 = n * 3, min.n2 = n + 3)
+    function(lim, ..., n = 5, n2 = n * 5, min.n2 = n + 5)
 {
     ans <- yscale.components.default(lim = lim, ..., n = n)
     ans2 <- yscale.components.default(lim = lim, ..., n = n2, min.n = min.n2)
@@ -139,7 +143,7 @@ yscale.components.subticks <-
                             rep(0.5, length(ticks2)))
     ans$left$labels$at <- ans$left$ticks$at
     ans$left$labels$labels <- c(ans$left$labels$labels,
-                                rep("", length(ticks2)))
+                                rep(" ", length(ticks2)))
     ans$left$labels$check.overlap <- FALSE
     ans
 }

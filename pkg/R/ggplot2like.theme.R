@@ -36,6 +36,7 @@ ggplot2like <-
                         panel.background = list(col = "grey90"),
                         reference.line = list(col = "white"),
                         strip.background = list(col = c("grey80", "grey70", "grey60")),
+                        strip.shingle = list(col = c("grey60", "grey50", "grey40")),
                         add.text = list(cex = 0.8))
                    )
     ## misc

@@ -24,7 +24,7 @@ theEconomist.theme <-
          strip.shingle = list(col = if (with.bg) "#CBDDE6" else "white", alpha = 0.5),
          par.main.text = list(font = 1),
          par.sub.text = list(font = 1),
-         axis.text = list(cex = 1)
+         axis.text = list(cex = 0.8)
          )
     if (.Platform$OS.type == "windows" && !is.null(win.fontfamily)) {
         windowsFonts(TheEconomistLike = win.fontfamily)
@@ -42,11 +42,11 @@ theEconomist.opts <- function()
               xscale.components = xscale.components.subticks,
               yscale.components = theEconomist.yscalecomps,
               between = list(x = 1, y = 1)),
-         axis.padding = list(numeric = 0, factor = 0.6),
+         axis.padding = list(numeric = 0.02, factor = 0.6),
          skip.boundary.labels = 0,
          layout.widths =
          list(axis.left = list(x = 0, units = "char"),
-              axis.right = list(x = 3, units = "char"))
+              axis.right = list(x = 5, units = "char"))
          )
 }
 

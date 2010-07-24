@@ -12,7 +12,7 @@ axis.grid <-
         ## only draw major ticks (those corresponding to labels)
         comps.major <- components
         tck <- components[[side]]$ticks$tck
-        lab <- components[[side]]$labels$labels
+        lab <- as.character(components[[side]]$labels$labels)
         if (any(lab != "")) {
             if (any(tck * scales.tck != 0)) {
                 tck <- rep(tck, length = length(lab))

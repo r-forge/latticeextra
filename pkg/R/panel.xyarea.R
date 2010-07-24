@@ -35,7 +35,7 @@ panel.xyarea.default <-
         ## need to split up the series into chunks without any missing values
         ## (because NAs split the polygon)
         xy <- data.frame(x = x, y = y)
-        ok <- complete.cases(xy)
+        ok <- is.finite(x) & is.finite(y)
         runs <- rle(ok)
         ## assign unique values to each chunk, and NAs between (dropped by 'split')
         runs$values[runs$values == TRUE] <- seq_len(sum(runs$values))

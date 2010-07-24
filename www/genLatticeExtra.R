@@ -92,8 +92,10 @@ themes <-
          custom_theme_2 = list(theme = custom.theme.2()),
          col_whitebg = list(theme = col.whitebg()),
          ggplot2like = list(theme = ggplot2like(n = 4, h.start = 180), options = ggplot2like.opts()),
-         theEconomist = list(theme = theEconomist.theme(), options = theEconomist.opts())
+         theEconomist = list(theme = theEconomist.theme(box = "transparent"), options = theEconomist.opts())
          )
+
+themes$theEconomist$panel.background$col <- "transparent"
 
 imageSrcBase <- "http://150.203.60.53/latticeExtra/"
 

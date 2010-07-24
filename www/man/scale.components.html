@@ -26,14 +26,14 @@ yscale.components.logpower(lim, ...)
 xscale.components.fractions(lim, logsc = FALSE, ...)
 yscale.components.fractions(lim, logsc = FALSE, ...)
 
-xscale.components.log10ticks(lim, logsc = FALSE, ...)
-yscale.components.log10ticks(lim, logsc = FALSE, ...)
+xscale.components.log10ticks(lim, logsc = FALSE, at = NULL, ...)
+yscale.components.log10ticks(lim, logsc = FALSE, at = NULL, ...)
 
-xscale.components.log10.3(lim, logsc = FALSE, ...)
-yscale.components.log10.3(lim, logsc = FALSE, ...)
+xscale.components.log10.3(lim, logsc = FALSE, at = NULL, ...)
+yscale.components.log10.3(lim, logsc = FALSE, at = NULL, ...)
 
-xscale.components.subticks(lim, ..., n = 5, n2 = n * 4, min.n2 = n + 4)
-yscale.components.subticks(lim, ..., n = 5, n2 = n * 4, min.n2 = n + 4)
+xscale.components.subticks(lim, ..., n = 5, n2 = n * 5, min.n2 = n + 5)
+yscale.components.subticks(lim, ..., n = 5, n2 = n * 5, min.n2 = n + 5)
 </pre>
 
 
@@ -54,6 +54,12 @@ passed on to <code>xscale.components.default</code> or
 
 <code>log</code> base, typically specified in the <code>scales</code>
 argument to a high-level lattice plot.
+</td></tr>
+<tr valign="top"><td><code>at</code></td>
+<td>
+
+this is ignored unless it is <code>NULL</code>, in which case nothing is
+drawn. 
 </td></tr>
 <tr valign="top"><td><code>n</code></td>
 <td>

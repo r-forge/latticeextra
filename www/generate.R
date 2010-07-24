@@ -92,8 +92,8 @@ webitem.lattice.example <-
     tracker <- new.env()
     tracker$plots <- list()
     tracker$counter <- 0
-        
-    oopt <- lattice.options()
+
+    OPAR <- trellis.par.get()
     
     ## set the lattice print function to store the target plot.
     lattice.options(print.function = function(x, ...) {
@@ -116,8 +116,11 @@ webitem.lattice.example <-
         theme <- themes[[themeNm]]$theme
         opts <- themes[[themeNm]]$options
         trellis.par.set(theme)
-        lattice.options(oopt)
-        if (firstrun || rerun) {
+        OOPT <- lattice.options(opts)
+        ## need to run the whole example block to regenerate plot
+        ## if there are options included in theme (and on first time etc).
+        ## otherwise, can skip this and just print the trellis object.
+        if (firstrun || rerun || !is.null(opts)) {
             tracker$plots <- list()
             tracker$counter <- 0
             ## run the example()s for this function
@@ -141,12 +144,13 @@ webitem.lattice.example <-
                    units = "px", taa = 4, gaa = 4, method = "pdf")
         dev.off()
         message(thisfile, " generated")
+        trellis.par.set(OPAR)
+        lattice.options(OOPT)
     }
     dev.off()
 
     ## reset to normal plotting
-    lattice.options(print.function = NULL, default.theme = NULL)
-    lattice.options(oopt)
+    lattice.options(print.function = NULL)
 
     fileurl <- paste(image.src.base, filename, sep = "")
     

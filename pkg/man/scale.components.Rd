@@ -23,14 +23,14 @@ yscale.components.logpower(lim, ...)
 xscale.components.fractions(lim, logsc = FALSE, ...)
 yscale.components.fractions(lim, logsc = FALSE, ...)
 
-xscale.components.log10ticks(lim, logsc = FALSE, ...)
-yscale.components.log10ticks(lim, logsc = FALSE, ...)
+xscale.components.log10ticks(lim, logsc = FALSE, at = NULL, ...)
+yscale.components.log10ticks(lim, logsc = FALSE, at = NULL, ...)
 
-xscale.components.log10.3(lim, logsc = FALSE, ...)
-yscale.components.log10.3(lim, logsc = FALSE, ...)
+xscale.components.log10.3(lim, logsc = FALSE, at = NULL, ...)
+yscale.components.log10.3(lim, logsc = FALSE, at = NULL, ...)
 
-xscale.components.subticks(lim, ..., n = 5, n2 = n * 3, min.n2 = n + 3)
-yscale.components.subticks(lim, ..., n = 5, n2 = n * 3, min.n2 = n + 3)
+xscale.components.subticks(lim, ..., n = 5, n2 = n * 5, min.n2 = n + 5)
+yscale.components.subticks(lim, ..., n = 5, n2 = n * 5, min.n2 = n + 5)
 }
 \arguments{
   \item{lim}{ scale limits. }
@@ -41,6 +41,10 @@ yscale.components.subticks(lim, ..., n = 5, n2 = n * 3, min.n2 = n + 3)
   \item{logsc}{
     \code{log} base, typically specified in the \code{scales}
     argument to a high-level lattice plot.
+  }
+  \item{at}{
+    this is ignored unless it is \code{NULL}, in which case nothing is
+    drawn. 
   }
   \item{n}{
     desired number of intervals between major axis ticks (passed to
