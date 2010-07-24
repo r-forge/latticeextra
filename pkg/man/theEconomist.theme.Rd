@@ -103,7 +103,7 @@ barchart(Titanic[,,,"No"], main = "Titanic deaths", layout = 1:2,
 
 asTheEconomist(
   dotplot(VADeaths, main = "Death Rates in Virginia (1940)",
-    type = "b", auto.key = list(corner = c(.9,0.1))),
+    auto.key = list(corner = c(.9,0.1))),
   type = "b", with.bg = TRUE)
 
 dotplot(VADeaths, auto.key = TRUE, type = "b",

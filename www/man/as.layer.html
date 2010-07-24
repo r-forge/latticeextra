@@ -26,7 +26,7 @@ as.layer(x, ...)
 ## S3 method for class 'trellis':
 as.layer(x, x.same = TRUE, y.same = TRUE,
          axes = c(if (!x.same) "x", if (!y.same) "y"), opposite = TRUE,
-         outside = FALSE, ...)
+         outside = FALSE, theme = x$par.settings, ...)
 </pre>
 
 
@@ -60,6 +60,9 @@ separately. </td></tr>
 that space for outside axes will not be allocated
 automatically. May be a vector of length 2 to specify for x and y axes
 separately. </td></tr>
+<tr valign="top"><td><code>theme</code></td>
+<td>
+ passed to <code><a href="#layer">layer</a></code>. </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
  passed to <code><a href="#layer">layer</a></code>: typically
@@ -133,7 +136,7 @@ xyplot(fdeaths ~ mdeaths) +
 
 ## same y scales, different x scales:
 xyplot(fdeaths ~ mdeaths) +
-  as.layer(bwplot(mdeaths ~ factor(mdeaths*0), box.ratio = 0.2), x.same = FALSE)
+  as.layer(bwplot(fdeaths ~ factor(mdeaths*0), box.ratio = 0.2), x.same = FALSE)
 
 ## as.layer() is called automatically if two plots are added:
 histogram(~ ldeaths, type = "density") + densityplot(~ ldeaths, lwd = 3)
@@ -144,5 +147,5 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
    as.layer(levelplot(volcano), x.same = FALSE, y.same = FALSE, under = TRUE)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-14 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -25,7 +25,7 @@ spec[["functions of one variable"]] <-
          list("panel.xblocks", 3, width = 600, height = 200, rerun = TRUE),
          list("panel.xyarea", 2, rerun = TRUE),
          list("panel.tskernel", rerun = TRUE),
-         list("horizonplot", -1, height = 550)
+         list("horizonplot", 3, height = 550)
      )
 
 spec[["functions of two variables"]] <-
@@ -64,7 +64,8 @@ spec[["styles"]] <-
            desc = "This is a sample plot to demonstrate different graphical settings (themes).",
            do.helplink = FALSE, codefile = NA),
          list("custom.theme", -2),
-         list("theEconomist.theme", 2, codefile = "theeconomist.R")
+         list("ggplot2like", 5, helpname = "ggplot2like.theme"),
+         list("theEconomist.theme", 3, codefile = "theeconomist.R")
      )
 
 spec[["data"]] <-
@@ -85,13 +86,14 @@ source("generate.R")
 lattice.options(panel.error = NULL)
 
 themes <-
-    list(default = standard.theme("pdf"),
-         black_and_white = standard.theme(color = FALSE),
-         col_whitebg = col.whitebg(),
-         classic_gray = standard.theme("X11"),
-         custom_theme = custom.theme(),
-         custom_theme_2 = custom.theme.2(),
-         theEconomist = theEconomist.theme())
+    list(default = list(theme = standard.theme("pdf")),
+         black_and_white = list(theme = standard.theme(color = FALSE)),
+         custom_theme = list(theme = custom.theme()),
+         custom_theme_2 = list(theme = custom.theme.2()),
+         col_whitebg = list(theme = col.whitebg()),
+         ggplot2like = list(theme = ggplot2like(n = 4, h.start = 180), options = ggplot2like.opts()),
+         theEconomist = list(theme = theEconomist.theme(), options = theEconomist.opts())
+         )
 
 imageSrcBase <- "http://150.203.60.53/latticeExtra/"
 

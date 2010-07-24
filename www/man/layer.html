@@ -247,7 +247,7 @@ foo &lt;- foo + layer(panel.abline(h = 0)) +
              layer(panel.lmline(x, y, lty = 2))
 
 ## underlay a flat color
-foo &lt;- foo + layer(panel.fill(grey(.98)), under = TRUE)
+foo &lt;- foo + layer(panel.fill(grey(.95)), under = TRUE)
 foo
 
 ## layers can access the panel function arguments
@@ -318,5 +318,5 @@ qua + layer_(panel.contourplot(x = gridlon, y = gridlat, z = dist,
    contour = TRUE, subscripts = TRUE), data = newdat)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-14 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -30,7 +30,12 @@ pageTracker._trackPageview();
 </div>
 
 <div id="themer">
-  <a href="#" id="theme_default">default</a> <a href="#" id="theme_black_and_white">black and white</a> <a href="#" id="theme_custom_theme">custom theme</a> <a href="#" id="theme_custom_theme_2">custom theme 2</a> <a href="#" id="theme_theEconomist">theEconomist</a> <a href="#" id="theme_classic_gray">classic gray</a>
+  <a href="#" id="theme_default">default</a> 
+  <a href="#" id="theme_black_and_white">black and white</a> 
+  <a href="#" id="theme_custom_theme">custom theme</a> 
+  <a href="#" id="theme_custom_theme_2">custom theme 2</a> 
+  <a href="#" id="theme_ggplot2like">ggplot2-like</a> 
+  <a href="#" id="theme_theEconomist">theEconomist</a>
 </div>
 
 <div id="nav">
@@ -135,7 +140,7 @@ pageTracker._trackPageview();
 <li class="navhead"><a href="#">extended trellis framework</a></li>
 <li class="navgroup"><ul>
 <li>
-<a class="navitem" href="#layer" title="Add layers to a Trellis plot, optionally using a new data source" id="nav_layer">layer</a>
+<a class="navitem" href="#layer" title="Add layers to a lattice plot, optionally using a new data source" id="nav_layer">layer</a>
 </li>
 <li>
 <a class="navitem" href="#as.layer" title="Overlay panels of Trellis plots on same or different scales" id="nav_as.layer">as.layer</a>
@@ -155,6 +160,9 @@ pageTracker._trackPageview();
 </li>
 <li>
 <a class="navitem" href="#custom.theme" title="Create a lattice theme based on specified colors" id="nav_custom.theme">custom.theme</a>
+</li>
+<li>
+<a class="navitem" href="#ggplot2like" title="A ggplot2-like theme for Lattice" id="nav_ggplot2like">ggplot2like</a>
 </li>
 <li>
 <a class="navitem" href="#theEconomist.theme" title="Generate plots with style like The Economist." id="nav_theEconomist.theme">theEconomist.theme</a>
@@ -241,9 +249,10 @@ pageTracker._trackPageview();
 <tr><td><a href="#doubleYScale">doubleYScale</a></td><td>Draw two plot series with different y scales</td></tr>
 <tr><td><a href="#EastAuClimate">EastAuClimate</a></td><td>Climate of the East Coast of Australia</td></tr>
 <tr><td><a href="#ecdfplot">ecdfplot</a></td><td>Trellis Displays of Empirical CDF</td></tr>
+<tr><td><a href="#ggplot2like">ggplot2like</a></td><td>A ggplot2-like theme for Lattice</td></tr>
 <tr><td><a href="#gvhd10">gvhd10</a></td><td>Flow cytometry data from five samples from a patient</td></tr>
 <tr><td><a href="#horizonplot">horizonplot</a></td><td>Plot many time series in parallel</td></tr>
-<tr><td><a href="#layer">layer</a></td><td>Add layers to a Trellis plot, optionally using a new data source</td></tr>
+<tr><td><a href="#layer">layer</a></td><td>Add layers to a lattice plot, optionally using a new data source</td></tr>
 <tr><td><a href="#mapplot">mapplot</a></td><td>Trellis displays on Maps a.k.a. Choropleth maps</td></tr>
 <tr><td><a href="#marginal.plot">marginal.plot</a></td><td>Display marginal distributions</td></tr>
 <tr><td><a href="#panel.2dsmoother">panel.2dsmoother</a></td><td>Plot a smooth approximation of z over x and y.</td></tr>
@@ -519,11 +528,8 @@ Usage, Details, Examples
 <p>One example:</p>
 <img src="http://150.203.60.53/latticeExtra/plots/default/horizonplot.png" alt="horizonplot" width="500" height="550"/>
 <pre class="itemcode">
-horizonplot(sunspots, cut = list(n = 23, overlap = 0), 
-    scales = list(y = list(relation = "same"), draw = FALSE), 
-    origin = 100, strip.left = FALSE, layout = c(1, 
-        23)) + layer(grid::grid.text(round(x[1]), 
-    x = 0, just = "left"))
+horizonplot(dat, layout = c(1, 12), horizonscale = 10, 
+    colorkey = TRUE) + infolayers
 </pre>
 <p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/horizonplot.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
@@ -717,8 +723,9 @@ Usage, Details, Examples
 <p>One example:</p>
 <img src="http://150.203.60.53/latticeExtra/plots/default/scale.components.png" alt="scale.components" width="500" height="350"/>
 <pre class="itemcode">
-xyplot(1:100 ~ 1:100, scales = list(x = list(log = 2), 
-    y = list(log = 10)), xscale.components = xscale.components.logpower, 
+xyplot((1:200)/20 ~ (1:200)/20, type = c("p", "g"), 
+    scales = list(x = list(log = 2), y = list(log = 10)), 
+    xscale.components = xscale.components.fractions, 
     yscale.components = yscale.components.log10ticks)
 </pre>
 <p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/scale.components.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
@@ -832,7 +839,7 @@ xyplot(ozone ~ wind | equal.count(temperature, 2),
 layer
   </h2>
   <div class="itemdesc">
-Add layers to a Trellis plot, optionally using a new data source
+Add layers to a lattice plot, optionally using a new data source
   </div>
   <p>
   <a href="man/layer.html" class="helplink">
@@ -887,7 +894,7 @@ Usage, Details, Examples
 <p>One example:</p>
 <img src="http://150.203.60.53/latticeExtra/plots/default/doubleYScale.png" alt="doubleYScale" width="500" height="350"/>
 <pre class="itemcode">
-doubleYScale(obj1, obj2, add.ylab2 = TRUE)
+doubleYScale(obj1 = obj1, obj2 = obj2, add.ylab2 = TRUE)
 </pre>
 <p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/doubleYScale.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
@@ -963,6 +970,27 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length +
         rectangles = TRUE), legend = list(right = list(fun = "draw.color....
 </pre>
 <p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/custom.theme.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
+</div>
+
+
+<div class="item" id="ggplot2like">
+  <h2 class="itemname">
+ggplot2like
+  </h2>
+  <div class="itemdesc">
+A ggplot2-like theme for Lattice
+  </div>
+  <p>
+  <a href="man/ggplot2like.theme.html" class="helplink">
+Usage, Details, Examples
+</a>
+  </p>
+<p>One example:</p>
+<img src="http://150.203.60.53/latticeExtra/plots/default/ggplot2like.png" alt="ggplot2like" width="500" height="350"/>
+<pre class="itemcode">
+bwplot(voice.part ~ height, data = singer)
+</pre>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/ggplot2like.theme.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 
@@ -1139,9 +1167,9 @@ Usage, Details, Examples
 <p>One example:</p>
 <img src="http://150.203.60.53/latticeExtra/plots/default/SeatacWeather.png" alt="SeatacWeather" width="500" height="350"/>
 <pre class="itemcode">
-doubleYScale(temp, rain, style1 = 0, style2 = 3, 
-    add.ylab2 = TRUE, text = c("min. T", "max. T", 
-        "rain"), columns = 3)
+doubleYScale(obj1 = temp, obj2 = rain, style1 = 0, 
+    style2 = 3, add.ylab2 = TRUE, text = c("min. T", 
+        "max. T", "rain"), columns = 3)
 </pre>
 
 </div>
@@ -1179,7 +1207,7 @@ var imageSrcBase = "http://150.203.60.53/latticeExtra/";
 </div>
 
 <div id="versiontag">
-latticeExtra version 0.6-12 on R version 2.12.0 (at 2010-06-01)
+latticeExtra version 0.6-14 on R version 2.11.0 (at 2010-07-24)
 </div>
 
 </div>

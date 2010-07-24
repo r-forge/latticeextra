@@ -70,7 +70,7 @@ webitem.codelink <-
 webitem.lattice.example <-
     function(name, plotnumber = 1, ..., package,
              helpname = name, examplename = helpname,
-             themes = list(default = standard.theme("pdf")),
+             themes = list(default = list(theme = standard.theme("pdf"))),
              width = 500, height = 350, rerun = FALSE,
              image.src.base = "",
              call.width = 48, call.maxchar = 250)
@@ -93,6 +93,8 @@ webitem.lattice.example <-
     tracker$plots <- list()
     tracker$counter <- 0
         
+    oopt <- lattice.options()
+    
     ## set the lattice print function to store the target plot.
     lattice.options(print.function = function(x, ...) {
         plot(x, ...)
@@ -110,7 +112,11 @@ webitem.lattice.example <-
         thisfile <- file.path("plots", themeNm, paste(okname, ".png", sep = ""))
         if (firstrun)
             filename <- thisfile
-        trellis.par.set(themes[[themeNm]])
+        stopifnot(is.list(themes[[themeNm]]$theme))
+        theme <- themes[[themeNm]]$theme
+        opts <- themes[[themeNm]]$options
+        trellis.par.set(theme)
+        lattice.options(oopt)
         if (firstrun || rerun) {
             tracker$plots <- list()
             tracker$counter <- 0
@@ -129,7 +135,7 @@ webitem.lattice.example <-
         ## (using postscipt loses translucency and family="serif" fails)
         pdf("tmp.pdf", width = width/72, height = height/72)
         dev.control(displaylist = "enable")
-        trellis.par.set(themes[[themeNm]])
+        trellis.par.set(theme)
         plot(plotobj)
         dev2bitmap(thisfile, width = width, height = height,
                    units = "px", taa = 4, gaa = 4, method = "pdf")
@@ -140,6 +146,7 @@ webitem.lattice.example <-
 
     ## reset to normal plotting
     lattice.options(print.function = NULL, default.theme = NULL)
+    lattice.options(oopt)
 
     fileurl <- paste(image.src.base, filename, sep = "")
     

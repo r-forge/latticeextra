@@ -7,7 +7,7 @@ ggplot2like.opts <- function()
     list(default.args =
          list(axis = axis.grid,
               xscale.components = xscale.components.subticks,
-              xscale.components = xscale.components.subticks)
+              yscale.components = yscale.components.subticks)
          )
 }
 

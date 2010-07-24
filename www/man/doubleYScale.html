@@ -30,7 +30,7 @@ doubleYScale(obj1, obj2, use.style = TRUE,
              add.axis = TRUE, add.ylab2 = FALSE,
              text = NULL, auto.key = if (!is.null(text))
                list(text, points = points, lines = lines, ...),
-             points = FALSE, lines = TRUE, ...)
+             points = FALSE, lines = TRUE, ..., under = FALSE)
 </pre>
 
 
@@ -74,6 +74,11 @@ legend on the right side, i.e. with <code>space = "right"</code>.
 if non-NULL, add a <code>key</code> to the display, using entries named by
 <code>text</code>. Further arguments are passed on to
 <code>simpleKey</code> at plot time.
+</td></tr>
+<tr valign="top"><td><code>under</code></td>
+<td>
+
+if TRUE, draw <code>obj2</code> under <code>obj1</code>.
 </td></tr>
 </table>
 
@@ -153,5 +158,5 @@ update(trellis.last.object(),
    par.settings = simpleTheme(col = c("black", "red", "blue")))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-14 <a href="00Index.html">Index</a>]</div>
 </body></html>

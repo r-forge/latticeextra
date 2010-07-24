@@ -92,9 +92,10 @@ export(ggplot2like)
 export(ggplot2like.opts)
 export(axis.grid)
 
-export(asTheEconomist)
 export(theEconomist.theme)
-export(panel.xticksgrid)
+export(theEconomist.opts)
+export(theEconomist.axis)
+export(asTheEconomist)
 
 export(panel.ellipse)
 

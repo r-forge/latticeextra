@@ -21,10 +21,11 @@ Combine the panels of multiple trellis objects into one.
 <pre>
 ## S3 method for class 'trellis':
 c(..., x.same = NA, y.same = NA,
-    layout = NULL, recursive = FALSE)
+    layout = NULL, merge.legends = FALSE, recursive = FALSE)
 
 xyplot.list(x, data = NULL, ..., FUN = xyplot,
-    y.same = TRUE, x.same = NA, layout = NULL)
+    y.same = TRUE, x.same = NA, layout = NULL,
+    merge.legends = FALSE)
 </pre>
 
 
@@ -54,14 +55,18 @@ Note that <code>xyplot.list</code> defaults to same y scales. Set to
 <td>
  value for <code>layout</code> of the new plot; see
 <code>xyplot</code>. </td></tr>
+<tr valign="top"><td><code>merge.legends</code></td>
+<td>
+ to keep keys or legends from all plots, not just
+the first. If multiple legends share the same <code>"space"</code>, they are
+packed together horizontally or vertically. </td></tr>
 <tr valign="top"><td><code>recursive</code></td>
 <td>
  for consistency with the generic method, ignored. </td></tr>
 <tr valign="top"><td><code>x</code></td>
 <td>
- a <code>list</code>; the function <code>FUN</code>, which defaults to
-<code>xyplot</code>, will be called on each element of <code>x</code>, and the
-resulting plots combined into one. </td></tr>
+ a <code>list</code> of objects to plot individually, and then
+be combined into one final plot. </td></tr>
 <tr valign="top"><td><code>FUN, data</code></td>
 <td>
  a lattice plot function, to be called on each element of
@@ -83,7 +88,7 @@ composite using <code>print.trellis</code>, to simplify
 further interaction.
 </p>
 <p>
-Many properties of the display, such as titles, legends, axis settings
+Many properties of the display, such as titles, axis settings
 and aspect ratio will be taken from the first object only.
 </p>
 <p>
@@ -175,7 +180,18 @@ qua &lt;- xyplot(lat ~ long | equal.count(depth, 3), quakes,
 qua &lt;- c(qua, depth = histogram(quakes$depth), layout = c(4, 1))
 ## suppress scales on the first 3 panels
 update(qua, scales = list(at = list(NULL, NULL, NULL, NA),
-                 y = list(draw = FALSE)))
+                          y = list(draw = FALSE)))
+
+## Demonstrate merging of legends and par.settings.
+## Note that par.settings can conflict, thus need col.line=...
+mypoints &lt;- 
+    xyplot(1:10 ~ 1:10, groups = factor(rep(1:2, each = 5)),
+        par.settings = simpleTheme(pch = 16), auto.key = TRUE)
+mylines &lt;-
+    xyplot(1:10 ~ 1:10, groups = factor(rep(1:5, each = 2)),
+        type = "l", par.settings = simpleTheme(col.line = 1:5),
+        auto.key = list(lines = TRUE, points = FALSE, columns = 5))
+c(mypoints, mylines)
 
 ## Visualise statistical and spatial distributions
 ## (advanced!)
@@ -186,28 +202,26 @@ form &lt;- StateName ~ Population + Income + Illiteracy +
    `Life Exp` + Murder + `HS Grad` + Frost + sqrt(Area)
 ## construct independent maps of each variable
 statemap &lt;- map("state", plot = FALSE, fill = TRUE)
-statemap$names &lt;- gsub(":.*", "", statemap$names)
-colkey &lt;- draw.colorkey(list(col = heat.colors(100),
-    at = 0:100, labels = list(labels = c("min","max"), at = c(0,100))))
+colkey &lt;- draw.colorkey(list(col = heat.colors(100), at = 0:100,
+    labels = list(labels = c("min","max"), at = c(0,100))))
 panel.mapplot.each &lt;- function(x, breaks, ...)
-   panel.mapplot(x = x, breaks = quantile(x), ...)
+    panel.mapplot(x = x, breaks = quantile(x), ...)
 vmaps &lt;- mapplot(form, vars, map = statemap, colramp = heat.colors,
-  panel = panel.mapplot.each, colorkey = FALSE,
-  legend = list(right = list(fun = colkey)), xlab = NULL)
+    panel = panel.mapplot.each, colorkey = FALSE,
+    legend = list(right = list(fun = colkey)), xlab = NULL)
 ## construct independent densityplots of each variable
-vdens &lt;- densityplot(form[-2], vars, outer = TRUE,
-   prepanel = function(...)
-      list(xlim = c(0, max(prepanel.default.densityplot(...)$xlim))),
-   scales = list(relation = "free", x = list(axs = "i")),
-   cex = 0.5, ref = TRUE)
+vdens &lt;- densityplot(form[-2], vars, outer = TRUE, cut = 0, 
+    scales = list(relation = "free"), ylim = c(0, NA),
+    cex = 0.5, ref = TRUE) +
+  layer(panel.axis("top", half = FALSE, text.cex = 0.7))
 ## combine panels from both plots
 combo &lt;- c(vmaps, vdens)
 ## rearrange in pairs
 n &lt;- length(vars)
 npairs &lt;- rep(1:n, each = 2) + c(0, n)
 update(combo[npairs], scales = list(draw = FALSE),
-       layout = c(4, 4), between = list(x = c(0, 0.5), y = 0.5))
+    layout = c(4, 4), between = list(x = c(0, 0.5), y = 0.5))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-12 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-14 <a href="00Index.html">Index</a>]</div>
 </body></html>
