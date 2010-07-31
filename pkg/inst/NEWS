@@ -27,6 +27,10 @@ Changes in Version 0.6-14
 
  o marginal.plot() now has a default cut = 0.
 
+ o layer() failed on expressions with missing arguments, like x[,1].
+
+ o removed the deprecated arguments to layer(), 'eval' and 'etc'.
+
  o simpleSmoothTs() and panel.tskernel() used an incorrect (reversed)
    filter in the case of sides = 1 and c > 1.
 

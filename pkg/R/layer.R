@@ -16,62 +16,14 @@ layer <-
              groups = NULL,
              style = NULL, force = FALSE,
              theme = if (force) trellis.par.get() else NULL,
-             under = FALSE, superpose = FALSE,
-             ## Deprecated:
-             eval = FALSE, etc = FALSE)
+             under = FALSE, superpose = FALSE)
 {
     ## set layer to quoted expressions in `...`
     foo <- eval(substitute(expression(...)))
-    if (eval) {
-        ## evaluate arguments to calls immediately in the calling environment
-        .Deprecated(msg = "The 'eval' argument of layer() is Deprecated; use 'data'.")
-        for (i in seq_along(foo)) {
-            icall <- foo[[i]]
-            ## allow special names to refer to common internal arguments;
-            ## but this is now Deprecated in favour of the 'etc' argument.
-            icall <- eval(call("substitute",
-                               icall, list(.x = quote(quote(x)),
-                                           .y = quote(quote(y)),
-                                           .z = quote(quote(z)),
-                                           .groups = quote(quote(groups)),
-                                           .subscripts = quote(quote(subscripts)))))
-            if (identical(etc, FALSE)) {
-                icall[-1] <- lapply(icall[-1], eval.parent)
-            } else {
-                if (any(sapply(Args, identical, as.symbol("..."))))
-                    stop("The dots `...` should not be included when etc = TRUE.")
-                ## pass on all un-named arguments from dots
-                Args <- lapply(icall[-1], eval.parent)
-                icall <-
-                    substitute(do.call(.FUN,
-                                       modifyList(list(...)[etc], Args)),
-                               list(.FUN = icall[[1]],
-                                    Args = Args,
-                                    etc = etc))
-            }
-            foo[[i]] <- icall
-        }
-    } else if (!identical(etc, FALSE)) {
-        ## pass on all un-named arguments from dots
-        .Deprecated(msg = "The 'etc' argument of layer() is Deprecated; it happens automatically now.")
-        for (i in seq_along(foo)) {
-            icall <- foo[[i]]
-            Args <- as.list(icall)[-1]
-            if (any(sapply(Args, identical, as.symbol("..."))))
-                stop("The dots `...` should not be included when etc = TRUE.")
-            icall <- substitute(do.call(.FUN,
-                                        modifyList(list(...)[etc], Args)),
-                                list(.FUN = icall[[1]],
-                                    Args = Args,
-                                    etc = etc))
-            foo[[i]] <- icall
-        }
-    } else {
+    if (magicdots) {
         ## The dots `...` are magic:
         ## pass on only those arguments not named in each call
-        if (magicdots) {
-            foo <- as.expression(lapply(foo, magicDots, exclude = exclude))
-        }
+        foo <- as.expression(lapply(foo, magicDots, exclude = exclude))
     }
     mostattributes(foo) <-
         list(data = data,
@@ -92,7 +44,7 @@ layer <-
 ## not named in the call
 magicDots <- function(ocall, exclude = NULL, assume.xy = TRUE)
 {
-    stopifnot(is.call(ocall))
+    if (!is.call(ocall)) stop("arguments to layer() should be calls")
     ## call recursively with any calls inside this one
     for (i in seq_along(ocall)[-1]) {
         thisArg <- ocall[[i]]

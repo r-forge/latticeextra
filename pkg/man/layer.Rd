@@ -17,8 +17,7 @@
 \usage{
 layer(..., data, magicdots, exclude,
       packets, rows, columns, groups,
-      style, force, theme, under, superpose,
-      eval, etc) ## these 2 deprecated
+      style, force, theme, under, superpose)
 
 layer_(...)
 glayer(...)
@@ -99,17 +98,6 @@ flattenPanel(object)
     each level of any \code{groups} in the plot, using
     \code{\link{panel.superpose}}. This defaults to \code{TRUE} in the
     convenience functions \code{glayer()} and \code{glayer_()}.
-  }
-  \item{eval, etc}{
-    These two arguments are now Deprecated and should not be used in new
-    code. Rather than using \code{eval}, use \code{data}. It is not
-    necessary to use \code{etc} because that happens automatically with
-    \code{magicdots}. 
-    if \code{eval = TRUE}, arguments given in the layer code will be
-    evaluated  immediately (in the calling environment). 
-    If \code{etc = TRUE} then all remaining (un-named) panel function
-    arguments are added on to the call. If \code{etc} is a character
-    vector then only those named arguments are passed through.
   }
   \item{object}{ a trellis object. }
   \item{lay}{ a layer object. }

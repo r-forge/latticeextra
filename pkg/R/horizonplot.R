@@ -7,8 +7,8 @@ horizonplot <- function(x, data, ...)
 
 horizonplot.default <-
     function(x, data = NULL, ...,
-             origin = function(y) na.omit(y)[1],
              horizonscale = NA,
+             origin = function(y) na.omit(y)[1],
              colorkey = FALSE, legend = NULL,
              panel = panel.horizonplot,
              prepanel = prepanel.horizonplot,
@@ -105,8 +105,8 @@ panel.horizonplot <-
 }
 
 prepanel.horizonplot <-
-    function(x, y, ..., origin = function(y) na.omit(y)[1],
-             horizonscale = NA)
+    function(x, y, ..., horizonscale = NA,
+             origin = function(y) na.omit(y)[1])
 {
     if (is.function(origin))
         origin <- origin(y)

@@ -15,8 +15,8 @@
 horizonplot(x, data, \dots)
 
 \S3method{horizonplot}{default}(x, data = NULL, \dots,
-    origin = function(y) na.omit(y)[1],
     horizonscale = NA,
+    origin = function(y) na.omit(y)[1],
     colorkey = FALSE, legend = NULL,
     panel = panel.horizonplot,
     prepanel = prepanel.horizonplot,
@@ -54,6 +54,15 @@ prepanel.horizonplot(x, y, ..., horizonscale = NA,
     In typical usage, the method of \code{xyplot} called will be
     \code{\link{xyplot.ts}}.
   }
+  \item{horizonscale}{
+    the scale of each color segment. There are 3 positive
+    segments and 3 negative segments. If this is a given as a
+    number then all panels will have comparable distances, though not
+    necessarily the same actual values (similar in concept to
+    \code{scales$relation = "sliced"}). If \code{NA}, as it is by
+    default, then the scale is chosen in each panel to cover the range
+    of the data (unless overridden by \code{ylim}); see Details.
+  }
   \item{origin}{
     the baseline y value for the first (positive) segment
     (i.e. the value at which red changes to blue). This can be a
@@ -61,15 +70,6 @@ prepanel.horizonplot(x, y, ..., horizonscale = NA,
     function, which is evaluated with the \code{y} values in each
     panel. The default is the first non-missing y value in each
     panel. See the Details section.
-  }
-  \item{horizonscale}{
-    the scale of each color segment. There are 3 positive
-    color segments and 3 negative segments. If this is a given as a
-    number then all panels will have comparable distances, though not
-    necessarily the same actual values (similar in concept to
-    \code{scales$relation = "sliced"}). If \code{NA}, as it is by
-    default, then the scale is chosen in each panel to cover the range
-    of the data (unless overridden by \code{ylim}); see Details.
   }
   \item{colorkey, legend}{
     if \code{colorkey = TRUE} a suitable color scale bar is constructed
