@@ -21,10 +21,13 @@ theEconomist.theme <-
          box.3d = list(col = box),
          strip.border = list(col = box),
          strip.background = list(col = if (with.bg) "white" else "#CBDDE6"),
-         strip.shingle = list(col = if (with.bg) "#CBDDE6" else "white", alpha = 0.5),
-         par.main.text = list(font = 1),
-         par.sub.text = list(font = 1),
-         axis.text = list(cex = 0.8)
+         strip.shingle = list(col = if (with.bg) "#CBDDE6" else "#00A3DB", alpha = 0.5),
+         par.main.text = list(font = 1, just = "left", x = grid::unit(5, "mm")),
+         par.sub.text = list(font = 1, just = "left", x = grid::unit(5, "mm")),
+         axis.text = list(cex = 0.8),
+         box.dot = list(col = "#00526D", pch = "|", lwd = 1.75),
+         box.rectangle = list(fill = "#00526D", alpha = 0.5, col = "#00526D", lwd = 1.75),
+         box.umbrella = list(col = "#00526D", lty = 1, lwd = 1.75)
          )
     if (.Platform$OS.type == "windows" && !is.null(win.fontfamily)) {
         windowsFonts(TheEconomistLike = win.fontfamily)
@@ -32,7 +35,7 @@ theEconomist.theme <-
     } else {
         ## TODO: how do fonts work on linux etc?
     }
-    modifyList(theme, simpleTheme(...))
+    modifyList(modifyList(standard.theme("pdf"), theme), simpleTheme(...))
 }
 
 theEconomist.opts <- function()
@@ -40,25 +43,13 @@ theEconomist.opts <- function()
     list(default.args =
          list(axis = theEconomist.axis,
               xscale.components = xscale.components.subticks,
-              yscale.components = theEconomist.yscalecomps,
-              between = list(x = 1, y = 1)),
-         axis.padding = list(numeric = 0.02, factor = 0.6),
+              between = list(x = 0.8, y = 0.8)),
+         axis.padding = list(numeric = 0, factor = 0.6),
          skip.boundary.labels = 0,
          layout.widths =
          list(axis.left = list(x = 0, units = "char"),
-              axis.right = list(x = 5, units = "char"))
+              axis.right = list(x = 6, units = "char"))
          )
-}
-
-theEconomist.yscalecomps <- function(lim, ...) {
-    ans <- yscale.components.default(lim = lim, ...)
-    if (!is.list(ans$right)) {
-        ans$right <- ans$left
-        ans$left$ticks$at <- numeric()
-        ans$left$labels$at <- numeric()
-        ans$left$labels$labels <- character()
-    }
-    ans
 }
 
 theEconomist.axis <-
@@ -73,14 +64,32 @@ theEconomist.axis <-
     side <- match.arg(side)
     labels <- match.arg(labels)
     ticks <- match.arg(ticks)
-    ticks <- "no"
-    if (!is.list(components$top)) {
-        if (side == "top") {
-            labels <- "no"
+    if (side %in% c("bottom", "top")) {
+        if (side == "top")
+            ticks <- "no"
+        if (scales$relation == "same") {
+            scales$alternating <- 1 ## bottom side only
         }
     }
-    if (side == "right") {
-        labels <- "yes"
+    if (side %in% c("left", "right")) {
+        ticks <- "no"
+        components[["left"]]$ticks$tck <- 0
+        if (scales$relation == "same") {
+            scales$alternating <- 2 ## right side only
+        } else {
+            if (side == "right") {
+                labels <- if (scales$draw) "yes" else "no"
+                if (!is.list(components$right)) {
+                    components$right <- components$left
+                }
+            }
+            if (side == "left") {
+                ## check for two different axes on left and right
+                if (!is.list(components$right)) {
+                    labels <- "no"
+                }
+            }
+        }
     }
     ## use axis.text for ticks because axis.line$col might be transparent
     axis.text <- trellis.par.get("axis.text")
@@ -93,15 +102,11 @@ theEconomist.axis <-
     ## otherwise the strip viewports are current, not panel.
     if (side %in% c("top", "left"))
         return()
-    ref.line <- trellis.par.get("reference.line")
     if (side == "right") {
         comp.list <- components[["right"]]
         if (!is.list(comp.list))
             comp.list <- components[["left"]]
-        tck <- abs(comp.list$ticks$tck)
-        panel.refline(h = comp.list$ticks$at, 
-                      lwd = ref.line$lwd * tck,
-                      alpha = ref.line$alpha * tck / max(tck, na.rm = TRUE))
+        panel.refline(h = comp.list$ticks$at)
         ## draw axis line along bottom (assuming transparent axis.line)
         lims <- current.panel.limits()
         panel.abline(h = lims$y[1], col = axis.text$col)
@@ -116,7 +121,6 @@ asTheEconomist <-
              par.settings =
                theEconomist.theme(with.bg = with.bg, box = "transparent"),
              with.bg = FALSE,
-             titleSpec = list(x = grid::unit(5, "mm"), just = "left"),
              par.strip.text = list(font = 2))
 {
     ans <- x
@@ -124,39 +128,22 @@ asTheEconomist <-
     title <- ans$main
     if (is.null(title)) title <- ans$ylab
     if (is.null(title)) title <- ans$ylab.default
-    if (!is.list(title)) title <- list(label = title)
-    ans <- update(ans, main = modifyList(title, titleSpec))
-    if (!is.null(ans$sub)) {
-        sub <- ans$sub
-        if (!is.list(sub)) sub <- list(sub)
-        ans <- update(ans, sub = modifyList(sub, titleSpec))
-        ## would like to have 'sub' above plot (below main)
-        ## can't do it with a frameGrob because we lose the lattice style.
-#            subGrob <- do.call(textGrob, modifyList(sub, titleSpec))
-#            mainGrob <- do.call(textGrob, modifyList(title, titleSpec))
-#            titleGrob <- frameGrob(name = "titleFrame")
-#            titleGrob <- packGrob(titleGrob, mainGrob, side = "top")
-#            titleGrob <- packGrob(titleGrob, subGrob, side = "bottom")
-#            ans <- update(ans, main = titleGrob,
-#                          sub = expression(NULL))
-    }
-    ans <- update(ans,
+    ans <- update(ans, main = title,
                   type = type, ylab = ylab, xlab = xlab,
                   par.settings = par.settings,
                   par.strip.text = par.strip.text,
-                  between = list(x = 1, y = 1),
+                  between = list(x = 0.8, y = 0.8),
                   scales = list(y = list(axs = "i", alternating = 2)),
                   skip.boundary.labels = 0,
                   lattice.options = list(
                   layout.widths =
                   list(axis.left = list(x = 0, units = "char"),
-                       axis.right = list(x = 3, units = "char"))
+                       axis.right = list(x = 6, units = "char"))
                   )
                   )
     ## these do not get through update()
     ans$axis <- theEconomist.axis
     ans$xscale.components <- xscale.components.subticks
-    ans$yscale.components <- theEconomist.yscalecomps
     ans$call <- match.call()
     ans
 }

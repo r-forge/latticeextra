@@ -33,7 +33,6 @@ asTheEconomist(x, ...,
     par.settings =
       theEconomist.theme(with.bg = with.bg, box = "transparent"),
     with.bg = FALSE,
-    titleSpec = list(x = grid::unit(5, "mm"), just = "left"),
     par.strip.text = list(font = 2))
 </pre>
 
@@ -84,12 +83,6 @@ axis labels, blank by default.
 
 style settings, defaulting to <code>theEconomist.theme</code>.
 </td></tr>
-<tr valign="top"><td><code>titleSpec</code></td>
-<td>
-
-position and justification settings to be used in the <code>main</code>
-and <code>sub</code> arguments to <code>xyplot</code>.
-</td></tr>
 <tr valign="top"><td><code>par.strip.text</code></td>
 <td>
 
@@ -103,7 +96,7 @@ see <code>xyplot</code>.
 <p>
 You can just use <code>par.settings = theEconomist.theme()</code>, which
 gives you some colors and styles, but it does not do the
-grid lines, axis settings, or title settings.
+grid lines or axis settings.
 </p>
 
 

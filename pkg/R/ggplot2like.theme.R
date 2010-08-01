@@ -7,7 +7,8 @@ ggplot2like.opts <- function()
     list(default.args =
          list(axis = axis.grid,
               xscale.components = xscale.components.subticks,
-              yscale.components = yscale.components.subticks)
+              yscale.components = yscale.components.subticks,
+              between = list(x = 0.4, y = 0.4))
          )
 }
 
@@ -37,6 +38,7 @@ ggplot2like <-
                         reference.line = list(col = "white"),
                         strip.background = list(col = c("grey80", "grey70", "grey60")),
                         strip.shingle = list(col = c("grey60", "grey50", "grey40")),
+                        strip.border = list(col = "transparent"),
                         add.text = list(cex = 0.8))
                    )
     ## misc

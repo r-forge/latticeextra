@@ -97,19 +97,8 @@ export(theEconomist.opts)
 export(theEconomist.axis)
 export(asTheEconomist)
 
+
 export(panel.ellipse)
-
-## obsolete, will go away at some point
-
-## export(gplot, gplotArgs, "gplotArgs<-")
-
-## S3method(gplot, default)
-## S3method(gplotArgs, default)
-## S3method(gplotArgs, data.frame)
-
-## S3method("gplotArgs<-", default)
-## S3method("gplotArgs<-", data.frame)
-
 
 
 ### Local variables:

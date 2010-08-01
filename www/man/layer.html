@@ -23,8 +23,7 @@ panel function. Note the non-standard evaluation in <code>layer()</code>.
 <pre>
 layer(..., data, magicdots, exclude,
       packets, rows, columns, groups,
-      style, force, theme, under, superpose,
-      eval, etc) ## these 2 deprecated
+      style, force, theme, under, superpose)
 
 layer_(...)
 glayer(...)
@@ -128,19 +127,6 @@ if <code>TRUE</code>, the layer will be drawn once for
 each level of any <code>groups</code> in the plot, using
 <code>panel.superpose</code>. This defaults to <code>TRUE</code> in the
 convenience functions <code>glayer()</code> and <code>glayer_()</code>.
-</td></tr>
-<tr valign="top"><td><code>eval, etc</code></td>
-<td>
-
-These two arguments are now Deprecated and should not be used in new
-code. Rather than using <code>eval</code>, use <code>data</code>. It is not
-necessary to use <code>etc</code> because that happens automatically with
-<code>magicdots</code>. 
-if <code>eval = TRUE</code>, arguments given in the layer code will be
-evaluated  immediately (in the calling environment). 
-If <code>etc = TRUE</code> then all remaining (un-named) panel function
-arguments are added on to the call. If <code>etc</code> is a character
-vector then only those named arguments are passed through.
 </td></tr>
 <tr valign="top"><td><code>object</code></td>
 <td>

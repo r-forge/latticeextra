@@ -24,7 +24,6 @@ asTheEconomist(x, ...,
     par.settings =
       theEconomist.theme(with.bg = with.bg, box = "transparent"),
     with.bg = FALSE,
-    titleSpec = list(x = grid::unit(5, "mm"), just = "left"),
     par.strip.text = list(font = 2))
 }
 \arguments{
@@ -55,10 +54,6 @@ asTheEconomist(x, ...,
   \item{par.settings}{
     style settings, defaulting to \code{theEconomist.theme}.
   }
-  \item{titleSpec}{
-    position and justification settings to be used in the \code{main}
-    and \code{sub} arguments to \code{xyplot}.
-  }
   \item{par.strip.text}{
     see \code{\link{xyplot}}.
   }
@@ -66,7 +61,7 @@ asTheEconomist(x, ...,
 \details{
   You can just use \code{par.settings = theEconomist.theme()}, which
   gives you some colors and styles, but it does not do the
-  grid lines, axis settings, or title settings.
+  grid lines or axis settings.
 }
 \references{
   \url{http://www.economist.com/displayStory.cfm?story_id=15065782}

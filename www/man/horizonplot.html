@@ -25,8 +25,8 @@ horizonplot(x, data, ...)
 
 ## Default S3 method:
 horizonplot(x, data = NULL, ...,
-    origin = function(y) na.omit(y)[1],
     horizonscale = NA,
+    origin = function(y) na.omit(y)[1],
     colorkey = FALSE, legend = NULL,
     panel = panel.horizonplot,
     prepanel = prepanel.horizonplot,
@@ -73,6 +73,17 @@ can be supplied directly to <code>horizonplot</code>.
 In typical usage, the method of <code>xyplot</code> called will be
 <code>xyplot.ts</code>.
 </td></tr>
+<tr valign="top"><td><code>horizonscale</code></td>
+<td>
+
+the scale of each color segment. There are 3 positive
+segments and 3 negative segments. If this is a given as a
+number then all panels will have comparable distances, though not
+necessarily the same actual values (similar in concept to
+<code>scales$relation = "sliced"</code>). If <code>NA</code>, as it is by
+default, then the scale is chosen in each panel to cover the range
+of the data (unless overridden by <code>ylim</code>); see Details.
+</td></tr>
 <tr valign="top"><td><code>origin</code></td>
 <td>
 
@@ -82,17 +93,6 @@ number, which is then fixed across all panels, or it can be a
 function, which is evaluated with the <code>y</code> values in each
 panel. The default is the first non-missing y value in each
 panel. See the Details section.
-</td></tr>
-<tr valign="top"><td><code>horizonscale</code></td>
-<td>
-
-the scale of each color segment. There are 3 positive
-color segments and 3 negative segments. If this is a given as a
-number then all panels will have comparable distances, though not
-necessarily the same actual values (similar in concept to
-<code>scales$relation = "sliced"</code>). If <code>NA</code>, as it is by
-default, then the scale is chosen in each panel to cover the range
-of the data (unless overridden by <code>ylim</code>); see Details.
 </td></tr>
 <tr valign="top"><td><code>colorkey, legend</code></td>
 <td>
