@@ -21,7 +21,8 @@ ggplot2like(..., n = 6, h = c(0,360) + 15, l = 65, c = 100,
 ggplot2like.opts()
 
 axis.grid(side = c("top", "bottom", "left", "right"),
-          scales, components, ..., line.col)
+          ..., ticks = c("default", "yes", "no"),
+          scales, components, line.col)
 }
 \arguments{
   \item{\dots}{
@@ -39,7 +40,7 @@ axis.grid(side = c("top", "bottom", "left", "right"),
     extreme colors to interpolate with \code{\link{colorRampPalette}}
     for a continuous color scale.
   }
-  \item{side, scales, components, line.col}{
+  \item{side, ticks, scales, components, line.col}{
     see \code{\link{axis.default}}. Typically \code{axis.grid} is not
     called directly so these should not be needed.
   }

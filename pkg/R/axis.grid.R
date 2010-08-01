@@ -2,8 +2,8 @@
 
 axis.grid <-
     function(side = c("top", "bottom", "left", "right"),
-             ticks = c("default", "yes", "no"),
-             scales, components, ..., line.col)
+             ..., ticks = c("default", "yes", "no"),
+             scales, components, line.col)
 {
     side <- match.arg(side)
     ticks <- match.arg(ticks)
