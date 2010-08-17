@@ -25,7 +25,7 @@ spec[["functions of one variable"]] <-
          list("panel.xblocks", 3, width = 600, height = 200, rerun = TRUE),
          list("panel.xyarea", 2, rerun = TRUE),
          list("panel.tskernel", rerun = TRUE),
-         list("horizonplot", 3, height = 550)
+         list("horizonplot", 7, height = 550)
      )
 
 spec[["functions of two variables"]] <-
