@@ -31,7 +31,8 @@ ggplot2like(..., n = 6, h = c(0,360) + 15, l = 65, c = 100,
 ggplot2like.opts()
 
 axis.grid(side = c("top", "bottom", "left", "right"),
-          scales, components, ..., line.col)
+          ..., ticks = c("default", "yes", "no"),
+          scales, components, line.col)
 </pre>
 
 
@@ -61,7 +62,7 @@ colour sequence with <code>hcl</code>.
 extreme colors to interpolate with <code>colorRampPalette</code>
 for a continuous color scale.
 </td></tr>
-<tr valign="top"><td><code>side, scales, components, line.col</code></td>
+<tr valign="top"><td><code>side, ticks, scales, components, line.col</code></td>
 <td>
 
 see <code>axis.default</code>. Typically <code>axis.grid</code> is not
@@ -162,5 +163,5 @@ xyplot(exp(1:10) ~ 1:10, type = "b",
     scales = list(tck = c(0,0)))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-14 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -22,7 +22,7 @@ Plot series as filled polygons connected at given origin level (on y axis).
 panel.xyarea(x, ...)
 
 ## Default S3 method:
-panel.xyarea(x, y, groups = NULL, origin = NULL,
+panel.xyarea(x, y, groups = NULL, origin = NULL, horizontal = FALSE,
              col, border, lty, lwd, alpha, ...,
              col.line, fill, panel.groups = panel.xyarea)
 
@@ -54,6 +54,15 @@ a factor defining groups.
 
 level on y axis to connect the start and end of the series.
 If <code>NULL</code>, the polygon is filled to the bottom of the panel.
+It is flipped if <code>horizontal = TRUE</code>.
+</td></tr>
+<tr valign="top"><td><code>horizontal</code></td>
+<td>
+
+if this is set to <code>TRUE</code>, then the origin is a level on the x
+axis, rather than the default which is on the y axis. This is the
+opposite of what you might expect, but is for consistency with
+<code>panel.xyplot</code>. 
 </td></tr>
 <tr valign="top"><td><code>col, border, lty, lwd, alpha, col.line</code></td>
 <td>
@@ -141,5 +150,5 @@ qqmath(~ data, make.groups(baseline = rnorm(100),
                              border = c(NA, "black"), lwd = 2))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-14 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
 </body></html>

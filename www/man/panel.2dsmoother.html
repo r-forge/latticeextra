@@ -115,8 +115,8 @@ levelplot(z ~ x * y, xyz,
 ## GAM smoother with smoothness by cross validation
 if (require("mgcv"))
   levelplot(z ~ x * y, xyz, panel = panel.2dsmoother,
-            form = z ~ s(x) + s(y), method = "gam")
+            form = z ~ s(x, y), method = "gam")
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-14 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
 </body></html>

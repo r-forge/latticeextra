@@ -32,7 +32,7 @@ glayer_(...)
 ## S3 method for class 'trellis':
 +(object, lay)
 
-drawLayer(lay)
+drawLayer(lay, panelArgs = trellis.panelArgs())
 
 flattenPanel(object)
 </pre>
@@ -134,6 +134,9 @@ convenience functions <code>glayer()</code> and <code>glayer_()</code>.
 <tr valign="top"><td><code>lay</code></td>
 <td>
  a layer object. </td></tr>
+<tr valign="top"><td><code>panelArgs</code></td>
+<td>
+ list of arguments to the panel function. </td></tr>
 </table>
 
 
@@ -304,5 +307,5 @@ qua + layer_(panel.contourplot(x = gridlon, y = gridlat, z = dist,
    contour = TRUE, subscripts = TRUE), data = newdat)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-14 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
 </body></html>

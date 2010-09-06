@@ -134,7 +134,7 @@ print.layer <- print.default
         return(structure(c(unclass(object), unclass(lay)),
                          class = c("layer", "trellis")))
     }
-    panel <- if (identical(object$panel, "panel.pairs"))
+    panel <- if ("panel" %in% names(object$panel.args.common))
         object$panel.args.common$panel
     else object$panel
     panel <- if (is.function(panel)) panel
@@ -158,7 +158,7 @@ print.layer <- print.default
         ## overlaying items only
         drawLayer(lay[.UNDER == FALSE], list(...))
     }
-    if (identical(object$panel, "panel.pairs"))
+    if ("panel" %in% names(object$panel.args.common))
         object$panel.args.common$panel <- newpanel
     else object$panel <- newpanel
     ## need this to allow further calls to update() to insert arguments:

@@ -43,6 +43,7 @@ spec[["utilities"]] <-
          list("useOuterStrips", codefile = "utilities.R"),
          list("resizePanels", width = 400, height = 550,
            codefile = "utilities.R"),
+         list("combineLimits", -1, height = 500),
          list("scale.components"),
          list("panel.ablineq", helpname = "panel.lmlineq", -1),
          list("panel.scaleArrow", height = 400, rerun = TRUE),
