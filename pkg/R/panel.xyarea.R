@@ -27,7 +27,7 @@ panel.xyarea.default <-
                         col = col, col.line = border, lty = lty, lwd = lwd,
                         alpha = alpha, origin = origin, horizontal = horizontal)
     } else {
-        if (all(is.na(col)) && !missing(col.line))
+        if (!missing(col.line))
             col <- col.line
         if (horizontal == TRUE) {
             ## actually means origin is vertical. for consistency with panel.xyplot.
