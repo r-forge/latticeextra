@@ -35,6 +35,7 @@ spec[["functions of two variables"]] <-
          list("panel.levelplot.points", width = 600,
            helpname = "panel.voronoi", codefile = "tileplot.R"),
          list("panel.2dsmoother", 2),
+         list("panel.ellipse"),
          list("dendrogramGrob", height = 550)
      )
 

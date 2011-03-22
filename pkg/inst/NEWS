@@ -5,6 +5,8 @@ Changes in Version 0.6-15 (under development)
 
  o layer() now works with splom.
 
+ o panel.ellipse() [was introduced previously but not mentioned here].
+
  o changes to panel.smoother,quantile,xyarea to work with the new 
    'col' default in panel.superpose(): now "black" rather than NA.
 

@@ -65,6 +65,10 @@ case, further conditioning variables are allowed.
 <p>
 A similar interpretation holds for <code>x</code> and <code>y</code> in
 <code>prepanel.rootogram</code> and <code>panel.rootogram</code>.
+</p>
+<p>
+Note that the data are assumed to arise from a discrete distribution
+with some probability mass function.  See details below.
 </td></tr>
 </p>
 <p>
@@ -126,15 +130,35 @@ can be supplied directly in the high level <code>rootogram</code> call.
 <h3>Details</h3>
 
 <p>
-This function implements Tukey's hanging rootograms.  Also consider
-the <code>rootogram</code> function in the <code>vcd</code> package, especially if
-the number of unique values is small.  </p>
+</p>
+<p>
+This function implements Tukey's hanging rootograms.  As implemented,
+<code>rootogram</code> assumes that the data arise from a discrete
+distribution (either supplied in raw form, when <code>y</code> is
+unspecified, or in terms of the frequency distribution) with some
+unknown probability mass function (p.m.f.).  The purpose of the plot
+is to check whether the supplied theoretical p.m.f. <code>dfun</code> is a
+reasonable fit for the data.
+</p>
+<p>
+It is reasonable to consider rootograms for continuous data by
+discretizing it (similar to a histogram), but this must be done by the
+user before calling <code>rootogram</code>.  An example is given below.
+</p>
+<p>
+Also consider the <code>rootogram</code> function in the <code>vcd</code> package,
+especially if the number of unique values is small.
+</p>
+<p>
+</p>
 
 
 <h3>Value</h3>
 
 <p>
-<code>rootogram</code> produces an object of class <code>"trellis"</code>. The
+</p>
+<p>
+<code>rootogram</code> produces an object of class <code>"trellis"</code>.  The
 <code>update</code> method can be used to update components of the object and
 the <code>print</code> method (usually called by default) will plot it on an
 appropriate plotting device.
@@ -146,6 +170,20 @@ appropriate plotting device.
 <h3>Author(s)</h3>
 
 <p> Deepayan Sarkar <a href="mailto:deepayan.sarkar@gmail.com">deepayan.sarkar@gmail.com</a></p>
+
+
+<h3>References</h3>
+
+<p>
+</p>
+<p>
+John W. Tukey (1972) Some graphic and semi-graphic displays. In
+T. A. Bancroft (Ed) <EM>Statistical Papers in Honor of George
+W. Snedecor</EM>, pp. 293&ndash;316.  Available online at
+<a href="http://www.edwardtufte.com/tufte/tukey">http://www.edwardtufte.com/tufte/tukey</a>
+</p>
+<p>
+</p>
 
 
 <h3>See Also</h3>
@@ -205,6 +243,35 @@ update(p[rep(1, length(lambdav))],
        },
        xlab = "",
        sub = "Random sample from Poisson(50)")
+
+
+## Example using continuous data
+
+xnorm &lt;- rnorm(1000)
+
+## 'discretize' by binning and replacing data by bin midpoints
+
+h &lt;- hist(xnorm, plot = FALSE)
+
+## Option 1: Assume bin probabilities proportional to dnorm()
+
+norm.factor &lt;- sum(dnorm(h$mids, mean(xnorm), sd(xnorm)))
+
+rootogram(counts ~ mids, data = h,
+          dfun = function(x) {
+              dnorm(x, mean(xnorm), sd(xnorm)) / norm.factor
+          })
+
+## Option 2: Compute probabilities explicitly using pnorm()
+
+pdisc &lt;- diff(pnorm(h$breaks, mean = mean(xnorm), sd = sd(xnorm)))
+pdisc &lt;- pdisc / sum(pdisc)
+
+rootogram(counts ~ mids, data = h,
+          dfun = function(x) {
+              f &lt;- factor(x, levels = h$mids)
+              pdisc[f]
+          })
 
 </pre>
 

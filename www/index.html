@@ -108,6 +108,10 @@ pageTracker._trackPageview();
 <a class="navitem" href="#panel.2dsmoother" title="Plot a smooth approximation of z over x and y." id="nav_panel.2dsmoother">panel.2dsmoother</a>
 </li>
 <li>
+<a class="navitem" href="#panel.ellipse" title="Lattice panel function to fit and draw a confidence ellipsoid from
+  bivariate data." id="nav_panel.ellipse">panel.ellipse</a>
+</li>
+<li>
 <a class="navitem" href="#dendrogramGrob" title="Create a Grob Representing a Dendrogram" id="nav_dendrogramGrob">dendrogramGrob</a>
 </li>
 </ul></li>
@@ -246,8 +250,8 @@ pageTracker._trackPageview();
 <tr><td><a href="#ancestry">ancestry</a></td><td>Modal ancestry by County according to US 2000 Census</td></tr>
 <tr><td><a href="#as.layer">as.layer</a></td><td>Overlay panels of Trellis plots on same or different scales</td></tr>
 <tr><td><a href="#biocAccess">biocAccess</a></td><td>Hourly access attempts to Bioconductor website</td></tr>
-<tr><td><a href="#c.trellis">c.trellis</a></td><td>Merge trellis objects, using same or different scales</td></tr>
 <tr><td><a href="#combineLimits">combineLimits</a></td><td>Combine axis limits across margins</td></tr>
+<tr><td><a href="#c.trellis">c.trellis</a></td><td>Merge trellis objects, using same or different scales</td></tr>
 <tr><td><a href="#custom.theme">custom.theme</a></td><td>Create a lattice theme based on specified colors</td></tr>
 <tr><td><a href="#dendrogramGrob">dendrogramGrob</a></td><td>Create a Grob Representing a Dendrogram</td></tr>
 <tr><td><a href="#doubleYScale">doubleYScale</a></td><td>Draw two plot series with different y scales</td></tr>
@@ -262,6 +266,8 @@ pageTracker._trackPageview();
 <tr><td><a href="#panel.2dsmoother">panel.2dsmoother</a></td><td>Plot a smooth approximation of z over x and y.</td></tr>
 <tr><td><a href="#panel.3dmisc">panel.3dmisc</a></td><td>Miscellanous panel utilities for three dimensional Trellis Displays</td></tr>
 <tr><td><a href="#panel.ablineq">panel.ablineq</a></td><td>Draw a line with a label, by default its equation</td></tr>
+<tr><td><a href="#panel.ellipse">panel.ellipse</a></td><td>Lattice panel function to fit and draw a confidence ellipsoid from
+  bivariate data.</td></tr>
 <tr><td><a href="#panel.key">panel.key</a></td><td>Draw a simple key inside a panel of a lattice plot.</td></tr>
 <tr><td><a href="#panel.levelplot.points">panel.levelplot.points</a></td><td>Panel functions for level-coded irregular points</td></tr>
 <tr><td><a href="#panel.quantile">panel.quantile</a></td><td>Plot a quantile regression line with standard error bounds.</td></tr>
@@ -635,6 +641,32 @@ levelplot(z ~ x * y, xyz, panel = panel.levelplot.points,
     cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
 </pre>
 <p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.2dsmoother.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
+</div>
+
+
+<div class="item" id="panel.ellipse">
+  <h2 class="itemname">
+panel.ellipse
+  </h2>
+  <div class="itemdesc">
+Lattice panel function to fit and draw a confidence ellipsoid from
+  bivariate data.
+  </div>
+  <p>
+  <a href="man/panel.ellipse.html" class="helplink">
+Usage, Details, Examples
+</a>
+  </p>
+<p>One example:</p>
+<img src="http://150.203.60.53/latticeExtra/plots/default/panel.ellipse.png" alt="panel.ellipse" width="500" height="350"/>
+<pre class="itemcode">
+xyplot(Sepal.Length ~ Petal.Length, groups = Species, 
+    data = iris, scales = "free", par.settings = list(superpose.symbol = list(pch = c(15:17)), 
+        superpose.line = list(lwd = 2, lty = 1:3)), 
+    panel = function(x, y, ...) {
+        pane....
+</pre>
+<p><a href="http://r-forge.r-project.org/scm/viewvc.php/pkg/R/panel.ellipse.R?view=markup&root=latticeextra" class="codelink">Source code</a></p>
 </div>
 
 
@@ -1237,7 +1269,7 @@ var imageSrcBase = "http://150.203.60.53/latticeExtra/";
 </div>
 
 <div id="versiontag">
-latticeExtra version 0.6-15 on R version 2.11.0 (at 2010-09-06)
+latticeExtra version 0.6-15 on R version 2.11.1 (at 2011-03-17)
 </div>
 
 </div>
