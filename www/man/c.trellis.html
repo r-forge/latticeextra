@@ -6,20 +6,18 @@
 
 <table width="100%" summary="page for c.trellis {latticeExtra}"><tr><td>c.trellis {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Merge trellis objects, using same or different scales</h2>
-
+<h2> Merge trellis objects, using same or different scales </h2>
 
 <h3>Description</h3>
 
-<p>
-Combine the panels of multiple trellis objects into one.
+<p>Combine the panels of multiple trellis objects into one.
 </p>
 
 
 <h3>Usage</h3>
 
 <pre>
-## S3 method for class 'trellis':
+## S3 method for class 'trellis'
 c(..., x.same = NA, y.same = NA,
     layout = NULL, merge.legends = FALSE, recursive = FALSE)
 
@@ -34,50 +32,57 @@ xyplot.list(x, data = NULL, ..., FUN = xyplot,
 <table summary="R argblock">
 <tr valign="top"><td><code>...</code></td>
 <td>
- two or more trellis objects. If these are
+<p> two or more trellis objects. If these are
 named arguments, the names will be used in the corresponding
 panel strips.
+</p>
 </td></tr>
 <tr valign="top"><td><code>x.same</code></td>
 <td>
- if <code>TRUE</code>, set the x scale relation to
+<p> if <code>TRUE</code>, set the x scale relation to
 <code>"same"</code> and recalculate panel limits using data
 from all panels. Otherwise, the x scales in each panel
 will be as they were in the original objects
 (so in general not the same), the default behaviour.
+</p>
 </td></tr>
 <tr valign="top"><td><code>y.same</code></td>
 <td>
- as above, for y scales.
+<p> as above, for y scales.
 Note that <code>xyplot.list</code> defaults to same y scales. Set to
-<code>NA</code> to leave them alone. </td></tr>
+<code>NA</code> to leave them alone. </p>
+</td></tr>
 <tr valign="top"><td><code>layout</code></td>
 <td>
- value for <code>layout</code> of the new plot; see
-<code>xyplot</code>. </td></tr>
+<p> value for <code>layout</code> of the new plot; see
+<code>xyplot</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>merge.legends</code></td>
 <td>
- to keep keys or legends from all plots, not just
+<p> to keep keys or legends from all plots, not just
 the first. If multiple legends share the same <code>"space"</code>, they are
-packed together horizontally or vertically. </td></tr>
+packed together horizontally or vertically. </p>
+</td></tr>
 <tr valign="top"><td><code>recursive</code></td>
 <td>
- for consistency with the generic method, ignored. </td></tr>
+<p> for consistency with the generic method, ignored. </p>
+</td></tr>
 <tr valign="top"><td><code>x</code></td>
 <td>
- a <code>list</code> of objects to plot individually, and then
-be combined into one final plot. </td></tr>
+<p> a <code>list</code> of objects to plot individually, and then
+be combined into one final plot. </p>
+</td></tr>
 <tr valign="top"><td><code>FUN, data</code></td>
 <td>
- a lattice plot function, to be called on each element of
-the list <code>x</code>, along with <code>data</code> and <code>...</code> </td></tr>
+<p> a lattice plot function, to be called on each element of
+the list <code>x</code>, along with <code>data</code> and <code>...</code> </p>
+</td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-This mechanism attempts to merge the panels from multiple trellis
+<p>This mechanism attempts to merge the panels from multiple trellis
 objects into one. The same effect could generally be achieved by
 either a custom panel function (where the display depends on
 <code>packet.number()</code>), or using <code>print.trellis</code>
@@ -87,27 +92,23 @@ maintain the display as a standard lattice display, rather than a
 composite using <code>print.trellis</code>, to simplify
 further interaction.
 </p>
-<p>
-Many properties of the display, such as titles, axis settings
+<p>Many properties of the display, such as titles, axis settings
 and aspect ratio will be taken from the first object only.
 </p>
-<p>
-Note that combining panels from different types of plots does not
+<p>Note that combining panels from different types of plots does not
 really fit the trellis model. Some features of the plot may not work
 as expected. In particular, some work may be needed to
 show or hide scales on selected panels. An example is given below.
 </p>
-<p>
-Any trellis object with more than one conditioning variable will be
-"flattened" to one dimension, eliminating the multi-variate
+<p>Any trellis object with more than one conditioning variable will be
+&quot;flattened&quot; to one dimension, eliminating the multi-variate
 conditioning structure.
 </p>
 
 
 <h3>Value</h3>
 
-<p>
-a new trellis object.
+<p>a new trellis object.
 </p>
 
 
@@ -118,8 +119,7 @@ a new trellis object.
 
 <h3>See Also</h3>
 
-<p>
-<code><a href="#marginal.plot">marginal.plot</a></code> was the original motivating application,
+<p><code><a href="#marginal.plot">marginal.plot</a></code> was the original motivating application,
 <code>print.trellis</code>,
 <code>update.trellis</code>,
 <code>trellis.object</code>
@@ -223,5 +223,5 @@ update(combo[npairs], scales = list(draw = FALSE),
     layout = c(4, 4), between = list(x = c(0, 0.5), y = 0.5))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -6,20 +6,14 @@
 
 <table width="100%" summary="page for useOuterStrips {latticeExtra}"><tr><td>useOuterStrips {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Put Strips on the Boundary of a Lattice Display</h2>
-
+<h2> Put Strips on the Boundary of a Lattice Display </h2>
 
 <h3>Description</h3>
 
-<p>
-</p>
-<p>
-Try to update a <code>"trellis"</code> object so that strips are only
+<p>Try to update a <code>"trellis"</code> object so that strips are only
 shown on the top and left boundaries when printed, instead of in every
 panel as is usual.  This is only meaningful when there are exactly tow
 conditioning variables.
-</p>
-<p>
 </p>
 
 
@@ -41,48 +35,42 @@ useOuterStrips(x,
 <table summary="R argblock">
 <tr valign="top"><td><code>x</code></td>
 <td>
- An object of class <code>"trellis"</code>. </td></tr>
+<p> An object of class <code>"trellis"</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>strip, strip.left</code></td>
 <td>
- A function, character string or logical that
+<p> A function, character string or logical that
 would be appropriate <code>strip</code> and <code>strip.left</code> arguments
 respectively in a high level lattice function call (see
-<code>xyplot</code>) </td></tr>
+<code>xyplot</code>) </p>
+</td></tr>
 <tr valign="top"><td><code>strip.lines, strip.left.lines</code></td>
 <td>
- height of strips in number of
+<p> height of strips in number of
 lines; helpful for multi-line text or mathematical annotation in
-strips. </td></tr>
+strips. </p>
+</td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-<code>useOuterStrips</code> modifies a <code>"trellis"</code> object with
+<p><code>useOuterStrips</code> modifies a <code>"trellis"</code> object with
 <code>length(dim(x)) == 2</code> so that when plotted, strips are only shown
 on the top and left boundaries of the panel layout, rather than on top
 of every panel, as is the usual behaviour.
 </p>
-<p>
-If the original <code>"trellis"</code> object <code>x</code> includes non-default
+<p>If the original <code>"trellis"</code> object <code>x</code> includes non-default
 <code>strip</code> and <code>strip.left</code> arguments, they will be ignored.
 To provide customized strip behaviour, specify the custom strip
 functions directly as arguments to <code>useOuterStrips</code>.
-</p>
-<p>
 </p>
 
 
 <h3>Value</h3>
 
-<p>
-</p>
-<p>
-An object of class <code>"trellis"</code>; essentially the same as <code>x</code>,
+<p>An object of class <code>"trellis"</code>; essentially the same as <code>x</code>,
 but with certain properties modified.
-</p>
-<p>
 </p>
 
 
@@ -93,7 +81,7 @@ but with certain properties modified.
 
 <h3>See Also</h3>
 
-<p> <code>Lattice</code>,
+ <p><code>Lattice</code>,
 <code>xyplot</code> </p>
 
 
@@ -113,5 +101,5 @@ useOuterStrips(xyplot(mpg ~ disp | factor(cyl) + HP, mtcars),
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

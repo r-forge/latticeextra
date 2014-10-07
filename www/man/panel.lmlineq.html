@@ -6,13 +6,13 @@
 
 <table width="100%" summary="page for panel.lmlineq {latticeExtra}"><tr><td>panel.lmlineq {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Draw a line with a label, by default its equation</h2>
-
+<h2>
+Draw a line with a label, by default its equation
+</h2>
 
 <h3>Description</h3>
 
-<p>
-This is an extension of the panel functions <code>panel.abline</code> and
+<p>This is an extension of the panel functions <code>panel.abline</code> and
 <code>panel.lmline</code> to also draw a label on the line. The
 default label is the line equation, and optionally the R squared value
 of its fit to the data points.
@@ -48,7 +48,7 @@ panel.lmlineq(x, y, ...)
 <tr valign="top"><td><code>a, b, h, v, reg, coef</code></td>
 <td>
 
-specification of the line.
+<p>specification of the line.
 The simplest usage is to give <code>a</code> and <code>b</code> to describe the
 line <EM>y = a + b x</EM>.
 Horizontal or vertical lines can be specified as
@@ -56,130 +56,142 @@ arguments <code>h</code> or <code>v</code>, respectively.
 The first argument (<code>a</code>) can also be a model object produced by
 <code>lm</code>.
 See <code>panel.abline</code> for more details.
+</p>
 </td></tr>
 <tr valign="top"><td><code>pos, offset</code></td>
 <td>
 
-passed on to <code>panel.text</code>.
+<p>passed on to <code>panel.text</code>.
 For <code>pos</code>: 1 = below, 2 = left, 3 = above, 4 = right,
 and the <code>offset</code> (in character widths) is applied.
+</p>
 </td></tr>
 <tr valign="top"><td><code>adj</code></td>
 <td>
 
-passed on to <code>panel.text</code>.
+<p>passed on to <code>panel.text</code>.
 c(0,0) = above right, c(1,0) = above left,
 c(0,1) = below right, c(1,1) = below left;
 offset does not apply when using <code>adj</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>fontfamily</code></td>
 <td>
 
-passed on to <code>panel.text</code>.
+<p>passed on to <code>panel.text</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>at</code></td>
 <td>
 
-position of the equation as a fractional distance along the line.
+<p>position of the equation as a fractional distance along the line.
 This should be in the range 0 to 1.
 When a vertical line is drawn, this gives the vertical position of
 the equation.
+</p>
 </td></tr>
 <tr valign="top"><td><code>x, y</code></td>
 <td>
 
-position of the equation in native units. If given, this over-rides
+<p>position of the equation in native units. If given, this over-rides
 <code>at</code>.
 For <code>panel.lmlineq</code> this is the data, passed on as <code>lm(y ~ x)</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>rotate, srt</code></td>
 <td>
 
-set <code>rotate = TRUE</code> to align the equation with the line.
+<p>set <code>rotate = TRUE</code> to align the equation with the line.
 This will over-ride <code>srt</code>, which otherwise gives the rotation
 angle.
 Note that the calculated angle depends on the current device size;
 this will be wrong if you change the device aspect ratio after plotting.
+</p>
 </td></tr>
 <tr valign="top"><td><code>label</code></td>
 <td>
 
-the text to draw along with the line. If specified, this will be
+<p>the text to draw along with the line. If specified, this will be
 used instead of an equation.
+</p>
 </td></tr>
 <tr valign="top"><td><code>varNames</code></td>
 <td>
 
-names to display for <code>x</code> and/or <code>y</code>.
+<p>names to display for <code>x</code> and/or <code>y</code>.
 This should be a list
 like <code>list(y = "Q", x = "X")</code>
 or, for mathematical symbols,
 <code>alist(y = (alpha + beta), x = sqrt(x[t]))</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>varStyle</code></td>
 <td>
 
-the name of a <code>plotmath</code> function to wrap around the
+<p>the name of a <code>plotmath</code> function to wrap around the
 equation expression, or <code>NULL</code>. E.g. <code>"bolditalic"</code>,
 <code>"displaystyle"</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>digits</code></td>
 <td>
 
-number of decimal places to show for coefficients in equation.
+<p>number of decimal places to show for coefficients in equation.
+</p>
 </td></tr>
 <tr valign="top"><td><code>r.squared</code></td>
 <td>
 
-the <i>R^2</i> statistic to display along with the equation of a line.
+<p>the <i>R^2</i> statistic to display along with the equation of a line.
 This can be given directly as a number, or <code>TRUE</code>, in which
 case the function expects a model object (typically
 <code>lm</code>) and extracts the <i>R^2</i> statistic from it.
+</p>
 </td></tr>
 <tr valign="top"><td><code>sep, sep.end</code></td>
 <td>
 
-The <i>R^2</i> (<code>r.squared</code>) value is separated from the
+<p>The <i>R^2</i> (<code>r.squared</code>) value is separated from the
 equation by the string <code>sep</code>, and also <code>sep.end</code> is added
 to the end. For example: 
 <code>panel.ablineq(lm(y ~ x), r.squared = TRUE,
       sep = " (", sep.end = ")")</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>..., col, col.text, col.line</code></td>
 <td>
 
-passed on to <code>panel.abline</code> and
+<p>passed on to <code>panel.abline</code> and
 <code>panel.text</code>.
 Note that <code>col</code> applies to both text and line; <code>col.text</code>
 applies to the equation only, and <code>col.line</code> applies to line only.
+</p>
 </td></tr>
 <tr valign="top"><td><code>reference</code></td>
 <td>
 
-whether to draw the line in a "reference line" style, like that used
+<p>whether to draw the line in a &quot;reference line&quot; style, like that used
 for grid lines.
+</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-The equation is constructed as an expression using <code>plotmath</code>.
+<p>The equation is constructed as an expression using <code>plotmath</code>.
 </p>
 
 
 <h3>Author(s)</h3>
 
-<p>
-Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
+<p>Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
 </p>
 
 
 <h3>See Also</h3>
 
-<p>
-<code>panel.abline</code>,
+<p><code>panel.abline</code>,
 <code>panel.text</code>,
 <code>lm</code>,
 <code>plotmath</code>
@@ -236,5 +248,5 @@ update(trellis.last.object(),
                   points = FALSE, lines = TRUE))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

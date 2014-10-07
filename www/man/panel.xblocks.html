@@ -6,13 +6,13 @@
 
 <table width="100%" summary="page for panel.xblocks {latticeExtra}"><tr><td>panel.xblocks {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Plot contiguous blocks along x axis.</h2>
-
+<h2>
+Plot contiguous blocks along x axis.
+</h2>
 
 <h3>Description</h3>
 
-<p>
-Plot contiguous blocks along x axis. A typical use would be to
+<p>Plot contiguous blocks along x axis. A typical use would be to
 highlight events or periods of missing data.
 </p>
 
@@ -29,9 +29,9 @@ panel.xblocks(x, y, ..., col = NULL, border = NA,
               name = "xblocks", gaps = FALSE,
               last.step = median(diff(tail(x))))
 
-## S3 method for class 'ts':
+## S3 method for class 'ts'
 panel.xblocks(x, y = x, ...)
-## S3 method for class 'zoo':
+## S3 method for class 'zoo'
 panel.xblocks(x, y = x, ...)
 </pre>
 
@@ -42,85 +42,92 @@ panel.xblocks(x, y = x, ...)
 <tr valign="top"><td><code>x, y</code></td>
 <td>
 
-In the default method, <code>x</code> gives the ordinates along the x axis and
+<p>In the default method, <code>x</code> gives the ordinates along the x axis and
 must be in increasing order. <code>y</code> gives the color values to plot as
 contiguous blocks. If <code>y</code> is numeric, data coverage is plotted,
 by converting it into a logical (<code>!is.na(y)</code>). Finally, if
 <code>y</code> is a function, it is applied to <code>x</code> (<code>time(x)</code> in
 the time series methods). 
 </p>
-<p>
-If <code>y</code> has character (or factor) values, these are interpreted
+<p>If <code>y</code> has character (or factor) values, these are interpreted
 as colors &ndash; and should therefore be color names or hex
 codes. Missing values in <code>y</code> are not plotted.  The default
 color is taken from the current theme:
 <code>trellis.par.get("plot.line")$col</code>. If <code>col</code> is given,
 this over-rides the block colors.
 </p>
-<p>
-The <code>ts</code> and <code>zoo</code> methods plot the <code>y</code> values
+<p>The <code>ts</code> and <code>zoo</code> methods plot the <code>y</code> values
 against the time index <code>time(x)</code>. 
+</p>
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
 
-In the default method, further arguments are graphical parameters
+<p>In the default method, further arguments are graphical parameters
 passed on to <code>gpar</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>col</code></td>
 <td>
 
-if <code>col</code> is specified, it determines the colors of the blocks
+<p>if <code>col</code> is specified, it determines the colors of the blocks
 defined by <code>y</code>. If multiple colors are specified they will be
 repeated to cover the total number of blocks.
+</p>
 </td></tr>
 <tr valign="top"><td><code>border</code></td>
 <td>
 
-border color.
+<p>border color.
+</p>
 </td></tr>
 <tr valign="top"><td><code>height</code></td>
 <td>
 
-height of blocks, defaulting to the full panel height. Numeric
+<p>height of blocks, defaulting to the full panel height. Numeric
 values are interpreted as native units.
+</p>
 </td></tr>
 <tr valign="top"><td><code>block.y</code></td>
 <td>
 
-y axis position of the blocks. Numeric values are interpreted as
+<p>y axis position of the blocks. Numeric values are interpreted as
 native units.
+</p>
 </td></tr>
 <tr valign="top"><td><code>vjust</code></td>
 <td>
 
-vertical justification of the blocks relative to <code>block.y</code>. See
+<p>vertical justification of the blocks relative to <code>block.y</code>. See
 <code>grid.rect</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>name</code></td>
 <td>
 
-a name for the grob (<span class="pkg">grid</span> object).
+<p>a name for the grob (<span class="pkg">grid</span> object).
+</p>
 </td></tr>
 <tr valign="top"><td><code>gaps</code></td>
 <td>
 
-Deprecated.
+<p>Deprecated.
 Use <code>panel.xblocks(time(z), is.na(z))</code> instead.
+</p>
 </td></tr>
 <tr valign="top"><td><code>last.step</code></td>
 <td>
 
-width (in native units) of the final block. Defaults to the median of
+<p>width (in native units) of the final block. Defaults to the median of
 the last 5 time steps (assuming steps are regular).
+</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-Blocks are drawn forward in "time" from the specified x locations,
+<p>Blocks are drawn forward in &quot;time&quot; from the specified x locations,
 up until the following value. Contiguous blocks are calculated using
 <code>rle</code>.
 </p>
@@ -128,15 +135,13 @@ up until the following value. Contiguous blocks are calculated using
 
 <h3>Author(s)</h3>
 
-<p>
-Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
+<p>Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
 </p>
 
 
 <h3>See Also</h3>
 
-<p>
-<code>xyplot.ts</code>,
+<p><code>xyplot.ts</code>,
 <code>panel.rect</code>,
 <code>grid.rect</code>
 </p>
@@ -189,5 +194,5 @@ xyplot(z, type = c("p","s")) +
 xyplot(presidents) + layer(panel.xblocks(sunspot.year &gt; 50, height = 2))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

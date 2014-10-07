@@ -6,13 +6,11 @@
 
 <table width="100%" summary="page for gvhd10 {latticeExtra}"><tr><td>gvhd10 {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Flow cytometry data from five samples from a patient</h2>
-
+<h2> Flow cytometry data from five samples from a patient  </h2>
 
 <h3>Description</h3>
 
-<p>
-Flow cytometry data from blood samples taken from a Leukemia patient
+<p>Flow cytometry data from blood samples taken from a Leukemia patient
 before and after allogenic bone marrow transplant.  The data spans
 five visits.
 </p>
@@ -25,41 +23,42 @@ five visits.
 
 <h3>Format</h3>
 
-<p>
-A data frame with 113896 observations on the following 8 variables.
+<p>A data frame with 113896 observations on the following 8 variables.
+</p>
 
 <dl>
-<dt><code>FSC.H</code></dt><dd> forward scatter height values</dd>
-<dt><code>SSC.H</code></dt><dd> side scatter height values </dd>
-<dt><code>FL1.H</code></dt><dd> intensity (height) in the FL1 channel </dd>
-<dt><code>FL2.H</code></dt><dd> intensity (height) in the FL2 channel </dd>
-<dt><code>FL3.H</code></dt><dd> intensity (height) in the FL3 channel </dd>
-<dt><code>FL2.A</code></dt><dd> intensity (area) in the FL2 channel </dd>
-<dt><code>FL4.H</code></dt><dd> intensity (height) in the FL4 channel </dd>
-<dt><code>Days</code></dt><dd>a factor with levels <code>-6</code> <code>0</code> <code>6</code> <code>13</code> <code>20</code> <code>27</code> <code>34</code></dd>
+<dt><code>FSC.H</code></dt><dd><p> forward scatter height values</p>
+</dd>
+<dt><code>SSC.H</code></dt><dd><p> side scatter height values </p>
+</dd>
+<dt><code>FL1.H</code></dt><dd><p> intensity (height) in the FL1 channel </p>
+</dd>
+<dt><code>FL2.H</code></dt><dd><p> intensity (height) in the FL2 channel </p>
+</dd>
+<dt><code>FL3.H</code></dt><dd><p> intensity (height) in the FL3 channel </p>
+</dd>
+<dt><code>FL2.A</code></dt><dd><p> intensity (area) in the FL2 channel </p>
+</dd>
+<dt><code>FL4.H</code></dt><dd><p> intensity (height) in the FL4 channel </p>
+</dd>
+<dt><code>Days</code></dt><dd><p>a factor with levels <code>-6</code> <code>0</code> <code>6</code> <code>13</code> <code>20</code> <code>27</code> <code>34</code></p>
+</dd>
 </dl>
 
-</p>
 
 
 <h3>Source</h3>
 
-<p>
-<a href="http://www.ficcs.org/software.html#Data_Files">http://www.ficcs.org/software.html#Data_Files</a>
+<p><a href="http://www.ficcs.org/software.html#Data_Files">http://www.ficcs.org/software.html#Data_Files</a>
 </p>
 
 
 <h3>References</h3>
 
-<p>
-</p>
-<p>
-Brinkman, R.R., et al. (2007).  High-Content Flow Cytometry and
+<p>Brinkman, R.R., et al. (2007).  High-Content Flow Cytometry and
 Temporal Data Analysis for Defining a
 Cellular Signature of Graft-Versus-Host Disease.
 <EM>Biology of Blood and Marrow Transplantation</EM> <B>13&ndash;6</B>
-</p>
-<p>
 </p>
 
 
@@ -72,5 +71,5 @@ histogram(~log2(FSC.H) | Days, gvhd10, xlab = "log Forward Scatter",
           type = "density", nint = 50, layout = c(2, 4))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

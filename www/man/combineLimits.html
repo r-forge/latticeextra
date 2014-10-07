@@ -8,17 +8,11 @@
 
 <h2>Combine axis limits across margins</h2>
 
-
 <h3>Description</h3>
 
-<p>
-</p>
-<p>
-Modifies a <code>"trellis"</code> object with <code>"free"</code> scales so that
+<p>Modifies a <code>"trellis"</code> object with <code>"free"</code> scales so that
 panel limits are extended to be the same across selected conditioning
 variables (typically rows and columns).
-</p>
-<p>
 </p>
 
 
@@ -35,11 +29,12 @@ combineLimits(x, margin.x = 2L, margin.y = 1L,
 <table summary="R argblock">
 <tr valign="top"><td><code>x</code></td>
 <td>
- An object of class <code>"trellis"</code>. </td></tr>
+<p> An object of class <code>"trellis"</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>margin.x</code></td>
 <td>
 
-Integer vector specifying which conditioning variables to combine
+<p>Integer vector specifying which conditioning variables to combine
 the x-axis limits over.  Defaults to the second conditioning
 variable (rows in the default layout); that is, the limit of each
 packet is extended to include the limits of all other packets
@@ -50,74 +45,62 @@ include all levels in both the first and second conditioning
 variables.  In case there is a third conditioning variable, this
 would have the effect of per-page x-axis limits with the default
 layout.
+</p>
 </td></tr>
 <tr valign="top"><td><code>margin.y</code></td>
 <td>
 
-Integer vector specifying which conditioning variables to combine
+<p>Integer vector specifying which conditioning variables to combine
 the x-axis limits over.  Similar to <code>margin.x</code>, but defaults to
 the first conditioning variable (columns in the default layout).
+</p>
 </td></tr>
 <tr valign="top"><td><code>extend</code></td>
 <td>
 
-Logical flag indicating whether the limits should be extended after
+<p>Logical flag indicating whether the limits should be extended after
 being combined.  Usually a good idea.
+</p>
 </td></tr>
 <tr valign="top"><td><code>adjust.labels</code></td>
 <td>
 
-Logical flag indicating whether labels should be removed from all
+<p>Logical flag indicating whether labels should be removed from all
 but the boundaries.  This may give misleading plots with non-default
 layouts.
+</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-</p>
-<p>
-<code>combineLimits</code> is useful mainly for plots with two conditioning
+<p><code>combineLimits</code> is useful mainly for plots with two conditioning
 variables with the default layout (columns and rows correspond to the
 first and second conditioning variables), when per-row and per-column
 limits are desired.
 </p>
-<p>
-The lattice approach does not tie levels of the conditioning variables
+<p>The lattice approach does not tie levels of the conditioning variables
 to the plot layout, so it is possible that all panels in a row (or
 column) do not represent the same level.  It should be noted that
 <code>combineLimits</code> actually combines limits across levels, and not
 across rows and columns.  Results are likely to be misleading unless
 the default layout is used.
 </p>
-<p>
-</p>
 
 
 <h3>Value</h3>
 
-<p>
-</p>
-<p>
-An object of class <code>"trellis"</code>; essentially the same as <code>x</code>,
+<p>An object of class <code>"trellis"</code>; essentially the same as <code>x</code>,
 but with certain properties modified.
-</p>
-<p>
 </p>
 
 
 <h3>Note</h3>
 
-<p>
-</p>
-<p>
-Does not work for all <code>"trellis"</code> objects.  In particular,
+<p>Does not work for all <code>"trellis"</code> objects.  In particular,
 log-scales do not yet work.  Fancy layouts with <code>skip</code>-ped panels
 and unusual packet-to-panel mappings will probably also not work.
-</p>
-<p>
 </p>
 
 
@@ -128,7 +111,7 @@ and unusual packet-to-panel mappings will probably also not work.
 
 <h3>See Also</h3>
 
-<p> <code>Lattice</code>, <code>xyplot</code> </p>
+ <p><code>Lattice</code>, <code>xyplot</code> </p>
 
 
 <h3>Examples</h3>
@@ -158,5 +141,5 @@ useOuterStrips(combineLimits(update(pcars, grid = TRUE)))
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

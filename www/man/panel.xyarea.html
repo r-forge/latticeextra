@@ -6,13 +6,13 @@
 
 <table width="100%" summary="page for panel.xyarea {latticeExtra}"><tr><td>panel.xyarea {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Plot series as filled polygons.</h2>
-
+<h2>
+Plot series as filled polygons.
+</h2>
 
 <h3>Description</h3>
 
-<p>
-Plot series as filled polygons connected at given origin level (on y axis).
+<p>Plot series as filled polygons connected at given origin level (on y axis).
 </p>
 
 
@@ -23,12 +23,12 @@ panel.xyarea(x, ...)
 
 ## Default S3 method:
 panel.xyarea(x, y, groups = NULL, origin = NULL, horizontal = FALSE,
-             col, border, lty, lwd, alpha, ...,
-             col.line, fill, panel.groups = panel.xyarea)
+             col, col.line, border, lty, lwd, alpha, ...,
+             fill, panel.groups = panel.xyarea)
 
-## S3 method for class 'ts':
+## S3 method for class 'ts'
 panel.xyarea(x, y = x, ...)
-## S3 method for class 'zoo':
+## S3 method for class 'zoo'
 panel.xyarea(x, y = x, ...)
 
 panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
@@ -42,78 +42,84 @@ panel.qqmath.xyarea(x, y = NULL, f.value = NULL, distribution = qnorm,
 <tr valign="top"><td><code>x, y</code></td>
 <td>
 
-data vectors.
+<p>data vectors.
+</p>
 </td></tr>
 <tr valign="top"><td><code>groups</code></td>
 <td>
 
-a factor defining groups.
+<p>a factor defining groups.
+</p>
 </td></tr>
 <tr valign="top"><td><code>origin</code></td>
 <td>
 
-level on y axis to connect the start and end of the series.
+<p>level on y axis to connect the start and end of the series.
 If <code>NULL</code>, the polygon is filled to the bottom of the panel.
 It is flipped if <code>horizontal = TRUE</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>horizontal</code></td>
 <td>
 
-if this is set to <code>TRUE</code>, then the origin is a level on the x
+<p>if this is set to <code>TRUE</code>, then the origin is a level on the x
 axis, rather than the default which is on the y axis. This is the
 opposite of what you might expect, but is for consistency with
 <code>panel.xyplot</code>. 
+</p>
 </td></tr>
-<tr valign="top"><td><code>col, border, lty, lwd, alpha, col.line</code></td>
+<tr valign="top"><td><code>col, col.line, border, lty, lwd, alpha</code></td>
 <td>
 
-graphical parameters taken from
+<p>graphical parameters taken from
 <code>trellis.par.get("plot.polygon")</code> or
 <code>trellis.par.get("superpose.polygon")</code> (when groups defined).
-<code>col.line</code> overrides <code>border</code>.
+<code>col.line</code> overrides <code>col</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
 
-further arguments passed on to <code>panel.polygon</code>.
+<p>further arguments passed on to <code>panel.polygon</code>.
 For <code>panel.qqmath.xyarea</code>, passed to <code>panel.xyarea</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>fill</code></td>
 <td>
 
-ignored; use <code>col</code> instead.
+<p>ignored; use <code>col</code> instead.
+</p>
 </td></tr>
 <tr valign="top"><td><code>panel.groups</code></td>
 <td>
 
-used in <code>panel.superpose</code>.
+<p>used in <code>panel.superpose</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>f.value, distribution, qtype, tails.n</code></td>
 <td>
 
-as in <code>panel.qqmath</code>.
+<p>as in <code>panel.qqmath</code>.
+</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-none yet.
+<p>none yet.
 </p>
 
 
 <h3>Author(s)</h3>
 
-<p>
-Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
+<p>Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
 </p>
 
 
 <h3>See Also</h3>
 
-<p>
-<code>panel.xyplot</code>,
+<p><code>panel.xyplot</code>,
 <code>panel.polygon</code>
 </p>
 
@@ -132,7 +138,7 @@ xyplot(ts.union(data = sunspot.year, lag10 = lag(sunspot.year, 10)),
   panel.groups = function(..., group.number) {
     if (group.number == 1)
       panel.xyarea(...) else panel.xyplot(...)
-  },
+  }, border = NA, 
   par.settings = simpleTheme(col = c("grey", "black"), lwd = c(5,2)))
 
 ## missing values are handled by splitting the series
@@ -146,9 +152,9 @@ qqmath(~ data, make.groups(baseline = rnorm(100),
   groups = which, distribution = qunif,
   panel = panel.qqmath.xyarea, xlim = 0:1,
   auto.key = list(points = FALSE, rectangles = TRUE),
-  par.settings = simpleTheme(col = c("grey", "transparent"),
-                             border = c(NA, "black"), lwd = 2))
+  par.settings = simpleTheme(col = c("blue", "green"),
+                             alpha = 0.5))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

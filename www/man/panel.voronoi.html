@@ -6,13 +6,11 @@
 
 <table width="100%" summary="page for panel.voronoi {latticeExtra}"><tr><td>panel.voronoi {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Panel functions for level-coded irregular points</h2>
-
+<h2> Panel functions for level-coded irregular points </h2>
 
 <h3>Description</h3>
 
-<p>
-These panel functions for <code>levelplot</code>
+<p>These panel functions for <code>levelplot</code>
 can represent irregular (x, y) points with a color covariate.
 <code>panel.levelplot.points</code> simply draws color-coded points.
 <code>panel.voronoi</code> uses the <span class="pkg">deldir</span> package to
@@ -44,57 +42,67 @@ panel.levelplot.points(x, y, z, subscripts = TRUE, at = pretty(z),
 <table summary="R argblock">
 <tr valign="top"><td><code>x, y, z</code></td>
 <td>
- an irregular set of points at locations (x, y) with
-value z. </td></tr>
+<p> an irregular set of points at locations (x, y) with
+value z. </p>
+</td></tr>
 <tr valign="top"><td><code>subscripts</code></td>
 <td>
- integer vector indicating what subset of x, y and z
-to draw. Typically passed by <code>levelplot</code>. </td></tr>
+<p> integer vector indicating what subset of x, y and z
+to draw. Typically passed by <code>levelplot</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>at, col.regions, alpha.regions</code></td>
 <td>
- color scale definition;
-see <code>panel.levelplot</code>. </td></tr>
+<p> color scale definition;
+see <code>panel.levelplot</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>points</code></td>
 <td>
- whether to draw the (x, y) points. </td></tr>
+<p> whether to draw the (x, y) points. </p>
+</td></tr>
 <tr valign="top"><td><code>border</code></td>
 <td>
- color for polygon borders. </td></tr>
+<p> color for polygon borders. </p>
+</td></tr>
 <tr valign="top"><td><code>na.rm</code></td>
 <td>
- if <code>TRUE</code>, points with missing <code>z</code> values will
+<p> if <code>TRUE</code>, points with missing <code>z</code> values will
 be excluded from the calculation of polygons. If <code>FALSE</code>,
 those polygons are calculated but are not drawn (i.e. are
-transparent). </td></tr>
+transparent). </p>
+</td></tr>
 <tr valign="top"><td><code>win.expand</code></td>
 <td>
- defines the rectangular window bounding the
+<p> defines the rectangular window bounding the
 polygons. This is a factor by which
 to expand the range of the data. Set to 0 to limit drawing at the
-furthest data point locations. Ignored if <code>use.tripack = TRUE</code>. </td></tr>
+furthest data point locations. Ignored if <code>use.tripack = TRUE</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>use.tripack</code></td>
 <td>
- if <code>TRUE</code>, use <span class="pkg">tripack</span> package rather
-than <span class="pkg">deldir</span>. See Details. </td></tr>
+<p> if <code>TRUE</code>, use <span class="pkg">tripack</span> package rather
+than <span class="pkg">deldir</span>. See Details. </p>
+</td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
- further arguments are
+<p> further arguments are
 passed to <code>panel.xyplot</code> if <code>points =
-      TRUE</code>. </td></tr>
+      TRUE</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>pch, col.symbol</code></td>
 <td>
- symbol and border color for points.
-A filled symbol should be used, i.e. in the range 21-25. </td></tr>
+<p> symbol and border color for points.
+A filled symbol should be used, i.e. in the range 21-25. </p>
+</td></tr>
 <tr valign="top"><td><code>shrink, labels, label.style, contour, region, fill</code></td>
 <td>
- ignored. </td></tr>
+<p> ignored. </p>
+</td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-The <span class="pkg">tripack</span> package implementation is faster than <span class="pkg">deldir</span> but not under a
+<p>The <span class="pkg">tripack</span> package implementation is faster than <span class="pkg">deldir</span> but not under a
 fully free licence. Also, the <span class="pkg">deldir</span> package allows polygons to
 be clipped to a rectangular window (the <code>win.expand</code> argument).
 </p>
@@ -107,7 +115,7 @@ be clipped to a rectangular window (the <code>win.expand</code> argument).
 
 <h3>See Also</h3>
 
-<p> <code><a href="#tileplot">tileplot</a></code>,
+ <p><code><a href="#tileplot">tileplot</a></code>,
 <code>panel.levelplot</code>,
 <code><a href="../../deldir/html/deldir.html">deldir</a></code>  </p>
 
@@ -139,5 +147,5 @@ xyz$y &lt;- xyz$y + c(0, 0.5)
 levelplot(z ~ x * y, xyz, panel = panel.voronoi, points = FALSE)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

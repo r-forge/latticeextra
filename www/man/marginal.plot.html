@@ -6,13 +6,11 @@
 
 <table width="100%" summary="page for marginal.plot {latticeExtra}"><tr><td>marginal.plot {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Display marginal distributions</h2>
-
+<h2> Display marginal distributions </h2>
 
 <h3>Description</h3>
 
-<p>
-Display marginal distributions of several variables,
+<p>Display marginal distributions of several variables,
 which may be numeric and/or categorical, on one plot.
 </p>
 
@@ -51,50 +49,59 @@ marginal.plot(x,
 <table summary="R argblock">
 <tr valign="top"><td><code>x</code></td>
 <td>
- a data frame or table, or a formula of which the first term
+<p> a data frame or table, or a formula of which the first term
 is a data frame or table. Otherwise coerced with
-<code>as.data.frame</code>. </td></tr>
+<code>as.data.frame</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>data</code></td>
 <td>
- an optional data source in which groups and subset may be
-be evaluated. </td></tr>
+<p> an optional data source in which groups and subset may be
+be evaluated. </p>
+</td></tr>
 <tr valign="top"><td><code>groups</code></td>
 <td>
- term, to be evaluated in <code>data</code>, that is used as a
-grouping variable. </td></tr>
+<p> term, to be evaluated in <code>data</code>, that is used as a
+grouping variable. </p>
+</td></tr>
 <tr valign="top"><td><code>reorder</code></td>
 <td>
- whether to reorder factor variables by frequency. </td></tr>
+<p> whether to reorder factor variables by frequency. </p>
+</td></tr>
 <tr valign="top"><td><code>subset</code></td>
 <td>
- data subset expression, evaluated in <code>data</code>. </td></tr>
+<p> data subset expression, evaluated in <code>data</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>plot.points, ref, cut</code></td>
 <td>
- passed to <code>panel.densityplot</code>. </td></tr>
+<p> passed to <code>panel.densityplot</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>origin, type</code></td>
 <td>
- passed to <code>panel.dotplot</code>. </td></tr>
+<p> passed to <code>panel.dotplot</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>xlab, ylab, as.table, subscripts</code></td>
 <td>
 
-see <code>xyplot</code>.
+<p>see <code>xyplot</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>default.scales, layout, lattice.options</code></td>
 <td>
 
-see <code>xyplot</code>.
+<p>see <code>xyplot</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
- passed to <code>panel.densityplot</code> and/or
-<code>panel.dotplot</code>. </td></tr>
+<p> passed to <code>panel.densityplot</code> and/or
+<code>panel.dotplot</code>. </p>
+</td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-In the case of mixed numeric and categorical variables,
+<p>In the case of mixed numeric and categorical variables,
 the trellis objects from <code>dotplot()</code> and <code>densityplot()</code>
 are merged.
 </p>
@@ -102,8 +109,7 @@ are merged.
 
 <h3>Value</h3>
 
-<p>
-a trellis object.
+<p>a trellis object.
 </p>
 
 
@@ -114,7 +120,7 @@ a trellis object.
 
 <h3>See Also</h3>
 
-<p> <code>panel.dotplot</code>,
+ <p><code>panel.dotplot</code>,
 <code>panel.densityplot</code> </p>
 
 
@@ -140,5 +146,5 @@ marginal.plot(~ Titanic, data = Titanic, groups = Survived,
     type = "b", auto.key = list(title = "Survived?"))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

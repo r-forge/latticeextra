@@ -6,13 +6,11 @@
 
 <table width="100%" summary="page for scale.components {latticeExtra}"><tr><td>scale.components {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Custom lattice axis scales</h2>
-
+<h2> Custom lattice axis scales </h2>
 
 <h3>Description</h3>
 
-<p>
-Convenience functions for drawing axes with various non-default tick
+<p>Convenience functions for drawing axes with various non-default tick
 positions and labels. 
 </p>
 
@@ -29,6 +27,9 @@ yscale.components.fractions(lim, logsc = FALSE, ...)
 xscale.components.log10ticks(lim, logsc = FALSE, at = NULL, ...)
 yscale.components.log10ticks(lim, logsc = FALSE, at = NULL, ...)
 
+xscale.components.log(lim, logsc = FALSE, at = NULL, loc = NULL, ...)
+yscale.components.log(lim, logsc = FALSE, at = NULL, loc = NULL, ...)
+
 xscale.components.log10.3(lim, logsc = FALSE, at = NULL, ...)
 yscale.components.log10.3(lim, logsc = FALSE, at = NULL, ...)
 
@@ -42,54 +43,75 @@ yscale.components.subticks(lim, ..., n = 5, n2 = n * 5, min.n2 = n + 5)
 <table summary="R argblock">
 <tr valign="top"><td><code>lim</code></td>
 <td>
- scale limits. </td></tr>
+<p> scale limits. </p>
+</td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
 
-passed on to <code>xscale.components.default</code> or
+<p>passed on to <code>xscale.components.default</code> or
 <code>yscale.components.default</code>. 
+</p>
 </td></tr>
 <tr valign="top"><td><code>logsc</code></td>
 <td>
 
-<code>log</code> base, typically specified in the <code>scales</code>
+<p><code>log</code> base, typically specified in the <code>scales</code>
 argument to a high-level lattice plot.
+</p>
 </td></tr>
 <tr valign="top"><td><code>at</code></td>
 <td>
 
-this is ignored unless it is <code>NULL</code>, in which case nothing is
+<p>this is ignored unless it is <code>NULL</code>, in which case nothing is
 drawn. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>loc</code></td>
+<td>
+
+<p>Ignored if <code>NULL</code>.  Otherwise, vector of values between 1 and
+9 that form the template for tick mark locations after being scaled
+appropriately.  For example, <code>loc = c(1, 3)</code> leads to tick
+marks at <code>c(0.1, 0.3, 1, 3, 10, 30)</code> and so on.
+</p>
 </td></tr>
 <tr valign="top"><td><code>n</code></td>
 <td>
 
-desired number of intervals between major axis ticks (passed to
+<p>desired number of intervals between major axis ticks (passed to
 <code>pretty</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>n2, min.n2</code></td>
 <td>
 
-desired, and minimum, number of intervals been minor axis ticks
+<p>desired, and minimum, number of intervals between minor axis ticks
 (passed to <code>pretty</code>.
+</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-These functions are intended to be passed to the
+<p>These functions are intended to be passed to the
 <code>xscale.components</code> or <code>yscale.components</code> arguments of
-high-level lattice plots. See
-<code>xscale.components.default</code>. 
+high-level lattice plots. See <code>xscale.components.default</code>.
+</p>
+<p><code>xscale.components.logpower</code> draws tickmarks at the same
+locations as the default, but labels them more smartly using
+superscripts for the power (using expressions).
+</p>
+<p><code>xscale.components.fractions</code> labels the tickmarks as fractions.
+</p>
+<p><code>xscale.components.log10ticks</code> puts major tick marks at powers of
+10, and minor tickmarks in between.
 </p>
 
 
 <h3>References</h3>
 
-<p>
-Sarkar, Deepayan (2008) &ldquo;Lattice: Multivariate Data
+<p>Sarkar, Deepayan (2008) &ldquo;Lattice: Multivariate Data
 Visualization with R&rdquo;, Springer.  ISBN: 978-0-387-75968-5
 <a href="http://lmdvr.r-forge.r-project.org/figures/figures.html?chapter=08;figure=08_04">http://lmdvr.r-forge.r-project.org/figures/figures.html?chapter=08;figure=08_04</a>
 </p>
@@ -114,5 +136,5 @@ xyplot(0:365 ~ dd, type = c("p", "g"),
   yscale.components = yscale.components.subticks)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

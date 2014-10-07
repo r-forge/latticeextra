@@ -6,13 +6,13 @@
 
 <table width="100%" summary="page for panel.quantile {latticeExtra}"><tr><td>panel.quantile {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Plot a quantile regression line with standard error bounds.</h2>
-
+<h2>
+Plot a quantile regression line with standard error bounds.
+</h2>
 
 <h3>Description</h3>
 
-<p>
-Plot a quantile regression line with standard error bounds, using the
+<p>Plot a quantile regression line with standard error bounds, using the
 <span class="pkg">quantreg</span> package. This is based on the
 <code><a href="../../ggplot2/html/stat_quantile.html">stat_quantile</a></code> function from <span class="pkg">ggplot2</span>.
 </p>
@@ -40,88 +40,92 @@ panel.quantile(x, y, form = y ~ x, method = "rq", ...,
 <tr valign="top"><td><code>x, y</code></td>
 <td>
 
-data points. If these are missing, they will be looked for in the
+<p>data points. If these are missing, they will be looked for in the
 environment of <code>form</code>. So in many cases you can skip these if
 passing <code>form</code>. In fact, for convenience, the formula
 can be passed as the first argument (i.e. <code>x</code>).
+</p>
 </td></tr>
 <tr valign="top"><td><code>form, method</code></td>
 <td>
 
-the model is constructed (approximately) as
+<p>the model is constructed (approximately) as
 <code>method(form, tau = tau, data = list(x=x, y=y), ...)</code>.
 See the Examples section for common choices.
+</p>
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
 
-further arguments passed on to the model function (<code>method</code>),
+<p>further arguments passed on to the model function (<code>method</code>),
 typically <code><a href="../../quantreg/html/rq.html">rq</a></code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>tau</code></td>
 <td>
 
-<VAR>p</VAR> values for the quantiles to estimate.
+<p><VAR>p</VAR> values for the quantiles to estimate.
 </p>
-<p>
-Note: only one value for <code>tau</code> can be specified if
+<p>Note: only one value for <code>tau</code> can be specified if
 estimating confidence intervals with <code>ci</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>ci, ci.type, level</code></td>
 <td>
 
-estimate a confidence interval at level <code>level</code> using the
+<p>estimate a confidence interval at level <code>level</code> using the
 method <code>ci.type</code>; see <code><a href="../../quantreg/html/predict.rq.html">predict.rq</a></code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>n</code></td>
 <td>
 
-number of equi-spaced points on which to evaluate the function.
+<p>number of equi-spaced points on which to evaluate the function.
+</p>
 </td></tr>
 <tr valign="top"><td><code>col, col.se, lty, lwd, alpha, alpha.se, border</code></td>
 <td>
 
-graphical parameters. <code>col</code> and <code>alpha</code> apply to the
+<p>graphical parameters. <code>col</code> and <code>alpha</code> apply to the
 line(s), while <code>col.se</code> and <code>alpha.se</code>
 apply to the shaded <code>ci</code> region.
+</p>
 </td></tr>
 <tr valign="top"><td><code>superpose</code></td>
 <td>
 
-if <code>TRUE</code>, plot each quantile line (<code>tau</code>) in a
+<p>if <code>TRUE</code>, plot each quantile line (<code>tau</code>) in a
 different style (using <code>trellis.par.get("superpose.line")</code>).
+</p>
 </td></tr>
 <tr valign="top"><td><code>subscripts, group.number, group.value,
 type, col.line, col.symbol, fill,
 pch, cex, font, fontface, fontfamily</code></td>
 <td>
 
-ignored.
+<p>ignored.
+</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-It is recommended to look at <code>vignette("rq",package="quantreg")</code>.
+<p>It is recommended to look at <code>vignette("rq",package="quantreg")</code>.
 </p>
 
 
 <h3>Author(s)</h3>
 
-<p>
-Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
+<p>Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
 </p>
-<p>
-Based on <code><a href="../../ggplot2/html/stat_quantile.html">stat_quantile</a></code> by Hadley Wickham.
+<p>Based on <code><a href="../../ggplot2/html/stat_quantile.html">stat_quantile</a></code> by Hadley Wickham.
 </p>
 
 
 <h3>See Also</h3>
 
-<p>
-<code><a href="../../quantreg/html/rq.html">rq</a></code>,
+<p><code><a href="../../quantreg/html/rq.html">rq</a></code>,
 <code><a href="#panel.smoother">panel.smoother</a></code>,
 <code><a href="../../ggplot2/html/stat_quantile.html">stat_quantile</a></code>
 </p>
@@ -156,5 +160,5 @@ update(trellis.last.object(),
 #  layer(panel.quantile(y ~ qss(x, lambda=1), method = "rqss"))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

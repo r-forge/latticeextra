@@ -108,8 +108,7 @@ pageTracker._trackPageview();
 <a class="navitem" href="#panel.2dsmoother" title="Plot a smooth approximation of z over x and y." id="nav_panel.2dsmoother">panel.2dsmoother</a>
 </li>
 <li>
-<a class="navitem" href="#panel.ellipse" title="Lattice panel function to fit and draw a confidence ellipsoid from
-  bivariate data." id="nav_panel.ellipse">panel.ellipse</a>
+<a class="navitem" href="#panel.ellipse" title="Lattice panel function to fit and draw a confidence ellipsoid from bivariate data." id="nav_panel.ellipse">panel.ellipse</a>
 </li>
 <li>
 <a class="navitem" href="#dendrogramGrob" title="Create a Grob Representing a Dendrogram" id="nav_dendrogramGrob">dendrogramGrob</a>
@@ -266,8 +265,7 @@ pageTracker._trackPageview();
 <tr><td><a href="#panel.2dsmoother">panel.2dsmoother</a></td><td>Plot a smooth approximation of z over x and y.</td></tr>
 <tr><td><a href="#panel.3dmisc">panel.3dmisc</a></td><td>Miscellanous panel utilities for three dimensional Trellis Displays</td></tr>
 <tr><td><a href="#panel.ablineq">panel.ablineq</a></td><td>Draw a line with a label, by default its equation</td></tr>
-<tr><td><a href="#panel.ellipse">panel.ellipse</a></td><td>Lattice panel function to fit and draw a confidence ellipsoid from
-  bivariate data.</td></tr>
+<tr><td><a href="#panel.ellipse">panel.ellipse</a></td><td>Lattice panel function to fit and draw a confidence ellipsoid from bivariate data.</td></tr>
 <tr><td><a href="#panel.key">panel.key</a></td><td>Draw a simple key inside a panel of a lattice plot.</td></tr>
 <tr><td><a href="#panel.levelplot.points">panel.levelplot.points</a></td><td>Panel functions for level-coded irregular points</td></tr>
 <tr><td><a href="#panel.quantile">panel.quantile</a></td><td>Plot a quantile regression line with standard error bounds.</td></tr>
@@ -309,7 +307,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/rootogram.png" alt="rootogram" width="500" height="350"/>
+<img src="plots/default/rootogram.png" alt="rootogram" width="500" height="350"/>
 <pre class="itemcode">
 rootogram(~x, dfun = function(x) dpois(x, lambda = 50))
 </pre>
@@ -330,7 +328,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/segplot.png" alt="segplot" width="400" height="500"/>
+<img src="plots/default/segplot.png" alt="segplot" width="400" height="500"/>
 <pre class="itemcode">
 segplot(reorder(factor(county), rate.male) ~ LCL95.male + 
     UCL95.male, data = subset(USCancerRates, state == 
@@ -353,7 +351,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/ecdfplot.png" alt="ecdfplot" width="500" height="350"/>
+<img src="plots/default/ecdfplot.png" alt="ecdfplot" width="500" height="350"/>
 <pre class="itemcode">
 ecdfplot(~height | voice.part, data = singer)
 </pre>
@@ -374,7 +372,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/marginal.plot.png" alt="marginal.plot" width="500" height="350"/>
+<img src="plots/default/marginal.plot.png" alt="marginal.plot" width="500" height="350"/>
 <pre class="itemcode">
 marginal.plot(enviro[, 1:5], data = enviro, groups = is.windy, 
     auto.key = list(lines = TRUE))
@@ -401,7 +399,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/xyplot.stl.png" alt="xyplot.stl" width="500" height="500"/>
+<img src="plots/default/xyplot.stl.png" alt="xyplot.stl" width="500" height="500"/>
 <pre class="itemcode">
 xyplot(stl(log(co2), s.window = 21), main = "STL decomposition of CO2 data")
 </pre>
@@ -422,7 +420,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.smoother.png" alt="panel.smoother" width="500" height="350"/>
+<img src="plots/default/panel.smoother.png" alt="panel.smoother" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(y + y2 ~ x, xy) + glayer(panel.smoother(...))
 </pre>
@@ -443,7 +441,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.quantile.png" alt="panel.quantile" width="500" height="350"/>
+<img src="plots/default/panel.quantile.png" alt="panel.quantile" width="500" height="350"/>
 <pre class="itemcode">
 update(xyplot(y ~ x, xy) + layer(panel.quantile(x, 
     y, tau = c(0.5, 0.9, 0.1), superpose = TRUE)), 
@@ -467,7 +465,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.xblocks.png" alt="panel.xblocks" width="600" height="200"/>
+<img src="plots/default/panel.xblocks.png" alt="panel.xblocks" width="600" height="200"/>
 <pre class="itemcode">
 xyplot(flow ~ flowdates, type = "l") + layer_(panel.xblocks(x, 
     months, col = c("lightgray", "#e6e6e6"), border = "darkgray"))
@@ -489,7 +487,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.xyarea.png" alt="panel.xyarea" width="500" height="350"/>
+<img src="plots/default/panel.xyarea.png" alt="panel.xyarea" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(ts.union(data = sunspot.year, lag10 = lag(sunspot.year, 
     10)), aspect = "xy", cut = list(n = 3, overlap = 0), 
@@ -514,7 +512,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.tskernel.png" alt="panel.tskernel" width="500" height="350"/>
+<img src="plots/default/panel.tskernel.png" alt="panel.tskernel" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(sunspot.year) + layer(panel.tskernel(x, y, 
     width = 20, c = 3, col = 1, lwd = 2))
@@ -536,7 +534,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/horizonplot.png" alt="horizonplot" width="500" height="550"/>
+<img src="plots/default/horizonplot.png" alt="horizonplot" width="500" height="550"/>
 <pre class="itemcode">
 horizonplot(dat, horizonscale = 10, colorkey = TRUE, 
     layout = c(1, 12), strip.left = FALSE, ylab = list(rev(colnames(dat)), 
@@ -565,7 +563,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/mapplot.png" alt="mapplot" width="600" height="350"/>
+<img src="plots/default/mapplot.png" alt="mapplot" width="600" height="350"/>
 <pre class="itemcode">
 mapplot(county ~ log10(population), ancestry, map = county.map, 
     colramp = NULL)
@@ -587,7 +585,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/tileplot.png" alt="tileplot" width="500" height="350"/>
+<img src="plots/default/tileplot.png" alt="tileplot" width="500" height="350"/>
 <pre class="itemcode">
 tileplot(z ~ x * y, xyz, border = "black", col.regions = grey.colors(100), 
     pch = ifelse(is.na(xyz$z), 4, 21), panel = function(...) {
@@ -612,7 +610,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.levelplot.points.png" alt="panel.levelplot.points" width="600" height="350"/>
+<img src="plots/default/panel.levelplot.points.png" alt="panel.levelplot.points" width="600" height="350"/>
 <pre class="itemcode">
 levelplot(depth ~ long + lat | Magnitude, data = quakes.ordered, 
     panel = panel.levelplot.points, type = c("p", 
@@ -635,7 +633,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.2dsmoother.png" alt="panel.2dsmoother" width="500" height="350"/>
+<img src="plots/default/panel.2dsmoother.png" alt="panel.2dsmoother" width="500" height="350"/>
 <pre class="itemcode">
 levelplot(z ~ x * y, xyz, panel = panel.levelplot.points, 
     cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
@@ -649,8 +647,7 @@ levelplot(z ~ x * y, xyz, panel = panel.levelplot.points,
 panel.ellipse
   </h2>
   <div class="itemdesc">
-Lattice panel function to fit and draw a confidence ellipsoid from
-  bivariate data.
+Lattice panel function to fit and draw a confidence ellipsoid from bivariate data.
   </div>
   <p>
   <a href="man/panel.ellipse.html" class="helplink">
@@ -658,7 +655,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.ellipse.png" alt="panel.ellipse" width="500" height="350"/>
+<img src="plots/default/panel.ellipse.png" alt="panel.ellipse" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(Sepal.Length ~ Petal.Length, groups = Species, 
     data = iris, scales = "free", par.settings = list(superpose.symbol = list(pch = c(15:17)), 
@@ -683,7 +680,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/dendrogramGrob.png" alt="dendrogramGrob" width="500" height="550"/>
+<img src="plots/default/dendrogramGrob.png" alt="dendrogramGrob" width="500" height="550"/>
 <pre class="itemcode">
 levelplot(x[row.ord, col.ord], aspect = "fill", scales = list(x = list(rot = 90)), 
     colorkey = list(space = "left"), legend = list(right = list(fun = dendrogramGrob, 
@@ -712,7 +709,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/useOuterStrips.png" alt="useOuterStrips" width="500" height="350"/>
+<img src="plots/default/useOuterStrips.png" alt="useOuterStrips" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(mpg ~ disp | HP + factor(cyl), mtcars, layout = dimx, 
     par.strip.text = list(lines = 0.5), strip = new.strip, 
@@ -735,7 +732,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/resizePanels.png" alt="resizePanels" width="400" height="550"/>
+<img src="plots/default/resizePanels.png" alt="resizePanels" width="400" height="550"/>
 <pre class="itemcode">
 dotplot(state.name ~ Frost | reorder(state.region, 
     Frost), data = state, layout = c(1, 4), scales = list(y = list(relation = "free")), 
@@ -759,7 +756,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/combineLimits.png" alt="combineLimits" width="500" height="500"/>
+<img src="plots/default/combineLimits.png" alt="combineLimits" width="500" height="500"/>
 <pre class="itemcode">
 xyplot(Price ~ EngineSize | reorder(AirBags, Price) + 
     Cylinders, data = Cars93, subset = Cylinders != 
@@ -784,7 +781,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/scale.components.png" alt="scale.components" width="500" height="350"/>
+<img src="plots/default/scale.components.png" alt="scale.components" width="500" height="350"/>
 <pre class="itemcode">
 xyplot((1:200)/20 ~ (1:200)/20, type = c("p", "g"), 
     scales = list(x = list(log = 2), y = list(log = 10)), 
@@ -808,7 +805,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.ablineq.png" alt="panel.ablineq" width="500" height="350"/>
+<img src="plots/default/panel.ablineq.png" alt="panel.ablineq" width="500" height="350"/>
 <pre class="itemcode">
 update(xyplot(ysim ~ xsim) + layer(panel.ablineq(lm(y ~ 
     x), r.sq = TRUE, rot = TRUE, at = 0.8, pos = 3), 
@@ -833,7 +830,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.scaleArrow.png" alt="panel.scaleArrow" width="500" height="400"/>
+<img src="plots/default/panel.scaleArrow.png" alt="panel.scaleArrow" width="500" height="400"/>
 <pre class="itemcode">
 xyplot(EuStockMarkets) + layer(panel.scaleArrow(x = 0.99, 
     append = " units", col = "grey", srt = 90, cex = 0.8))
@@ -855,7 +852,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.3dmisc.png" alt="panel.3dmisc" width="500" height="400"/>
+<img src="plots/default/panel.3dmisc.png" alt="panel.3dmisc" width="500" height="400"/>
 <pre class="itemcode">
 cloud(VADeaths, panel.3d.cloud = panel.3dbars, xbase = 0.4, 
     ybase = 0.4, zlim = c(0, max(VADeaths)), scales = list(arrows = FALSE, 
@@ -879,7 +876,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/panel.key.png" alt="panel.key" width="500" height="350"/>
+<img src="plots/default/panel.key.png" alt="panel.key" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(ozone ~ wind | equal.count(temperature, 2), 
     data = environmental) + layer(panel.loess(x, 
@@ -909,7 +906,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/layer.png" alt="layer" width="500" height="350"/>
+<img src="plots/default/layer.png" alt="layer" width="500" height="350"/>
 <pre class="itemcode">
 qua + layer_(panel.contourplot(x = gridlon, y = gridlat, 
     z = dist, contour = TRUE, subscripts = TRUE), 
@@ -932,7 +929,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/as.layer.png" alt="as.layer" width="500" height="350"/>
+<img src="plots/default/as.layer.png" alt="as.layer" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(fdeaths ~ mdeaths) + as.layer(bwplot(~mdeaths, 
     box.ratio = 0.2), y.same = FALSE)
@@ -954,7 +951,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/doubleYScale.png" alt="doubleYScale" width="500" height="350"/>
+<img src="plots/default/doubleYScale.png" alt="doubleYScale" width="500" height="350"/>
 <pre class="itemcode">
 doubleYScale(obj1 = obj1, obj2 = obj2, add.ylab2 = TRUE)
 </pre>
@@ -975,7 +972,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/c.trellis.png" alt="c.trellis" width="600" height="350"/>
+<img src="plots/default/c.trellis.png" alt="c.trellis" width="600" height="350"/>
 <pre class="itemcode">
 update(c(xyplot(lat ~ long | equal.count(depth, 3), 
     quakes, aspect = "iso", pch = ".", cex = 2, xlab = NULL, 
@@ -1000,7 +997,7 @@ style example
 This is a sample plot to demonstrate different graphical settings (themes).
   </div>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/style_example.png" alt="style example" width="500" height="350"/>
+<img src="plots/default/style_example.png" alt="style example" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + 
     Petal.Width, iris, type = c("p", "r"), jitter.x = TRUE, 
@@ -1024,7 +1021,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/custom.theme.png" alt="custom.theme" width="500" height="350"/>
+<img src="plots/default/custom.theme.png" alt="custom.theme" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + 
     Petal.Width, iris, type = c("p", "r"), jitter.x = TRUE, 
@@ -1048,7 +1045,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/ggplot2like.png" alt="ggplot2like" width="500" height="350"/>
+<img src="plots/default/ggplot2like.png" alt="ggplot2like" width="500" height="350"/>
 <pre class="itemcode">
 bwplot(voice.part ~ height, data = singer)
 </pre>
@@ -1069,7 +1066,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/theEconomist.theme.png" alt="theEconomist.theme" width="500" height="350"/>
+<img src="plots/default/theEconomist.theme.png" alt="theEconomist.theme" width="500" height="350"/>
 <pre class="itemcode">
 trellis.last.object() + layer_(panel.xblocks(x, x >= 
     1980, col = "#6CCFF6", alpha = 0.5)) + layer(panel.text(1988, 
@@ -1097,7 +1094,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/USAge.png" alt="USAge" width="500" height="350"/>
+<img src="plots/default/USAge.png" alt="USAge" width="500" height="350"/>
 <pre class="itemcode">
 xyplot(Population ~ Age | factor(Year), USAge.df, 
     groups = Sex, type = c("l", "g"), auto.key = list(points = FALSE, 
@@ -1122,7 +1119,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/USCancerRates.png" alt="USCancerRates" width="600" height="350"/>
+<img src="plots/default/USCancerRates.png" alt="USCancerRates" width="600" height="350"/>
 <pre class="itemcode">
 mapplot(rownames(USCancerRates) ~ log(rate.male) + 
     log(rate.female), data = USCancerRates, map = map("county", 
@@ -1161,7 +1158,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/postdoc.png" alt="postdoc" width="500" height="350"/>
+<img src="plots/default/postdoc.png" alt="postdoc" width="500" height="350"/>
 <pre class="itemcode">
 barchart(prop.table(postdoc, margin = 1), auto.key = TRUE, 
     xlab = "Proportion")
@@ -1183,7 +1180,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/biocAccess.png" alt="biocAccess" width="500" height="550"/>
+<img src="plots/default/biocAccess.png" alt="biocAccess" width="500" height="550"/>
 <pre class="itemcode">
 xyplot(stl(ts(biocAccess$counts[1:(24 * 30)], frequency = 24), 
     "periodic"))
@@ -1205,7 +1202,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/gvhd10.png" alt="gvhd10" width="500" height="500"/>
+<img src="plots/default/gvhd10.png" alt="gvhd10" width="500" height="500"/>
 <pre class="itemcode">
 histogram(~log2(FSC.H) | Days, gvhd10, xlab = "log Forward Scatter", 
     type = "density", nint = 50, layout = c(2, 4))
@@ -1227,7 +1224,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/SeatacWeather.png" alt="SeatacWeather" width="500" height="350"/>
+<img src="plots/default/SeatacWeather.png" alt="SeatacWeather" width="500" height="350"/>
 <pre class="itemcode">
 doubleYScale(obj1 = temp, obj2 = rain, style1 = 0, 
     style2 = 3, add.ylab2 = TRUE, text = c("min. T", 
@@ -1250,7 +1247,7 @@ Usage, Details, Examples
 </a>
   </p>
 <p>One example:</p>
-<img src="http://150.203.60.53/latticeExtra/plots/default/EastAuClimate.png" alt="EastAuClimate" width="500" height="350"/>
+<img src="plots/default/EastAuClimate.png" alt="EastAuClimate" width="500" height="350"/>
 <pre class="itemcode">
 segplot(Latitude ~ WinterMinTemp + SummerMaxTemp, 
     EastAuClimate, main = "Average daily temperature ranges n of coastal Australian sites", 
@@ -1263,13 +1260,13 @@ segplot(Latitude ~ WinterMinTemp + SummerMaxTemp,
 
 
 <script type="text/javascript">
-var imageSrcBase = "http://150.203.60.53/latticeExtra/";
+var imageSrcBase = "";
 </script>
 
 </div>
 
 <div id="versiontag">
-latticeExtra version 0.6-15 on R version 2.11.1 (at 2011-03-17)
+latticeExtra version 0.6-25 on R version 3.0.1 (at 2013-09-25)
 </div>
 
 </div>

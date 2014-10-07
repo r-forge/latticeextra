@@ -1,9 +1,6 @@
-## generate the web site
+#!/usr/bin/Rscript
 
-## setwd("X:/Packages/latticeextra/www")
-## Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs8.63/bin/gswin32c.exe")
-## Sys.setenv(R_GSCMD = "D:/Program Files/GPLGS/gswin32c.exe")
-## source("genLatticeExtra.R", echo = TRUE)
+## generate the web site
 
 library(latticeExtra)
 
@@ -99,7 +96,7 @@ themes <-
 
 themes$theEconomist$panel.background$col <- "transparent"
 
-imageSrcBase <- "http://150.203.60.53/latticeExtra/"
+imageSrcBase <- ""
 
 generateWebsite("latticeExtra", spec = spec,
                 man.src.dir = "../pkg/man/",

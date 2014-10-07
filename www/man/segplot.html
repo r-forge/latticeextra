@@ -6,8 +6,7 @@
 
 <table width="100%" summary="page for segplot {latticeExtra}"><tr><td>segplot {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Plot segments using the Trellis framework</h2>
-
+<h2> Plot segments using the Trellis framework </h2>
 
 <h3>Description</h3>
 
@@ -23,7 +22,7 @@ legend.</p>
 <pre>
 segplot(x, data, ...)
 
-## S3 method for class 'formula':
+## S3 method for class 'formula'
 segplot(x, data,
         level = NULL, centers = NULL,
         prepanel = prepanel.segplot,
@@ -41,68 +40,78 @@ segplot(x, data,
 <table summary="R argblock">
 <tr valign="top"><td><code>x</code></td>
 <td>
- Argument on which argument dispatch is carried out.  For the
+<p> Argument on which argument dispatch is carried out.  For the
 <code>"formula"</code> method, a formula of the form <code>y ~ x1 + x2</code>
 (with further conditioning variables appended if necessary).  The
 terms in the formula must all be vectors of the same length.  Each
 element causes a line segment or rectangle to be drawn, with the
 vertical location determined by <code>y</code> and horizontal endpoints
-determined by <code>x1</code> and <code>x2</code>.  </td></tr>
+determined by <code>x1</code> and <code>x2</code>.  </p>
+</td></tr>
 <tr valign="top"><td><code>data</code></td>
 <td>
- An optional data frame, list or environment where
+<p> An optional data frame, list or environment where
 variables in the formula, as well as <code>level</code>, will be
 evaluated.
+</p>
 </td></tr>
 <tr valign="top"><td><code>level</code></td>
 <td>
- An optional covariate that determines color coding of
-the segments</td></tr>
+<p> An optional covariate that determines color coding of
+the segments</p>
+</td></tr>
 <tr valign="top"><td><code>centers</code></td>
 <td>
- optional vector of &lsquo;centers&rsquo; of the segments.
-If specified, points will be plotted at these <code>y</code>-locations.  </td></tr>
+<p> optional vector of &lsquo;centers&rsquo; of the segments.
+If specified, points will be plotted at these <code>y</code>-locations.  </p>
+</td></tr>
 <tr valign="top"><td><code>prepanel</code></td>
 <td>
- function determining range of the data rectangle from
-data to be used in a panel. </td></tr>
+<p> function determining range of the data rectangle from
+data to be used in a panel. </p>
+</td></tr>
 <tr valign="top"><td><code>panel</code></td>
 <td>
- function to render the graphic given the data.  This is
-the function that actually implements the display.  </td></tr>
+<p> function to render the graphic given the data.  This is
+the function that actually implements the display.  </p>
+</td></tr>
 <tr valign="top"><td><code>xlab, ylab</code></td>
 <td>
- Labels for the axes.  By default both are
-missing. </td></tr>
+<p> Labels for the axes.  By default both are
+missing. </p>
+</td></tr>
 <tr valign="top"><td><code>horizontal</code></td>
 <td>
- logical, whether the segments are to be drawn
+<p> logical, whether the segments are to be drawn
 horizontally (the default) or vertically.  This essentially swaps
-the role of the x- and y-axes in each panel. </td></tr>
+the role of the x- and y-axes in each panel. </p>
+</td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
- further arguments.  Arguments to <code>levelplot</code> as
+<p> further arguments.  Arguments to <code>levelplot</code> as
 well as to the default panel function <code>panel.segplot</code>
-can be supplied directly to <code>segplot</code>. </td></tr>
+can be supplied directly to <code>segplot</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>colorkey</code></td>
 <td>
- logical indicating whether a legend showing
+<p> logical indicating whether a legend showing
 association of segment colors to values of <code>level</code> should be
 shown, or a list to control details of such a color key.  See
-details below. </td></tr>
+details below. </p>
+</td></tr>
 <tr valign="top"><td><code>at, cuts</code></td>
 <td>
- <code>at</code> specifies the values of <code>level</code> where
+ <p><code>at</code> specifies the values of <code>level</code> where
 the color code changes.  If <code>at</code> is missing, it defaults to
 <code>cuts</code> equispaced locations spanning the range of <code>levels</code>
+</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-The <code>levelplot</code> function from the lattice package is used to
+<p>The <code>levelplot</code> function from the lattice package is used to
 internally to implement this function.  In particular, the colorkey
 mechanism is used as it is, and documentation for
 <code>levelplot</code> should be consulted to learn how to
@@ -112,8 +121,7 @@ fine tune it.
 
 <h3>Value</h3>
 
-<p>
-An object of class <code>"trellis"</code>. The
+<p>An object of class <code>"trellis"</code>. The
 <code>update</code> method can be used to
 update components of the object and the
 <code>print</code> method (usually called by
@@ -135,8 +143,8 @@ suitably. </p>
 
 <h3>See Also</h3>
 
-<p>
-<code>Lattice</code>,
+<p><code>Lattice</code>,
+<code>panel.segplot</code>,
 <code>levelplot</code>,
 <code>xyplot</code>
 </p>
@@ -169,5 +177,5 @@ segplot(reorder(factor(county), rate.male) ~ LCL95.male + UCL95.male,
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

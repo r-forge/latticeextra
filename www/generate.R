@@ -184,7 +184,7 @@ generateWebsite <-
              topleveljs = NULL)
 {
     ## get names, aliases and descriptions from help pages
-    info <- .readRDS(system.file("Meta", "Rd.rds", package = package))
+    info <- readRDS(system.file("Meta", "Rd.rds", package = package))
 
     ## work out which help page (which element of 'info') each item belongs to
     spec <- lapply(spec, lapply, function(x) {

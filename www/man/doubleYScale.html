@@ -6,18 +6,15 @@
 
 <table width="100%" summary="page for doubleYScale {latticeExtra}"><tr><td>doubleYScale {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Draw two plot series with different y scales</h2>
-
+<h2> Draw two plot series with different y scales </h2>
 
 <h3>Description</h3>
 
-<p>
-Overplot two trellis objects with different y scales,
+<p>Overplot two trellis objects with different y scales,
 optionally in different styles, adding a second y axis, and/or a
 second y axis label.
 </p>
-<p>
-<EM>Note:</EM> drawing plots with multiple scales is often a bad idea
+<p><EM>Note:</EM> drawing plots with multiple scales is often a bad idea
 as it can be misleading.
 </p>
 
@@ -40,57 +37,61 @@ doubleYScale(obj1, obj2, use.style = TRUE,
 <tr valign="top"><td><code>obj1, obj2</code></td>
 <td>
 
-trellis objects. Note that most settings, like main/sub/legend/etc
+<p>trellis objects. Note that most settings, like main/sub/legend/etc
 are taken only from <code>obj1</code>; only the panel, axis and ylab are
 taken from obj2.
+</p>
 </td></tr>
 <tr valign="top"><td><code>use.style, style1, style2</code></td>
 <td>
 
-<code>style1</code> and <code>style2</code> give the &lsquo;group number&rsquo; for obj1
+<p><code>style1</code> and <code>style2</code> give the &lsquo;group number&rsquo; for obj1
 and obj2 respectively. The style is taken from these indices into
 the values of <code>trellis.par.get("superpose.line")</code>.
 Therefore these should be integers between 1 and 6;
 a value of 0 or NULL can be given to leave the default settings.
 These will also be applied to the y-axes and ylab, if relevant.
 <code>use.style</code> simply changes the defaults of the style arguments.
+</p>
 </td></tr>
 <tr valign="top"><td><code>add.axis</code></td>
 <td>
 
-if TRUE, draw a second y axis (for the <code>obj2</code> series) on the
+<p>if TRUE, draw a second y axis (for the <code>obj2</code> series) on the
 right side of the plot.
+</p>
 </td></tr>
 <tr valign="top"><td><code>add.ylab2</code></td>
 <td>
 
-if TRUE, draw a second y axis label (from <code>obj2$ylab</code>) on the
+<p>if TRUE, draw a second y axis label (from <code>obj2$ylab</code>) on the
 right side of the plot. Note, this will replace any existing key or
 legend on the right side, i.e. with <code>space = "right"</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>text, auto.key, points, lines, ...</code></td>
 <td>
 
-if non-NULL, add a <code>key</code> to the display, using entries named by
+<p>if non-NULL, add a <code>key</code> to the display, using entries named by
 <code>text</code>. Further arguments are passed on to
 <code>simpleKey</code> at plot time.
+</p>
 </td></tr>
 <tr valign="top"><td><code>under</code></td>
 <td>
 
-if TRUE, draw <code>obj2</code> under <code>obj1</code>.
+<p>if TRUE, draw <code>obj2</code> under <code>obj1</code>.
+</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-Panels from the trellis object <code>obj2</code> will be drawn in the
+<p>Panels from the trellis object <code>obj2</code> will be drawn in the
 corresponding panel of <code>obj1</code>.
 </p>
-<p>
-Axis settings are taken from the trellis objects, so most
+<p>Axis settings are taken from the trellis objects, so most
 <code>scales</code> arguments such as <code>draw</code>, <code>at</code>, <code>labels</code>
 etc from <code>obj2</code> will carry over to the second y axis.
 </p>
@@ -98,8 +99,7 @@ etc from <code>obj2</code> will carry over to the second y axis.
 
 <h3>Value</h3>
 
-<p>
-a merged trellis object.
+<p>a merged trellis object.
 </p>
 
 
@@ -110,8 +110,7 @@ a merged trellis object.
 
 <h3>See Also</h3>
 
-<p>
-<code><a href="#as.layer">as.layer</a></code>
+<p><code><a href="#as.layer">as.layer</a></code>
 </p>
 
 
@@ -158,5 +157,5 @@ update(trellis.last.object(),
    par.settings = simpleTheme(col = c("black", "red", "blue")))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

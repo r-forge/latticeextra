@@ -1,18 +1,19 @@
 
-<html><head><title>R: Lattice panel function to fit and draw a confidence ellipsoid from bivariate data.</title>
+<html><head><title>R: Lattice panel function to fit and draw a confidence ellipsoid...</title>
 
 
 </head><body>
 
 <table width="100%" summary="page for panel.ellipse {latticeExtra}"><tr><td>panel.ellipse {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Lattice panel function to fit and draw a confidence ellipsoid from bivariate data.</h2>
-
+<h2>
+Lattice panel function to fit and draw a confidence ellipsoid from
+bivariate data.  
+</h2>
 
 <h3>Description</h3>
 
-<p>
-A lattice panel function that computes and draws a confidence
+<p>A lattice panel function that computes and draws a confidence
 ellipsoid from bivariate data, possibly grouped by a third variable.
 </p>
 
@@ -33,63 +34,71 @@ panel.ellipse(x, y, groups = NULL,
 <tr valign="top"><td><code>x, y</code></td>
 <td>
 
-Numeric vectors of same length giving the bivariate data.
+<p>Numeric vectors of same length giving the bivariate data.
 Non-numeric variables will be coerced to be numeric.
+</p>
 </td></tr>
 <tr valign="top"><td><code>groups</code></td>
 <td>
 
-Optional grouping variable.
+<p>Optional grouping variable.
+</p>
 </td></tr>
 <tr valign="top"><td><code>level</code></td>
 <td>
 
-Confidence level for the ellipse.
+<p>Confidence level for the ellipse.
+</p>
 </td></tr>
 <tr valign="top"><td><code>segments</code></td>
 <td>
 
-Number of segments used to approximate the ellipse. 
+<p>Number of segments used to approximate the ellipse. 
+</p>
 </td></tr>
 <tr valign="top"><td><code>robust</code></td>
 <td>
 
-Logical indicating whether a robust method should be used.  If
+<p>Logical indicating whether a robust method should be used.  If
 <code>TRUE</code>, the confidence ellipse is based on a bivariate
 t-distribution using the <code><a href="../../MASS/html/cov.trob.html">cov.trob</a></code> function in
 the <span class="pkg">MASS</span> package.
+</p>
 </td></tr>
 <tr valign="top"><td><code>center.pch</code></td>
 <td>
 
-Plotting character for the center (fitted mean).  If <code>NULL</code>,
+<p>Plotting character for the center (fitted mean).  If <code>NULL</code>,
 the center will not be shown on the plot.
+</p>
 </td></tr>
 <tr valign="top"><td><code>center.cex</code></td>
 <td>
 
-Character expansion (size) multipler for the symbol indicating the
+<p>Character expansion (size) multipler for the symbol indicating the
 center.
+</p>
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
 
-Further arguments, typically graphical parameters.  Passed on to
+<p>Further arguments, typically graphical parameters.  Passed on to
 <code>panel.xyplot</code>.  
+</p>
 </td></tr>
 <tr valign="top"><td><code>type, pch, cex</code></td>
 <td>
 
-Parameters that are ignored; these are present only to make sure
+<p>Parameters that are ignored; these are present only to make sure
 they are not inadvertently passed on to <code>panel.xyplot</code>.
+</p>
 </td></tr>
 </table>
 
 
 <h3>Author(s)</h3>
 
-<p>
-Deepayan Sarkar, extending code contributed by Michael Friendly.
+<p>Deepayan Sarkar, extending code contributed by Michael Friendly.
 </p>
 
 
@@ -143,5 +152,5 @@ xyplot(Sepal.Length ~ Petal.Length | Species,
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

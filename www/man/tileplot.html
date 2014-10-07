@@ -6,13 +6,11 @@
 
 <table width="100%" summary="page for tileplot {latticeExtra}"><tr><td>tileplot {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Plot a spatial mosaic from irregular 2D points</h2>
-
+<h2> Plot a spatial mosaic from irregular 2D points </h2>
 
 <h3>Description</h3>
 
-<p>
-Represents an irregular set of (x, y) points with a color covariate.
+<p>Represents an irregular set of (x, y) points with a color covariate.
 Polygons are drawn enclosing the area closest to each point.
 This is known variously as a Voronoi mosaic, a Dirichlet tesselation,
 or Thiessen polygons.
@@ -33,27 +31,30 @@ tileplot(x, data = NULL, aspect = "iso",
 <table summary="R argblock">
 <tr valign="top"><td><code>x, data</code></td>
 <td>
- formula and data as in
+<p> formula and data as in
 <code>levelplot</code>, except that it expects irregularly
-spaced points rather than a regular grid. </td></tr>
+spaced points rather than a regular grid. </p>
+</td></tr>
 <tr valign="top"><td><code>aspect</code></td>
 <td>
- aspect ratio: "iso" is recommended as it reproduces the
-distances used in the triangulation calculations. </td></tr>
+<p> aspect ratio: &quot;iso&quot; is recommended as it reproduces the
+distances used in the triangulation calculations. </p>
+</td></tr>
 <tr valign="top"><td><code>panel, prepanel</code></td>
 <td>
- see <code>xyplot</code>. </td></tr>
+<p> see <code>xyplot</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
- further arguments to the panel function, which defaults to
-<code><a href="#panel.levelplot.points">panel.voronoi</a></code>. </td></tr>
+<p> further arguments to the panel function, which defaults to
+<code><a href="#panel.levelplot.points">panel.voronoi</a></code>. </p>
+</td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-See <code><a href="#panel.levelplot.points">panel.voronoi</a></code> for further options and details.
+<p>See <code><a href="#panel.levelplot.points">panel.voronoi</a></code> for further options and details.
 </p>
 
 
@@ -64,7 +65,7 @@ See <code><a href="#panel.levelplot.points">panel.voronoi</a></code> for further
 
 <h3>See Also</h3>
 
-<p> <code><a href="#panel.levelplot.points">panel.voronoi</a></code>, <code>levelplot</code> </p>
+ <p><code><a href="#panel.levelplot.points">panel.voronoi</a></code>, <code>levelplot</code> </p>
 
 
 <h3>Examples</h3>
@@ -105,5 +106,5 @@ tileplot(Income ~ x * y, tmp, border = "black",
   })
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

@@ -1,18 +1,16 @@
 
-<html><head><title>R: Add layers to a lattice plot, optionally using a new data source</title>
+<html><head><title>R: Add layers to a lattice plot, optionally using a new data...</title>
 
 
 </head><body>
 
 <table width="100%" summary="page for layer {latticeExtra}"><tr><td>layer {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Add layers to a lattice plot, optionally using a new data source</h2>
-
+<h2> Add layers to a lattice plot, optionally using a new data source </h2>
 
 <h3>Description</h3>
 
-<p>
-A mechanism to add new layers to a trellis object, optionally using a
+<p>A mechanism to add new layers to a trellis object, optionally using a
 new data source. This is an alternative to modifying the
 panel function. Note the non-standard evaluation in <code>layer()</code>.
 </p>
@@ -29,8 +27,8 @@ layer_(...)
 glayer(...)
 glayer_(...)
 
-## S3 method for class 'trellis':
-+(object, lay)
+## S3 method for class 'trellis'
+object + lay
 
 drawLayer(lay, panelArgs = trellis.panelArgs())
 
@@ -44,7 +42,7 @@ flattenPanel(object)
 <tr valign="top"><td><code>...</code></td>
 <td>
 
-expressions as they would appear in a panel function. These can
+<p>expressions as they would appear in a panel function. These can
 refer to the panel function arguments (such as <code>x</code>, <code>y</code>
 and <code>subscripts</code>), and also to any named objects passed in
 through the <code>data</code> argument. The calls can also include the
@@ -53,17 +51,19 @@ special argument &ldquo;<code>...</code>&rdquo;; in the default case of
 named in a call are passed on through &ldquo;<code>...</code>&rdquo;.
 Otherwise, &ldquo;<code>...</code>&rdquo; simply represents all panel
 function arguments. See Details, below.
+</p>
 </td></tr>
 <tr valign="top"><td><code>data</code></td>
 <td>
 
-optional. A named <code>list</code> containing objects needed when
+<p>optional. A named <code>list</code> containing objects needed when
 evaluating (drawing) the layer.
+</p>
 </td></tr>
 <tr valign="top"><td><code>magicdots, exclude</code></td>
 <td>
 
-if <code>magicdots = TRUE</code>, the default, any reference to
+<p>if <code>magicdots = TRUE</code>, the default, any reference to
 &ldquo;<code>...</code>&rdquo; 
 in the layer expressions will only pass on those arguments from the
 panel function which are not named in the call (thus avoiding 
@@ -72,84 +72,92 @@ named, it is assumed to be named <code>"x"</code>, and if the second
 argument is not named it is assumed to be named
 <code>"y"</code>. Furthermore, any argument names given in <code>exclude</code>
 will not be passed on through &ldquo;<code>...</code>&rdquo;.
+</p>
 </td></tr>
 <tr valign="top"><td><code>packets, rows, columns, groups</code></td>
 <td>
 
-restricts the layer to draw only in specified packets (which refer
+<p>restricts the layer to draw only in specified packets (which refer
 to individual panels, but are independent of their layout), or rows
 or columns of the trellis layout (<code>trellis.currentLayout</code>).
 For group layers (using <code>glayer</code> or <code>superpose = TRUE</code>),
 the groups can be restricted also, by specifying group numbers (or
 group values, as character strings). Negative values exclude the
 given items. 
+</p>
 </td></tr>
 <tr valign="top"><td><code>style</code></td>
 <td>
 
-style index of the layer, used only to set lattice graphical
+<p>style index of the layer, used only to set lattice graphical
 parameters (same effect as in grouped displays). Note that this will
 use the theme settings in effect in the existing plot, which may or
 may not be what is desired. It may be necessary to use <code>force =
       TRUE</code> to escape from the plot's settings and use the current
 theme. 
+</p>
 </td></tr>
 <tr valign="top"><td><code>force</code></td>
 <td>
 
-<code>force = TRUE</code> is just a shorthand for
+<p><code>force = TRUE</code> is just a shorthand for
 <code>theme = trellis.par.get()</code>, which is useful for over-riding
 the theme settings in effect in an existing plot. For instance, if
 the original plot specified <code>par.settings = simpleTheme(col =
       "red")</code> then the theme settings in effect will be entirely
 red. Use <code>force = TRUE</code> to reset the current theme for this
 layer, or use <code>theme</code> directly.
+</p>
 </td></tr>
 <tr valign="top"><td><code>theme</code></td>
 <td>
 
-a style specification to be passed to <code>trellis.par.set</code>
+<p>a style specification to be passed to <code>trellis.par.set</code>
 which has effect only while drawing the layer. One can pass a whole
 theme specification list, such as <code>theme = custom.theme()</code>, or
 a more specific list, such as <code>theme = simpleTheme(col = "red")</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>under</code></td>
 <td>
 
-whether the layer should be drawn before the existing panel
+<p>whether the layer should be drawn before the existing panel
 function. This defaults to <code>TRUE</code> in the convenience functions
 <code>layer_()</code> and <code>glayer_()</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>superpose</code></td>
 <td>
 
-if <code>TRUE</code>, the layer will be drawn once for
+<p>if <code>TRUE</code>, the layer will be drawn once for
 each level of any <code>groups</code> in the plot, using
 <code>panel.superpose</code>. This defaults to <code>TRUE</code> in the
 convenience functions <code>glayer()</code> and <code>glayer_()</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>object</code></td>
 <td>
- a trellis object. </td></tr>
+<p> a trellis object. </p>
+</td></tr>
 <tr valign="top"><td><code>lay</code></td>
 <td>
- a layer object. </td></tr>
+<p> a layer object. </p>
+</td></tr>
 <tr valign="top"><td><code>panelArgs</code></td>
 <td>
- list of arguments to the panel function. </td></tr>
+<p> list of arguments to the panel function. </p>
+</td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-The <code>layer</code> mechanism is a method for augmenting a panel
+<p>The <code>layer</code> mechanism is a method for augmenting a panel
 function. It allows expressions to be added to the panel function
 without knowing what the original panel function was. In this way it
 can be useful for convenient augmentation of trellis plots.
 </p>
-<p>
-Note that the evaluation used in <code>layer</code> is non-standard, and can
+<p>Note that the evaluation used in <code>layer</code> is non-standard, and can
 be confusing at first: you typically refer to variables as if inside
 the panel function (<code>x</code>, <code>y</code>, etc); you can usually refer to
 objects which exist in the global environment (workspace), but it is
@@ -157,44 +165,34 @@ safer to pass them in by name in the <code>data</code> argument to
 <code>layer</code>. (And this should not to be confused with the <code>data</code>
 argument to the original <code>xyplot</code>.)
 </p>
-<p>
-A simple example is adding a reference line to each panel:
+<p>A simple example is adding a reference line to each panel:
 <code>layer(panel.refline(h = 0))</code>. Note that the expressions are
 quoted, so if you have local variables they will need to be either
 accessible globally, or passed in via the <code>data</code> argument. For
 example:
 </p>
-<p>
-<code>layer(panel.refline(h = myVal)) ## if myVal is global</code>
+<p><code>layer(panel.refline(h = myVal)) ## if myVal is global</code>
 </p>
-<p>
-<code>layer(panel.refline(h = h), data = list(h = myVal))</code>
+<p><code>layer(panel.refline(h = h), data = list(h = myVal))</code>
 </p>
-<p>
-Another non-standard aspect is that the special argument
+<p>Another non-standard aspect is that the special argument
 &ldquo;<code>...</code>&rdquo; will, by default, only pass through those
 argument not already named. For example, this will over-ride the
 <code>x</code> argument and pass on the remaining arguments:
 </p>
-<p>
-<code>layer(panel.xyplot(x = jitter(x), ...))</code>
+<p><code>layer(panel.xyplot(x = jitter(x), ...))</code>
 </p>
-<p>
-The first un-named argument is assumed to be "x", so that is the same as
+<p>The first un-named argument is assumed to be &quot;x&quot;, so that is the same as
 </p>
-<p>
-<code>layer(panel.xyplot(jitter(x), ...))</code>
+<p><code>layer(panel.xyplot(jitter(x), ...))</code>
 </p>
-<p>
-The layer mechanism should probably still be considered experimental.
+<p>The layer mechanism should probably still be considered experimental.
 </p>
-<p>
-<code>drawLayer()</code> actually draws the given layer object, applying the
+<p><code>drawLayer()</code> actually draws the given layer object, applying the
 panel specification, style settings and so on. It should only be
 called while a panel is in focus.
 </p>
-<p>
-The <code>flattenPanel</code> function will construct a human-readable
+<p>The <code>flattenPanel</code> function will construct a human-readable
 function incorporating code from all layers (and the original panel
 function). Note that this does not return a usable function, as it
 lacks the correct argument list and ignores any extra data sources
@@ -204,9 +202,8 @@ that layers might use. It is intended be edited manually.
 
 <h3>Value</h3>
 
-<p>
-a <code>layer</code> object is defined as a list of expression objects,
-each of which may have a set of attributes. The result of "adding"
+<p>a <code>layer</code> object is defined as a list of expression objects,
+each of which may have a set of attributes. The result of &quot;adding&quot;
 a layer to a trellis object (<code>+.trellis</code>) is the updated trellis
 object.
 </p>
@@ -219,8 +216,7 @@ object.
 
 <h3>See Also</h3>
 
-<p>
-<code>update.trellis</code>,
+<p><code>update.trellis</code>,
 <code><a href="#as.layer">as.layer</a></code> for overlaying entire plots
 </p>
 
@@ -307,5 +303,5 @@ qua + layer_(panel.contourplot(x = gridlon, y = gridlat, z = dist,
    contour = TRUE, subscripts = TRUE), data = newdat)
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

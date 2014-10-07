@@ -6,13 +6,11 @@
 
 <table width="100%" summary="page for EastAuClimate {latticeExtra}"><tr><td>EastAuClimate {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Climate of the East Coast of Australia</h2>
-
+<h2> Climate of the East Coast of Australia </h2>
 
 <h3>Description</h3>
 
-<p>
-A set of climate statistics for 16 coastal locations along Eastern
+<p>A set of climate statistics for 16 coastal locations along Eastern
 Australia. These sites were chosen to be approximately equally
 spaced to cover the whole eastern coast of Australia.
 For each site, climate statistics were calculated for the standard
@@ -28,66 +26,76 @@ chosen.
 
 <h3>Format</h3>
 
-<p>
-A data frame with the following 10 variables and 5 items of metadata
+<p>A data frame with the following 10 variables and 5 items of metadata
 for each of 16 sites.
+</p>
 
 <dl>
-<dt><code>SummerMaxTemp</code></dt><dd> average daily maximum air
-temperature (degrees C) in February. </dd>
-<dt><code>SummerMinTemp</code></dt><dd> average daily minimum air
-temperature (degrees C) in February. </dd>
-<dt><code>WinterMaxTemp</code></dt><dd> average daily maximum air
-temperature (degrees C) in July. </dd>
-<dt><code>WinterMinTemp</code></dt><dd> average daily minimum air
-temperature (degrees C) in July. </dd>
-<dt><code>SummerRain</code></dt><dd> median total precipitation in February
-(mm/month). </dd>
-<dt><code>WinterRain</code></dt><dd> median total precipitation in July
-(mm/month). </dd>
-<dt><code>MeanAnnRain</code></dt><dd> average total amount of precipitation
-recorded in a year (mm/year). </dd>
-<dt><code>RainDays</code></dt><dd> average number of days in a year with at
-least 1 mm of precipitation. </dd>
-<dt><code>ClearDays</code></dt><dd> average number of clear days in a
+<dt><code>SummerMaxTemp</code></dt><dd><p> average daily maximum air
+temperature (degrees C) in February. </p>
+</dd>
+<dt><code>SummerMinTemp</code></dt><dd><p> average daily minimum air
+temperature (degrees C) in February. </p>
+</dd>
+<dt><code>WinterMaxTemp</code></dt><dd><p> average daily maximum air
+temperature (degrees C) in July. </p>
+</dd>
+<dt><code>WinterMinTemp</code></dt><dd><p> average daily minimum air
+temperature (degrees C) in July. </p>
+</dd>
+<dt><code>SummerRain</code></dt><dd><p> median total precipitation in February
+(mm/month). </p>
+</dd>
+<dt><code>WinterRain</code></dt><dd><p> median total precipitation in July
+(mm/month). </p>
+</dd>
+<dt><code>MeanAnnRain</code></dt><dd><p> average total amount of precipitation
+recorded in a year (mm/year). </p>
+</dd>
+<dt><code>RainDays</code></dt><dd><p> average number of days in a year with at
+least 1 mm of precipitation. </p>
+</dd>
+<dt><code>ClearDays</code></dt><dd><p> average number of clear days in a
 year. This statistic is derived from cloud cover observations,
 which are measured in oktas (eighths). A clear day is recorded
 when the mean of the 9 am and 3 pm cloud observations is less than
-or equal to 2 oktas. </dd>
-<dt><code>CloudyDays</code></dt><dd> average number of clear days in a
+or equal to 2 oktas. </p>
+</dd>
+<dt><code>CloudyDays</code></dt><dd><p> average number of clear days in a
 year. A cloudy day is recorded when the mean of the 9 am and 3 pm
-cloud observations is greater than or equal to 6 oktas. </dd>
-<dt><code>ID</code></dt><dd> BOM Site number. </dd>
-<dt><code>Latitude</code></dt><dd> Site latitude (degrees North). </dd>
-<dt><code>Longitude</code></dt><dd> Site longitude (degrees East). </dd>
-<dt><code>Elevation</code></dt><dd> Site elevation (m). </dd>
-<dt><code>State</code></dt><dd> Australian state:
+cloud observations is greater than or equal to 6 oktas. </p>
+</dd>
+<dt><code>ID</code></dt><dd><p> BOM Site number. </p>
+</dd>
+<dt><code>Latitude</code></dt><dd><p> Site latitude (degrees North). </p>
+</dd>
+<dt><code>Longitude</code></dt><dd><p> Site longitude (degrees East). </p>
+</dd>
+<dt><code>Elevation</code></dt><dd><p> Site elevation (m). </p>
+</dd>
+<dt><code>State</code></dt><dd><p> Australian state:
 TAS = Tasmania, VIC = Victoria, NSW = New
-South Wales, QLD = Queensland. </dd>
+South Wales, QLD = Queensland. </p>
+</dd>
 </dl>
 
-</p>
-<p>
-The row names of the data frame give the location names. Note: these
+<p>The row names of the data frame give the location names. Note: these
 are not the official names of the climate stations.
 </p>
 
 
 <h3>Source</h3>
 
-<p>
-Sites were chosen by hand from maps on the Bureau of Meteorology
+<p>Sites were chosen by hand from maps on the Bureau of Meteorology
 website. The data were extracted manually from web pages under
 <a href="http://www.bom.gov.au/climate/averages/">http://www.bom.gov.au/climate/averages/</a>
 and processed to extract a subset of statistics.
 - by Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
 </p>
-<p>
-Bureau of Meteorology, Commonwealth of Australia.
+<p>Bureau of Meteorology, Commonwealth of Australia.
 Product IDCJCM0026 Prepared at Wed 31 Dec 2008.
 </p>
-<p>
-Definitions of statistics adapted from
+<p>Definitions of statistics adapted from
 <a href="http://www.bom.gov.au/climate/cdo/about/about-stats.shtml">http://www.bom.gov.au/climate/cdo/about/about-stats.shtml</a>
 </p>
 
@@ -175,5 +183,5 @@ xyplot(RainDays + CloudyDays + ClearDays ~ Latitude, EastAuClimate,
        ylab = "Days per year")
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

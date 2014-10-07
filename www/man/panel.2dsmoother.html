@@ -6,17 +6,16 @@
 
 <table width="100%" summary="page for panel.2dsmoother {latticeExtra}"><tr><td>panel.2dsmoother {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Plot a smooth approximation of z over x and y.</h2>
-
+<h2>
+Plot a smooth approximation of z over x and y.
+</h2>
 
 <h3>Description</h3>
 
-<p>
-Plot a smooth approximation, using <code>loess</code> by default, of
+<p>Plot a smooth approximation, using <code>loess</code> by default, of
 one variable (<code>z</code>) against two others (<code>x</code> and <code>y</code>).
 </p>
-<p>
-This panel function should be used with a <code>levelplot</code>.
+<p>This panel function should be used with a <code>levelplot</code>.
 </p>
 
 
@@ -35,60 +34,63 @@ panel.2dsmoother(x, y, z, subscripts = TRUE,
 <tr valign="top"><td><code>x, y, z</code></td>
 <td>
 
-data points. If these are missing, they will be looked for in the
+<p>data points. If these are missing, they will be looked for in the
 environment of <code>form</code>. So in many cases you can skip these if
 passing <code>form</code>. In fact, for convenience, the formula
 can be passed as the first argument (i.e. <code>x</code>).
+</p>
 </td></tr>
 <tr valign="top"><td><code>form, method</code></td>
 <td>
 
-the smoothing model is constructed (approximately) as
+<p>the smoothing model is constructed (approximately) as
 <code>method(form, data = list(x=x, y=y, z=z), {args})</code>.
 See the Examples section for common choices.
+</p>
 </td></tr>
 <tr valign="top"><td><code>subscripts</code></td>
 <td>
 
-data indices for the current packet, as passed in by <code>levelplot</code>.
+<p>data indices for the current packet, as passed in by <code>levelplot</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>...</code></td>
 <td>
 
-further arguments passed on to <code>panel.levelplot</code>.
+<p>further arguments passed on to <code>panel.levelplot</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>args</code></td>
 <td>
 
-a list of further arguments to the model function (<code>method</code>).
+<p>a list of further arguments to the model function (<code>method</code>).
+</p>
 </td></tr>
 <tr valign="top"><td><code>n</code></td>
 <td>
 
-number of equi-spaced points along each of x and y on which to evaluate the smooth function.
+<p>number of equi-spaced points along each of x and y on which to evaluate the smooth function.
+</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>
-This should work with any model function that takes a formula
+<p>This should work with any model function that takes a formula
 argument, and has a <code>predict</code> method argument.
 </p>
 
 
 <h3>Author(s)</h3>
 
-<p>
-Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
+<p>Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>
 </p>
 
 
 <h3>See Also</h3>
 
-<p>
-<code>loess</code>,
+<p><code>loess</code>,
 <code><a href="#panel.smoother">panel.smoother</a></code>
 </p>
 
@@ -118,5 +120,5 @@ if (require("mgcv"))
             form = z ~ s(x, y), method = "gam")
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

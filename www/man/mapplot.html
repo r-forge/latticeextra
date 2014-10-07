@@ -6,13 +6,11 @@
 
 <table width="100%" summary="page for mapplot {latticeExtra}"><tr><td>mapplot {latticeExtra}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>Trellis displays on Maps a.k.a. Choropleth maps</h2>
-
+<h2> Trellis displays on Maps a.k.a. Choropleth maps </h2>
 
 <h3>Description</h3>
 
-<p>
-Produces Trellis displays of numeric (and eventually categorical) data
+<p>Produces Trellis displays of numeric (and eventually categorical) data
 on a map.  This is largely meant as a demonstration, and users looking
 for serious map drawing capabilities should look elsewhere (see below).
 </p>
@@ -24,7 +22,7 @@ for serious map drawing capabilities should look elsewhere (see below).
 
 mapplot(x, data, ...)
 
-## S3 method for class 'formula':
+## S3 method for class 'formula'
 mapplot(x, data, map, outer = TRUE,
         prepanel = prepanel.mapplot,
         panel = panel.mapplot,
@@ -48,7 +46,7 @@ panel.mapplot(x, y, map, breaks, colramp, exact = FALSE, lwd = 0.5, ...)
 <table summary="R argblock">
 <tr valign="top"><td><code>x, y</code></td>
 <td>
- For <code>mapplot</code>, an object on which method dispatch is
+<p> For <code>mapplot</code>, an object on which method dispatch is
 carried out.  For the formula method, a formula of the form <code>y
       ~ x</code>, with additional conditioning variables as desired.  The
 extended form of conditioning using <code>y ~ x1 + x2</code> etc. is also
@@ -56,82 +54,85 @@ allowed.  The formula might be interpreted as in a dot plot, except
 that <code>y</code> is taken to be the names of geographical units in
 <code>map</code>.
 </p>
-<p>
-Suitable subsets (packets) of <code>x</code> and <code>y</code> are passed to
+<p>Suitable subsets (packets) of <code>x</code> and <code>y</code> are passed to
 the prepanel and panel functions.
+</p>
 </td></tr>
 <tr valign="top"><td><code>data</code></td>
 <td>
- A data source where names in the formula are evaluated </td></tr>
+<p> A data source where names in the formula are evaluated </p>
+</td></tr>
 <tr valign="top"><td><code>map</code></td>
 <td>
- An object of class <code>"map"</code> (package <code>maps</code>),
+<p> An object of class <code>"map"</code> (package <code>maps</code>),
 containing boundary information.  The names of the geographical
-units must match the <code>y</code> variable in the formula.  </td></tr>
-</p>
-<p>
-The remaining arguments are standard lattice arguments, relvant here
+units must match the <code>y</code> variable in the formula.  </p>
+</td></tr>
+</table>
+<p>The remaining arguments are standard lattice arguments, relvant here
 mostly because they have different defaults than usual:
 </p>
-<p>
+<table summary="R argblock">
 <tr valign="top"><td><code>outer</code></td>
 <td>
- logical; how variables separated by <code>+</code> in the
+<p> logical; how variables separated by <code>+</code> in the
 formula are interpreted.  It is not advisable to change the
-default.  </td></tr>
+default.  </p>
+</td></tr>
 <tr valign="top"><td><code>prepanel, panel</code></td>
 <td>
- the prepanel and panel functions </td></tr>
+<p> the prepanel and panel functions </p>
+</td></tr>
 <tr valign="top"><td><code>aspect</code></td>
 <td>
- aspect ratio</td></tr>
+<p> aspect ratio</p>
+</td></tr>
 <tr valign="top"><td><code>breaks, cuts, colramp</code></td>
 <td>
- controls conversion of numeric <code>x</code>
+<p> controls conversion of numeric <code>x</code>
 values to a false color.  <code>colramp</code> should be
 a function that produces colors (such as <code>cm.colors</code>).
 If it is <code>NULL</code>, colors are taken from
-<code>trellis.par.get("regions")</code>. </td></tr>
+<code>trellis.par.get("regions")</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>exact</code></td>
 <td>
- the default <code>exact = FALSE</code> allows the given
+<p> the default <code>exact = FALSE</code> allows the given
 <code>y</code> values to match sub-regions of <code>map</code>,
 i.e. region names with a qualifier following <code>":"</code>, like
 <code>"michigan:north", "michigan:south"</code>. These will both match a
-<code>y</code> value of <code>"Michigan"</code>. </td></tr>
+<code>y</code> value of <code>"Michigan"</code>. </p>
+</td></tr>
 <tr valign="top"><td><code>legend, colorkey</code></td>
 <td>
- controls legends; usually just a color key
+<p> controls legends; usually just a color key
 giving the association between numeric values of <code>x</code> and
-color.  </td></tr>
+color.  </p>
+</td></tr>
 <tr valign="top"><td><code>lwd</code></td>
 <td>
-line width</td></tr> 
+<p>line width</p>
+</td></tr> 
 <tr valign="top"><td><code>...</code></td>
 <td>
- Further arguments passed on to the underlying engine.
-See <code>xyplot</code> for details.  </td></tr>
+<p> Further arguments passed on to the underlying engine.
+See <code>xyplot</code> for details.  </p>
+</td></tr>
 </table>
 
 
 <h3>Value</h3>
 
-<p>
-An object of class <code>"trellis"</code>.
+<p>An object of class <code>"trellis"</code>.
 </p>
 
 
 <h3>Note</h3>
 
-<p>
-</p>
-<p>
-This function is meant to demonstrate how maps can be incorporated in
+<p>This function is meant to demonstrate how maps can be incorporated in
 a Trellis display.  Users seriously interested in geographical data
 should consider using software written by people who know what they
 are doing.
-</p>
-<p>
 </p>
 
 
@@ -142,12 +143,12 @@ are doing.
 
 <h3>References</h3>
 
-<p> <a href="http://en.wikipedia.org/wiki/Choropleth_map">http://en.wikipedia.org/wiki/Choropleth_map</a> </p>
+ <p><a href="http://en.wikipedia.org/wiki/Choropleth_map">http://en.wikipedia.org/wiki/Choropleth_map</a> </p>
 
 
 <h3>See Also</h3>
 
-<p> <code>Lattice</code>  </p>
+ <p><code>Lattice</code>  </p>
 
 
 <h3>Examples</h3>
@@ -212,5 +213,5 @@ mapplot(county ~ log(density), ancestry,
 
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>

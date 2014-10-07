@@ -8,11 +8,9 @@
 
 <h2>A ggplot2-like theme for Lattice</h2>
 
-
 <h3>Description</h3>
 
-<p>
-A theme for Lattice based on some of the default styles used in the
+<p>A theme for Lattice based on some of the default styles used in the
 <span class="pkg">ggplot2</span> package by Hadley Wickham. Specifically, parts of the
 functions <code>scale_colour_hue</code>, <code>scale_colour_gradient</code> and
 <code>theme_gray</code> were copied. Although superficially similar, the
@@ -42,64 +40,63 @@ axis.grid(side = c("top", "bottom", "left", "right"),
 <tr valign="top"><td><code>...</code></td>
 <td>
 
-further arguments passed on to <code>simpleTheme</code> to
+<p>further arguments passed on to <code>simpleTheme</code> to
 over-ride defaults.
+</p>
 </td></tr>
 <tr valign="top"><td><code>n</code></td>
 <td>
 
-number of <code>superpose</code> styles to generate, with equally spaced hues.
+<p>number of <code>superpose</code> styles to generate, with equally spaced hues.
+</p>
 </td></tr>
 <tr valign="top"><td><code>h, c, l, h.start, direction</code></td>
 <td>
 
-range of hues, starting hue and direction to generate a discrete
+<p>range of hues, starting hue and direction to generate a discrete
 colour sequence with <code>hcl</code>.
+</p>
 </td></tr>
 <tr valign="top"><td><code>low, high, space</code></td>
 <td>
 
-extreme colors to interpolate with <code>colorRampPalette</code>
+<p>extreme colors to interpolate with <code>colorRampPalette</code>
 for a continuous color scale.
+</p>
 </td></tr>
 <tr valign="top"><td><code>side, ticks, scales, components, line.col</code></td>
 <td>
 
-see <code>axis.default</code>. Typically <code>axis.grid</code> is not
+<p>see <code>axis.default</code>. Typically <code>axis.grid</code> is not
 called directly so these should not be needed.
+</p>
 </td></tr>
 </table>
 
 
 <h3>Value</h3>
 
-<p>
-<code>ggplot2like()</code> produces a list of settings which can be
+<p><code>ggplot2like()</code> produces a list of settings which can be
 passed as the <code>par.settings</code> argument to a high-level Lattice
 plot, or to <code>trellis.par.set</code>.
 <code>ggplot2like.opts()</code> produces a list which can be passed as the
 <code>lattice.options</code> argument to a high-level Lattice plot, or to
 <code>lattice.options</code>. 
 </p>
-<p>
-</p>
 
 
 <h3>Author(s)</h3>
 
-<p>
-Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>;
+<p>Felix Andrews <a href="mailto:felix@nfrac.org">felix@nfrac.org</a>;
 copied and adapted from <span class="pkg">ggplot2</span> by Hadley Wickham.
 </p>
 
 
 <h3>See Also</h3>
 
-<p>
-the <span class="pkg">ggplot2</span> package: <a href="http://had.co.nz/ggplot2/">http://had.co.nz/ggplot2/</a>.
+<p>the <span class="pkg">ggplot2</span> package: <a href="http://had.co.nz/ggplot2/">http://had.co.nz/ggplot2/</a>.
 </p>
-<p>
-<code><a href="#custom.theme">custom.theme</a></code>, <code><a href="#scale.components">scale.components</a></code>
+<p><code><a href="#custom.theme">custom.theme</a></code>, <code><a href="#scale.components">scale.components</a></code>
 </p>
 
 
@@ -163,5 +160,5 @@ xyplot(exp(1:10) ~ 1:10, type = "b",
     scales = list(tck = c(0,0)))
 </pre>
 
-<div align="center">[Package <em>latticeExtra</em> version 0.6-15 <a href="00Index.html">Index</a>]</div>
+<div align="center">[Package <em>latticeExtra</em> version 0.6-25 <a href="00Index.html">Index</a>]</div>
 </body></html>
