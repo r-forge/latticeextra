@@ -80,21 +80,12 @@ mapplot.formula <-
             update(ans,
                    breaks = breaks,
                    legend = lattice:::updateList(ans$legend,
-                   list(right = 
-                        list(fun = draw.colorkey,
-                             args = list(key = keydef)))))
+                                                 list(right = 
+                                                      list(fun = draw.colorkey,
+                                                           args = list(key = keydef)))))
     }
     ans$call <- sys.call(sys.parent())
     ans$call[[1]] <- quote(mapplot)
     ans
 }
-
-
-
-## mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
-##         USCancerRates, outer = TRUE,
-##         ## colramp = cm.colors,
-##         map = county.map)
-
-##         ## scales = list(draw = FALSE), xlab = "", ylab = "",
 
