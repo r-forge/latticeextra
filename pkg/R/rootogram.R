@@ -39,6 +39,7 @@ panel.rootogram <-
              transformation = sqrt,
              hang = TRUE,
              probability = TRUE,
+             type = "l", pch = 16,
              ...)
 {
     plot.line <- trellis.par.get("plot.line")
@@ -66,7 +67,8 @@ panel.rootogram <-
                    lwd = lwd,
                    alpha = alpha,
                    ...)
-    panel.lines(xx, dd)
+    if ("l" %in% type) panel.lines(xx, dd)
+    if ("p" %in% type) panel.points(xx, dd, pch = pch)
 }
 
 
