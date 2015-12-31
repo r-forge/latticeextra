@@ -7,17 +7,17 @@ horizonplot <- function(x, data, ...)
 
 horizonplot.default <-
     function(x, data = NULL, ...,
+             nbands = 3L,
              horizonscale = NA,
              origin = function(y) na.omit(y)[1],
              colorkey = FALSE, legend = NULL,
              panel = panel.horizonplot,
              prepanel = prepanel.horizonplot,
-             nbands = 3L,
              col.regions = brewer.pal(n = 2 * nbands, name = "RdYlBu"),
              strip = FALSE, strip.left = TRUE,
              par.strip.text = list(cex = 0.6),
-             colorkey.digits = 3, # nbands ?,
-             #layout = c(1, NA), ## TODO pending new lattice release
+             colorkey.digits = 3,
+             layout = c(1, NA),
              groups = NULL,
              default.scales =
                list(y = list(relation = "free", axs = "i",
@@ -31,7 +31,7 @@ horizonplot.default <-
                   col.regions = col.regions,
                   strip = strip, strip.left = strip.left,
                   par.strip.text = par.strip.text,
-                  #layout = layout,
+                  layout = layout,
                   default.scales = default.scales,
                   nbands = nbands)
     ans$call <- match.call()
@@ -109,8 +109,8 @@ panel.horizonplot <-
 
 prepanel.horizonplot <-
     function(x, y, ..., horizonscale = NA,
-             origin = function(y) na.omit(y)[1],
-             nbands=3L)
+             nbands = 3L,
+             origin = function(y) na.omit(y)[1])
 {
     if (is.function(origin))
         origin <- origin(y)
