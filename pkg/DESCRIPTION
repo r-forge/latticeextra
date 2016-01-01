@@ -8,8 +8,8 @@ Description: Building on the infrastructure provided by the lattice
 	     package, this package provides several new high-level
 	     functions and methods, as well as additional utilities
 	     such as panel and axis annotation functions.
-Depends: R (>= 2.10.0), RColorBrewer, lattice
-Imports: grid
+Depends: R (>= 2.10.0), lattice, RColorBrewer
+Imports: grid, stats, utils, grDevices
 Suggests: maps, mapproj, deldir, tripack, quantreg, zoo, MASS, mgcv
 URL: http://latticeextra.r-forge.r-project.org/
 LazyLoad: yes

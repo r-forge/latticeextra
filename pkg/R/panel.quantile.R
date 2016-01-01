@@ -16,10 +16,10 @@ panel.quantile <-
              type, col.line, col.symbol, fill,
              pch, cex, font, fontface, fontfamily)
 {
-    library("quantreg")
+    ## library("quantreg")
+    stopifnot(require("quantreg"))
     plot.line <- trellis.par.get("plot.line")
-    if (!missing(col.line))
-        col <- col.line
+    if (!missing(col.line)) col <- col.line
     ## allow 'form' to be passed as the first argument
     missing.x <- missing(x)
     if (!missing.x && inherits(x, "formula")) {
@@ -28,13 +28,10 @@ panel.quantile <-
     }
     ## use 'x' and 'y' if given
     ## otherwise try to find them in the formula environment
-    if (missing.x)
-        x <- environment(form)$x
-    if (missing(y))
-        y <- environment(form)$y
+    if (missing.x) x <- environment(form)$x
+    if (missing(y)) y <- environment(form)$y
     ok <- is.finite(x) & is.finite(y)
-    if (sum(ok) < 1) 
-        return()
+    if (sum(ok) < 1) return()
     x <- as.numeric(x)[ok]
     y <- as.numeric(y)[ok]
     mod <- do.call(method,

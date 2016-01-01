@@ -10,7 +10,6 @@ prepanel.rootogram <-
              probability = TRUE,
              ...)
 {
-    plot.line <- trellis.par.get("plot.line")
     stopifnot(is.function(dfun))
     if (probability) y <- y / sum(y)
     yy <- transformation(y)

@@ -81,7 +81,6 @@ panel.horizonplot <-
              col.regions = brewer.pal(n = 2 * nbands, name = "RdYlBu"),
              origin) ## catch origin, don't pass to panel.xyarea!
 {
-    regions <- trellis.par.get("regions")
     origin <- current.panel.limits()$ylim[1]
     scale <- diff(current.panel.limits()$ylim)
     ## ordered for drawing, from least extreme to most extreme
