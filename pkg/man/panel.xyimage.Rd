@@ -20,54 +20,60 @@ panel.xyimage(x, y,
 }
 \arguments{
   \item{x, y}{
-    data vectors.
+    Data vectors to be plotted.
   }
   \item{groups}{
-    a factor defining groups.
+    A factor defining groups.
   }
   \item{pch}{
+    A character vector giving path(s) or URL(s) of PNG or JPEG files. If 
+    \code{groups} is specified, there should be one value for each
+    level, otherwise this should have length 1. Recycled as necessary.
+  }
+  \item{cex}{
+    A numeric multiplier for the size of the symbols. As with
+    \code{pch}, this can be a vector corresponding to levels of
+    \code{groups}.
   }
   \item{\dots}{
     Further arguments are accepted but ignored.
   }
+               = FALSE,  = NULL,
+               = "xyplot")
+  \item{grid}{
+    A logical flag, character string, or list specifying whether and how
+    a background grid should be drawn. See \code{\link{panel.xyplot}}
+    for details.
+  }
+  \item{abline}{
+    A numeric vector or list, specifying arguments arguments for
+    \code{\link{panel.abline}}, which is called with those
+    arguments. See \code{\link{panel.xyplot}}
+    for details.
+  }
 }
 \details{
-  none yet.
+  The image sources given by \code{pch} are downloaded if necessary and
+  read in every time the panel function is called. If the same images
+  are to be used in multiple panels, it may be more efficient to
+  download them once and provide the file paths rather than provide
+  URLs.
 }
 \author{
-  Felix Andrews \email{felix@nfrac.org}
+  Deepayan Sarkar
 }
 \seealso{
-  \code{\link{panel.xyplot}},
-  \code{\link{panel.polygon}}
+  \code{\link{panel.xyplot}}
 }
 \examples{
-xyplot(sunspot.year, panel = panel.xyarea, origin = 0,
-  aspect = "xy", cut = list(n = 3, overlap = 0))
-
-## two series superposed: one filled, one as a line.
-xyplot(ts.union(data = sunspot.year, lag10 = lag(sunspot.year, 10)),
-  aspect = "xy", cut = list(n = 3, overlap = 0),
-  superpose = TRUE,
-  panel = panel.superpose,
-  panel.groups = function(..., group.number) {
-    if (group.number == 1)
-      panel.xyarea(...) else panel.xyplot(...)
-  }, border = NA, 
-  par.settings = simpleTheme(col = c("grey", "black"), lwd = c(5,2)))
-
-## missing values are handled by splitting the series
-tmp <- window(sunspot.year, start = 1900)
-tmp[c(1:2, 50:60)] <- NA
-xyplot(tmp, panel = panel.xyarea, origin = 0)
-
-set.seed(0)
-qqmath(~ data, make.groups(baseline = rnorm(100),
-                           other = rnorm(100) * 2 - 0.5),
-  groups = which, distribution = qunif,
-  panel = panel.qqmath.xyarea, xlim = 0:1,
-  auto.key = list(points = FALSE, rectangles = TRUE),
-  par.settings = simpleTheme(col = c("blue", "green"),
-                             alpha = 0.5))
+alive <- "https://twemoji.maxcdn.com/72x72/1f60a.png"
+dead <- "https://twemoji.maxcdn.com/72x72/1f480.png"
+dotplot(Titanic,
+        scales = list(x = "free"),
+        between = list(x = 1),
+        panel = panel.xyimage,
+        pch = c(dead, alive), grid = "h", 
+        main = "Survival on the Titanic",
+        xlab = "Number of persons")
 }
 \keyword{ dplot }

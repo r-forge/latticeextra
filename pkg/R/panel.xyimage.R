@@ -36,13 +36,11 @@ panel.xyimage <-
              pch = NULL,
              cex = 1,
              ...,
-             grid = FALSE, abline = NULL,
-             identifier = "xyplot")
+             grid = FALSE, abline = NULL)
 {
     if (all(is.na(x) | is.na(y))) return()
     if (!is.character(pch))
         stop("'pch' must be a character vector giving path(s) or URL(s) of PNG or JPEG files.")
-    pch.raster <- lapply(pch, url2raster)
     if (!identical(grid, FALSE))
     {
         if (!is.list(grid))
@@ -59,26 +57,30 @@ panel.xyimage <-
         do.call(panel.abline, abline)
     }
     if (is.null(groups))
-        grid.raster(x, y, image = pch.raster[[1]],
+    {
+        pch.raster <- url2raster(pch[1])
+        grid.raster(x, y, image = pch.raster,
                     width = unit(cex * 10, "mm"),
                     height = unit(cex * 10, "mm"),
                     default.units = "native")
+    }
     else
     {
+        groups <- as.factor(groups)
+        cex <- rep(cex, length = nlevels(groups))
+        pch <- rep(pch, length = nlevels(groups))
+        pch.raster <- lapply(pch, url2raster)
         g <- as.numeric(groups)[subscripts]
         ug <- unique(g)
-        pch.raster <- rep(pch.raster, length = length(ug))
-        cex <- rep(cex, length = length(ug))
         for (i in ug)
         {
             w <- (g == i)
             grid.raster(x[w], y[w], image = pch.raster[[i]],
-                        width = unit(cex[i] * 10, "mm"),
-                        height = unit(cex[i] * 10, "mm"),
+                        width = unit(cex[i] * 8, "mm"),
+                        height = unit(cex[i] * 8, "mm"),
                         default.units = "native")
         }
     }
-    
 }
 
 

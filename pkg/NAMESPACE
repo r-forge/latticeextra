@@ -5,7 +5,7 @@ import(lattice)
 import(stats)
 import(grDevices)
 
-importFrom(utils, modifyList, head, tail)
+importFrom(utils, modifyList, head, tail, download.file)
 importFrom(RColorBrewer, brewer.pal)
 importFrom(png, readPNG)
 importFrom(jpeg, readJPEG)
@@ -108,6 +108,7 @@ export(asTheEconomist)
 
 
 export(panel.ellipse)
+export(panel.xyimage)
 
 
 ### Local variables:
