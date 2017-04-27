@@ -15,12 +15,16 @@ panel.xyimage(x, y,
               pch = NULL,
               cex = 1,
               ...,
-              grid = FALSE, abline = NULL,
-              identifier = "xyplot")
+              grid = FALSE, abline = NULL)
 }
 \arguments{
   \item{x, y}{
     Data vectors to be plotted.
+  }
+  \item{subscripts}{
+    An integer vector of subscripts giving indices of the \code{x} and
+    \code{y} values in the original data source.  See the corresponding
+    entry in \code{\link{xyplot}} for details.
   }
   \item{groups}{
     A factor defining groups.
