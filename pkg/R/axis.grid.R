@@ -22,9 +22,12 @@ axis.grid <-
                 comps.major[[side]]$ticks$tck <- ifelse(lab == "", NA, tck)
             }
         }
-    } else {
-        ticks <- "no"
     }
+    ## We can have ticks even if labels are absent
+    ## else {
+    ##     ticks <- "no"
+    ## }
+
     ## Use axis.text for ticks because axis.line$col might be transparent
     axis.text <- trellis.par.get("axis.text")
     axis.default(side, scales = scales, ticks = ticks,
