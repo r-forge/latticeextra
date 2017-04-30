@@ -25,14 +25,14 @@ axis.grid <-
     } else {
         ticks <- "no"
     }
-    ## use axis.text for ticks because axis.line$col might be transparent
+    ## Use axis.text for ticks because axis.line$col might be transparent
     axis.text <- trellis.par.get("axis.text")
     axis.default(side, scales = scales, ticks = ticks,
                  components = comps.major, ...,
                  line.col = axis.text$col)
-    ## now draw grid lines corresponding to axis ticks.
-    ## can only do this with the bottom and right sides;
-    ## otherwise the strip viewports are current, not panel.
+    ## Now draw grid lines corresponding to axis ticks.
+    ## Do this only for the bottom and right sides; because top/left
+    ## are called from strip viewports, not panel.
     if (side %in% c("top", "left"))
         return()
     if (scales$draw == FALSE)
