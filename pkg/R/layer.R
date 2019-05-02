@@ -25,6 +25,7 @@ layer <-
         ## pass on only those arguments not named in each call
         foo <- as.expression(lapply(foo, magicDots, exclude = exclude))
     }
+    ## if (missing(data)) data <- parent.frame() ??
     mostattributes(foo) <-
         list(data = data,
              under = under,

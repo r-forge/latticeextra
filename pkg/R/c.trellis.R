@@ -189,7 +189,7 @@ c.trellis <-
     {
         for (i in seq_along(obj1$panel.args))
         {
-            if (!("subscripts" %in% names(obj1$panel.args[[i]]))
+            if (!("subscripts" %in% names(obj1$panel.args[[i]])))
             {
                 obj1$panel.args[[i]]$subscripts <- TRUE
             }
