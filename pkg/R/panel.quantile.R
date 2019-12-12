@@ -16,8 +16,13 @@ panel.quantile <-
              type, col.line, col.symbol, fill,
              pch, cex, font, fontface, fontfamily)
 {
-    ## library("quantreg")
-    stopifnot(require("quantreg"))
+    if (method %in% c("rq", "rqss") &&
+        !requireNamespace("quantreg", quietly=TRUE))
+        stop("The 'quantreg' package is required for methods \"rq\" and \"rqss\".")
+    methodFun <- switch(method,
+                        rq = quantreg::rq,
+                        rqss = quantreg::rqss,
+                        method)
     plot.line <- trellis.par.get("plot.line")
     if (!missing(col.line)) col <- col.line
     ## allow 'form' to be passed as the first argument
