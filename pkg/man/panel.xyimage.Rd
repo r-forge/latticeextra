@@ -42,8 +42,6 @@ panel.xyimage(x, y,
   \item{\dots}{
     Further arguments are accepted but ignored.
   }
-               = FALSE,  = NULL,
-               = "xyplot")
   \item{grid}{
     A logical flag, character string, or list specifying whether and how
     a background grid should be drawn. See \code{\link{panel.xyplot}}
@@ -70,8 +68,10 @@ panel.xyimage(x, y,
   \code{\link{panel.xyplot}}
 }
 \examples{
+\dontrun{
 alive <- "https://twemoji.maxcdn.com/72x72/1f60a.png"
 dead <- "https://twemoji.maxcdn.com/72x72/1f480.png"
+
 dotplot(Titanic,
         scales = list(x = "free"),
         between = list(x = 1),
@@ -79,5 +79,6 @@ dotplot(Titanic,
         pch = c(dead, alive), grid = "h", 
         main = "Survival on the Titanic",
         xlab = "Number of persons")
+}
 }
 \keyword{ dplot }
