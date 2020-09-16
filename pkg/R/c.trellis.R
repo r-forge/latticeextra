@@ -46,7 +46,10 @@ c.trellis <-
         obj <- objs[[1]]
         ## set dimnames if given and only one panel
         if (!is.null(names(objs)) && (prod(dim(obj)) == 1))
+        {
             rownames(obj) <- names(objs)
+            if (identical(obj$strip, FALSE)) obj$strip <- "strip.default"
+        }
         return(obj)
     }
     if (length(objs) > 2) {

@@ -2,7 +2,8 @@
 \alias{panel.xblocks}
 \alias{panel.xblocks.default}
 \alias{panel.xblocks.ts}
-\alias{panel.xblocks.zoo}
+\alias{panel.xblocks.ts}
+\alias{asTheEconomist}
 \title{
   Plot contiguous blocks along x axis.
 }
@@ -63,7 +64,7 @@ panel.xblocks(x, ...)
   }
   \item{vjust}{
     vertical justification of the blocks relative to \code{block.y}. See
-    \code{\link{grid.rect}}.
+    \code{\link[grid]{rectGrob}}.
   }
   \item{name}{
     a name for the grob (\pkg{grid} object).
