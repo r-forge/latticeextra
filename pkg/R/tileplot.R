@@ -1,5 +1,6 @@
 ##
 ## Copyright (c) 2008 Felix Andrews <felix@nfrac.org>
+## Copyright (c) 2022 Deepayan Sarkar <deepayan.sarkar@r-project.org>
 ## GPL version 2 or newer
 
 tileplot <-
@@ -17,18 +18,20 @@ tileplot <-
 panel.voronoi <-
     function(x, y, z, subscripts = TRUE, at = pretty(z),
              points = TRUE, border = "transparent",
-             na.rm = FALSE, win.expand = 0.07, use.tripack = FALSE,
+             na.rm = FALSE, win.expand = 0.07,
+             use.tripack = FALSE,
+             backend = c("interp", "deldir"),
              ...,
              col.regions = regions$col, alpha.regions = regions$alpha)
 {
-    ## We need either tripack (better? but weird license) or
-    ## deldir. Go with deldir unless explicitly requested.
-    if (use.tripack) {
-        if (!requireNamespace("tripack", quietly = TRUE))
-            stop("The 'use.tripack=TRUE' option requires the 'tripack' package to be installed.")
-    } else {
-        if (!requireNamespace("deldir", quietly = TRUE))
-            stop("This function requires the 'deldir' package to be installed.")
+    backend <- match.arg(backend)
+    ## latticeExtra <= 0.6-29 offered the choice of using the non-free
+    ## ACM licensed 'tripack' package, which was faster than the
+    ## 'deldir' implementation. Later versions use the FOSS
+    ## replacements in 'interp', and deprecates the 'use.tripack'
+    ## argument. 'deldir' can still be used using 'backend = "deldir"'.
+    if (!missing(use.tripack)) {
+        warning("The 'use.tripack' argument is deprecated. See ?panel.voronoi")
     }
     ## find subset of points to use
     x0 <- x[subscripts]
@@ -64,13 +67,15 @@ panel.voronoi <-
     #    bounds[1:2] <- panel.rg$x
     #if (is.unsorted(bounds[3:4]))
     #    bounds[3:4] <- panel.rg$y
-    if (use.tripack) {
+    if (backend == "interp") {
         xy <- data.frame(x = x, y = y)
         ## add dummy points to ensure that voronoi polygons are finite
         dummies <- data.frame(x = c(-1,-1,1,1), y = c(-1,1,-1,1)) * 10 * max(abs(xy))
         xy <- rbind(xy, dummies)
-        tiles <- tripack::voronoi.polygons(tripack::voronoi.mosaic(xy, duplicate = "error"))
+        tiles <- voronoi.polygons(voronoi.mosaic(xy, duplicate = "error"))
     } else {
+        if (!requireNamespace("deldir", quietly = TRUE))
+            stop("The 'deldir' backend requires the 'deldir' package to be installed.")
         ## NB: the 'rw' argument as subset of data is bad because
         ## need to take corresponding subset of z !
         ## (but not easy to work out what that is)

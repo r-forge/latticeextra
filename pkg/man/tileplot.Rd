@@ -31,9 +31,9 @@ tileplot(x, data = NULL, aspect = "iso",
 xyz <- data.frame(x = rnorm(100), y = rnorm(100), z = rnorm(100))
 tileplot(z ~ x * y, xyz)
 
-## tripack is faster but non-free
+## Alternative backend using 'deldir' package
 \dontrun{
-tileplot(z ~ x * y, xyz, use.tripack = TRUE)
+tileplot(z ~ x * y, xyz, backend = "deldir")
 }
 
 ## showing rectangular window boundary

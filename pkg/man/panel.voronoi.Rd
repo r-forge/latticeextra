@@ -6,7 +6,7 @@
   These panel functions for \code{\link{levelplot}}
   can represent irregular (x, y) points with a color covariate.
   \code{panel.levelplot.points} simply draws color-coded points.
-  \code{panel.voronoi} uses the \pkg{deldir} package to
+  \code{panel.voronoi} uses the \pkg{interp} or \pkg{deldir} package to
   calculate the spatial extension of a set of points in 2 dimensions.
   This is known variously as a Voronoi mosaic, a Dirichlet tesselation,
   or Thiessen polygons.
@@ -15,6 +15,7 @@
 panel.voronoi(x, y, z, subscripts = TRUE, at = pretty(z),
    points = TRUE, border = "transparent",
    na.rm = FALSE, win.expand = 0.07, use.tripack = FALSE,
+   backend = c("interp", "deldir"),
    ...,
    col.regions = regions$col, alpha.regions = regions$alpha)
 
@@ -41,19 +42,31 @@ panel.levelplot.points(x, y, z, subscripts = TRUE, at = pretty(z),
     polygons. This is a factor by which
     to expand the range of the data. Set to 0 to limit drawing at the
     furthest data point locations. Ignored if \code{use.tripack = TRUE}. }
-  \item{use.tripack}{ if \code{TRUE}, use \pkg{tripack} package rather
-    than \pkg{deldir}. See Details. }
-  \item{\dots}{ further arguments are
-    passed to \code{\link{panel.xyplot}} if \code{points =
-      TRUE}. }
+  \item{use.tripack}{ Ignored, with a warning if a value is
+    specified.See Details. }
+  \item{backend}{ Character string specifying backend package to use to
+    calculate the Voronoi mosaic. Defaults to \code{"interp"}.}
+  \item{\dots}{Additional arguments; passed to
+    \code{\link{panel.xyplot}} if \code{points = TRUE}. }
   \item{pch, col.symbol}{ symbol and border color for points.
     A filled symbol should be used, i.e. in the range 21-25. }
-  \item{shrink, labels, label.style, contour, region, fill}{ ignored. }
+  \item{shrink}{ Ignored. }
+  \item{labels}{ Ignored. }
+  \item{label.style}{ Ignored. }
+  \item{contour}{ Ignored. }
+  \item{region}{ Ignored. }
+  \item{fill}{ Ignored. }
 }
 \details{
-  The \pkg{tripack} package implementation is faster than \pkg{deldir} but not under a
-    fully free licence. Also, the \pkg{deldir} package allows polygons to
-    be clipped to a rectangular window (the \code{win.expand} argument).
+  Up to version 0.6-29, latticeExtra used the \pkg{deldir} package to
+  compute the Voronoi mosaic by default, while offering the choice of
+  using the faster but non-free ACM licensed implementation in the
+  \pkg{tripack} package by setting \code{use.tripack = TRUE}. Later
+  versions use the FOSS replacements in \pkg{interp} by default, and
+  deprecates the \code{use.tripack} argument. The \pkg{deldir}
+  implementation, which allows polygons to be clipped to a rectangular
+  window (the \code{win.expand} argument), can still be used using
+  \code{backend = "deldir"}.
 }
 \author{ Felix Andrews \email{felix@nfrac.org} }
 \seealso{ \code{\link{tileplot}},
