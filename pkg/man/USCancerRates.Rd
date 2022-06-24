@@ -31,15 +31,15 @@
 
   From the website: Death data provided by the National Vital Statistics
   System public use data file.  Death rates calculated by the National
-  Cancer Institute using SEER*Stat.  Death rates are age-adjusted to the
+  Cancer Institute using SEER*Stat. Death rates are age-adjusted to the
   2000 US standard population
-  [\url{http://www.seer.cancer.gov/stdpopulations/stdpop.19ages.html}].
+  [\url{https://seer.cancer.gov/stdpopulations/stdpop.19ages.html}].
   Population counts for denominators are based on Census populations as
   modified by NCI.
   
 }
 \source{
-  \url{http://statecancerprofiles.cancer.gov/}
+  \url{https://statecancerprofiles.cancer.gov/}
 }
 \examples{
 data(USCancerRates)

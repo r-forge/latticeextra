@@ -131,7 +131,7 @@ panel.rootogram(x, y = table(x),
   John W. Tukey (1972) Some graphic and semi-graphic displays. In
   T. A. Bancroft (Ed) \emph{Statistical Papers in Honor of George
   W. Snedecor}, pp. 293--316.  Available online at
-  \url{http://www.edwardtufte.com/tufte/tukey}
+  \url{https://www.edwardtufte.com/tufte/tukey}
 
 }
 

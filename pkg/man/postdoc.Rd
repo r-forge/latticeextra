@@ -18,7 +18,7 @@
   A Guide for Postdoctoral Scholars, Advisers, Institutions, Funding
   Organizations, and Disciplinary Societies
 
-  \url{http://books.nap.edu/catalog.php?record_id=9831}
+  \url{https://www.nap.edu/catalog/9831/enhancing-the-postdoctoral-experience-for-scientists-and-engineers-a-guide}
 }
 \examples{
 data(postdoc)

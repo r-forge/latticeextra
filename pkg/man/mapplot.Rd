@@ -75,7 +75,7 @@ panel.mapplot(x, y, map, breaks, colramp, exact = FALSE, lwd = 0.5, \dots)
 \value{
   An object of class \code{"trellis"}.
 }
-\references{ \url{http://en.wikipedia.org/wiki/Choropleth_map} }
+\references{ \url{https://en.wikipedia.org/wiki/Choropleth_map} }
 \author{ Deepayan Sarkar }
 \note{
 

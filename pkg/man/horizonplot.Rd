@@ -172,7 +172,7 @@ prepanel.horizonplot(x, y, ..., horizonscale = NA,
 \references{
   Stephen Few (2008). Time on the Horizon.
   \emph{Visual Business Intelligence Newsletter}, June/July 2008
-  \url{http://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf}
+  \url{https://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf}
 }
 
 \author{

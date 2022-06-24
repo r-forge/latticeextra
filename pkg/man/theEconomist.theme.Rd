@@ -9,7 +9,7 @@
 \description{
   Uses colors, drawing styles, axis settings, etc, to produce plots
   inspired by those in The Economist magazine.
-  (\url{http://www.economist.com/}).
+  (\url{https://www.economist.com/}).
 }
 \usage{
 theEconomist.theme(win.fontfamily = NULL,
@@ -64,9 +64,9 @@ asTheEconomist(x, ...,
   grid lines or axis settings.
 }
 \references{
-  \url{http://www.economist.com/displayStory.cfm?story_id=15065782}
+  \url{https://www.economist.com/displayStory.cfm?story_id=15065782}
 
-  \url{http://www.economist.com/displayStory.cfm?story_id=14941181}
+  \url{https://www.economist.com/displayStory.cfm?story_id=14941181}
 }
 \author{
   Felix Andrews \email{felix@nfrac.org}

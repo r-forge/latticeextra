@@ -4,7 +4,7 @@
 \title{ Hourly access attempts to Bioconductor website }
 \description{
   This data set records the hourly number of access attempts to
-  the Bioconductor website (\url{http://www.bioconductor.org}) during
+  the Bioconductor website (\url{https://www.bioconductor.org}) during
   January through May of 2007.  The counts are essentially an
   aggregation of the number of entries in the access log.
 }

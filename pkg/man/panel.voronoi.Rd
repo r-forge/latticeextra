@@ -38,12 +38,14 @@ panel.levelplot.points(x, y, z, subscripts = TRUE, at = pretty(z),
     be excluded from the calculation of polygons. If \code{FALSE},
     those polygons are calculated but are not drawn (i.e. are
     transparent). }
-  \item{win.expand}{ defines the rectangular window bounding the
-    polygons. This is a factor by which
-    to expand the range of the data. Set to 0 to limit drawing at the
-    furthest data point locations. Ignored if \code{use.tripack = TRUE}. }
+  \item{win.expand}{
+    Defines the rectangular window bounding the polygons. This is a
+    factor by which to expand the range of the data. Set to 0 to limit
+    drawing at the furthest data point locations. Applies only for the
+    \code{"deldir"} backend (see Details).
+  }
   \item{use.tripack}{ Ignored, with a warning if a value is
-    specified.See Details. }
+    specified. See Details. }
   \item{backend}{ Character string specifying backend package to use to
     calculate the Voronoi mosaic. Defaults to \code{"interp"}.}
   \item{\dots}{Additional arguments; passed to

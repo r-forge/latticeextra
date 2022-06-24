@@ -50,7 +50,7 @@ data(USAge.df)
 
 \source{
 
-  U.S. Census Bureau website: \url{http://www.census.gov/}
+  U.S. Census Bureau website: \url{https://www.census.gov/}
 
   %% Original URL
   %% \url{http://www.census.gov/popest/data/national/asrh/pre-1980/PE-11.html} is no longer valid

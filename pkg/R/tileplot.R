@@ -31,7 +31,7 @@ panel.voronoi <-
     ## replacements in 'interp', and deprecates the 'use.tripack'
     ## argument. 'deldir' can still be used using 'backend = "deldir"'.
     if (!missing(use.tripack)) {
-        warning("The 'use.tripack' argument is deprecated. See ?panel.voronoi")
+        warning("The 'use.tripack' argument is deprecated and ignored. See ?panel.voronoi")
     }
     ## find subset of points to use
     x0 <- x[subscripts]

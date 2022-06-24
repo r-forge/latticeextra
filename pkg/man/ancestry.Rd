@@ -24,7 +24,7 @@
   U.S. Census Bureau.  The ancestry data were extracted from Summary
   File 3, available from
   
-  \url{http://www.census.gov/census2000/sumfile3.html}
+  \url{https://web.archive.org/web/20100703053258/http://www.census.gov/census2000/sumfile3.html}
   
   which is based on the \sQuote{long form} questionnaire (asked to 1 in
   6 households surveyed).
@@ -33,6 +33,6 @@
   \code{\link{mapplot}}, for examples.
 }
 \references{
-  \url{http://www.census.gov/prod/cen2000/doc/sf3.pdf}
+  \url{https://web.archive.org/web/20100707180939/http://www.census.gov/prod/cen2000/doc/sf3.pdf}
 }
 \keyword{datasets}

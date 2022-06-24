@@ -33,6 +33,6 @@
   and the next two significant digits denote hout (out of 24).
 }
 \source{
-  \url{http://www.atmos.washington.edu/cgi-bin/list_climate.cgi?clisea}
+  \url{https://www.atmos.washington.edu/cgi-bin/list_climate.cgi?clisea}
 }
 \keyword{datasets}
