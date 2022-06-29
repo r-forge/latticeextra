@@ -9,8 +9,8 @@ Description: Building on the infrastructure provided by the lattice
 	     functions and methods, as well as additional utilities
 	     such as panel and axis annotation functions.
 Depends: R (>= 3.6.0), lattice
-Imports: grid, stats, utils, grDevices, png, jpeg, RColorBrewer, interp
-Suggests: maps, mapproj, deldir, quantreg, zoo, MASS, mgcv
+Imports: grid, stats, utils, grDevices, png, jpeg, RColorBrewer, interp, MASS
+Suggests: maps, mapproj, deldir, quantreg, zoo, mgcv
 URL: http://latticeextra.r-forge.r-project.org/
 LazyLoad: yes
 LazyData: yes
