@@ -23,10 +23,8 @@ mapplot(x, data, \dots)
         colorkey = TRUE,
         \dots)
 
-
 prepanel.mapplot(x, y, map, \dots)
 panel.mapplot(x, y, map, breaks, colramp, exact = FALSE, lwd = 0.5, \dots)
-
 
 }
 
@@ -47,14 +45,15 @@ panel.mapplot(x, y, map, breaks, colramp, exact = FALSE, lwd = 0.5, \dots)
     containing boundary information.  The names of the geographical
     units must match the \code{y} variable in the formula.  }
 
-  The remaining arguments are standard lattice arguments, relvant here
+  The remaining arguments are standard lattice arguments, relevant here
   mostly because they have different defaults than usual:
 
-  \item{outer}{ logical; how variables separated by \code{+} in the
-    formula are interpreted.  It is not advisable to change the
-    default.  }
-  \item{prepanel, panel}{ the prepanel and panel functions }
-  \item{aspect}{ aspect ratio}
+  \item{outer}{ Logical flag specifying how variables separated by
+    \code{+} in the formula are interpreted.  It is not advisable to
+    change the default.  }
+  \item{prepanel}{ The prepanel function. }
+  \item{panel}{ The panel function. }
+  \item{aspect}{ The aspect ratio. }
   \item{breaks, cuts, colramp}{ controls conversion of numeric \code{x}
     values to a false color.  \code{colramp} should be
     a function that produces colors (such as \code{\link{cm.colors}}).
@@ -88,60 +87,64 @@ panel.mapplot(x, y, map, breaks, colramp, exact = FALSE, lwd = 0.5, \dots)
 \seealso{ \code{\link{Lattice}}  }
 \examples{
 
-library(maps)
-library(mapproj)
+## Requires the 'maps' and 'mapproj' packages:
 
-## Note: Alaska, Hawaii and others are not included in county map;
-## this generates warnings with both USCancerRates and ancestry.
+if (require(maps) && require(mapproj)) {
 
-data(USCancerRates)
+    ## Note: Alaska, Hawaii and others are not included in county map;
+    ## this generates warnings with both USCancerRates and ancestry.
 
-suppressWarnings(print(
-mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
-        data = USCancerRates,
-        map = map("county", plot = FALSE, fill = TRUE,
-                  projection = "mercator"))
-))
+    data(USCancerRates)
 
-suppressWarnings(print(
-mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
-        data = USCancerRates,
-        map = map("county", plot = FALSE, fill = TRUE,
-                  projection = "tetra"),
-        scales = list(draw = FALSE))
-))
+    suppressWarnings(print(
+        mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
+                data = USCancerRates,
+                map = map("county", plot = FALSE, fill = TRUE,
+                          projection = "mercator"))
+    ))
 
-data(ancestry)
+    suppressWarnings(print(
+        mapplot(rownames(USCancerRates) ~ log(rate.male) + log(rate.female),
+                data = USCancerRates,
+                map = map("county", plot = FALSE, fill = TRUE,
+                          projection = "tetra"),
+                scales = list(draw = FALSE))
+    ))
 
-county.map <- 
-    map('county', plot = FALSE, fill = TRUE, 
-        projection = "azequalarea")
+    data(ancestry)
 
-## set a sequential color palette as current theme, and use it
-opar <- trellis.par.get()
-trellis.par.set(custom.theme(region = rev(hcl.colors(9, "Purp")),
-                             alpha.line = 0.5))
-suppressWarnings(print(
-mapplot(county ~ log10(population), ancestry, map = county.map,
-    colramp = NULL, border = "transparent")
-))
-trellis.par.set(opar)
+    county.map <- 
+        map('county', plot = FALSE, fill = TRUE, 
+            projection = "azequalarea")
+
+    ## set a sequential color palette as current theme, and use it
+    opar <- trellis.par.get()
+    trellis.par.set(custom.theme(region = rev(hcl.colors(9, "Purp")),
+                                 alpha.line = 0.5))
+    suppressWarnings(print(
+        mapplot(county ~ log10(population), ancestry, map = county.map,
+                colramp = NULL, border = "transparent")
+    ))
+    trellis.par.set(opar)
+}
 
 \dontrun{
 
 ## this may take a while (should get better area records)
 
-county.areas <- 
-    area.map(county.map, regions = county.map$names, sqmi = FALSE)
-    
-ancestry$density <- 
-    with(ancestry, population / county.areas[as.character(county)])
+if (require(maps) && require(mapproj)) {
 
-mapplot(county ~ log(density), ancestry,
-        map = county.map, border = NA,
-        colramp = colorRampPalette(c("white", "black")))
+    county.areas <- 
+        area.map(county.map, regions = county.map$names, sqmi = FALSE)
+    
+    ancestry$density <- 
+        with(ancestry, population / county.areas[as.character(county)])
+
+    mapplot(county ~ log(density), ancestry,
+            map = county.map, border = NA,
+            colramp = colorRampPalette(c("white", "black")))
 
 }
-
+}
 }
 \keyword{ hplot }

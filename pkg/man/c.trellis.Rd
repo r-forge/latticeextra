@@ -138,32 +138,34 @@ mylines <-
 c(mypoints, mylines)
 
 ## Visualise statistical and spatial distributions
-## (advanced!)
-library(maps)
-vars <- as.data.frame(state.x77)
-StateName <- tolower(state.name)
-form <- StateName ~ Population + Income + Illiteracy +
-   `Life Exp` + Murder + `HS Grad` + Frost + sqrt(Area)
-## construct independent maps of each variable
-statemap <- map("state", plot = FALSE, fill = TRUE)
-colkey <- draw.colorkey(list(col = heat.colors(100), at = 0:100,
-    labels = list(labels = c("min","max"), at = c(0,100))))
-panel.mapplot.each <- function(x, breaks, ...)
-    panel.mapplot(x = x, breaks = quantile(x), ...)
-vmaps <- mapplot(form, vars, map = statemap, colramp = heat.colors,
-    panel = panel.mapplot.each, colorkey = FALSE,
-    legend = list(right = list(fun = colkey)), xlab = NULL)
-## construct independent densityplots of each variable
-vdens <- densityplot(form[-2], vars, outer = TRUE, cut = 0, 
-    scales = list(relation = "free"), ylim = c(0, NA),
-    cex = 0.5, ref = TRUE) +
-  layer(panel.axis("top", half = FALSE, text.cex = 0.7))
-## combine panels from both plots
-combo <- c(vmaps, vdens)
-## rearrange in pairs
-n <- length(vars)
-npairs <- rep(1:n, each = 2) + c(0, n)
-update(combo[npairs], scales = list(draw = FALSE),
-    layout = c(4, 4), between = list(x = c(0, 0.5), y = 0.5))
+## (advanced!). Requires the 'maps' package to be installed
+
+if (require(maps)) {
+    vars <- as.data.frame(state.x77)
+    StateName <- tolower(state.name)
+    form <- StateName ~ Population + Income + Illiteracy +
+        `Life Exp` + Murder + `HS Grad` + Frost + sqrt(Area)
+    ## construct independent maps of each variable
+    statemap <- map("state", plot = FALSE, fill = TRUE)
+    colkey <- draw.colorkey(list(col = heat.colors(100), at = 0:100,
+                                 labels = list(labels = c("min","max"), at = c(0,100))))
+    panel.mapplot.each <- function(x, breaks, ...)
+        panel.mapplot(x = x, breaks = quantile(x), ...)
+    vmaps <- mapplot(form, vars, map = statemap, colramp = heat.colors,
+                     panel = panel.mapplot.each, colorkey = FALSE,
+                     legend = list(right = list(fun = colkey)), xlab = NULL)
+    ## construct independent densityplots of each variable
+    vdens <- densityplot(form[-2], vars, outer = TRUE, cut = 0, 
+                         scales = list(relation = "free"), ylim = c(0, NA),
+                         cex = 0.5, ref = TRUE) +
+        layer(panel.axis("top", half = FALSE, text.cex = 0.7))
+    ## combine panels from both plots
+    combo <- c(vmaps, vdens)
+    ## rearrange in pairs
+    n <- length(vars)
+    npairs <- rep(1:n, each = 2) + c(0, n)
+    update(combo[npairs], scales = list(draw = FALSE),
+           layout = c(4, 4), between = list(x = c(0, 0.5), y = 0.5))
+}
 }
 \keyword{ aplot }
